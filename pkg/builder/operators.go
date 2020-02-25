@@ -31,6 +31,9 @@ type HiddenType struct {
 }
 
 func Hidden(value Type) HiddenType {
+	if _, ok := value.(CommentType); ok {
+		panic("CommentType cannot be a child of HiddenType, it must be the other way around.")
+	}
 	return HiddenType{value}
 }
 

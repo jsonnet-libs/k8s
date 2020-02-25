@@ -50,6 +50,7 @@ func get(prop *Schema, defs Definitions) *Schema {
 	}
 
 	rs := defs[ref]
+	rs.ResolvedRef = ref
 	return resolveRefs(rs, defs)
 }
 
@@ -97,7 +98,8 @@ type Schema struct {
 	Items *Schema `json:"items"`
 
 	// incomplete: reference
-	DollarRef *string `json:"$ref"`
+	DollarRef   *string `json:"$ref"`
+	ResolvedRef string
 
 	// vendor extensions
 	XGvk interface{} `json:"x-kubernetes-group-version-kind"`
@@ -105,7 +107,7 @@ type Schema struct {
 
 func (s Schema) Ref() string {
 	if s.DollarRef == nil {
-		return ""
+		return s.ResolvedRef
 	}
 	return strings.TrimPrefix(*s.DollarRef, "#/definitions/")
 }

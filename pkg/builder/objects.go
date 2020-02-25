@@ -70,6 +70,13 @@ func printChildren(children map[string]Type, order []string, s string) string {
 		colon := ":"
 		value := c.String()
 
+		if cmt, ok := c.(CommentType); ok {
+			c = cmt.value
+			if s == SeparatorLong {
+				j += cmt.Comment() + "\n"
+			}
+		}
+
 		switch t := c.(type) {
 		case FuncType:
 			name = fmt.Sprintf("%s(%s)", t.Name(), t.Args())
@@ -80,20 +87,12 @@ func printChildren(children map[string]Type, order []string, s string) string {
 				colon = "+::"
 			case FuncType:
 				name = fmt.Sprintf("%s(%s)", h.Name(), h.Args())
-			case CommentType:
-				if s == SeparatorLong {
-					j += h.Comment() + "\n"
-				}
 			}
 		case LocalType:
 			colon = " ="
 			name = "local " + t.Name()
 		case MergeType:
 			colon = "+:"
-		case CommentType:
-			if s == SeparatorLong {
-				j += t.Comment() + "\n"
-			}
 		}
 
 		j += fmt.Sprintf("%s%s %s"+s, name, colon, value)

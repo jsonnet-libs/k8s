@@ -20,8 +20,7 @@ var expr = regexp.MustCompile(`(?mU)(?P<domain>io\.k8s\.api)\.(?P<group>.*)\.(?P
 var modifierBlacklist = map[string]bool{
 	"kind":       true,
 	"apiVersion": true,
-	// "metadata":   true,
-	"status": true,
+	"status":     true,
 }
 
 func main() {
@@ -50,9 +49,10 @@ func main() {
 	groups := defsToGroups(defs)
 
 	svc := groups["core"]["v1"].Kinds["service"]
+
 	o := j.Object("",
 		j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", "v1"))),
-		j.Hidden(renderKind("service", svc)),
+		j.Comment(j.Hidden(renderKind("service", svc)), svc.Help),
 	)
 
 	d := j.Doc{
@@ -66,11 +66,13 @@ const (
 )
 
 func renderKind(name string, k Kind) j.Type {
-	fields := []j.Type{
-		j.Comment(
-			constructor(k.New, strings.Title(name)),
-			"`new` returns an instance of "+strings.Title(name),
-		),
+	fields := []j.Type{}
+
+	if k.New != nil {
+		fields = append(fields, j.Comment(
+			constructor(*k.New, strings.Title(name)),
+			k.New.Help,
+		))
 	}
 
 	for k, m := range k.Modifiers {
@@ -79,7 +81,21 @@ func renderKind(name string, k Kind) j.Type {
 		}
 	}
 
-	return j.Comment(j.Object(name, fields...), k.Help)
+	return j.Object(name, fields...)
+}
+
+func constructor(f Modifier, kind string) j.FuncType {
+	ret := j.Add("",
+		j.Ref("", LocalApiVersion),
+		j.ConciseObject("", j.String("kind", kind)),
+		j.Call("", "self.metadata.withName", j.Args(j.Ref("name", "name"))),
+	)
+
+	return j.Func(
+		"new",
+		j.Args(j.Required(j.String("name", ""))),
+		ret,
+	)
 }
 
 func mod(name string, i interface{}) j.Type {
@@ -141,12 +157,6 @@ func reduceReverse(arr []string, f func(i int, s string, o j.Type) j.Type) j.Typ
 		last = f(ii, arr[i], last)
 	}
 	return last
-}
-
-func constructor(f Modifier, kind string) j.FuncType {
-	return j.Func("new", j.Args(), j.Add("",
-		j.Ref("", LocalApiVersion), j.ConciseObject("", j.String("kind", kind)),
-	))
 }
 
 func isFuncType(t j.Type) bool {

@@ -10,7 +10,6 @@ import (
 
 type Group map[string]Version
 
-//            core   v1,v1beta1
 type ids map[string]map[string]string
 
 func transform(defs swagger.Definitions) ids {
@@ -61,10 +60,8 @@ func newVersion(d swagger.Definitions) Version {
 	}
 
 	for k, v := range d {
-		// elems := strings.Split(k, ".")
-		// name := elems[len(elems)-1]
 		name := reSubMatchMap(expr, k)["kind"]
-		ver.Kinds[strings.ToLower(name)] = newKind(*v, name)
+		ver.Kinds[strLower(name)] = newKind(*v, name)
 	}
 	return ver
 }
@@ -73,8 +70,7 @@ type Kind struct {
 	Help string
 
 	// constructor
-	New   Modifier
-	Named bool
+	New *Modifier
 
 	// modifiers
 	Modifiers map[string]interface{}
@@ -84,16 +80,15 @@ func newKind(d swagger.Schema, name string) Kind {
 	name = strings.ToLower(name)
 	kind := Kind{
 		Help: d.Desc,
-		New: Modifier{
-			Help: fmt.Sprintf("new returns an instance of %s", name),
-		},
 	}
 
-	// named? add name to constructor
-	meta := d.Props["metadata"]
-	if meta != nil && meta.Ref() == ObjectMetaId {
-		kind.New.Parameters = append(kind.New.Parameters, Parameter{Key: "name"})
-		kind.Named = true
+	// real resource? add constructor
+	meta, ok := d.Props["metadata"]
+	if ok && meta.Ref() == ObjectMetaId {
+		kind.New = &Modifier{
+			Help:       fmt.Sprintf("new returns an instance of %s", strings.Title(name)),
+			Parameters: []Parameter{{Key: "name"}},
+		}
 	}
 
 	kind.Modifiers = modsForProps(d.Props, "")
