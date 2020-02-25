@@ -6,9 +6,13 @@ import (
 	"strings"
 )
 
-var recursiveRefs = map[string]bool{
+var skipRefs = map[string]bool{
+	// recursive
 	"io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps":      true,
 	"io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaProps": true,
+
+	// list will be filtered anyways
+	"io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta": true,
 }
 
 func Load(data []byte) (*Swagger, error) {
@@ -41,7 +45,7 @@ func get(prop *Schema, defs Definitions) *Schema {
 	}
 
 	ref := prop.Ref()
-	if recursiveRefs[ref] {
+	if skipRefs[ref] {
 		return prop
 	}
 
