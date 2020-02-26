@@ -1,4 +1,4 @@
-package main
+package model
 
 import (
 	"fmt"
@@ -7,6 +7,12 @@ import (
 
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
+
+var modifierBlacklist = map[string]bool{
+	"kind":       true,
+	"apiVersion": true,
+	"status":     true,
+}
 
 // Modifier is a function that returns a patch to modify the value at `Target`
 type Modifier struct {
