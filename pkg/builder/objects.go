@@ -27,8 +27,9 @@ func Object(name string, children ...Type) ObjectType {
 			panic(fmt.Sprintf("key clash: trying to add `%v` as `%s`, but `%v` already uses this key", child, child.Name(), v))
 		}
 
-		c[child.Name()] = child
-		order[i] = child.Name()
+		key := escapeKey(child.Name())
+		c[key] = child
+		order[i] = key
 		i++
 	}
 
@@ -36,6 +37,15 @@ func Object(name string, children ...Type) ObjectType {
 		named:    named(name),
 		children: c,
 		order:    order,
+	}
+}
+
+func escapeKey(s string) string {
+	switch s {
+	case "local", "error":
+		return fmt.Sprintf(`"%s"`, s)
+	default:
+		return s
 	}
 }
 
@@ -64,9 +74,8 @@ func (o ObjectType) ConciseString() string {
 
 func printChildren(children map[string]Type, order []string, s string) string {
 	j := ""
-	for _, k := range order {
-		c := children[k]
-		name := c.Name()
+	for _, name := range order {
+		c := children[name]
 		colon := ":"
 		value := c.String()
 
@@ -79,17 +88,18 @@ func printChildren(children map[string]Type, order []string, s string) string {
 
 		switch t := c.(type) {
 		case FuncType:
-			name = fmt.Sprintf("%s(%s)", t.Name(), t.Args())
+			name = fmt.Sprintf("%s(%s)", name, t.Args())
 		case HiddenType:
 			colon = "::"
 			switch h := t.value.(type) {
 			case MergeType:
 				colon = "+::"
 			case FuncType:
-				name = fmt.Sprintf("%s(%s)", h.Name(), h.Args())
+				name = fmt.Sprintf("%s(%s)", name, h.Args())
 			}
 		case LocalType:
 			colon = " ="
+			// using t.Name() here (unescaped), cause we define an identifier
 			name = "local " + t.Name()
 		case MergeType:
 			colon = "+:"

@@ -48,15 +48,11 @@ func main() {
 
 	groups := defsToGroups(defs)
 
-	svc := groups["core"]["v1"].Kinds["service"]
-
-	o := j.Object("",
-		j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", "v1"))),
-		j.Comment(j.Hidden(renderKind("service", svc)), svc.Help),
-	)
+	core := groups["core"]
+	ov := renderGroup("core", core)
 
 	d := j.Doc{
-		Root: o,
+		Root: ov,
 	}
 	fmt.Println(d.String())
 }
@@ -64,6 +60,30 @@ func main() {
 const (
 	LocalApiVersion = "_apiVersion"
 )
+
+func renderGroup(name string, g Group) j.ObjectType {
+	fields := []j.Type{}
+	for name, ver := range g {
+		v := renderVersion(name, ver)
+		fields = append(fields, j.Hidden(v))
+	}
+	return j.Object(name, fields...)
+}
+
+func renderVersion(name string, v Version) j.ObjectType {
+	fields := []j.Type{
+		j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", v.ApiVersion))),
+	}
+
+	for name, kind := range v.Kinds {
+		k := renderKind(name, kind)
+		docs := j.Comment(k, kind.Help)
+		fields = append(fields, docs)
+	}
+
+	o := j.Object(name, fields...)
+	return o
+}
 
 func renderKind(name string, k Kind) j.Type {
 	fields := []j.Type{}
@@ -81,6 +101,8 @@ func renderKind(name string, k Kind) j.Type {
 		}
 	}
 
+	// mixin field for compatibility
+	fields = append(fields, j.Ref("mixin", "self"))
 	return j.Object(name, fields...)
 }
 
@@ -127,24 +149,26 @@ func obj(name string, o Object) j.ObjectType {
 func fn(name string, f Modifier) j.FuncType {
 	// parameters
 	args := make([]j.Type, 0, len(f.Parameters))
-	for _, p := range f.Parameters {
-		args = append(args, j.Required(j.String(p.Key, "")))
-	}
+	p := f.Parameters[0]
+	args = append(args, j.Required(j.String(p.Key, "")))
 
 	// return patch
 	elems := strings.Split(f.Target, ".")
 	ret := reduceReverse(elems, func(i int, s string, o j.Type) j.Type {
 		switch i {
 		case 0:
-			return j.Ref(s, s)
+			return j.Ref(s, p.Key)
 		case 1:
 			return j.ConciseObject(s, o)
 		default:
 			return j.ConciseObject(s, j.Merge(o))
 		}
 	})
+	if len(elems) != 1 {
+		ret = j.Merge(ret)
+	}
 
-	return j.Func(name, args, j.ConciseObject("", j.Merge(ret)))
+	return j.Func(name, args, j.ConciseObject("", ret))
 }
 
 // reduceReverse calls f for each in arr in reverse order.

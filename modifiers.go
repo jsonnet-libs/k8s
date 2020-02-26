@@ -59,12 +59,19 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 	default:
 		fn := Modifier{
 			Help:       p.Desc,
-			Parameters: []Parameter{{Key: name}},
+			Parameters: []Parameter{{Key: fnArg(name)}},
 			Target:     strings.TrimPrefix(ctx+"."+name, "."),
 		}
 		return fmt.Sprintf("with%s", strings.Title(name)), fn
 	}
 	panic("shouldn't happen")
+}
+
+func fnArg(name string) string {
+	if name == "error" {
+		return "err"
+	}
+	return name
 }
 
 // strLower returns the string with the first char lowercased.
