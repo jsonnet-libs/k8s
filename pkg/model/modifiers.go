@@ -16,9 +16,32 @@ var modifierBlacklist = map[string]bool{
 
 // Modifier is a function that returns a patch to modify the value at `Target`
 type Modifier struct {
-	Help       string
-	Parameters []Parameter
-	Target     string
+	Help string
+
+	// Arg is the name of the functions argument
+	Arg Parameter
+	// Target is the jsonpath to the field that is modified
+	Target string
+}
+
+type Constructor struct {
+	Help string
+	// Args are the arguments this constructor takes.
+	// Generated constructors only have one argument, `name`
+	Args []Parameter
+}
+
+// Parameter is a function argument, with an optional default value
+type Parameter struct {
+	Key     string
+	Default interface{}
+}
+
+func (p Parameter) String() string {
+	if p.Default == nil {
+		return p.Key
+	}
+	return fmt.Sprintf("%s=%v", p.Key, p.Default)
 }
 
 // Object is the logical group for Modifiers that target fields of a nested
@@ -26,12 +49,6 @@ type Modifier struct {
 type Object struct {
 	Help   string
 	Fields map[string]interface{}
-}
-
-// Parameter is a function parameter of a Modifier
-type Parameter struct {
-	Key string
-	Def interface{}
 }
 
 // modsForProps generates Modifiers for a (nested) map of swagger properties
@@ -64,9 +81,9 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 		fallthrough
 	default:
 		fn := Modifier{
-			Help:       p.Desc,
-			Parameters: []Parameter{{Key: fnArg(name)}},
-			Target:     strings.TrimPrefix(ctx+"."+name, "."),
+			Help:   p.Desc,
+			Arg:    Parameter{Key: fnArg(name)},
+			Target: strings.TrimPrefix(ctx+"."+name, "."),
 		}
 		return fmt.Sprintf("with%s", strings.Title(name)), fn
 	}

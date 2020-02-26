@@ -2,13 +2,13 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 
+	"github.com/jsonnet-libs/k8s/pkg/docs"
 	"github.com/jsonnet-libs/k8s/pkg/model"
-	"github.com/jsonnet-libs/k8s/pkg/render"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
@@ -32,13 +32,14 @@ func main() {
 	}
 
 	groups := model.Load(s)
+	fmt.Println(docs.For("Service", groups["core"]["v1"].Kinds["service"]))
 
-	for name, group := range groups {
-		o := render.Group(name, group)
+	// for name, group := range groups {
+	// 	o := render.Group(name, group)
 
-		file := filepath.Join(*dir, name+".libsonnet")
-		if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
-			log.Fatalln(err)
-		}
-	}
+	// 	file := filepath.Join(*dir, name+".libsonnet")
+	// 	if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
+	// 		log.Fatalln(err)
+	// 	}
+	// }
 }

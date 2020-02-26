@@ -51,3 +51,16 @@ func Kind(name string, k model.Kind) j.Type {
 	fields = append(fields, j.Ref("mixin", "self"))
 	return j.Object(name, fields...)
 }
+
+func constructor(c model.Constructor, kind string) j.FuncType {
+	ret := j.Add("",
+		j.Ref("", LocalApiVersion),
+		j.ConciseObject("", j.String("kind", kind)),
+		j.Call("", "self.metadata.withName", j.Args(j.Ref("name", "name"))),
+	)
+
+	return j.Func("new",
+		j.Args(j.Required(j.String("name", ""))),
+		ret,
+	)
+}

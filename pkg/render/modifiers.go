@@ -37,16 +37,16 @@ func modObject(name string, o model.Object) j.ObjectType {
 
 func modFunction(name string, f model.Modifier) j.FuncType {
 	// parameters
-	args := make([]j.Type, 0, len(f.Parameters))
-	p := f.Parameters[0]
-	args = append(args, j.Required(j.String(p.Key, "")))
+	args := j.Args(
+		j.Required(j.String(f.Arg.Key, "")),
+	)
 
 	// return patch
 	elems := strings.Split(f.Target, ".")
 	ret := reduceReverse(elems, func(i int, s string, o j.Type) j.Type {
 		switch i {
 		case 0:
-			return j.Ref(s, p.Key)
+			return j.Ref(s, f.Arg.Key)
 		case 1:
 			return j.ConciseObject(s, o)
 		default:
@@ -75,18 +75,4 @@ func reduceReverse(arr []string, f func(i int, s string, o j.Type) j.Type) j.Typ
 func isFuncType(t j.Type) bool {
 	_, ok := t.(j.FuncType)
 	return ok
-}
-
-func constructor(f model.Modifier, kind string) j.FuncType {
-	ret := j.Add("",
-		j.Ref("", LocalApiVersion),
-		j.ConciseObject("", j.String("kind", kind)),
-		j.Call("", "self.metadata.withName", j.Args(j.Ref("name", "name"))),
-	)
-
-	return j.Func(
-		"new",
-		j.Args(j.Required(j.String("name", ""))),
-		ret,
-	)
 }

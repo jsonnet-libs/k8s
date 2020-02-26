@@ -19,7 +19,7 @@ func newGroups(defs swagger.Definitions, ids IDs) map[string]Group {
 
 		for versionName, id := range group {
 			v := newVersion(defs.Sub(id))
-			v.ApiVersion = fmt.Sprintf("%s/%s", groupName, versionName)
+			v.ApiVersion = apiVersion(groupName, versionName)
 			g[versionName] = v
 		}
 
@@ -27,6 +27,13 @@ func newGroups(defs swagger.Definitions, ids IDs) map[string]Group {
 	}
 
 	return groups
+}
+
+func apiVersion(group, version string) string {
+	if group == "core" {
+		return version
+	}
+	return fmt.Sprintf("%s/%s", group, version)
 }
 
 type Version struct {
@@ -50,7 +57,7 @@ type Kind struct {
 	Help string
 
 	// constructor
-	New *Modifier
+	New *Constructor
 
 	// modifiers
 	Modifiers map[string]interface{}
@@ -65,9 +72,9 @@ func newKind(d swagger.Schema, name string) Kind {
 	// real resource? add constructor
 	meta, ok := d.Props["metadata"]
 	if ok && meta.Ref() == ObjectMetaId {
-		kind.New = &Modifier{
-			Help:       fmt.Sprintf("new returns an instance of %s", strings.Title(name)),
-			Parameters: []Parameter{{Key: "name"}},
+		kind.New = &Constructor{
+			Help: fmt.Sprintf("new returns an instance of %s", strings.Title(name)),
+			Args: []Parameter{{Key: "name"}},
 		}
 	}
 
