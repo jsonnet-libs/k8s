@@ -16,7 +16,7 @@ func String(name, value string) StringType {
 }
 
 func (s StringType) String() string {
-	return fmt.Sprintf(`"%s"`, s.value)
+	return fmt.Sprintf(`'%s'`, s.value)
 }
 
 // ints

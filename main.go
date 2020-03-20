@@ -15,13 +15,12 @@ import (
 
 func main() {
 	spec := flag.String("spec", "swagger.json", "path to openapi spec")
-	dir := flag.String("dir", "k8s", "output path")
+	jsonnet := flag.String("jsonnet", "k8s", "path for .jsonnet sources")
+	docs := flag.String("docs", "", "path for .md docs")
+	adds := flagStringSlice("add", nil, "files to add to main.libsonnet")
 	flag.Parse()
 
-	if err := os.MkdirAll(*dir, os.ModePerm); err != nil {
-		log.Fatalln(err)
-	}
-
+	// load swagger model
 	data, err := ioutil.ReadFile(*spec)
 	if err != nil {
 		log.Fatalln(err)
@@ -34,22 +33,26 @@ func main() {
 
 	groups := model.Load(s)
 
-	if err := genDocs(groups, *dir); err != nil {
-		log.Fatalln(err)
+	if *jsonnet != "" {
+		renderJsonnet(*jsonnet, groups, *adds)
+	}
+
+	if *docs != "" {
+		renderDocs(groups, *docs)
 	}
 }
 
-func genDocs(groups map[string]model.Group, dir string) error {
+func renderDocs(groups map[string]model.Group, dir string) {
 	for name, grp := range groups {
 
 		path := filepath.Join(dir, name)
 		if err := os.MkdirAll(path, os.ModePerm); err != nil {
-			return err
+			log.Fatalln(err)
 		}
 
 		overview := docs.Group(name, grp)
 		if err := ioutil.WriteFile(filepath.Join(path, "README.md"), []byte(overview), 0644); err != nil {
-			return err
+			log.Fatalf("writing %s/README.md: %s", name, err)
 		}
 
 		for verName, ver := range grp {
@@ -60,22 +63,55 @@ func genDocs(groups map[string]model.Group, dir string) error {
 					[]byte(kindMd),
 					0644,
 				); err != nil {
-					return err
+					log.Fatalln(err)
 				}
 			}
 		}
 	}
-
-	return nil
 }
 
-func jsonnet(groups map[string]model.Group, dir string) error {
+func renderJsonnet(dir string, groups map[string]model.Group, adds []string) {
+	gen := filepath.Join(dir, render.GenPrefix)
+
+	if err := os.MkdirAll(gen, os.ModePerm); err != nil {
+		log.Fatalln(err)
+	}
+
+	// gen.libsonnet
+	index := render.Index(groups)
+	indexFile := filepath.Join(dir, render.IndexFile)
+	if err := ioutil.WriteFile(indexFile, []byte(index.String()), 0644); err != nil {
+		log.Fatalln("writing gen.libsonnet:", err)
+	}
+
+	// _gen/<group>.libsonnet
 	for name, group := range groups {
 		o := render.Group(name, group)
-		file := filepath.Join(dir, name+".libsonnet")
+		file := filepath.Join(dir, render.Filename(name))
+
 		if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
-			return err
+			log.Fatalln(err)
 		}
 	}
-	return nil
+
+	// custom patches
+	for _, a := range adds {
+		content, err := ioutil.ReadFile(a)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		a = filepath.Join(dir, filepath.Base(a))
+		if err := ioutil.WriteFile(a, content, 0644); err != nil {
+			log.Fatalln(err)
+		}
+	}
+
+	// main.libsonnet
+	main := render.Main(adds)
+	mainFile := filepath.Join(dir, render.MainFile)
+	if err := ioutil.WriteFile(mainFile, []byte(main.String()), 0644); err != nil {
+		log.Fatalln(err)
+	}
+
 }

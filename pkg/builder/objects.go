@@ -43,7 +43,7 @@ func Object(name string, children ...Type) ObjectType {
 func escapeKey(s string) string {
 	switch s {
 	case "local", "error":
-		return fmt.Sprintf(`"%s"`, s)
+		return fmt.Sprintf(`'%s'`, s)
 	default:
 		return s
 	}

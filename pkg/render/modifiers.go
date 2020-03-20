@@ -28,10 +28,14 @@ func modObject(name string, o model.Object) j.ObjectType {
 	for k, m := range o.Fields {
 		childs = append(childs, Modifier(k, m))
 	}
+
+	sortFields(childs)
+
 	newObj := j.Object
 	if len(childs) == 1 && !isFuncType(childs[0]) {
 		newObj = j.ConciseObject
 	}
+
 	return newObj(name, childs...)
 }
 

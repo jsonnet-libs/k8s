@@ -86,6 +86,7 @@ func modifiers(mods map[string]interface{}, prefix ...string) (funcs []Func) {
 			break
 		case model.Modifier:
 			n := fmt.Sprintf("%s.%s", strings.Join(prefix, "."), name)
+			n = strings.TrimPrefix(n, ".")
 			funcs = append(funcs, Func{
 				Name:   n,
 				HtmlID: fmt.Sprintf("fn-%s", strings.ToLower(strings.Replace(n, ".", "", -1))),

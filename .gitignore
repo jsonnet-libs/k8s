@@ -1,5 +1,3 @@
-*.jsonnet
-*.libsonnet
 swagger.json
 jsonnetfile.json
 spec.json

@@ -14,7 +14,7 @@ func (i ImportType) String() string {
 		op += "str"
 	}
 
-	return fmt.Sprintf(`(%s "%s")`, op, i.pkg)
+	return fmt.Sprintf(`(%s '%s')`, op, i.pkg)
 }
 
 func Import(name, pkg string) ImportType {
