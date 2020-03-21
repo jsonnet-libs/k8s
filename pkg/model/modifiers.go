@@ -23,6 +23,9 @@ type Modifier struct {
 	Arg Parameter `json:"arg"`
 	// Target is the jsonpath to the field that is modified
 	Target string `json:"target"`
+
+	// Type is the type of the modified value
+	Type swagger.Type `json:"type"`
 }
 
 type Constructor struct {
@@ -69,7 +72,7 @@ func modsForProps(props map[string]*swagger.Schema, ctx string) map[string]inter
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
 func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{}) {
-	name = camelLower(name)
+	name = CamelLower(name)
 
 	switch p.Type {
 	case swagger.TypeObject:
@@ -89,6 +92,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 			Help:   p.Desc,
 			Arg:    Parameter{Key: fnArg(name)},
 			Target: strings.TrimPrefix(ctx+"."+name, "."),
+			Type:   p.Type,
 		}
 		return fmt.Sprintf("with%s", strings.Title(name)), fn
 	}
@@ -103,7 +107,7 @@ func fnArg(name string) string {
 }
 
 // camelLower returns the string with the word lowercased.
-func camelLower(s string) string {
+func CamelLower(s string) string {
 	elems := camelcase.Split(s)
 	elems[0] = strings.ToLower(elems[0])
 	return strings.Join(elems, "")

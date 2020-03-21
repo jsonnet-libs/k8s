@@ -78,18 +78,20 @@ func (ds Definitions) Sub(exp string) Definitions {
 }
 
 // swagger types
+type Type string
+
 const (
-	TypeString = "string"
-	TypeInt    = "integer"
-	TypeBool   = "boolean"
-	TypeObject = "object"
-	TypeArray  = "array"
+	TypeString Type = "string"
+	TypeInt    Type = "integer"
+	TypeBool   Type = "boolean"
+	TypeObject Type = "object"
+	TypeArray  Type = "array"
 )
 
 // Schema is a general object definition
 type Schema struct {
 	// general
-	Type string `json:"type"`
+	Type Type   `json:"type"`
 	Desc string `json:"description"`
 
 	// type: object

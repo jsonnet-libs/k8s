@@ -92,7 +92,7 @@ func newVersion(d swagger.Definitions) Version {
 
 	for k, v := range d {
 		name := reSubMatchMap(expr, k)["kind"]
-		ver.Kinds[camelLower(name)] = newKind(*v, name)
+		ver.Kinds[CamelLower(name)] = newKind(*v, name)
 	}
 	return ver
 }

@@ -29,7 +29,7 @@ func modObject(name string, o model.Object) j.ObjectType {
 		childs = append(childs, Modifier(k, m))
 	}
 
-	sortFields(childs)
+	SortFields(childs)
 
 	newObj := j.Object
 	if len(childs) == 1 && !isFuncType(childs[0]) {

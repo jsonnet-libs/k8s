@@ -26,7 +26,7 @@ func Index(groups map[string]model.Group) j.ObjectType {
 		fields = append(fields, j.Hidden(j.Import(name, Filename(name))))
 	}
 
-	sortFields(fields)
+	SortFields(fields)
 
 	return j.Object("", fields...)
 }
@@ -54,7 +54,7 @@ func Group(name string, g model.Group) j.ObjectType {
 		fields = append(fields, j.Hidden(v))
 	}
 
-	sortFields(fields)
+	SortFields(fields)
 
 	return j.Object(name, fields...)
 }
@@ -69,7 +69,7 @@ func Version(name string, v model.Version) j.ObjectType {
 		fields = append(fields, docs)
 	}
 
-	sortFields(fields)
+	SortFields(fields)
 
 	return j.Object(name, fields...)
 }
@@ -84,7 +84,7 @@ func Kind(name string, k model.Kind) j.Type {
 	}
 
 	// sort early, the following should have sticky positions
-	sortFields(fields)
+	SortFields(fields)
 
 	// prepend new() function, so it is at top
 	if k.New != nil {
@@ -114,7 +114,7 @@ func constructor(c model.Constructor, kind string) j.FuncType {
 	)
 }
 
-func sortFields(fields []j.Type) {
+func SortFields(fields []j.Type) {
 	sort.SliceStable(fields, func(i, j int) bool {
 		return fields[i].Name() < fields[j].Name()
 	})

@@ -8,11 +8,23 @@ import (
 	"text/template"
 
 	"github.com/jsonnet-libs/k8s/pkg/model"
+
+	j "github.com/jsonnet-libs/k8s/pkg/builder"
+	"github.com/jsonnet-libs/k8s/pkg/render"
 )
 
 var kindTmpl = template.Must(template.New("").Parse(`
 ## {{.Name}}
 {{.Help}}
+
+<details>
+<summary> Schema </summary>
+
+` + "```typescript" + `
+{{ .Schema }}
+` + "```" + `
+
+</details>
 
 **Functions:**
 {{ range .Funcs }}
@@ -35,7 +47,8 @@ type Documentable struct {
 	Name string
 	Help string
 
-	Funcs []Func
+	Funcs  []Func
+	Schema string
 }
 
 type Func struct {
@@ -49,9 +62,10 @@ type Func struct {
 // Kind returns markdown docs for the given kind.
 func Kind(name string, kind model.Kind) string {
 	d := Documentable{
-		Name:  name,
-		Help:  kind.Help,
-		Funcs: []Func{},
+		Name:   name,
+		Help:   kind.Help,
+		Funcs:  []Func{},
+		Schema: schema(name, kind),
 	}
 
 	if kind.New != nil {
@@ -60,15 +74,26 @@ func Kind(name string, kind model.Kind) string {
 				Name:      "new",
 				HtmlID:    "fn-new",
 				Help:      kind.New.Help,
-				Signature: signature("new", kind.New.Args, "{}"),
+				Signature: signature("new", kind.New.Args, strings.Title(name)),
 			},
 		)
 	}
 
 	funcs := modifiers(kind.Modifiers)
 	sort.SliceStable(funcs, func(i, j int) bool {
-		return funcs[i].Name < funcs[j].Name
+		iN, jN := funcs[i].Name, funcs[j].Name
+
+		// put all with* first
+		if strings.HasPrefix(iN, "with") && !strings.HasPrefix(jN, "with") {
+			return true
+		}
+		if !strings.HasPrefix(iN, "with") && strings.HasPrefix(jN, "with") {
+			return false
+		}
+
+		return iN < jN
 	})
+
 	d.Funcs = append(d.Funcs, funcs...)
 
 	buf := bytes.Buffer{}
@@ -76,6 +101,37 @@ func Kind(name string, kind model.Kind) string {
 		panic(err)
 	}
 	return buf.String()
+}
+
+func schema(name string, kind model.Kind) string {
+	fields := []j.Type{}
+	for k, v := range kind.Modifiers {
+		fields = append(fields, sch(k, v))
+	}
+
+	render.SortFields(fields)
+
+	k := j.Object(name, fields...)
+	return j.Object("", k).String()
+}
+
+func sch(name string, mod interface{}) j.Type {
+	if m, ok := mod.(model.Modifier); ok {
+		n := strings.TrimPrefix(name, "with")
+		n = model.CamelLower(n)
+
+		return j.Ref(n, strings.Title(string(m.Type)))
+	}
+
+	fields := []j.Type{}
+	obj := mod.(model.Object)
+	for k, v := range obj.Fields {
+		fields = append(fields, sch(k, v))
+	}
+
+	render.SortFields(fields)
+
+	return j.Object(name, fields...)
 }
 
 func modifiers(mods map[string]interface{}, prefix ...string) (funcs []Func) {
@@ -93,7 +149,7 @@ func modifiers(mods map[string]interface{}, prefix ...string) (funcs []Func) {
 				Signature: signature(
 					name,
 					[]model.Parameter{m.Arg},
-					"{}",
+					"Patch",
 				),
 			})
 		}
