@@ -26,6 +26,7 @@ var kindTmpl = template.Must(template.New("").Parse(`
 
 </details>
 
+
 **Functions:**
 {{ range .Funcs }}
 [` + "`fn {{.Name}}`" + `](#{{.HtmlID}})  {{ end }}
@@ -120,7 +121,11 @@ func sch(name string, mod interface{}) j.Type {
 		n := strings.TrimPrefix(name, "with")
 		n = model.CamelLower(n)
 
-		return j.Ref(n, strings.Title(string(m.Type)))
+		t := m.Type
+		if t == "integer" {
+			t = "number"
+		}
+		return j.Ref(n, strings.Title(string(t)))
 	}
 
 	fields := []j.Type{}
