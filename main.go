@@ -38,11 +38,13 @@ func main() {
 	}
 
 	if *docs != "" {
-		renderDocs(groups, *docs)
+		renderDocs(*docs, groups, *adds)
 	}
 }
 
-func renderDocs(groups map[string]model.Group, dir string) {
+func renderDocs(dir string, gs map[string]model.Group, adds []string) {
+	groups := docs.MergeGroups(gs, adds)
+
 	for name, grp := range groups {
 
 		path := filepath.Join(dir, name)

@@ -83,7 +83,6 @@ func modifiers(mods map[string]interface{}, prefix ...string) (funcs []Func) {
 		switch m := v.(type) {
 		case model.Object:
 			funcs = append(funcs, modifiers(m.Fields, append(prefix, name)...)...)
-			break
 		case model.Modifier:
 			n := fmt.Sprintf("%s.%s", strings.Join(prefix, "."), name)
 			n = strings.TrimPrefix(n, ".")

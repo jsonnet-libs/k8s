@@ -3,11 +3,12 @@ package model
 import (
 	"fmt"
 	"strings"
-	"unicode"
 
+	"github.com/fatih/camelcase"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
+// we don't need modifiers for these, they shall not be changed
 var modifierBlacklist = map[string]bool{
 	"kind":       true,
 	"apiVersion": true,
@@ -16,25 +17,25 @@ var modifierBlacklist = map[string]bool{
 
 // Modifier is a function that returns a patch to modify the value at `Target`
 type Modifier struct {
-	Help string
+	Help string `json:"help"`
 
 	// Arg is the name of the functions argument
-	Arg Parameter
+	Arg Parameter `json:"arg"`
 	// Target is the jsonpath to the field that is modified
-	Target string
+	Target string `json:"target"`
 }
 
 type Constructor struct {
-	Help string
+	Help string `json:"help"`
 	// Args are the arguments this constructor takes.
 	// Generated constructors only have one argument, `name`
-	Args []Parameter
+	Args []Parameter `json:"args"`
 }
 
 // Parameter is a function argument, with an optional default value
 type Parameter struct {
-	Key     string
-	Default interface{}
+	Key     string      `json:"key"`
+	Default interface{} `json:"default"`
 }
 
 func (p Parameter) String() string {
@@ -47,8 +48,8 @@ func (p Parameter) String() string {
 // Object is the logical group for Modifiers that target fields of a nested
 // object
 type Object struct {
-	Help   string
-	Fields map[string]interface{}
+	Help   string    `json:"help"`
+	Fields modifiers `json:"fields"`
 }
 
 // modsForProps generates Modifiers for a (nested) map of swagger properties
@@ -68,9 +69,11 @@ func modsForProps(props map[string]*swagger.Schema, ctx string) map[string]inter
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
 func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{}) {
-	name = strLower(name)
+	name = camelLower(name)
+
 	switch p.Type {
 	case swagger.TypeObject:
+		// if it has children, return modifier group instead
 		if len(p.Props) != 0 {
 			o := Object{
 				Help:   p.Desc,
@@ -78,6 +81,8 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 			}
 			return name, o
 		}
+
+		// no children? create modifier
 		fallthrough
 	default:
 		fn := Modifier{
@@ -87,9 +92,9 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 		}
 		return fmt.Sprintf("with%s", strings.Title(name)), fn
 	}
-	panic("shouldn't happen")
 }
 
+// fnArg normalizes an arguments name so it does not use any reserved words
 func fnArg(name string) string {
 	if name == "error" {
 		return "err"
@@ -97,9 +102,9 @@ func fnArg(name string) string {
 	return name
 }
 
-// strLower returns the string with the first char lowercased.
-func strLower(s string) string {
-	a := []rune(s)
-	a[0] = unicode.ToLower(a[0])
-	return string(a)
+// camelLower returns the string with the word lowercased.
+func camelLower(s string) string {
+	elems := camelcase.Split(s)
+	elems[0] = strings.ToLower(elems[0])
+	return strings.Join(elems, "")
 }

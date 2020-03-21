@@ -14,6 +14,7 @@ const (
 	ObjectMetaId = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
 )
 
+// Load parses swagger definitions into the data model
 func Load(swag *swagger.Swagger) map[string]Group {
 	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
 		if !expr.MatchString(k) {
@@ -31,6 +32,16 @@ func Load(swag *swagger.Swagger) map[string]Group {
 	return newGroups(defs, ids)
 }
 
+// transform creates an ID-table that maps our structure to the one of the
+// swagger spec:
+//
+//    "apps": map[string]string{
+//      "v1": "io.k8s.api.apps.v1",
+//      "v1beta1": "io.k8s.api.apps.v1beta1",
+//      "v1beta2": "io.k8s.api.apps.v1beta2",
+//    },
+//
+// These are used in newGroups to match the all kinds for a given version
 func transform(defs swagger.Definitions) IDs {
 	groups := make(IDs)
 	for k := range defs {
