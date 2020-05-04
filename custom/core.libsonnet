@@ -1,9 +1,11 @@
+local k = (import "../main.libsonnet");
+
 {
   core+: {
     v1+: {
       configMap+: {
         new(name, data)::
-          super.new()
+          super.new(name)
           + super.metadata.withName(name)
           + super.withData(data),
       },
@@ -14,7 +16,7 @@
 
       containerPort+: {
         new(containerPort):: super.withContainerPort(containerPort),
-        newNamed(containerPort, name):: self.new(containerPort) + super.withName(name),
+        newNamed(containerPort, name):: k.core.v1.containerPort.new(containerPort) + super.withName(name),
       },
 
       envVar+: {
@@ -48,7 +50,8 @@
 
       servicePort+:: {
         new(port, targetPort):: super.withPort(port) + super.withTargetPort(targetPort),
-        newNamed(name, port, targetPort):: self.new(port, targetPort) + super.withName(name),
+        newNamed(name, port, targetPort)::
+          k.core.v1.servicePort.new(port, targetPort) + super.withName(name),
       },
 
       volume+:: {
