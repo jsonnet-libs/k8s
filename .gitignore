@@ -1,3 +1,7 @@
 swagger.json
 jsonnetfile.json
+jsonnetfile.lock.json
+main.jsonnet
 spec.json
+vendor
+k8s
