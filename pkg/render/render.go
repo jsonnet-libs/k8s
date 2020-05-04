@@ -108,7 +108,7 @@ func Kind(name string, k model.Kind, apiVersion string) j.ObjectType {
 
 	for k, m := range k.Modifiers {
 		if i := Modifier(k, m); i != nil {
-			fields = append(fields, i)
+			fields = append(fields, i...)
 		}
 	}
 
