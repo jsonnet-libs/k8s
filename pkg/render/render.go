@@ -47,6 +47,21 @@ func Main(adds []string) j.Type {
 	return j.Add("", elems...)
 }
 
+// Objects is a collection of Jsonnet objects, indexed by their expected path on
+// the filesystem
+type Objects map[string]j.ObjectType
+
+func (o Objects) Add(set Objects, prefix string) {
+	for k, v := range set {
+		o[filepath.Join("/"+prefix, k)] = v
+	}
+}
+
+// Group renders the entire given group, returning e.g.:
+// - /main.libsonnet, the group index
+// - /v1/main.libsonnet, the version v1 index
+// - /v1/deployment.libsonnet, Deployment
+// - /v1/daemonset.libsonnet, DaemonSet
 func Group(name string, g model.Group) j.ObjectType {
 	fields := []j.Type{}
 	for name, ver := range g {
@@ -59,12 +74,16 @@ func Group(name string, g model.Group) j.ObjectType {
 	return j.Object(name, fields...)
 }
 
+// Version renders the entire given object, returning e.g.:
+// - /main.libsonnet, the version index
+// - /deployment.libsonnet, Deployment
+// - /daemonset.libsonnet, DaemonSet
 func Version(name string, v model.Version) j.ObjectType {
 	fields := []j.Type{
-		j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", v.ApiVersion))),
+		// j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", v.ApiVersion))),
 	}
 	for name, kind := range v.Kinds {
-		k := Kind(name, kind)
+		k := Kind(name, kind, v.ApiVersion)
 		docs := j.Comment(k, kind.Help)
 		fields = append(fields, docs)
 	}
@@ -74,7 +93,7 @@ func Version(name string, v model.Version) j.ObjectType {
 	return j.Object(name, fields...)
 }
 
-func Kind(name string, k model.Kind) j.Type {
+func Kind(name string, k model.Kind, apiVersion string) j.Type {
 	fields := []j.Type{}
 
 	for k, m := range k.Modifiers {
@@ -89,7 +108,7 @@ func Kind(name string, k model.Kind) j.Type {
 	// prepend new() function, so it is at top
 	if k.New != nil {
 		fn := j.Comment(
-			constructor(*k.New, strings.Title(name)),
+			constructor(*k.New, strings.Title(name), apiVersion),
 			k.New.Help,
 		)
 
@@ -101,10 +120,12 @@ func Kind(name string, k model.Kind) j.Type {
 	return j.Object(name, fields...)
 }
 
-func constructor(c model.Constructor, kind string) j.FuncType {
+func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
 	ret := j.Add("",
-		j.Ref("", LocalApiVersion),
-		j.ConciseObject("", j.String("kind", kind)),
+		j.Object("",
+			j.String("apiVersion", apiVersion),
+			j.String("kind", kind),
+		),
 		j.Call("", "self.metadata.withName", j.Args(j.Ref("name", "name"))),
 	)
 

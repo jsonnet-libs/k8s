@@ -8,6 +8,11 @@ import (
 type strSliceFlag []string
 
 func (a *strSliceFlag) Set(value string) error {
+	if elems := strings.Split(value, " "); len(elems) > 0 {
+		*a = append(*a, elems...)
+		return nil
+	}
+
 	*a = append(*a, value)
 	return nil
 }
