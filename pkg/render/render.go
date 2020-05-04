@@ -10,10 +10,11 @@ import (
 )
 
 const (
-	GenPrefix = "_gen"
-	GenExt    = ".libsonnet"
-	IndexFile = "gen" + GenExt
-	MainFile  = "main" + GenExt
+	CustomPrefix = "_custom"
+	GenPrefix    = "_gen"
+	GenExt       = ".libsonnet"
+	IndexFile    = "gen" + GenExt
+	MainFile     = "main" + GenExt
 )
 
 // Index creates gen.libsonnet, the index of all generated artifacts
@@ -40,7 +41,7 @@ func Main(adds []string) j.Type {
 
 	elems := []j.Type{index}
 	for _, a := range adds {
-		a = filepath.Base(a)
+		a = filepath.Join(CustomPrefix, filepath.Base(a))
 		add := j.Import("", a)
 		elems = append(elems, add)
 	}

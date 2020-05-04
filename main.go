@@ -16,8 +16,7 @@ import (
 func main() {
 	spec := flag.String("spec", "swagger.json", "path to openapi spec")
 	jsonnet := flag.String("jsonnet", "k8s", "path for .jsonnet sources")
-	docs := flag.String("docs", "", "path for .md docs")
-	adds := flagStringSlice("add", nil, "files to add to main.libsonnet")
+	custom := flag.String("custom", "custom", "path to patches")
 	flag.Parse()
 
 	// load swagger model
@@ -34,11 +33,7 @@ func main() {
 	groups := model.Load(s)
 
 	if *jsonnet != "" {
-		renderJsonnet(*jsonnet, groups, *adds)
-	}
-
-	if *docs != "" {
-		renderDocs(*docs, groups, *adds)
+		renderJsonnet(*jsonnet, groups, *custom)
 	}
 }
 
@@ -72,7 +67,7 @@ func renderDocs(dir string, gs map[string]model.Group, adds []string) {
 	}
 }
 
-func renderJsonnet(dir string, groups map[string]model.Group, adds []string) {
+func renderJsonnet(dir string, groups map[string]model.Group, customDir string) {
 	gen := filepath.Join(dir, render.GenPrefix)
 
 	if err := os.MkdirAll(gen, os.ModePerm); err != nil {
@@ -100,13 +95,27 @@ func renderJsonnet(dir string, groups map[string]model.Group, adds []string) {
 	}
 
 	// custom patches
+	var adds []string
+	filepath.Walk(customDir, func(name string, fi os.FileInfo, err error) error {
+		if fi.IsDir() {
+			return nil
+		}
+		if filepath.Ext(name) != ".libsonnet" {
+			return nil
+		}
+
+		adds = append(adds, name)
+		return nil
+	})
+
 	for _, a := range adds {
 		content, err := ioutil.ReadFile(a)
 		if err != nil {
 			log.Fatalln(err)
 		}
 
-		a = filepath.Join(dir, filepath.Base(a))
+		a = filepath.Join(dir, render.CustomPrefix, filepath.Base(a))
+		os.MkdirAll(filepath.Dir(a), os.ModePerm)
 		if err := ioutil.WriteFile(a, content, 0644); err != nil {
 			log.Fatalln(err)
 		}
