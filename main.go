@@ -86,13 +86,16 @@ func renderJsonnet(dir string, groups map[string]model.Group, adds []string) {
 		log.Fatalln("writing gen.libsonnet:", err)
 	}
 
-	// _gen/<group>.libsonnet
+	// _gen/<group>/<version>/<kind>.libsonnet
 	for name, group := range groups {
-		o := render.Group(name, group)
-		file := filepath.Join(dir, render.Filename(name))
+		g := render.Group(name, group)
 
-		if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
-			log.Fatalln(err)
+		for fn, o := range g {
+			file := filepath.Join(dir, render.GenPrefix, name, fn)
+			os.MkdirAll(filepath.Dir(file), os.ModePerm)
+			if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
+				log.Fatalln(err)
+			}
 		}
 	}
 

@@ -12,18 +12,16 @@ import (
 const (
 	GenPrefix = "_gen"
 	GenExt    = ".libsonnet"
-	IndexFile = "gen.libsonnet"
-	MainFile  = "main.libsonnet"
+	IndexFile = "gen" + GenExt
+	MainFile  = "main" + GenExt
 )
 
-func Filename(group string) string {
-	return filepath.Join(GenPrefix, group+GenExt)
-}
-
+// Index creates gen.libsonnet, the index of all generated artifacts
 func Index(groups map[string]model.Group) j.ObjectType {
 	fields := make([]j.Type, 0, len(groups))
 	for name := range groups {
-		fields = append(fields, j.Hidden(j.Import(name, Filename(name))))
+		imp := filepath.Join(GenPrefix, name, MainFile)
+		fields = append(fields, j.Hidden(j.Import(name, imp)))
 	}
 
 	SortFields(fields)
@@ -31,6 +29,9 @@ func Index(groups map[string]model.Group) j.ObjectType {
 	return j.Object("", fields...)
 }
 
+// Main creates main.libsonnet:
+// - import the generated index (gen.libsonnet)
+// - add all hand-written patches on top
 func Main(adds []string) j.Type {
 	index := j.Import("", IndexFile)
 	if len(adds) == 0 {
@@ -51,49 +52,57 @@ func Main(adds []string) j.Type {
 // the filesystem
 type Objects map[string]j.ObjectType
 
-func (o Objects) Add(set Objects, prefix string) {
+func (o Objects) Add(prefix string, set Objects) {
 	for k, v := range set {
-		o[filepath.Join("/"+prefix, k)] = v
+		o[filepath.Join(prefix, k)] = v
 	}
 }
 
 // Group renders the entire given group, returning e.g.:
-// - /main.libsonnet, the group index
-// - /v1/main.libsonnet, the version v1 index
-// - /v1/deployment.libsonnet, Deployment
-// - /v1/daemonset.libsonnet, DaemonSet
-func Group(name string, g model.Group) j.ObjectType {
-	fields := []j.Type{}
+// - main.libsonnet, the group index
+// - v1/main.libsonnet, the version v1 index
+// - v1/deployment.libsonnet, Deployment
+// - v1/daemonset.libsonnet, DaemonSet
+func Group(name string, g model.Group) Objects {
+	imports := []j.Type{}
+	objects := make(Objects)
+
 	for name, ver := range g {
 		v := Version(name, ver)
-		fields = append(fields, j.Hidden(v))
+		objects.Add(name, v)
+		imports = append(imports, j.Import(name, filepath.Join(name, MainFile)))
 	}
 
-	SortFields(fields)
+	SortFields(imports)
+	objects[MainFile] = j.Object(name, imports...)
 
-	return j.Object(name, fields...)
+	return objects
 }
 
 // Version renders the entire given object, returning e.g.:
 // - /main.libsonnet, the version index
 // - /deployment.libsonnet, Deployment
 // - /daemonset.libsonnet, DaemonSet
-func Version(name string, v model.Version) j.ObjectType {
-	fields := []j.Type{
-		// j.Local(j.ConciseObject(LocalApiVersion, j.String("apiVersion", v.ApiVersion))),
-	}
+func Version(name string, v model.Version) Objects {
+	imports := []j.Type{}
+	objects := make(Objects)
+
 	for name, kind := range v.Kinds {
 		k := Kind(name, kind, v.ApiVersion)
-		docs := j.Comment(k, kind.Help)
-		fields = append(fields, docs)
+		fn := name + GenExt
+		objects[fn] = k
+		imports = append(imports, j.Import(name, fn))
 	}
 
-	SortFields(fields)
+	SortFields(imports)
+	objects[MainFile] = j.Object(name, imports...)
 
-	return j.Object(name, fields...)
+	return objects
 }
 
-func Kind(name string, k model.Kind, apiVersion string) j.Type {
+// Kind renders the given Kind, including all modifiers and perhaps a
+// constructor
+func Kind(name string, k model.Kind, apiVersion string) j.ObjectType {
 	fields := []j.Type{}
 
 	for k, m := range k.Modifiers {
@@ -120,6 +129,9 @@ func Kind(name string, k model.Kind, apiVersion string) j.Type {
 	return j.Object(name, fields...)
 }
 
+// constructor creates a generic constructor, that 'just' adds apiVersion and
+// kind to an object. For more sophisticated constructors, the generated
+// artifact is overridden using hand-written files later on.
 func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
 	ret := j.Add("",
 		j.Object("",
@@ -135,6 +147,7 @@ func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
 	)
 }
 
+// SortFields sorts Jsonnet fields
 func SortFields(fields []j.Type) {
 	sort.SliceStable(fields, func(i, j int) bool {
 		return fields[i].Name() < fields[j].Name()
