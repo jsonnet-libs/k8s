@@ -9,10 +9,12 @@ import (
 )
 
 // we don't need modifiers for these, they shall not be changed
-var modifierBlacklist = map[string]bool{
-	"kind":       true,
-	"apiVersion": true,
-	"status":     true,
+func modifierBlacklist() map[string]bool {
+	return map[string]bool{
+		"apiVersion": true,
+		"status":     true,
+	}
+
 }
 
 // Modifier is a function that returns a patch to modify the value at `Target`
@@ -60,7 +62,7 @@ type Object struct {
 func modsForProps(props map[string]*swagger.Schema, ctx string) map[string]interface{} {
 	mods := make(map[string]interface{})
 	for k, p := range props {
-		if modifierBlacklist[k] {
+		if modifierBlacklist()[k] {
 			continue
 		}
 		name, mod := newModifier(k, p, ctx)

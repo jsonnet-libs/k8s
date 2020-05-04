@@ -157,17 +157,19 @@ func newKind(d swagger.Schema, name string) Kind {
 		Help: d.Desc,
 	}
 
-	// real resource? add constructor
+	// modifiers for properties
+	kind.Modifiers = modsForProps(d.Props, "")
+
+	// real resource? add constructor, remove withKind
 	meta, ok := d.Props["metadata"]
 	if ok && meta.Ref() == ObjectMetaId {
+		delete(kind.Modifiers, "withKind")
 		kind.New = &Constructor{
 			Help: fmt.Sprintf("new returns an instance of %s", strings.Title(name)),
 			Args: []Parameter{{Key: "name"}},
 		}
 	}
 
-	// modifiers for properties
-	kind.Modifiers = modsForProps(d.Props, "")
 	return kind
 }
 
