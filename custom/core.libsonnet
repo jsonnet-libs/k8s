@@ -27,7 +27,7 @@ local k = (import "../main.libsonnet");
           + super.valueFrom.secretKeyRef.withKey(secretRefKey),
         fromFieldPath(name, fieldPath)::
           super.withName(name)
-          + super.valueFrom.fieldRef.withFieldPath,
+          + super.valueFrom.fieldRef.withFieldPath(fieldPath),
       },
 
       keyToPath+:: {
