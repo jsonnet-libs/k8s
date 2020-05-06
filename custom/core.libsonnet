@@ -1,5 +1,3 @@
-local k = (import "../main.libsonnet");
-
 {
   core+: {
     v1+: {
@@ -15,8 +13,11 @@ local k = (import "../main.libsonnet");
       },
 
       containerPort+: {
-        new(containerPort):: super.withContainerPort(containerPort),
-        newNamed(containerPort, name):: k.core.v1.containerPort.new(containerPort) + super.withName(name),
+        // using a local here to re-use new, because it is lexically scoped,
+        // while `self` is not
+        local new(containerPort) = super.withContainerPort(containerPort),
+        new(containerPort):: new,
+        newNamed(containerPort, name):: new(containerPort) + super.withName(name),
       },
 
       envVar+: {
@@ -49,9 +50,10 @@ local k = (import "../main.libsonnet");
       },
 
       servicePort+:: {
-        new(port, targetPort):: super.withPort(port) + super.withTargetPort(targetPort),
+        local new(port, targetPort) = super.withPort(port) + super.withTargetPort(targetPort),
+        new(port, targetPort):: new,
         newNamed(name, port, targetPort)::
-          k.core.v1.servicePort.new(port, targetPort) + super.withName(name),
+          new(port, targetPort) + super.withName(name),
       },
 
       volume+:: {
