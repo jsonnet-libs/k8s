@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"strings"
-	"unicode"
 
 	"github.com/fatih/camelcase"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
@@ -112,32 +111,6 @@ func fnArg(name string) string {
 // camelLower returns the string with the word lowercased.
 func CamelLower(s string) string {
 	elems := camelcase.Split(s)
-
-	// special case: XYZs (plural form)
-	if last := len(elems) - 1; last > 0 && allUpper(elems[last-1]) && strings.HasSuffix(elems[last], "s") {
-		elems[last-1] += elems[last]
-		elems = elems[:last]
-	}
-
-	for i := range elems {
-		elems[i] = strings.ToLower(elems[i])
-		if i != 0 {
-			elems[i] = strings.Title(elems[i])
-		}
-	}
-
+	elems[0] = strings.ToLower(elems[0])
 	return strings.Join(elems, "")
-}
-
-// allUpper reports whether s is a upper-only string
-func allUpper(s string) bool {
-	if len(s) == 0 {
-		return false
-	}
-
-	b := true
-	for _, c := range s {
-		b = b && unicode.IsUpper(c)
-	}
-	return b
 }
