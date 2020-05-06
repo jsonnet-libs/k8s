@@ -49,23 +49,31 @@ func modFunction(name string, f model.Modifier) []j.Type {
 	out := make([]j.Type, 0, 2)
 
 	// withXyz()
-	set := newFn(f, false)
+	set := fnResult(f, false)
 	out = append(out, j.Func(name, args, j.ConciseObject("", set)))
 
 	// withXyzMixin()
 	if f.Type == swagger.TypeObject || f.Type == swagger.TypeArray {
-		add := newFn(f, true)
+		add := fnResult(f, true)
 		out = append(out, j.Func(name+"Mixin", args, j.ConciseObject("", add)))
 	}
 
 	return out
 }
 
-func newFn(f model.Modifier, adder bool) j.Type {
+func fnResult(f model.Modifier, adder bool) j.Type {
 	elems := strings.Split(f.Target, ".")
 	ret := reduceReverse(elems, func(i int, s string, o j.Type) j.Type {
 		switch i {
 		case 0:
+			// if array, also accept single value
+			if f.Type == swagger.TypeArray {
+				return j.IfThenElse(s,
+					j.Call("", "std.isArray", j.Args(j.Ref("v", f.Arg.Key))),
+					j.Ref("", f.Arg.Key),
+					j.List("", j.Ref("", f.Arg.Key)),
+				)
+			}
 			return j.Ref(s, f.Arg.Key)
 		case 1:
 			if !adder {
