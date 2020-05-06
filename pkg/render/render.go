@@ -89,7 +89,7 @@ func Version(name string, v model.Version) Objects {
 	objects := make(Objects)
 
 	for name, kind := range v.Kinds {
-		k := Kind(name, kind, v.ApiVersion)
+		k := Kind(name, kind)
 		fn := name + GenExt
 		objects[fn] = k
 		imports = append(imports, j.Import(name, fn))
@@ -103,7 +103,7 @@ func Version(name string, v model.Version) Objects {
 
 // Kind renders the given Kind, including all modifiers and perhaps a
 // constructor
-func Kind(name string, k model.Kind, apiVersion string) j.ObjectType {
+func Kind(name string, k model.Kind) j.ObjectType {
 	fields := []j.Type{}
 
 	for k, m := range k.Modifiers {
@@ -118,7 +118,7 @@ func Kind(name string, k model.Kind, apiVersion string) j.ObjectType {
 	// prepend new() function, so it is at top
 	if k.New != nil {
 		fn := j.Comment(
-			constructor(*k.New, strings.Title(name), apiVersion),
+			constructor(*k.New, strings.Title(name), k.ApiVersion()),
 			k.New.Help,
 		)
 

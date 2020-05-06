@@ -104,7 +104,13 @@ type Schema struct {
 	ResolvedRef string
 
 	// vendor extensions
-	XGvk interface{} `json:"x-kubernetes-group-version-kind"`
+	XGvk []XGvk `json:"x-kubernetes-group-version-kind"`
+}
+
+type XGvk struct {
+	Group   string
+	Kind    string
+	Version string
 }
 
 func (s Schema) Ref() string {
@@ -112,4 +118,13 @@ func (s Schema) Ref() string {
 		return s.ResolvedRef
 	}
 	return strings.TrimPrefix(*s.DollarRef, "#/definitions/")
+}
+
+func (s Schema) GroupVersionKind() (*XGvk, bool) {
+	if len(s.XGvk) == 0 {
+		return nil, false
+	}
+
+	x := s.XGvk[0]
+	return &x, true
 }

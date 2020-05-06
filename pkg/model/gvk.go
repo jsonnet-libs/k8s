@@ -102,11 +102,22 @@ func newVersion(d swagger.Definitions) Version {
 type Kind struct {
 	Help string `json:"help"`
 
+	Group   string `json:"group"`
+	Version string `json:"version"`
+
 	// constructor
 	New *Constructor `json:"new"`
 
 	// modifiers
 	Modifiers modifiers `json:"modifiers"`
+}
+
+func (k Kind) ApiVersion() string {
+	if k.Group == "" {
+		return k.Version
+	}
+
+	return k.Group + "/" + k.Version
 }
 
 type modifiers map[string]interface{}
@@ -157,12 +168,17 @@ func newKind(d swagger.Schema, name string) Kind {
 		Help: d.Desc,
 	}
 
+	gvk, real := d.GroupVersionKind()
+	if real {
+		kind.Group = gvk.Group
+		kind.Version = gvk.Version
+	}
+
 	// modifiers for properties
 	kind.Modifiers = modsForProps(d.Props, "")
 
 	// real resource? add constructor, remove withKind
-	meta, ok := d.Props["metadata"]
-	if ok && meta.Ref() == ObjectMetaId {
+	if real {
 		delete(kind.Modifiers, "withKind")
 		kind.New = &Constructor{
 			Help: fmt.Sprintf("new returns an instance of %s", strings.Title(name)),
