@@ -1,76 +1,86 @@
 package main
 
 import (
-	"flag"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 
-	"github.com/jsonnet-libs/k8s/pkg/docs"
+	"github.com/go-clix/cli"
 	"github.com/jsonnet-libs/k8s/pkg/model"
 	"github.com/jsonnet-libs/k8s/pkg/render"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
+	"gopkg.in/yaml.v2"
 )
 
+type Config struct {
+	Specs map[string]string `yaml:"specs"`
+}
+
 func main() {
-	spec := flag.String("spec", "swagger.json", "path to openapi spec")
-	jsonnet := flag.String("jsonnet", "k8s", "path for .jsonnet sources")
-	custom := flag.String("custom", "custom", "path to patches")
-	flag.Parse()
-
-	// load swagger model
-	data, err := ioutil.ReadFile(*spec)
-	if err != nil {
-		log.Fatalln(err)
+	log.SetFlags(0)
+	cmd := &cli.Command{
+		Use:   "k8s-gen [versions]",
+		Short: "k8s-gen generates the Jsonnet Kubernetes library from OpenAPI specs",
 	}
 
-	s, err := swagger.Load(data)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	configFile := cmd.Flags().StringP("config", "c", "config.yml", "YAML configuration file")
+	custom := cmd.Flags().String("custom", "custom", "path to patches")
+	ext := cmd.Flags().String("ext", "extensions", "path to extensions")
 
-	groups := model.Load(s)
+	cmd.Run = func(cmd *cli.Command, args []string) error {
+		config := loadConfig(*configFile)
 
-	if *jsonnet != "" {
-		renderJsonnet(*jsonnet, groups, *custom)
-	}
-}
-
-func renderDocs(dir string, gs map[string]model.Group, adds []string) {
-	groups := docs.MergeGroups(gs, adds)
-
-	for name, grp := range groups {
-
-		path := filepath.Join(dir, name)
-		if err := os.MkdirAll(path, os.ModePerm); err != nil {
-			log.Fatalln(err)
-		}
-
-		overview := docs.Group(name, grp)
-		if err := ioutil.WriteFile(filepath.Join(path, "README.md"), []byte(overview), 0644); err != nil {
-			log.Fatalf("writing %s/README.md: %s", name, err)
-		}
-
-		for verName, ver := range grp {
-			for name, kind := range ver.Kinds {
-				kindMd := docs.Kind(name, kind)
-				if err := ioutil.WriteFile(
-					filepath.Join(path, verName+"."+name+".md"),
-					[]byte(kindMd),
-					0644,
-				); err != nil {
-					log.Fatalln(err)
-				}
+		for dir, spec := range config.Specs {
+			if len(args) > 0 && !hasStr(args, dir) {
+				continue
 			}
+
+			log.Printf("Generating '%s' from '%s'", dir, spec)
+
+			s, err := swagger.LoadHTTP(spec)
+			if err != nil {
+				return err
+			}
+
+			groups := model.Load(s)
+			renderJsonnet(dir, groups, *custom, *ext)
 		}
+
+		return nil
+	}
+
+	if err := cmd.Execute(); err != nil {
+		log.Fatalln(err)
 	}
 }
 
-func renderJsonnet(dir string, groups map[string]model.Group, customDir string) {
-	gen := filepath.Join(dir, render.GenPrefix)
+func hasStr(slice []string, s string) bool {
+	for _, sl := range slice {
+		if sl == s {
+			return true
+		}
+	}
 
-	if err := os.MkdirAll(gen, os.ModePerm); err != nil {
+	return false
+}
+
+func loadConfig(file string) Config {
+	data, err := ioutil.ReadFile(file)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	var c Config
+	if err := yaml.Unmarshal(data, &c); err != nil {
+		log.Fatalln(err)
+	}
+
+	return c
+}
+
+func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir string) {
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 		log.Fatalln(err)
 	}
 
@@ -82,11 +92,15 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir string) 
 	}
 
 	// _gen/<group>/<version>/<kind>.libsonnet
+	gen := filepath.Join(dir, render.GenPrefix)
+	if err := os.MkdirAll(gen, os.ModePerm); err != nil {
+		log.Fatalln(err)
+	}
 	for name, group := range groups {
 		g := render.Group(name, group)
 
 		for fn, o := range g {
-			file := filepath.Join(dir, render.GenPrefix, name, fn)
+			file := filepath.Join(gen, name, fn)
 			os.MkdirAll(filepath.Dir(file), os.ModePerm)
 			if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
 				log.Fatalln(err)
@@ -95,8 +109,28 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir string) 
 	}
 
 	// custom patches
+	adds, err := copyDirLibsonnet(customDir, filepath.Join(dir, render.CustomPrefix))
+	if err != nil {
+		log.Fatalln("Copying custom patches:", err)
+	}
+
+	if _, err := copyDirLibsonnet(extDir, filepath.Join(dir, render.ExtPrefix)); err != nil {
+		log.Fatalln("Copying extensions:", err)
+	}
+
+	// main.libsonnet
+	main := render.Main(adds)
+	mainFile := filepath.Join(dir, render.MainFile)
+	if err := ioutil.WriteFile(mainFile, []byte(main.String()), 0644); err != nil {
+		log.Fatalln(err)
+	}
+
+}
+
+func copyDirLibsonnet(dir, to string) ([]string, error) {
+	// custom patches
 	var adds []string
-	filepath.Walk(customDir, func(name string, fi os.FileInfo, err error) error {
+	filepath.Walk(dir, func(name string, fi os.FileInfo, err error) error {
 		if fi.IsDir() {
 			return nil
 		}
@@ -111,21 +145,15 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir string) 
 	for _, a := range adds {
 		content, err := ioutil.ReadFile(a)
 		if err != nil {
-			log.Fatalln(err)
+			return nil, err
 		}
 
-		a = filepath.Join(dir, render.CustomPrefix, filepath.Base(a))
+		a = filepath.Join(to, filepath.Base(a))
 		os.MkdirAll(filepath.Dir(a), os.ModePerm)
 		if err := ioutil.WriteFile(a, content, 0644); err != nil {
-			log.Fatalln(err)
+			return nil, err
 		}
 	}
 
-	// main.libsonnet
-	main := render.Main(adds)
-	mainFile := filepath.Join(dir, render.MainFile)
-	if err := ioutil.WriteFile(mainFile, []byte(main.String()), 0644); err != nil {
-		log.Fatalln(err)
-	}
-
+	return adds, nil
 }

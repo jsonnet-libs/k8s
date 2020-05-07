@@ -2,6 +2,8 @@ package swagger
 
 import (
 	"encoding/json"
+	"io/ioutil"
+	"net/http"
 	"regexp"
 	"strings"
 )
@@ -13,6 +15,20 @@ var skipRefs = map[string]bool{
 
 	// list will be filtered anyways
 	"io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta": true,
+}
+
+func LoadHTTP(url string) (*Swagger, error) {
+	r, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return Load(data)
 }
 
 func Load(data []byte) (*Swagger, error) {

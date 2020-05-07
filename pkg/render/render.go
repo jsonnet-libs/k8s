@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	ExtPrefix    = "extensions"
 	CustomPrefix = "_custom"
 	GenPrefix    = "_gen"
 	GenExt       = ".libsonnet"
