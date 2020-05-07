@@ -27,6 +27,7 @@ func main() {
 	configFile := cmd.Flags().StringP("config", "c", "config.yml", "YAML configuration file")
 	custom := cmd.Flags().String("custom", "custom", "path to patches")
 	ext := cmd.Flags().String("ext", "extensions", "path to extensions")
+	output := cmd.Flags().StringP("output", "o", ".", "directory to put artifacts into")
 
 	cmd.Run = func(cmd *cli.Command, args []string) error {
 		config := loadConfig(*configFile)
@@ -44,7 +45,8 @@ func main() {
 			}
 
 			groups := model.Load(s)
-			renderJsonnet(dir, groups, *custom, *ext)
+			path := filepath.Join(*output, dir)
+			renderJsonnet(path, groups, *custom, *ext)
 		}
 
 		return nil

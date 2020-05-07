@@ -1,3 +1,6 @@
+// Package builder implements a simple way to generate arbitrary Jsonnet
+// directly from Go, using a functional API inspired by how Jsonnet is written
+// itself.
 package builder
 
 import (
