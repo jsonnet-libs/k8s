@@ -2,10 +2,12 @@
   core+: {
     v1+: {
       configMap+: {
+        local withData(data) = if data != {} then super.withData(data) else {},
+        withData:: withData,
         new(name, data)::
           super.new(name)
           + super.metadata.withName(name)
-          + super.withData(data),
+          + withData(data),
       },
 
       container+: {
