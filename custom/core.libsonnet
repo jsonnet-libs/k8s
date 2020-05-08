@@ -18,7 +18,7 @@
         // using a local here to re-use new, because it is lexically scoped,
         // while `self` is not
         local new(containerPort) = super.withContainerPort(containerPort),
-        new(containerPort):: new,
+        new:: new,
         newNamed(containerPort, name):: new(containerPort) + super.withName(name),
       },
 
