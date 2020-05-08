@@ -8,6 +8,9 @@ local k = import 'k.libsonnet';
   core+: { v1+: {
     container+: {
       envType: k.core.v1.envVar,
+      envFromType: k.core.v1.envFromSource {
+        new():: {},
+      },
       portsType: k.core.v1.containerPort,
       volumeMountsType: k.core.v1.volumeMount,
     },
@@ -19,6 +22,7 @@ local k = import 'k.libsonnet';
     service+: {
       spec+: {
         withClusterIp: self.withClusterIP,
+        withLoadBalancerIp: self.withLoadBalancerIP,
         portsType: k.core.v1.servicePort,
       },
     },
@@ -43,6 +47,7 @@ local k = import 'k.libsonnet';
   local appsPatch = {
     deployment+: {
       spec+: { template+: { spec+: {
+        volumesType: k.core.v1.volume,
         containersType: k.core.v1.container,
         tolerationsType: k.core.v1.toleration {
           new():: {},
@@ -58,6 +63,7 @@ local k = import 'k.libsonnet';
     },
     statefulSet+: {
       spec+: { template+: { spec+: {
+        volumesType: k.core.v1.volume,
         affinity+: appsAffinityPatch,
         tolerationsType: k.core.v1.toleration {
           new():: {},
@@ -89,39 +95,55 @@ local k = import 'k.libsonnet';
   batch+: { v1beta1+: {
     cronJob+: {
       new():: super.new(''),
+      mixin+: { spec+: { jobTemplate+: { spec+: { template+: { spec+: {
+        imagePullSecretsType: k.core.v1.localObjectReference {
+          new():: {},
+        },
+      } } } } } },
     },
   } },
 
-  rbac+: {
-    v1beta1+: {
-      policyRule+: {
-        withNonResourceUrls: self.withNonResourceURLs,
-      },
-      clusterRole+: {
-        new():: super.new(''),
-        rulesType: k.rbac.v1beta1.policyRule {
-          new():: {},
-        },
-      },
-      clusterRoleBinding+: {
-        new():: super.new(''),
-        subjectsType: k.rbac.v1beta1.subject {
-          new():: {},
-        },
-      },
-      role+: {
-        new():: super.new(''),
-      },
-      roleBinding+: {
-        new():: super.new(''),
+
+  local rbacPatch = {
+    local role = {
+      new():: super.new(''),
+      rulesType: k.rbac.v1beta1.policyRule {
+        new():: {},
       },
     },
+    role+: role,
+    clusterRole+: role,
+
+    local binding = {
+      new():: super.new(''),
+      subjectsType: k.rbac.v1beta1.subject {
+        new():: {},
+      },
+    },
+    roleBinding+: binding,
+    clusterRoleBinding+: binding,
+
+    policyRule+: {
+      withNonResourceUrls: self.withNonResourceURLs,
+    },
+  },
+  rbac+: {
+    v1+: rbacPatch,
+    v1beta1+: rbacPatch,
   },
 
   policy+: {
     v1beta1+: {
       podDisruptionBudget+: {
         new():: super.new(''),
+      },
+      podSecurityPolicy+: {
+        new():: super.new(''),
+        mixin+: { spec+: {
+          runAsUser+: { rangesType: k.policy.v1beta1.idRange { new():: {} } },
+          withHostIpc: self.withHostIPC,
+          withHostPid: self.withHostPID,
+        } },
       },
     },
   },
@@ -135,6 +157,29 @@ local k = import 'k.libsonnet';
   scheduling+: { v1beta1+: {
     priorityClass+: {
       new():: super.new(''),
+    },
+  } },
+
+  admissionregistration+: { v1beta1+: {
+    local webhooksType = k.admissionregistration.v1beta1.webhook {
+      new():: {},
+      rulesType: k.admissionregistration.v1beta1.ruleWithOperations {
+        new():: {},
+      },
+      mixin+: { namespaceSelector+: { matchExpressionsType: {
+        new():: {},
+        withKey(key):: { key: key },
+        withOperator(operator):: { operator: operator },
+        withValues(values):: { values: if std.isArray(values) then values else [values] },
+      } } },
+    },
+    mutatingWebhookConfiguration+: {
+      new():: super.new(''),
+      webhooksType: webhooksType,
+    },
+    validatingWebhookConfiguration+: {
+      new():: super.new(''),
+      webhooksType: webhooksType,
     },
   } },
 }
