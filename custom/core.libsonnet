@@ -51,7 +51,7 @@
 
       servicePort+:: {
         local new(port, targetPort) = super.withPort(port) + super.withTargetPort(targetPort),
-        new(port, targetPort):: new,
+        new:: new,
         newNamed(name, port, targetPort)::
           new(port, targetPort) + super.withName(name),
       },
@@ -60,7 +60,7 @@
         fromConfigMap(name, configMapName, configMapItems)::
           super.withName(name)
           + super.configMap.withName(configMapName) + super.configMap.withItems(configMapItems),
-        fromEmptyDir(name, emptyDir)::
+        fromEmptyDir(name, emptyDir={})::
           super.withName(name) + { emptyDir: emptyDir },
         fromPersistentVolumeClaim(name, claimName)::
           super.withName(name) + super.persistentVolumeClaim.withClaimName(claimName),
