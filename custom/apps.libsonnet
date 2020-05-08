@@ -20,7 +20,7 @@ local patch = {
       podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
     ):: super.new(name)
         + super.spec.withReplicas(replicas)
-        + super.spec.tmeplate.spec.withContainers(containers)
+        + super.spec.template.spec.withContainers(containers)
         + super.spec.template.metadata.withLabels(podLabels)
         + super.spec.withVolumeClaimTemplates(volumeClaims),
   },
