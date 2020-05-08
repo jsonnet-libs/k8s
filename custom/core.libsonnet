@@ -64,8 +64,8 @@
           + super.configMap.withName(configMapName) + super.configMap.withItems(configMapItems),
         fromEmptyDir(name, emptyDir={})::
           super.withName(name) + { emptyDir: emptyDir },
-        fromPersistentVolumeClaim(name, claimName)::
-          super.withName(name) + super.persistentVolumeClaim.withClaimName(claimName),
+        fromPersistentVolumeClaim(name, emptyDir)::  // <- emptyDir should be claimName, but ksonnet
+          super.withName(name) + super.persistentVolumeClaim.withClaimName(emptyDir),
         fromHostPath(name, hostPath)::
           super.withName(name) + super.hostPath.withPath(hostPath),
         fromSecret(name, secretName)::
