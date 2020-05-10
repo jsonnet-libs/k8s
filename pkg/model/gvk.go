@@ -165,7 +165,7 @@ func newKind(d swagger.Schema, name string) Kind {
 	name = strings.ToLower(name)
 	kind := Kind{
 		// Help text: description
-		Help: d.Desc,
+		Help: safeStr(d.Desc),
 	}
 
 	gvk, real := d.GroupVersionKind()
@@ -187,6 +187,14 @@ func newKind(d swagger.Schema, name string) Kind {
 	}
 
 	return kind
+}
+
+func safeStr(s string) string {
+	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
+		return strings.Replace(s, `"`, `'`, -1)
+	}
+
+	return s
 }
 
 func reSubMatchMap(r *regexp.Regexp, str string) map[string]string {
