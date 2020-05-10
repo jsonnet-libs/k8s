@@ -2,10 +2,10 @@ package render
 
 import (
 	"path/filepath"
-	"sort"
 	"strings"
 
 	j "github.com/jsonnet-libs/k8s/pkg/builder"
+	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
 	"github.com/jsonnet-libs/k8s/pkg/model"
 )
 
@@ -20,7 +20,11 @@ const (
 
 // Index creates gen.libsonnet, the index of all generated artifacts
 func Index(groups map[string]model.Group) j.ObjectType {
-	fields := make([]j.Type, 0, len(groups))
+	fields := []j.Type{
+		d.Import(),
+		d.Pkg("k", "github.com/jsonnet-libs/k8s-alpha", "Generated Kubernetes library"),
+	}
+
 	for name := range groups {
 		imp := filepath.Join(GenPrefix, name, MainFile)
 		fields = append(fields, j.Hidden(j.Import(name, imp)))
@@ -66,17 +70,20 @@ func (o Objects) Add(prefix string, set Objects) {
 // - v1/deployment.libsonnet, Deployment
 // - v1/daemonset.libsonnet, DaemonSet
 func Group(name string, g model.Group) Objects {
-	imports := []j.Type{}
+	fields := []j.Type{
+		d.Import(),
+		d.Pkg(name, "", ""),
+	}
 	objects := make(Objects)
 
 	for name, ver := range g {
 		v := Version(name, ver)
 		objects.Add(name, v)
-		imports = append(imports, j.Import(name, filepath.Join(name, MainFile)))
+		fields = append(fields, j.Import(name, filepath.Join(name, MainFile)))
 	}
 
-	SortFields(imports)
-	objects[MainFile] = j.Object(name, imports...)
+	SortFields(fields)
+	objects[MainFile] = j.Object(name, fields...)
 
 	return objects
 }
@@ -86,18 +93,21 @@ func Group(name string, g model.Group) Objects {
 // - /deployment.libsonnet, Deployment
 // - /daemonset.libsonnet, DaemonSet
 func Version(name string, v model.Version) Objects {
-	imports := []j.Type{}
+	fields := []j.Type{
+		d.Import(),
+		d.Pkg(name, "", ""),
+	}
 	objects := make(Objects)
 
 	for name, kind := range v.Kinds {
 		k := Kind(name, kind)
 		fn := name + GenExt
 		objects[fn] = k
-		imports = append(imports, j.Import(name, fn))
+		fields = append(fields, j.Import(name, fn))
 	}
 
-	SortFields(imports)
-	objects[MainFile] = j.Object(name, imports...)
+	SortFields(fields)
+	objects[MainFile] = j.Object(name, fields...)
 
 	return objects
 }
@@ -105,29 +115,30 @@ func Version(name string, v model.Version) Objects {
 // Kind renders the given Kind, including all modifiers and perhaps a
 // constructor
 func Kind(name string, k model.Kind) j.ObjectType {
-	fields := []j.Type{}
+	// docsonnet package
+	fields := []j.Type{
+		d.Import(),
+		d.Pkg(name, "", k.Help),
+	}
 
+	// perhaps constructor
+	if k.New != nil {
+		fn := constructor(*k.New, strings.Title(name), k.ApiVersion())
+		doc := d.Func("new", k.New.Help, d.Args("name", "string"))
+		fields = append(fields, fn, doc)
+	}
+
+	// with... functions
 	for k, m := range k.Modifiers {
 		if i := Modifier(k, m); i != nil {
 			fields = append(fields, i...)
 		}
 	}
 
-	// sort early, the following should have sticky positions
 	SortFields(fields)
 
-	// prepend new() function, so it is at top
-	if k.New != nil {
-		fn := j.Comment(
-			constructor(*k.New, strings.Title(name), k.ApiVersion()),
-			k.New.Help,
-		)
-
-		fields = append([]j.Type{fn}, fields...)
-	}
-
 	// mixin field for compatibility
-	fields = append(fields, j.Ref("mixin", "self"))
+	// fields = append(fields, j.Ref("mixin", "self"))
 	return j.Object(name, fields...)
 }
 
@@ -135,7 +146,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 // kind to an object. For more sophisticated constructors, the generated
 // artifact is overridden using hand-written files later on.
 func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
-	ret := j.Add("",
+	result := j.Add("",
 		j.Object("",
 			j.String("apiVersion", apiVersion),
 			j.String("kind", kind),
@@ -145,13 +156,6 @@ func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
 
 	return j.Func("new",
 		j.Args(j.Required(j.String("name", ""))),
-		ret,
+		result,
 	)
-}
-
-// SortFields sorts Jsonnet fields
-func SortFields(fields []j.Type) {
-	sort.SliceStable(fields, func(i, j int) bool {
-		return fields[i].Name() < fields[j].Name()
-	})
 }

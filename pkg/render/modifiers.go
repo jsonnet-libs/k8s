@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	j "github.com/jsonnet-libs/k8s/pkg/builder"
+	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
 	"github.com/jsonnet-libs/k8s/pkg/model"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
@@ -18,8 +19,11 @@ func Modifier(name string, i interface{}) []j.Type {
 	case model.Modifier:
 		return modFunction(name, t)
 	case model.Object:
-		o := modObject(name, t)
-		return []j.Type{j.Comment(o, t.Help)}
+		objMod := modObject(name, t)
+		return []j.Type{
+			d.Obj(name, t.Help),
+			objMod,
+		}
 	}
 	panic(fmt.Sprintf("unexpected %T", i))
 }
@@ -46,16 +50,31 @@ func modFunction(name string, f model.Modifier) []j.Type {
 		j.Required(j.String(f.Arg.Key, "")),
 	)
 
+	if f.Type == "" {
+		f.Type = "any"
+	}
+	dArgs := d.Args(f.Arg.Key, string(f.Type))
+
 	out := make([]j.Type, 0, 2)
 
 	// withXyz()
 	set := fnResult(f, false)
-	out = append(out, j.Func(name, args, j.ConciseObject("", set)))
+	out = append(out,
+		d.Func(name, f.Help, dArgs),
+		j.Func(name, args, j.ConciseObject("", set)),
+	)
 
 	// withXyzMixin()
 	if f.Type == swagger.TypeObject || f.Type == swagger.TypeArray {
 		add := fnResult(f, true)
-		out = append(out, j.Func(name+"Mixin", args, j.ConciseObject("", add)))
+		mixName := name + "Mixin"
+		out = append(out,
+			d.Func(mixName,
+				f.Help+"\n\n**Note:** This function appends passed data to existing values",
+				dArgs,
+			),
+			j.Func(mixName, args, j.ConciseObject("", add)),
+		)
 	}
 
 	return out

@@ -81,7 +81,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 		// if it has children, return modifier group instead
 		if len(p.Props) != 0 {
 			o := Object{
-				Help:   p.Desc,
+				Help:   safeStr(p.Desc),
 				Fields: modsForProps(p.Props, ctx+"."+name),
 			}
 			return name, o
@@ -91,7 +91,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 		fallthrough
 	default:
 		fn := Modifier{
-			Help:   p.Desc,
+			Help:   safeStr(p.Desc),
 			Arg:    Parameter{Key: fnArg(name)},
 			Target: strings.TrimPrefix(ctx+"."+name, "."),
 			Type:   p.Type,

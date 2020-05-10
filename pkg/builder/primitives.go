@@ -3,6 +3,7 @@ package builder
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // strings
@@ -16,7 +17,14 @@ func String(name, value string) StringType {
 }
 
 func (s StringType) String() string {
-	return fmt.Sprintf(`'%s'`, s.value)
+	qs := `'`
+	if strings.Contains(s.value, "'") {
+		qs = `"`
+	}
+
+	s.value = strings.Replace(s.value, "\n", `\n`, -1)
+
+	return qs + s.value + qs
 }
 
 // ints
