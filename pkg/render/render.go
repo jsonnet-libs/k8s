@@ -72,7 +72,7 @@ func (o Objects) Add(prefix string, set Objects) {
 func Group(name string, g model.Group) Objects {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "<kind>", ""),
+		d.Pkg(name, "", ""),
 	}
 	objects := make(Objects)
 
@@ -95,7 +95,7 @@ func Group(name string, g model.Group) Objects {
 func Version(name string, v model.Version) Objects {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "<kind>", ""),
+		d.Pkg(name, "", ""),
 	}
 	objects := make(Objects)
 
@@ -118,7 +118,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 	// docsonnet package
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "<kind>", k.Help),
+		d.Pkg(name, "", k.Help),
 	}
 
 	// perhaps constructor
