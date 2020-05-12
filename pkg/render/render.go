@@ -1,6 +1,8 @@
 package render
 
 import (
+	"fmt"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -19,10 +21,11 @@ const (
 )
 
 // Index creates gen.libsonnet, the index of all generated artifacts
-func Index(groups map[string]model.Group) j.ObjectType {
+func Index(groups map[string]model.Group, dir string) j.ObjectType {
+	fmt.Println("dir", dir)
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg("k", "github.com/jsonnet-libs/k8s-alpha", "Generated Kubernetes library"),
+		d.Pkg("k", path.Join("github.com/jsonnet-libs/k8s-alpha", dir, "main.libsonnet"), "Generated Kubernetes library"),
 	}
 
 	for name := range groups {
@@ -137,8 +140,11 @@ func Kind(name string, k model.Kind) j.ObjectType {
 
 	SortFields(fields)
 
-	// mixin field for compatibility
-	// fields = append(fields, j.Ref("mixin", "self"))
+	// mixin field for compatibility (patch to avoid recursive result)
+	fields = append(fields,
+		j.String("#mixin", "ignore"),
+		j.Ref("mixin", "self"),
+	)
 	return j.Object(name, fields...)
 }
 

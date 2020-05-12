@@ -87,7 +87,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir 
 	}
 
 	// gen.libsonnet
-	index := render.Index(groups)
+	index := render.Index(groups, filepath.Base(dir))
 	indexFile := filepath.Join(dir, render.IndexFile)
 	if err := ioutil.WriteFile(indexFile, []byte(index.String()), 0644); err != nil {
 		log.Fatalln("writing gen.libsonnet:", err)

@@ -105,6 +105,9 @@ func fnArg(name string) string {
 	if name == "error" {
 		return "err"
 	}
+	if name == "local" {
+		return "Local"
+	}
 	return name
 }
 
