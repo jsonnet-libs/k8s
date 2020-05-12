@@ -50,12 +50,17 @@ func modFunction(name string, f model.Modifier) []j.Type {
 		j.Required(j.String(f.Arg.Key, "")),
 	)
 
+	if f.Type == "" {
+		f.Type = "any"
+	}
+	dArgs := d.Args(f.Arg.Key, string(f.Type))
+
 	out := make([]j.Type, 0, 2)
 
 	// withXyz()
 	set := fnResult(f, false)
 	out = append(out,
-		d.Func(name, f.Help, nil),
+		d.Func(name, f.Help, dArgs),
 		j.Func(name, args, j.ConciseObject("", set)),
 	)
 
@@ -64,7 +69,10 @@ func modFunction(name string, f model.Modifier) []j.Type {
 		add := fnResult(f, true)
 		mixName := name + "Mixin"
 		out = append(out,
-			d.Func(mixName, f.Help+"\n\n**Note:** This function appends passed data to existing values", nil),
+			d.Func(mixName,
+				f.Help+"\n\n**Note:** This function appends passed data to existing values",
+				dArgs,
+			),
 			j.Func(mixName, args, j.ConciseObject("", add)),
 		)
 	}

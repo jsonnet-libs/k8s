@@ -2,7 +2,6 @@ package render
 
 import (
 	"path/filepath"
-	"sort"
 	"strings"
 
 	j "github.com/jsonnet-libs/k8s/pkg/builder"
@@ -125,7 +124,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 	// perhaps constructor
 	if k.New != nil {
 		fn := constructor(*k.New, strings.Title(name), k.ApiVersion())
-		doc := d.Func("new", k.New.Help, d.Args("name", d.String))
+		doc := d.Func("new", k.New.Help, d.Args("name", "string"))
 		fields = append(fields, fn, doc)
 	}
 
@@ -159,15 +158,4 @@ func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
 		j.Args(j.Required(j.String("name", ""))),
 		result,
 	)
-}
-
-// SortFields sorts Jsonnet fields
-func SortFields(fields []j.Type) {
-	// TODO:
-	// - pkg and new to top
-	// - ds field to matching field
-	// locals to top
-	sort.SliceStable(fields, func(i, j int) bool {
-		return fields[i].Name() < fields[j].Name()
-	})
 }

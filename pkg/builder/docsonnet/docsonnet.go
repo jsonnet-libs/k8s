@@ -6,49 +6,34 @@ import (
 
 const dPkg = "doc-util/main.libsonnet"
 
-const (
-	String   = "string"
-	Int      = "integer"
-	Object   = "object"
-	Function = "function"
-	Any      = "any"
-)
-
 func Import() j.Type {
 	return j.Local(j.Import("d", dPkg))
 }
 
-type Arguments map[string]string
-
-func Args(s ...string) Arguments {
+func Args(s ...string) []j.Type {
 	if len(s)%2 != 0 {
 		panic("Args expects even number of arguments (pairs)")
 	}
 
-	args := make(Arguments)
+	args := make([]j.Type, 0, len(s)/2)
 	for i := range s {
 		if i%2 != 0 {
 			continue
 		}
 
-		args[s[i]] = s[i+1]
+		args = append(args, j.Call("", "d.arg", []j.Type{
+			j.String("name", s[i]),
+			j.Ref("type", "d.T."+s[i+1]),
+		}))
 	}
 
 	return args
 }
 
-func Func(name, help string, args Arguments) j.Type {
-	dsArgs := make([]j.Type, 0, len(args))
-	for k, t := range args {
-		dsArgs = append(dsArgs, j.Call("", "d.arg", j.Args(
-			j.String("name", k),
-			j.String("type", t),
-		)))
-	}
-
+func Func(name, help string, args []j.Type) j.Type {
 	return j.Call("#"+name, "d.fn", j.Args(
 		j.String("help", help),
-		j.List("args", dsArgs...),
+		j.List("args", args...),
 	))
 }
 
