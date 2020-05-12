@@ -1,5 +1,4 @@
 specs:
-  1.13: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.13/api/openapi-spec/swagger.json
   1.14: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/api/openapi-spec/swagger.json
   1.15: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.15/api/openapi-spec/swagger.json
   1.16: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.16/api/openapi-spec/swagger.json
