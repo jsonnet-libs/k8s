@@ -1,7 +1,6 @@
 package render
 
 import (
-	"fmt"
 	"path"
 	"path/filepath"
 	"strings"
@@ -22,7 +21,6 @@ const (
 
 // Index creates gen.libsonnet, the index of all generated artifacts
 func Index(groups map[string]model.Group, dir string) j.ObjectType {
-	fmt.Println("dir", dir)
 	fields := []j.Type{
 		d.Import(),
 		d.Pkg("k", path.Join("github.com/jsonnet-libs/k8s-alpha", dir, "main.libsonnet"), "Generated Kubernetes library"),
