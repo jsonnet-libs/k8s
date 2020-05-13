@@ -31,22 +31,22 @@ func Args(s ...string) []j.Type {
 }
 
 func Func(name, help string, args []j.Type) j.Type {
-	return j.Call("#"+name, "d.fn", j.Args(
+	return j.Hidden(j.Call("#"+name, "d.fn", j.Args(
 		j.String("help", help),
 		j.List("args", args...),
-	))
+	)))
 }
 
 func Obj(name, help string) j.Type {
-	return j.Call("#"+name, "d.obj", j.Args(
+	return j.Hidden(j.Call("#"+name, "d.obj", j.Args(
 		j.String("help", help),
-	))
+	)))
 }
 
 func Pkg(name, url, help string) j.Type {
-	return j.Call("#", "d.pkg", j.Args(
+	return j.Hidden(j.Call("#", "d.pkg", j.Args(
 		j.String("name", name),
 		j.String("url", url),
 		j.String("help", help),
-	))
+	)))
 }
