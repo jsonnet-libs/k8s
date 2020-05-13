@@ -1,3 +1,5 @@
+local d = import 'doc-util/main.libsonnet';
+
 local fn = {
   mapContainers(f):: {
     local podContainers = super.spec.template.spec.containers,
@@ -17,7 +19,21 @@ local fn = {
 };
 
 local patch = {
+  '#mapContainers': d.fn(
+    |||
+      `mapContainers` applies the function f to each container.
+      It works exactly as `std.map`, but on the containers of this object.
+
+      **Signature of `f`**:
+      ```ts
+      f(container: Object) Object
+      ```
+    |||,
+    [d.arg("f", d.T.func)]
+  ),
   mapContainers(f):: fn.mapContainers(f),
+
+  '#mapContainersWithName': d.fn("", [d.arg("names", d.T.array), d.arg("f", d.T.func)]),
   mapContainersWithName(names, f):: fn.mapContainersWithName(names, f),
 };
 

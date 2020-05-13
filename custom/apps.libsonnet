@@ -1,5 +1,13 @@
+local d = import 'doc-util/main.libsonnet';
+
 local patch = {
   deployment+: {
+    '#new'+: d.func.withArgs([
+      d.arg('name', d.T.string),
+      d.arg('replicas', d.T.int, 1),
+      d.arg('containers', d.T.array),
+      d.arg('podLabels', d.T.object, { app: 'name' }),
+    ]),
     new(
       name,
       replicas=1,
@@ -12,11 +20,18 @@ local patch = {
   },
 
   statefulSet+: {
+    '#new'+: d.func.withArgs([
+      d.arg('name', d.T.string),
+      d.arg('replicas', d.T.int, 1),
+      d.arg('containers', d.T.array),
+      d.arg('volumeClaims', d.T.array, []),
+      d.arg('podLabels', d.T.object, { app: 'name' }),
+    ]),
     new(
       name,
       replicas=1,
       containers=error 'containers unset',
-      volumeClaims=null,
+      volumeClaims=[],
       podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
     ):: super.new(name)
         + super.spec.withReplicas(replicas)
