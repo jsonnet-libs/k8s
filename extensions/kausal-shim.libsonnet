@@ -30,6 +30,13 @@ local k = import 'k.libsonnet';
 
   local appsAffinityPatch = {
     nodeAffinity+: {
+      requiredDuringSchedulingIgnoredDuringExecutionType: k.core.v1.nodeSelector {
+        new():: {},
+        nodeSelectorTermsType: k.core.v1.nodeSelectorTerm {
+          new():: {},
+          matchFieldsType: k.core.v1.nodeSelectorRequirement,
+        },
+      },
       preferredDuringSchedulingIgnoredDuringExecutionType: k.core.v1.preferredSchedulingTerm {
         new():: {},
         preferenceType: {
@@ -59,6 +66,10 @@ local k = import 'k.libsonnet';
       new():: super.new(''),
       spec+: { template+: { spec+: {
         withHostPid:: self.withHostPID,
+        tolerationsType: k.core.v1.toleration {
+          new():: {},
+        },
+        affinity+: appsAffinityPatch,
       } } },
     },
     statefulSet+: {
@@ -92,8 +103,8 @@ local k = import 'k.libsonnet';
     },
   },
 
-  batch+: { v1beta1+: {
-    cronJob+: {
+  batch+: {
+    local patch = {
       new():: super.new(''),
       mixin+: { spec+: { jobTemplate+: { spec+: { template+: { spec+: {
         imagePullSecretsType: k.core.v1.localObjectReference {
@@ -101,7 +112,16 @@ local k = import 'k.libsonnet';
         },
       } } } } } },
     },
-  } },
+
+    v1+: {
+      job+: patch,
+      cronJob+: patch,
+    },
+    v1beta1+: {
+      job+: patch,
+      cronJob+: patch,
+    },
+  },
 
 
   local rbacPatch = {
