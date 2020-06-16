@@ -42,6 +42,9 @@ local patch = {
 };
 
 {
+  extensions+: {  // old, remove asap
+    v1beta1+: patch,
+  },
   apps+: {
     v1+: patch,
     v1beta1+: patch,

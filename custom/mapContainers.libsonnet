@@ -29,11 +29,11 @@ local patch = {
       f(container: Object) Object
       ```
     |||,
-    [d.arg("f", d.T.func)]
+    [d.arg('f', d.T.func)]
   ),
   mapContainers(f):: fn.mapContainers(f),
 
-  '#mapContainersWithName': d.fn("", [d.arg("names", d.T.array), d.arg("f", d.T.func)]),
+  '#mapContainersWithName': d.fn('', [d.arg('names', d.T.array), d.arg('f', d.T.func)]),
   mapContainersWithName(names, f):: fn.mapContainersWithName(names, f),
 };
 
