@@ -37,16 +37,41 @@ local patch = {
   mapContainersWithName(names, f):: fn.mapContainersWithName(names, f),
 };
 
+local cronFn = fn {
+  mapContainers(f):: {
+    local podContainers = super.spec.jobTemplate.spec.template.spec.containers,
+    spec+: {
+      jobTemplate+: {
+        spec+: {
+          template+: {
+            spec+: {
+              containers: std.map(f, podContainers),
+            },
+          },
+        },
+      },
+    },
+  },
+};
+local cronPatch = patch {
+  mapContainers(f):: cronFn.mapContainers(f),
+  mapContainersWithName(names, f):: cronFn.mapContainersWithName(names, f),
+};
+
 {
   core+: { v1+: {
     pod+: patch,
     podTemplate+: patch,
     replicationController+: patch,
   } },
-  batch+: { v1+: {
-    cronJob+: patch,
-    job+: patch,
-  } },
+  batch+: {
+    v1+: {
+      job+: patch,
+    },
+    v1beta1+: {
+      cronJob+: cronPatch,
+    },
+  },
   apps+: { v1+: {
     daemonSet+: patch,
     deployment+: patch,
