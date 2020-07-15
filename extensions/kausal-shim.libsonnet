@@ -63,7 +63,7 @@ local k = import 'k.libsonnet';
       } } },
     },
     daemonSet+: {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       spec+: { template+: { spec+: {
         withHostPid:: self.withHostPID,
         tolerationsType: k.core.v1.toleration {
@@ -93,7 +93,7 @@ local k = import 'k.libsonnet';
   extensions+: {
     v1beta1+: appsPatch {
       ingress+: {
-        new():: super.new(''),
+        new(name=''):: super.new(name),
         spec+: {
           rulesType: k.extensions.v1beta1.ingressRule {
             httpType+: { pathsType: k.extensions.v1beta1.httpIngressPath },
@@ -105,7 +105,7 @@ local k = import 'k.libsonnet';
 
   batch+: {
     local patch = {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       mixin+: { spec+: { jobTemplate+: { spec+: { template+: { spec+: {
         imagePullSecretsType: k.core.v1.localObjectReference {
           new():: {},
@@ -126,7 +126,7 @@ local k = import 'k.libsonnet';
 
   local rbacPatch = {
     local role = {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       rulesType: k.rbac.v1beta1.policyRule {
         new():: {},
       },
@@ -135,7 +135,7 @@ local k = import 'k.libsonnet';
     clusterRole+: role,
 
     local binding = {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       subjectsType: k.rbac.v1beta1.subject {
         new():: {},
       },
@@ -155,10 +155,10 @@ local k = import 'k.libsonnet';
   policy+: {
     v1beta1+: {
       podDisruptionBudget+: {
-        new():: super.new(''),
+        new(name=''):: super.new(name),
       },
       podSecurityPolicy+: {
-        new():: super.new(''),
+        new(name=''):: super.new(name),
         mixin+: { spec+: {
           runAsUser+: { rangesType: k.policy.v1beta1.idRange { new():: {} } },
           withHostIpc: self.withHostIPC,
@@ -170,13 +170,13 @@ local k = import 'k.libsonnet';
 
   storage+: { v1+: {
     storageClass+: {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
     },
   } },
 
   scheduling+: { v1beta1+: {
     priorityClass+: {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
     },
   } },
 
@@ -194,11 +194,11 @@ local k = import 'k.libsonnet';
       } } },
     },
     mutatingWebhookConfiguration+: {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       webhooksType: webhooksType,
     },
     validatingWebhookConfiguration+: {
-      new():: super.new(''),
+      new(name=''):: super.new(name),
       webhooksType: webhooksType,
     },
   } },
