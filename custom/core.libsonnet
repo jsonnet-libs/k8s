@@ -189,8 +189,10 @@ local d = import 'doc-util/main.libsonnet';
           d.arg('mountPath', d.T.string),
           d.arg('readOnly', d.T.bool),
         ]),
-        new(name, mountPath, readOnly)::
-          super.withName(name) + super.withMountPath(mountPath) + super.withReadOnly(readOnly),
+        new(name, mountPath, readOnly=false)::
+          super.withName(name)
+          + super.withMountPath(mountPath)
+          + (if readOnly then self.withReadOnly(readOnly) else {}),
       },
     },
   },
