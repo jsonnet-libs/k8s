@@ -51,10 +51,15 @@ local d = import 'doc-util/main.libsonnet';
         // using a local here to re-use new, because it is lexically scoped,
         // while `self` is not
         local new(containerPort) = super.withContainerPort(containerPort),
+        local newNamed(containerPort, name) = new(containerPort) + super.withName(name),
         '#new': d.fn('new returns a new `containerPort`', [d.arg('containerPort', d.T.int)]),
         new:: new,
         '#newNamed': d.fn('newNamed works like `new`, but also sets the `name`', [d.arg('containerPort', d.T.int), d.arg('name', d.T.string)]),
-        newNamed(containerPort, name):: new(containerPort) + super.withName(name),
+        newNamed:: newNamed,
+        '#newUDP': d.fn('newUDP works like `new`, but also sets protocal to UDP', [d.arg('containerPort', d.T.int)]),
+        newUDP(containerPort):: new(containerPort) + super.withProtocol('UDP'),
+        '#newNamedUDP': d.fn('newNamedUDP works like `newNamed`, but also sets protocal to UDP', [d.arg('containerPort', d.T.int), d.arg('name', d.T.string)]),
+        newNamedUDP(containerPort, name):: newNamed(containerPort, name) + super.withProtocol('UDP'),
       },
 
       envVar+: {
