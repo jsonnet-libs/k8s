@@ -17,6 +17,24 @@ local d = import 'doc-util/main.libsonnet';
       container+: {
         '#new': d.fn('new returns a new `container` of given `name` and `image`', [d.arg('name', d.T.string), d.arg('image', d.T.string)]),
         new(name, image):: super.withName(name) + super.withImage(image),
+
+        withEnvMixin(env)::
+          // if an envvar has an empty value ("") we want to remove that property
+          // because k8s will remove that and then it would always
+          // show up as a difference.
+          local removeEmptyValue(obj) =
+            if std.objectHas(obj, 'value') && std.length(obj.value) == 0 then
+              {
+                [k]: obj[k]
+                for k in std.objectFields(obj)
+                if k != 'value'
+              }
+            else
+              obj;
+          super.withEnvMixin([
+            removeEmptyValue(envvar)
+            for envvar in env
+          ]),
       },
 
       containerPort+: {
