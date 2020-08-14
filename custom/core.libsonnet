@@ -153,12 +153,20 @@ local d = import 'doc-util/main.libsonnet';
         fromEmptyDir(name, emptyDir={})::
           super.withName(name) + { emptyDir: emptyDir },
 
-        '#fromPersistentVolumeClaim': d.fn('Creates a new volume using a `PersistentVolumeClaim`.\n\n**Note**: `emptyDir` should be `claimName`, but this is inherited from `ksonnet-lib`', [
+        '#fromPersistentVolumeClaim': d.fn('Creates a new volume using a `PersistentVolumeClaim`.', [
           d.arg('name', d.T.string),
-          d.arg('emptyDir', d.T.string),
+          d.arg('claimName', d.T.string),
         ]),
-        fromPersistentVolumeClaim(name, emptyDir)::  // <- emptyDir should be claimName, but ksonnet
-          super.withName(name) + super.persistentVolumeClaim.withClaimName(emptyDir),
+        fromPersistentVolumeClaim(name, claimName='', emptyDir='')::
+          // Note: emptyDir is inherited from ksonnet-lib, this provides backwards compatibility
+          local claim =
+            if (claimName == '' && emptyDir != '')
+            then emptyDir
+            else
+              if claimName == ''
+              then error 'claimName not set'
+              else claimName;
+          super.withName(name) + super.persistentVolumeClaim.withClaimName(claim),
 
         '#fromHostPath': d.fn('Creates a new volume using a `hostPath`', [
           d.arg('name', d.T.string),
