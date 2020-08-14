@@ -137,9 +137,14 @@ local d = import 'doc-util/main.libsonnet';
           d.arg('configMapName', d.T.string),
           d.arg('configMapItems', d.T.array),
         ]),
-        fromConfigMap(name, configMapName, configMapItems)::
+        fromConfigMap(name, configMapName, configMapItems=[])::
           super.withName(name)
-          + super.configMap.withName(configMapName) + super.configMap.withItems(configMapItems),
+          + super.configMap.withName(configMapName)
+          + (
+            if configMapItems != []
+            then super.configMap.withItems(configMapItems)
+            else {}
+          ),
 
         '#fromEmptyDir': d.fn('Creates a new volume of type `emptyDir`', [
           d.arg('name', d.T.string),
