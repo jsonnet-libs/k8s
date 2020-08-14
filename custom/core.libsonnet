@@ -8,7 +8,7 @@ local d = import 'doc-util/main.libsonnet';
         withData:: withData,
 
         '#new': d.fn('new creates a new `ConfigMap` of given `name` and `data`', [d.arg('name', d.T.string), d.arg('data', d.T.object)]),
-        new(name, data)::
+        new(name, data={})::
           super.new(name)
           + super.metadata.withName(name)
           + withData(data),
