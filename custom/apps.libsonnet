@@ -29,11 +29,14 @@ local patch = {
       name,
       replicas=1,
       containers=error 'containers unset',
-      podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
-    ):: super.new(name)
-        + super.spec.withReplicas(replicas)
-        + super.spec.template.spec.withContainers(containers)
-        + super.spec.template.metadata.withLabels(podLabels),
+      podLabels={},
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.withReplicas(replicas)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels),
   },
 
   statefulSet+: {
@@ -49,12 +52,15 @@ local patch = {
       replicas=1,
       containers=error 'containers unset',
       volumeClaims=[],
-      podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
-    ):: super.new(name)
-        + super.spec.withReplicas(replicas)
-        + super.spec.template.spec.withContainers(containers)
-        + super.spec.template.metadata.withLabels(podLabels)
-        + super.spec.withVolumeClaimTemplates(volumeClaims),
+      podLabels={},
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.withReplicas(replicas)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels)
+      + super.spec.withVolumeClaimTemplates(volumeClaims),
   },
 };
 
