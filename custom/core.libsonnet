@@ -35,6 +35,16 @@ local d = import 'doc-util/main.libsonnet';
             removeEmptyValue(envvar)
             for envvar in env
           ]),
+
+        '#withEnvMap': d.fn(
+          '`withEnvMap` works like `withEnvMixin` but accepts a key/value map, this map is converted a list of core.v1.envVar(key, value)`',
+          [d.arg('env', d.T.object)]
+        ),
+        withEnvMap(env)::
+          self.withEnvMixin([
+            $.core.v1.envVar.new(k, env[k])
+            for k in std.objectFields(env)
+          ]),
       },
 
       containerPort+: {
