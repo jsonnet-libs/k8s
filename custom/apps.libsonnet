@@ -1,6 +1,23 @@
 local d = import 'doc-util/main.libsonnet';
 
 local patch = {
+  daemonSet+: {
+    '#new'+: d.fn.withArgs([
+      d.arg('name', d.T.string),
+      d.arg('containers', d.T.array),
+      d.arg('podLabels', d.T.object),
+    ]),
+    new(
+      name,
+      containers='',
+      podLabels={}
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels),
+  },
   deployment+: {
     '#new'+: d.func.withArgs([
       d.arg('name', d.T.string),
