@@ -60,7 +60,14 @@ local patch = {
       + super.spec.template.spec.withContainers(containers)
       + super.spec.template.metadata.withLabels(labels)
       + super.spec.selector.withMatchLabels(labels)
-      + super.spec.withVolumeClaimTemplates(volumeClaims),
+
+      // remove volumeClaimTemplates if empty
+      // (otherwise it will create a diff all the time)
+      + (
+        if std.length(volumeClaims) == 0
+        then super.spec.withVolumeClaimTemplates(volumeClaims)
+        else {}
+      ),
   },
 };
 
