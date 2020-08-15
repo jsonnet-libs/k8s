@@ -7,6 +7,9 @@ local d = import 'doc-util/main.libsonnet';
         local withData(data) = if data != {} then super.withData(data) else {},
         withData:: withData,
 
+        local withDataMixin(data) = if data != {} then super.withDataMixin(data) else {},
+        withDataMixin:: withDataMixin,
+
         '#new': d.fn('new creates a new `ConfigMap` of given `name` and `data`', [d.arg('name', d.T.string), d.arg('data', d.T.object)]),
         new(name, data={})::
           super.new(name)

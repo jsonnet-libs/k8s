@@ -19,6 +19,4 @@ local patch = {
     v1alpha1+: patch,
     v1beta1+: patch,
   },
-
-
 }
