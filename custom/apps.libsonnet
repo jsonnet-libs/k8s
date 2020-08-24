@@ -1,6 +1,23 @@
 local d = import 'doc-util/main.libsonnet';
 
 local patch = {
+  daemonSet+: {
+    '#new'+: d.fn.withArgs([
+      d.arg('name', d.T.string),
+      d.arg('containers', d.T.array),
+      d.arg('podLabels', d.T.object),
+    ]),
+    new(
+      name,
+      containers='',
+      podLabels={}
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels),
+  },
   deployment+: {
     '#new'+: d.func.withArgs([
       d.arg('name', d.T.string),
@@ -12,11 +29,14 @@ local patch = {
       name,
       replicas=1,
       containers=error 'containers unset',
-      podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
-    ):: super.new(name)
-        + super.spec.withReplicas(replicas)
-        + super.spec.template.spec.withContainers(containers)
-        + super.spec.template.metadata.withLabels(podLabels),
+      podLabels={},
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.withReplicas(replicas)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels),
   },
 
   statefulSet+: {
@@ -32,12 +52,22 @@ local patch = {
       replicas=1,
       containers=error 'containers unset',
       volumeClaims=[],
-      podLabels={ app: 'name' },  // <- This is weird, but ksonnet did it
-    ):: super.new(name)
-        + super.spec.withReplicas(replicas)
-        + super.spec.template.spec.withContainers(containers)
-        + super.spec.template.metadata.withLabels(podLabels)
-        + super.spec.withVolumeClaimTemplates(volumeClaims),
+      podLabels={},
+    )::
+      local labels = podLabels { name: name };
+      super.new(name)
+      + super.spec.withReplicas(replicas)
+      + super.spec.template.spec.withContainers(containers)
+      + super.spec.template.metadata.withLabels(labels)
+      + super.spec.selector.withMatchLabels(labels)
+
+      // remove volumeClaimTemplates if empty
+      // (otherwise it will create a diff all the time)
+      + (
+        if std.length(volumeClaims) > 0
+        then super.spec.withVolumeClaimTemplates(volumeClaims)
+        else {}
+      ),
   },
 };
 

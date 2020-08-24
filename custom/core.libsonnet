@@ -7,8 +7,11 @@ local d = import 'doc-util/main.libsonnet';
         local withData(data) = if data != {} then super.withData(data) else {},
         withData:: withData,
 
+        local withDataMixin(data) = if data != {} then super.withDataMixin(data) else {},
+        withDataMixin:: withDataMixin,
+
         '#new': d.fn('new creates a new `ConfigMap` of given `name` and `data`', [d.arg('name', d.T.string), d.arg('data', d.T.object)]),
-        new(name, data)::
+        new(name, data={})::
           super.new(name)
           + super.metadata.withName(name)
           + withData(data),
@@ -17,16 +20,49 @@ local d = import 'doc-util/main.libsonnet';
       container+: {
         '#new': d.fn('new returns a new `container` of given `name` and `image`', [d.arg('name', d.T.string), d.arg('image', d.T.string)]),
         new(name, image):: super.withName(name) + super.withImage(image),
+
+        withEnvMixin(env)::
+          // if an envvar has an empty value ("") we want to remove that property
+          // because k8s will remove that and then it would always
+          // show up as a difference.
+          local removeEmptyValue(obj) =
+            if std.objectHas(obj, 'value') && std.length(obj.value) == 0 then
+              {
+                [k]: obj[k]
+                for k in std.objectFields(obj)
+                if k != 'value'
+              }
+            else
+              obj;
+          super.withEnvMixin([
+            removeEmptyValue(envvar)
+            for envvar in env
+          ]),
+
+        '#withEnvMap': d.fn(
+          '`withEnvMap` works like `withEnvMixin` but accepts a key/value map, this map is converted a list of core.v1.envVar(key, value)`',
+          [d.arg('env', d.T.object)]
+        ),
+        withEnvMap(env)::
+          self.withEnvMixin([
+            $.core.v1.envVar.new(k, env[k])
+            for k in std.objectFields(env)
+          ]),
       },
 
       containerPort+: {
         // using a local here to re-use new, because it is lexically scoped,
         // while `self` is not
         local new(containerPort) = super.withContainerPort(containerPort),
+        local newNamed(containerPort, name) = new(containerPort) + super.withName(name),
         '#new': d.fn('new returns a new `containerPort`', [d.arg('containerPort', d.T.int)]),
         new:: new,
         '#newNamed': d.fn('newNamed works like `new`, but also sets the `name`', [d.arg('containerPort', d.T.int), d.arg('name', d.T.string)]),
-        newNamed(containerPort, name):: new(containerPort) + super.withName(name),
+        newNamed:: newNamed,
+        '#newUDP': d.fn('newUDP works like `new`, but also sets protocal to UDP', [d.arg('containerPort', d.T.int)]),
+        newUDP(containerPort):: new(containerPort) + super.withProtocol('UDP'),
+        '#newNamedUDP': d.fn('newNamedUDP works like `newNamed`, but also sets protocal to UDP', [d.arg('containerPort', d.T.int), d.arg('name', d.T.string)]),
+        newNamedUDP(containerPort, name):: newNamed(containerPort, name) + super.withProtocol('UDP'),
       },
 
       envVar+: {
@@ -104,9 +140,14 @@ local d = import 'doc-util/main.libsonnet';
           d.arg('configMapName', d.T.string),
           d.arg('configMapItems', d.T.array),
         ]),
-        fromConfigMap(name, configMapName, configMapItems)::
+        fromConfigMap(name, configMapName, configMapItems=[])::
           super.withName(name)
-          + super.configMap.withName(configMapName) + super.configMap.withItems(configMapItems),
+          + super.configMap.withName(configMapName)
+          + (
+            if configMapItems != []
+            then super.configMap.withItems(configMapItems)
+            else {}
+          ),
 
         '#fromEmptyDir': d.fn('Creates a new volume of type `emptyDir`', [
           d.arg('name', d.T.string),
@@ -115,12 +156,20 @@ local d = import 'doc-util/main.libsonnet';
         fromEmptyDir(name, emptyDir={})::
           super.withName(name) + { emptyDir: emptyDir },
 
-        '#fromPersistentVolumeClaim': d.fn('Creates a new volume using a `PersistentVolumeClaim`.\n\n**Note**: `emptyDir` should be `claimName`, but this is inherited from `ksonnet-lib`', [
+        '#fromPersistentVolumeClaim': d.fn('Creates a new volume using a `PersistentVolumeClaim`.', [
           d.arg('name', d.T.string),
-          d.arg('emptyDir', d.T.string),
+          d.arg('claimName', d.T.string),
         ]),
-        fromPersistentVolumeClaim(name, emptyDir)::  // <- emptyDir should be claimName, but ksonnet
-          super.withName(name) + super.persistentVolumeClaim.withClaimName(emptyDir),
+        fromPersistentVolumeClaim(name, claimName='', emptyDir='')::
+          // Note: emptyDir is inherited from ksonnet-lib, this provides backwards compatibility
+          local claim =
+            if (claimName == '' && emptyDir != '')
+            then emptyDir
+            else
+              if claimName == ''
+              then error 'claimName not set'
+              else claimName;
+          super.withName(name) + super.persistentVolumeClaim.withClaimName(claim),
 
         '#fromHostPath': d.fn('Creates a new volume using a `hostPath`', [
           d.arg('name', d.T.string),
@@ -143,8 +192,10 @@ local d = import 'doc-util/main.libsonnet';
           d.arg('mountPath', d.T.string),
           d.arg('readOnly', d.T.bool),
         ]),
-        new(name, mountPath, readOnly)::
-          super.withName(name) + super.withMountPath(mountPath) + super.withReadOnly(readOnly),
+        new(name, mountPath, readOnly=false)::
+          super.withName(name)
+          + super.withMountPath(mountPath)
+          + (if readOnly then self.withReadOnly(readOnly) else {}),
       },
     },
   },
