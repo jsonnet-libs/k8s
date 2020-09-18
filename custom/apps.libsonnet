@@ -5,7 +5,7 @@ local patch = {
     '#new'+: d.func.withArgs([
       d.arg('name', d.T.string),
       d.arg('containers', d.T.array),
-      d.arg('podLabels', d.T.object),
+      d.arg('podLabels', d.T.object, {}),
     ]),
     new(
       name,
@@ -23,7 +23,7 @@ local patch = {
       d.arg('name', d.T.string),
       d.arg('replicas', d.T.int, 1),
       d.arg('containers', d.T.array),
-      d.arg('podLabels', d.T.object, { app: 'name' }),
+      d.arg('podLabels', d.T.object, {}),
     ]),
     new(
       name,
@@ -45,7 +45,7 @@ local patch = {
       d.arg('replicas', d.T.int, 1),
       d.arg('containers', d.T.array),
       d.arg('volumeClaims', d.T.array, []),
-      d.arg('podLabels', d.T.object, { app: 'name' }),
+      d.arg('podLabels', d.T.object, {}),
     ]),
     new(
       name,
