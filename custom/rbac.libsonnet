@@ -4,7 +4,7 @@ local patch = {
   subject+: {
     '#fromServiceAccount': d.fn(
       '`fromServiceAccount` returns a subject for a service account.',
-      [d.arg('service_account', d.T.Object)]
+      [d.arg('service_account', d.T.object)]
     ),
     fromServiceAccount(service_account)::
       super.withKind('ServiceAccount') +

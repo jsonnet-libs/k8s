@@ -2,7 +2,7 @@ local d = import 'doc-util/main.libsonnet';
 
 local patch = {
   daemonSet+: {
-    '#new'+: d.fn.withArgs([
+    '#new'+: d.func.withArgs([
       d.arg('name', d.T.string),
       d.arg('containers', d.T.array),
       d.arg('podLabels', d.T.object),

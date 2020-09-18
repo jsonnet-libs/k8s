@@ -2,7 +2,7 @@ local d = import 'doc-util/main.libsonnet';
 
 local patch = {
   cronJob+: {
-    '#new'+: d.fn.withArgs([
+    '#new'+: d.func.withArgs([
       d.arg('name', d.T.string),
       d.arg('schedule', d.T.string),
       d.arg('containers', d.T.array),
