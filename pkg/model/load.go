@@ -9,9 +9,10 @@ import (
 
 var expr = regexp.MustCompile(`(?mU)(?P<domain>io\.k8s\.api)\.(?P<group>.*)\.(?P<version>.*)\.(?P<kind>.*)$`)
 
+// Short handles for longer types
 const (
-	ListMetaId   = "io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
-	ObjectMetaId = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+	ListMetaID   = "io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+	ObjectMetaID = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
 )
 
 // Load parses swagger definitions into the data model
@@ -25,7 +26,7 @@ func Load(swag *swagger.Swagger) map[string]Group {
 		if meta == nil || meta.DollarRef == nil {
 			return true
 		}
-		return meta.Ref() != ListMetaId
+		return meta.Ref() != ListMetaID
 	})
 
 	ids := transform(defs)
