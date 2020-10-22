@@ -113,7 +113,7 @@ type Kind struct {
 	New *Constructor `json:"new"`
 
 	// modifiers
-	Modifiers modifiers `json:"modifiers"`
+	Modifiers modifiers `json:"modifiers,omitempty"`
 }
 
 // APIVersion constructs the full api path for a group
