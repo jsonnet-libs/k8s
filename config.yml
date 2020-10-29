@@ -1,15 +1,31 @@
 specs:
 
-# Kubernetes core APIs
-- output: 'gen/local'
-  openapi: http://localhost:8001/openapi/v2
+- output: 'gen/1.14'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/api/openapi-spec/swagger.json
   prefix: io.k8s.api
   patchDir: custom/core
   extensionDir: extensions/core
 
-# Kubernetes (istio)
-- output: 'gen/local-istio'
-  openapi: http://localhost:8001/openapi/v2
-  prefix: io.istio
-  patchDir: custom/istio
-  extensionDir: extensions/istio
+- output: 'gen/1.15'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.15/api/openapi-spec/swagger.json
+  prefix: io.k8s.api
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: 'gen/1.16'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.16/api/openapi-spec/swagger.json
+  prefix: io.k8s.api
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: 'gen/1.17'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.17/api/openapi-spec/swagger.json
+  prefix: io.k8s.api
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: 'gen/1.18'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.18/api/openapi-spec/swagger.json
+  prefix: io.k8s.api
+  patchDir: custom/core
+  extensionDir: extensions/core
