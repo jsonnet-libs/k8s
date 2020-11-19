@@ -8,7 +8,7 @@ import (
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
-var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.(?P<group>.*)\.(?P<version>.*)\.(?P<kind>.*)$`)
+var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.(?P<group>\w*)\.(?P<version>\w*)\.(?P<kind>\w*)$`)
 
 // Short handles for longer types
 const (
