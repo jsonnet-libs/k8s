@@ -13,8 +13,18 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Target defines an API subset to generate
+type Target struct {
+	Output       string `yaml:"output"`
+	Openapi      string `yaml:"openapi"`
+	Prefix       string `yaml:"prefix"`
+	PatchDir     string `yaml:"patchDir"`
+	ExtensionDir string `yaml:"extensionDir"`
+}
+
+// Config holds settings for this generator
 type Config struct {
-	Specs map[string]string `yaml:"specs"`
+	Specs []Target `yaml:"specs"`
 }
 
 func main() {
@@ -25,30 +35,27 @@ func main() {
 	}
 
 	configFile := cmd.Flags().StringP("config", "c", "config.yml", "YAML configuration file")
-	custom := cmd.Flags().String("custom", "custom", "path to patches")
-	ext := cmd.Flags().String("ext", "extensions", "path to extensions")
 	output := cmd.Flags().StringP("output", "o", ".", "directory to put artifacts into")
 
 	cmd.Run = func(cmd *cli.Command, args []string) error {
 		config := loadConfig(*configFile)
 
-		for dir, spec := range config.Specs {
-			if len(args) > 0 && !hasStr(args, dir) {
+		for _, t := range config.Specs {
+			if len(args) > 0 && !hasStr(args, t.Output) {
 				continue
 			}
 
-			log.Printf("Generating '%s' from '%s'", dir, spec)
+			log.Printf("Generating '%s' from '%s, %s.*'", t.Output, t.Openapi, t.Prefix)
 
-			s, err := swagger.LoadHTTP(spec)
+			s, err := swagger.LoadHTTP(t.Openapi)
 			if err != nil {
 				return err
 			}
 
-			groups := model.Load(s)
-			path := filepath.Join(*output, dir)
-			renderJsonnet(path, groups, *custom, *ext)
+			groups := model.Load(s, t.Prefix)
+			path := filepath.Join(*output, t.Output)
+			renderJsonnet(path, groups, t.PatchDir, t.ExtensionDir)
 		}
-
 		return nil
 	}
 

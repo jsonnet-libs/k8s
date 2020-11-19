@@ -5,3 +5,5 @@ main.jsonnet
 spec.json
 vendor
 k8s
+.vscode/
+gen/

@@ -11,6 +11,8 @@ import (
 
 // Group represents a group, like "core" or "apps"
 type Group map[string]Version
+
+// IDs represents a group name -> group mapping constructed by
 type IDs map[string]map[string]string
 
 // newGroups creates all Groups from the swagger definitions
@@ -26,7 +28,7 @@ func newGroups(defs swagger.Definitions, ids IDs) map[string]Group {
 			xp := regexp.QuoteMeta(id + ".")
 			v := newVersion(defs.Sub(xp))
 
-			v.ApiVersion = apiVersion(groupName, versionName)
+			v.APIVersion = apiVersion(groupName, versionName)
 			g[versionName] = v
 		}
 
@@ -47,13 +49,14 @@ func apiVersion(group, version string) string {
 
 // Version represents a specific version of the API, like "apps/v1" or "core/v1"
 type Version struct {
-	ApiVersion string
+	APIVersion string
 	Kinds      map[string]Kind
 }
 
+// MarshalJSON marsals wraps json.Marshal and adds the `_apiVersion` field
 func (v Version) MarshalJSON() ([]byte, error) {
 	data := map[string]interface{}{
-		"_apiVersion": v.ApiVersion,
+		"_apiVersion": v.APIVersion,
 	}
 	for k, v := range v.Kinds {
 		data[k] = v
@@ -61,6 +64,7 @@ func (v Version) MarshalJSON() ([]byte, error) {
 	return json.Marshal(data)
 }
 
+// UnmarshalJSON wraps json.Unmarshal and decodes the "private" `_apiVersion` field
 func (v *Version) UnmarshalJSON(d []byte) error {
 	data := make(map[string]interface{})
 	if err := json.Unmarshal(d, &data); err != nil {
@@ -68,7 +72,7 @@ func (v *Version) UnmarshalJSON(d []byte) error {
 	}
 
 	if val, ok := data["_apiVersion"]; ok {
-		v.ApiVersion = val.(string)
+		v.APIVersion = val.(string)
 	}
 	delete(data, "_apiVersion")
 
@@ -109,10 +113,11 @@ type Kind struct {
 	New *Constructor `json:"new"`
 
 	// modifiers
-	Modifiers modifiers `json:"modifiers"`
+	Modifiers modifiers `json:"modifiers,omitempty"`
 }
 
-func (k Kind) ApiVersion() string {
+// APIVersion constructs the full api path for a group
+func (k Kind) APIVersion() string {
 	if k.Group == "" {
 		return k.Version
 	}

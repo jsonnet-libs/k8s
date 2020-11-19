@@ -30,6 +30,7 @@ type Modifier struct {
 	Type swagger.Type `json:"type"`
 }
 
+// Constructor creates new objects
 type Constructor struct {
 	Help string `json:"help"`
 	// Args are the arguments this constructor takes.
@@ -111,7 +112,7 @@ func fnArg(name string) string {
 	return name
 }
 
-// camelLower returns the string with the word lowercased.
+// CamelLower returns the string with the word lowercased.
 func CamelLower(s string) string {
 	elems := camelcase.Split(s)
 	elems[0] = strings.ToLower(elems[0])
