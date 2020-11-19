@@ -1,9 +1,9 @@
 package builder
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
-	"strings"
 )
 
 // strings
@@ -17,14 +17,11 @@ func String(name, value string) StringType {
 }
 
 func (s StringType) String() string {
-	qs := `'`
-	if strings.Contains(s.value, "'") {
-		qs = `"`
+	data, err := json.Marshal(s.value)
+	if err != nil {
+		panic(err)
 	}
-
-	s.value = strings.Replace(s.value, "\n", `\n`, -1)
-
-	return qs + s.value + qs
+	return string(data)
 }
 
 // ints

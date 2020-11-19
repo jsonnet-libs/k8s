@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/go-clix/cli"
+	"github.com/google/go-jsonnet/formatter"
 	"github.com/jsonnet-libs/k8s/pkg/model"
 	"github.com/jsonnet-libs/k8s/pkg/render"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
@@ -96,7 +97,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir 
 	// gen.libsonnet
 	index := render.Index(groups, filepath.Base(dir))
 	indexFile := filepath.Join(dir, render.IndexFile)
-	if err := ioutil.WriteFile(indexFile, []byte(index.String()), 0644); err != nil {
+	if err := writeJsonnet(indexFile, index.String()); err != nil {
 		log.Fatalln("writing gen.libsonnet:", err)
 	}
 
@@ -111,7 +112,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir 
 		for fn, o := range g {
 			file := filepath.Join(gen, name, fn)
 			os.MkdirAll(filepath.Dir(file), os.ModePerm)
-			if err := ioutil.WriteFile(file, []byte(o.String()), 0644); err != nil {
+			if err := writeJsonnet(file, o.String()); err != nil {
 				log.Fatalln(err)
 			}
 		}
@@ -130,10 +131,19 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir 
 	// main.libsonnet
 	main := render.Main(adds)
 	mainFile := filepath.Join(dir, render.MainFile)
-	if err := ioutil.WriteFile(mainFile, []byte(main.String()), 0644); err != nil {
+	if err := writeJsonnet(mainFile, main.String()); err != nil {
 		log.Fatalln(err)
 	}
 
+}
+
+func writeJsonnet(to, data string) error {
+	s, err := formatter.Format("", data, formatter.DefaultOptions())
+	if err != nil {
+		panic(err)
+	}
+
+	return ioutil.WriteFile(to, []byte(s), 0644)
 }
 
 func copyDirLibsonnet(dir, to string) ([]string, error) {
