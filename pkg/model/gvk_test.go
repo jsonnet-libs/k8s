@@ -11,7 +11,7 @@ import (
 
 func TestVersionRemarshal(t *testing.T) {
 	version := Version{
-		ApiVersion: "apps/v1",
+		APIVersion: "apps/v1",
 		Kinds: map[string]Kind{
 			"deployment": {
 				Help: "Deployments deploy things",

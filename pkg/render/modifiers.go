@@ -11,9 +11,11 @@ import (
 )
 
 const (
-	LocalApiVersion = "_apiVersion"
+	// LocalAPIVersion references a "private: json field containing the APIVersion
+	LocalAPIVersion = "_apiVersion"
 )
 
+// Modifier retrieves the correct modifier(s) for a given type
 func Modifier(name string, i interface{}) []j.Type {
 	switch t := i.(type) {
 	case model.Modifier:

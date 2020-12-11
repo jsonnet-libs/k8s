@@ -3,19 +3,21 @@ package model
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
-var expr = regexp.MustCompile(`(?mU)(?P<domain>io\.k8s\.api)\.(?P<group>.*)\.(?P<version>.*)\.(?P<kind>.*)$`)
+var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.(?P<group>\w*)\.(?P<version>\w*)\.(?P<kind>\w*)$`)
 
+// Short handles for longer types
 const (
-	ListMetaId   = "io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
-	ObjectMetaId = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+	ListMetaID   = "io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+	ObjectMetaID = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
 )
 
 // Load parses swagger definitions into the data model
-func Load(swag *swagger.Swagger) map[string]Group {
+func Load(swag *swagger.Swagger, prefix string) map[string]Group {
 	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
 		if !expr.MatchString(k) {
 			return false
@@ -23,9 +25,10 @@ func Load(swag *swagger.Swagger) map[string]Group {
 
 		meta := v.Props["metadata"]
 		if meta == nil || meta.DollarRef == nil {
-			return true
+			// Check if domain is in the prefix whitelist
+			return strings.HasPrefix(k, prefix)
 		}
-		return meta.Ref() != ListMetaId
+		return meta.Ref() != ListMetaID
 	})
 
 	ids := transform(defs)

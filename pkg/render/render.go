@@ -10,6 +10,7 @@ import (
 	"github.com/jsonnet-libs/k8s/pkg/model"
 )
 
+// Common set of directory structure / file extensions
 const (
 	ExtPrefix    = "extensions"
 	CustomPrefix = "_custom"
@@ -59,6 +60,7 @@ func Main(adds []string) j.Type {
 // the filesystem
 type Objects map[string]j.ObjectType
 
+// Add appends a jsonnet object to an object
 func (o Objects) Add(prefix string, set Objects) {
 	for k, v := range set {
 		o[filepath.Join(prefix, k)] = v
@@ -124,7 +126,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 
 	// perhaps constructor
 	if k.New != nil {
-		fn := constructor(*k.New, strings.Title(name), k.ApiVersion())
+		fn := constructor(*k.New, strings.Title(name), k.APIVersion())
 		doc := d.Func("new", k.New.Help, d.Args("name", "string"))
 		fields = append(fields, fn, doc)
 	}

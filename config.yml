@@ -1,6 +1,37 @@
 specs:
-  1.14: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/api/openapi-spec/swagger.json
-  1.15: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.15/api/openapi-spec/swagger.json
-  1.16: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.16/api/openapi-spec/swagger.json
-  1.17: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.17/api/openapi-spec/swagger.json
-  1.18: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.18/api/openapi-spec/swagger.json
+
+- output: '1.14'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: '1.15'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.15/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: '1.16'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.16/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: '1.17'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.17/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: '1.18'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.18/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
+
+- output: '1.19'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.19/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
