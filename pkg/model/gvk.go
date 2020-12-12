@@ -197,6 +197,9 @@ func safeStr(s string) string {
 	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
 		return strings.Replace(s, `"`, `'`, -1)
 	}
+	if strings.Contains(s, `\`) {
+		return strings.Replace(s, `\`, `\\`, -1)
+	}
 
 	return s
 }
