@@ -4,6 +4,7 @@ local d = import 'doc-util/main.libsonnet';
   core+: {
     v1+: {
       list: {
+        '#':: d.pkg(name='list', url='', help='List represents a generic list of items.'),
         '#new': d.fn(
           '`new` returns an instance of List.',
           [d.arg('items', d.T.array)]
