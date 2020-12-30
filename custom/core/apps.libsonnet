@@ -12,7 +12,7 @@ local patch = {
       containers='',
       podLabels={}
     )::
-      local labels = podLabels { name: name };
+      local labels = { name: name } + podLabels;
       super.new(name)
       + super.spec.template.spec.withContainers(containers)
       + super.spec.template.metadata.withLabels(labels)
@@ -31,7 +31,7 @@ local patch = {
       containers=error 'containers unset',
       podLabels={},
     )::
-      local labels = podLabels { name: name };
+      local labels = { name: name } + podLabels;
       super.new(name)
       + super.spec.withReplicas(replicas)
       + super.spec.template.spec.withContainers(containers)
@@ -54,7 +54,7 @@ local patch = {
       volumeClaims=[],
       podLabels={},
     )::
-      local labels = podLabels { name: name };
+      local labels = { name: name } + podLabels;
       super.new(name)
       + super.spec.withReplicas(replicas)
       + super.spec.template.spec.withContainers(containers)
