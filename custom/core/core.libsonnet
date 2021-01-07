@@ -93,6 +93,18 @@ local d = import 'doc-util/main.libsonnet';
         new(key, path):: super.withKey(key) + super.withPath(path),
       },
 
+      persistentVolume+: {
+        '#new':: d.fn(help='new returns an instance of Persistentvolume', args=[d.arg(name='name', type=d.T.string)]),
+        new(name=''): {
+          apiVersion: 'v1',
+          kind: 'PersistentVolume',
+        } + (
+          if name != ''
+          then self.metadata.withName(name=name)
+          else {}
+        ),
+      },
+
       secret+:: {
         '#new'+: d.func.withArgs([
           d.arg('name', d.T.string),
