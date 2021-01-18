@@ -63,6 +63,8 @@ Extensions can be applied as so:
 + (import "github.com/jsonnet-libs/k8s/extensions/<name>.libsonnet")
 ```
 
-| Name                     | Description                                                                                                                                                                                                                                |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kausal-shim.libsonnnet` | Implements some internals of the `ksonnet-lib` API, so that the `ksonnet-util/kausal.libsonnet` library continues to work without changes. Because this is very hacky, we should refactor `kausal.libsonnnet` as soon as possible instead. |
+Current Patches:
+```
+extensions/
+└── istio                        # Placeholder for istio CRD support
+```
