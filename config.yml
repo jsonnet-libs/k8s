@@ -35,3 +35,9 @@ specs:
   prefix: io.k8s.api.
   patchDir: custom/core
   extensionDir: extensions/core
+
+- output: '1.20'
+  openapi: https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.20/api/openapi-spec/swagger.json
+  prefix: io.k8s.api.
+  patchDir: custom/core
+  extensionDir: extensions/core
