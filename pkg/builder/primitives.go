@@ -24,6 +24,20 @@ func (s StringType) String() string {
 	return string(data)
 }
 
+// floats
+type FloatType struct {
+	named
+	value float64
+}
+
+func Float(name string, value float64) FloatType {
+	return FloatType{named: named(name), value: value}
+}
+
+func (f FloatType) String() string {
+	return fmt.Sprintf("%f", f.value)
+}
+
 // ints
 type IntType struct {
 	named
