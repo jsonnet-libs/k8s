@@ -64,6 +64,7 @@ local d = import 'doc-util/main.libsonnet';
         ['%s-hash' % name]: hash,
       }),
 
+
     '#hostVolumeMount': d.fn(
       '`hostVolumeMount` mounts a `hostPath` into all container on `path`.'
       + volumeMountDescription,
@@ -86,6 +87,7 @@ local d = import 'doc-util/main.libsonnet';
         volume.fromHostPath(name, hostPath),
       ]),
 
+
     '#pvcVolumeMount': d.fn(
       '`hostVolumeMount` mounts a PersistentVolumeClaim by `name` into all container on `path`.'
       + volumeMountDescription,
@@ -106,6 +108,7 @@ local d = import 'doc-util/main.libsonnet';
       super.spec.template.spec.withVolumesMixin([
         volume.fromPersistentVolumeClaim(name, name),
       ]),
+
 
     '#secretVolumeMount': d.fn(
       '`secretVolumeMount` mounts a Secret by `name` into all container on `path`.'
@@ -128,6 +131,7 @@ local d = import 'doc-util/main.libsonnet';
         volume.fromSecret(name, secretName=name) +
         volume.secret.withDefaultMode(defaultMode),
       ]),
+
 
     '#emptyVolumeMount': d.fn(
       '`emptyVolumeMount` mounts empty volume by `name` into all container on `path`.'
