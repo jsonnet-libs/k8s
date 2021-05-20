@@ -53,7 +53,7 @@ custom/
 ### Extensions
 
 Extensions serve a similar purpose as `custom/` patches, but are **not
-automatically applied**. However they are still part of the final artifact, but
+automatically applied**. However, they are still part of the final artifact, but
 need to added by the user themselves.
 
 Extensions can be applied as so:
@@ -66,5 +66,6 @@ Extensions can be applied as so:
 Current Patches:
 ```
 extensions/
+├── core                         # Placeholder for core extensions
 └── istio                        # Placeholder for istio CRD support
 ```
