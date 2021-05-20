@@ -9,7 +9,7 @@ local patch = {
     ]),
     new(
       name,
-      containers='',
+      containers=[],
       podLabels={}
     )::
       local labels = { name: name } + podLabels;
