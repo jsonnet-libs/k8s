@@ -2,10 +2,12 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+DATADIR=$(mktemp -d)
+
 $(which k3s) \
 server \
---write-kubeconfig=/k3s-config/kube-config.yaml \
---data-dir=/data \
+--write-kubeconfig="${KUBECONFIG}" \
+--data-dir="${DATADIR}" \
 --disable=traefik,servicelb,metrics-server,local-storage \
 --disable-network-policy \
 --disable-agent \

@@ -2,21 +2,38 @@
 set -euo pipefail
 set -x
 
-export KUBECONFIG=/k3s-config/kube-config.yaml
 CRDS=$(yq e '.specs[]|select(has("crd"))|.crd' - < "$1")
-echo $CRDS
+
+CRDFILE=$(mktemp)
+API_LOGFILE=$(mktemp)
 
 if [ -n "$CRDS" ]; then
-    ./bare-k3s &
-    echo "---" > crds.yml
+    ./bare-k3s >"${API_LOGFILE}" 2>&1 &
+    echo "---" > "${CRDFILE}"
     for URL in ${CRDS}; do
-        curl -s "${URL}" >> crds.yml
+        echo "Downloading ${URL}..."
+        curl -s "${URL}" >> "${CRDFILE}"
     done
 
-    sleep 10
+    server_up() {
+        local i
+        for i in $(seq 1 10); do
+          local out
+          if out=$(kubectl get --raw /healthz 2>/dev/null); then
+            echo "On try ${i}: ${out}"
+            return 0
+          fi
+          sleep 1
+        done
+    }
+
+    if ! server_up; then
+      tail -10 "${API_LOGFILE}" >&2 || :
+      exit 1
+    fi
 
     # Raw manifest
-    kubectl apply -f crds.yml
+    kubectl apply -f "${CRDFILE}"
 
     # OR with Tanka
     #tk export ./manifests .
@@ -24,7 +41,8 @@ if [ -n "$CRDS" ]; then
     #kubectl apply -f ./manifests
 
     kubectl proxy &
-    sleep 5
+
+    sleep 120 # Waiting for /openapi/v2 reconciliation
 fi
 
 k8s-gen -o /output -c "$1"

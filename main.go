@@ -22,6 +22,9 @@ type Target struct {
 	Prefix       string `yaml:"prefix"`
 	PatchDir     string `yaml:"patchDir"`
 	ExtensionDir string `yaml:"extensionDir"`
+	LocalName    string `yaml:"localName"`
+	Repository   string `yaml:"repository"`
+	Description  string `yaml:"description"`
 }
 
 // Config holds settings for this generator
@@ -47,7 +50,7 @@ func main() {
 				continue
 			}
 
-			log.Printf("Generating '%s' from '%s, %s.*'", t.Output, t.Openapi, t.Prefix)
+			log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
 
 			s, err := swagger.LoadHTTP(t.Openapi)
 			if err != nil {
@@ -96,7 +99,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 	}
 
 	// gen.libsonnet
-	index := render.Index(groups, filepath.Base(dir))
+	index := render.Index(groups, target.LocalName, target.Repository, filepath.Base(dir), target.Description)
 	indexFile := filepath.Join(dir, render.IndexFile)
 	if err := writeJsonnet(indexFile, index.String()); err != nil {
 		log.Fatalln("writing gen.libsonnet:", err)
@@ -150,7 +153,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 func writeJsonnet(to, data string) error {
 	s, err := formatter.Format("", data, formatter.DefaultOptions())
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	return ioutil.WriteFile(to, []byte(s), 0644)

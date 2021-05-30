@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"regexp"
-	"strings"
 
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
@@ -18,6 +17,7 @@ const (
 
 // Load parses swagger definitions into the data model
 func Load(swag *swagger.Swagger, prefix string) map[string]Group {
+	var prefixExpr = regexp.MustCompile(prefix)
 	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
 		if !expr.MatchString(k) {
 			return false
@@ -25,8 +25,8 @@ func Load(swag *swagger.Swagger, prefix string) map[string]Group {
 
 		meta := v.Props["metadata"]
 		if meta == nil || meta.DollarRef == nil {
-			// Check if domain is in the prefix whitelist
-			return strings.HasPrefix(k, prefix)
+			// Check if domain is in the prefix regex
+			return prefixExpr.MatchString(k)
 		}
 		return meta.Ref() != ListMetaID
 	})
