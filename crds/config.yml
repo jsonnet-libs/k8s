@@ -1,0 +1,16 @@
+specs:
+
+- output: 'crossplane/0.17/provider-gcp'
+  openapi: http://localhost:8001/openapi/v2
+  prefix: io.k8s.api.
+  crd: https://doc.crds.dev/raw/github.com/crossplane/provider-gcp@v0.17.0
+
+- output: "istio/1.8"
+  openapi: http://localhost:8001/openapi/v2
+  prefix: io.istio.
+  crd: https://raw.githubusercontent.com/istio/istio/1.8.1/manifests/charts/base/crds/crd-all.gen.yaml
+
+- output: 'cnrm/1.33'
+  openapi: http://localhost:8001/openapi/v2
+  prefix: com.google.cloud.cnrm.
+  crd: https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/1.33.0/install-bundles/install-bundle-workload-identity/crds.yaml

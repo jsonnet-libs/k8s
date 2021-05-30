@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -55,7 +56,7 @@ func main() {
 
 			groups := model.Load(s, t.Prefix)
 			path := filepath.Join(*output, t.Output)
-			renderJsonnet(path, groups, t.PatchDir, t.ExtensionDir)
+			renderJsonnet(path, groups, t)
 		}
 		return nil
 	}
@@ -89,7 +90,7 @@ func loadConfig(file string) Config {
 	return c
 }
 
-func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir string) {
+func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 		log.Fatalln(err)
 	}
@@ -118,14 +119,23 @@ func renderJsonnet(dir string, groups map[string]model.Group, customDir, extDir 
 		}
 	}
 
-	// custom patches
-	adds, err := copyDirLibsonnet(customDir, filepath.Join(dir, render.CustomPrefix))
-	if err != nil {
-		log.Fatalln("Copying custom patches:", err)
+	var adds []string
+	var err error
+
+	customDirStat, err := os.Stat(target.PatchDir)
+	if err == nil && customDirStat.IsDir() {
+		// custom patches
+		adds, err = copyDirLibsonnet(target.PatchDir, filepath.Join(dir, render.CustomPrefix))
+		if err != nil {
+			log.Fatalln("Copying custom patches:", err)
+		}
 	}
 
-	if _, err := copyDirLibsonnet(extDir, filepath.Join(dir, render.ExtPrefix)); err != nil {
-		log.Fatalln("Copying extensions:", err)
+	extDirStat, err := os.Stat(target.ExtensionDir)
+	if err == nil && extDirStat.IsDir() {
+		if _, err := copyDirLibsonnet(target.ExtensionDir, filepath.Join(dir, render.ExtPrefix)); err != nil {
+			log.Fatalln("Copying extensions:", err)
+		}
 	}
 
 	// main.libsonnet
@@ -149,6 +159,9 @@ func writeJsonnet(to, data string) error {
 func copyDirLibsonnet(dir, to string) ([]string, error) {
 	// custom patches
 	var adds []string
+	if _, err := os.Stat(dir); err != nil {
+		return nil, fmt.Errorf("%s does not exist", dir)
+	}
 	filepath.Walk(dir, func(name string, fi os.FileInfo, err error) error {
 		if fi.IsDir() {
 			return nil
