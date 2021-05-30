@@ -32,17 +32,17 @@ if [ -n "$CRDS" ]; then
       exit 1
     fi
 
-    # Raw manifest
     kubectl apply -f "${CRDFILE}"
-
-    # OR with Tanka
-    #tk export ./manifests .
-    #rm -f ./manifests/manifest.json
-    #kubectl apply -f ./manifests
 
     kubectl proxy &
 
-    sleep 120 # Waiting for /openapi/v2 reconciliation
+    # Waiting for /openapi/v2 reconciliation
+    # If we don't wait for this to happen, some CRDs won't show up in the
+    # output, resulting in missing build artifacts on the libraries without
+    # warning or error.
+    # Ideally this script can verify whether all CRDs have been reconciled as
+    # the time it takes might increase with more CRDs added.
+    sleep 120
 fi
 
 k8s-gen -o /output -c "$1"

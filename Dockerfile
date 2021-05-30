@@ -1,4 +1,4 @@
-FROM grafana/tanka:0.15.1 as tanka
+FROM bitnami/kubectl:1.21.1 as kubectl
 FROM rancher/k3s:v1.21.1-k3s1 as k3s
 FROM mikefarah/yq:4.9.3 as yq
 
@@ -25,7 +25,7 @@ WORKDIR /app
 ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
 RUN chmod a+w /app
 
-COPY --from=tanka /usr/local/bin/tk /usr/local/bin/jb /usr/local/bin/kubectl /usr/local/bin/
+COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=k3s /bin/k3s /usr/local/bin
 COPY --from=yq /usr/bin/yq /usr/local/bin
 COPY --from=builder /app/k8s-gen /usr/local/bin
