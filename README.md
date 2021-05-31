@@ -15,21 +15,20 @@ respective Kubernetes versions.
 
 ```bash
 # Generate for all versions
-$ k8s-gen -c k8s-alpha/config.yml
+$ k8s-gen -c libs/k8s-alpha/config.yml
 Generating ...
 
 # Only a subset (e.g. for development)
-$ k8s-gen -c k8s-alpha/config.yml 1.18 1.17
+$ k8s-gen -c libs/k8s-alpha/config.yml 1.18 1.17
 ```
 
 ### Generating from CRDs
 
 With [k3s](https://k3s.io/), it is possible to generate jsonnet libraries from
-CRDs. The scripts and configuration for this are in `crds/` and can be executed
-with a makefile target to run it in a container:
+CRDs.This can be executed with a makefile target to run it in a container:
 
 ```bash
-$ make run INPUT_DIR=crds
+$ make run INPUT_DIR=libs/istio/
 ```
 
 
@@ -43,7 +42,7 @@ For that, `k8s-gen` implements two methods for extending:
 
 ### `custom` patches
 
-The [`custom/`](https://github.com/jsonnet-libs/k8s/tree/master/custom)
+The [`custom/`](https://github.com/jsonnet-libs/k8s/tree/master/libs/k8s-alpha/custom)
 directory contains a set of `.libsonnet` files, that are _automatically merged_
 with the generated result in `main.libsonnet`, so they become part of the
 exported API.
@@ -52,9 +51,10 @@ Current Patches:
 
 ```
 
-k8s-alpha/
+libs/k8s-alpha/
 ├── config.jsonnet                   # Config to generate the k8s-alpha jsonnet libraries
 ├── config.yml                       # Generated from config.jsonnet
+├── README.md.tmpl                   # Template for the index of the generated docs
 └── custom
     └── core
         ├── apps.libsonnet           # Constructors for `core/v1`, ported from `ksonnet-gen` and `kausal.libsonnet`
@@ -76,8 +76,8 @@ need to added by the user themselves.
 Extensions can be applied as so:
 
 ```jsonnet
-(import "github.com/jsonnet-libs/k8s/1.21/main.libsonnet")
-+ (import "github.com/jsonnet-libs/k8s/extensions/<name>.libsonnet")
+(import "github.com/jsonnet-libs/k8s-alpha/1.21/main.libsonnet")
++ (import "github.com/jsonnet-libs/k8s-alpha/extensions/<name>.libsonnet")
 ```
 
 There are currently no extension patches.
