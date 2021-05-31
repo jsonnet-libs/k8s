@@ -2,7 +2,13 @@
 set -euo pipefail
 set -x
 
-CRDS=$(yq e '.specs[]|select(has("crd"))|.crd' - < "$1")
+INPUT_DIR="$1"
+CONFIG_FILE="${INPUT_DIR}/config.yml"
+
+REPO=$(yq e '.repository' - < "${CONFIG_FILE}")
+CRDS=$(yq e '.specs[]|select(has("crd"))|.crd' - < "${CONFIG_FILE}")
+
+OUTPUT_DIR="$2/${REPO}"
 
 CRDFILE=$(mktemp)
 API_LOGFILE=$(mktemp)
@@ -45,4 +51,6 @@ if [ -n "$CRDS" ]; then
     sleep 120
 fi
 
-k8s-gen -o /output -c "$1"
+k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
+
+./docs.sh "${INPUT_DIR}" "${OUTPUT_DIR}"

@@ -4,13 +4,15 @@ IMAGE_NAME ?= k8s-crds
 IMAGE_PREFIX ?= jsonnet-libs
 IMAGE_TAG ?= 0.0.1
 
+INPUT_DIR ?= ${PWD}/libs/k8s-alpha
 OUTPUT_DIR ?= ${PWD}/gen
-INPUT_DIR ?= ${PWD}/k8s-alpha
-JSONNET_FILE ?= ${INPUT_DIR}/config.jsonnet
-CONFIG_FILE ?= ${INPUT_DIR}/config.yml
+
+ABS_INPUT_DIR := $(shell realpath $(INPUT_DIR))
+JSONNET_FILE := $(ABS_INPUT_DIR)/config.jsonnet
+ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
 configure:
-	jsonnet -S $(JSONNET_FILE) > $(CONFIG_FILE)
+	jsonnet -c -m $(ABS_INPUT_DIR) -S $(JSONNET_FILE)
 
 build:
 	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
@@ -18,17 +20,17 @@ build:
 debug: configure build
 	docker run --rm -ti \
 		--user $(shell id -u):$(shell id -g) \
-		-v $(shell dirname $(shell realpath $(CONFIG_FILE))):/config \
-		-v $(OUTPUT_DIR):/output \
+		-v $(ABS_INPUT_DIR):/config \
+		-v $(ABS_OUTPUT_DIR):/output \
 		--entrypoint /bin/bash \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 run: configure build
 	docker run --rm -ti \
 		--user $(shell id -u):$(shell id -g) \
-		-v $(shell dirname $(shell realpath $(CONFIG_FILE))):/config \
-		-v $(OUTPUT_DIR):/output \
-		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config/$(shell basename $(CONFIG_FILE))
+		-v $(ABS_INPUT_DIR):/config \
+		-v $(ABS_OUTPUT_DIR):/output \
+		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 test: build
 

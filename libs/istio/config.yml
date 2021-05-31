@@ -1,0 +1,8 @@
+"repository": "github.com/jsonnet-libs/istio-lib"
+"specs":
+  - "crd": "https://raw.githubusercontent.com/istio/istio/1.8.1/manifests/charts/base/crds/crd-all.gen.yaml"
+    "localName": "istio"
+    "openapi": "http://localhost:8001/openapi/v2"
+    "output": "1.8"
+    "prefix": "^io\\.istio\\..*"
+    "repository": "github.com/jsonnet-libs/istio-lib"
