@@ -153,7 +153,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 func writeJsonnet(to, data string) error {
 	s, err := formatter.Format("", data, formatter.DefaultOptions())
 	if err != nil {
-		return err
+		return fmt.Errorf("%s: %s", err, data)
 	}
 
 	return ioutil.WriteFile(to, []byte(s), 0644)

@@ -7,7 +7,7 @@ import (
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
-var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.(?P<group>\w*)\.(?P<version>\w*)\.(?P<kind>\w*)$`)
+var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.((?P<group>\w*)\.)?(?P<version>\w*)\.(?P<kind>\w*)$`)
 
 // Short handles for longer types
 const (
@@ -52,6 +52,15 @@ func transform(defs swagger.Definitions) IDs {
 
 		groupName := m["group"]
 		versionName := m["version"]
+
+		if groupName == "" {
+			groupName = "nogroup"
+			groups[groupName] = make(map[string]string)
+			groups[groupName][versionName] = fmt.Sprintf("%s.%s",
+				m["domain"], m["version"],
+			)
+			continue
+		}
 
 		if groups[groupName] == nil {
 			groups[groupName] = make(map[string]string)

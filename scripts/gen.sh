@@ -18,7 +18,7 @@ if [ -n "$CRDS" ]; then
     echo "---" > "${CRDFILE}"
     for URL in ${CRDS}; do
         echo "Downloading ${URL}..."
-        curl -s "${URL}" >> "${CRDFILE}"
+        curl -sL "${URL}" >> "${CRDFILE}"
     done
 
     server_up() {
