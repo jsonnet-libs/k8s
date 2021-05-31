@@ -11,7 +11,7 @@ DOCS="${OUTPUT_DIR}/docs"
 
 mkdir -p "${DOCS}"
 
-LIBS=$(yq e '.specs[]|.output' - < "${CONFIG_FILE}")
+LIBS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
 
 cp "${INPUT_DIR}/docs/README.md" "${DOCS}"
 

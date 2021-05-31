@@ -1,6 +1,6 @@
 FROM bitnami/kubectl:1.21.1 as kubectl
 FROM rancher/k3s:v1.21.1-k3s1 as k3s
-FROM mikefarah/yq:4.9.3 as yq
+FROM mikefarah/yq:4.9.3 as yq2
 
 FROM golang:1.15.2 as base
 
@@ -33,7 +33,7 @@ RUN chmod a+w /app
 
 COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=k3s /bin/k3s /usr/local/bin
-COPY --from=yq /usr/bin/yq /usr/local/bin
+COPY --from=yq2 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=builder /app/k8s-gen /usr/local/bin
 COPY --from=docsonnet /go/bin/docsonnet /usr/local/bin
 #

@@ -5,8 +5,8 @@ set -x
 INPUT_DIR="$1"
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
-REPO=$(yq e '.repository' - < "${CONFIG_FILE}")
-CRDS=$(yq e '.specs[]|select(has("crd"))|.crd' - < "${CONFIG_FILE}")
+REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
+CRDS=$(yq2 e '.specs[]|select(has("crd"))|.crd' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
