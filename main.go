@@ -99,7 +99,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 	}
 
 	// gen.libsonnet
-	index := render.Index(groups, target.LocalName, target.Repository, filepath.Base(dir), target.Description)
+	index := render.Index(groups, target.LocalName, target.Repository, target.Output, target.Description)
 	indexFile := filepath.Join(dir, render.IndexFile)
 	if err := writeJsonnet(indexFile, index.String()); err != nil {
 		log.Fatalln("writing gen.libsonnet:", err)
