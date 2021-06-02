@@ -20,7 +20,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o k8s-gen .
 
 FROM golang:1.15.2-alpine3.12 as docsonnet
 
-RUN apk update && apk add git
+RUN apk add --no-cache git
 RUN go get github.com/jsonnet-libs/docsonnet
 RUN go install github.com/sh0rez/docsonnet
 
@@ -37,7 +37,7 @@ COPY --from=yq2 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=builder /app/k8s-gen /usr/local/bin
 COPY --from=docsonnet /go/bin/docsonnet /usr/local/bin
 #
-RUN apk update && apk add bash curl
+RUN apk add --no-cache bash curl
 
 COPY scripts .
 
