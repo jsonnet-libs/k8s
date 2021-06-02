@@ -11,6 +11,8 @@ ABS_INPUT_DIR := $(shell realpath $(INPUT_DIR))
 JSONNET_FILE := $(ABS_INPUT_DIR)/config.jsonnet
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
+# Requires Go implementation of Jsonnet
+# Implementation of `-c` argument pending: https://github.com/google/jsonnet/issues/195
 configure:
 	jsonnet -c -m $(ABS_INPUT_DIR) -S $(JSONNET_FILE)
 

@@ -15,6 +15,7 @@ API_LOGFILE=$(mktemp)
 
 if [ -n "$CRDS" ]; then
     ./bare-k3s >"${API_LOGFILE}" 2>&1 &
+
     echo "---" > "${CRDFILE}"
     for URL in ${CRDS}; do
         echo "Downloading ${URL}..."

@@ -2,7 +2,7 @@ FROM bitnami/kubectl:1.21.1 as kubectl
 FROM rancher/k3s:v1.21.1-k3s1 as k3s
 FROM mikefarah/yq:4.9.3 as yq2
 
-FROM golang:1.15.2 as base
+FROM golang:1.16.4 as base
 
 ENV GO111MODULE=on
 WORKDIR /app
