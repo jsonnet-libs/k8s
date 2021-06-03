@@ -3,6 +3,9 @@ set -euo pipefail
 set -x
 
 INPUT_DIR="$1"
+
+jsonnet -c -m "${INPUT_DIR}" -J /app -S "${INPUT_DIR}/config.jsonnet"
+
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
 REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
@@ -52,6 +55,9 @@ if [ -n "$CRDS" ]; then
     sleep 120
 fi
 
+mkdir -p "${OUTPUT_DIR}"
+
+shopt -s dotglob
 cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"
 
 k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"

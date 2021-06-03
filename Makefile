@@ -1,6 +1,6 @@
-.PHONY: configure build debug run test push push-image
+.PHONY: build debug run test push push-image
 
-IMAGE_NAME ?= k8s-crds
+IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnet-libs
 IMAGE_TAG ?= 0.0.1
 
@@ -11,15 +11,10 @@ ABS_INPUT_DIR := $(shell realpath $(INPUT_DIR))
 JSONNET_FILE := $(ABS_INPUT_DIR)/config.jsonnet
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
-# Requires Go implementation of Jsonnet
-# Implementation of `-c` argument pending: https://github.com/google/jsonnet/issues/195
-configure:
-	jsonnet -c -m $(ABS_INPUT_DIR) -S $(JSONNET_FILE)
-
 build:
 	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
-debug: configure build
+debug: build
 	docker run --rm -ti \
 		--user $(shell id -u):$(shell id -g) \
 		-v $(ABS_INPUT_DIR):/config \
@@ -27,7 +22,7 @@ debug: configure build
 		--entrypoint /bin/bash \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-run: configure build
+run: build
 	docker run --rm -ti \
 		--user $(shell id -u):$(shell id -g) \
 		-v $(ABS_INPUT_DIR):/config \

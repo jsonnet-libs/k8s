@@ -1,4 +1,4 @@
-local config = import '../../jsonnet/config.jsonnet';
+local config = import 'jsonnet/config.jsonnet';
 
 config.new(
   name='istio',

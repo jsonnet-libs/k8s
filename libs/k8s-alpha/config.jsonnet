@@ -1,4 +1,4 @@
-local config = import '../../jsonnet/config.jsonnet';
+local config = import 'jsonnet/config.jsonnet';
 local versions = [
   '1.21',
   '1.20',
@@ -31,17 +31,14 @@ config.new(
   branch:: 'master',
   site_url:: 'jsonnet-libs.github.io/k8s-alpha',
 
-  readme_template(name, data)::
-    (importstr 'README.md.tmpl') % { pages: data },
-
-  'skel/README.md': (importstr 'README_root.md.tmpl') % {
+  'skel/README.md': (importstr './README_root.md.tmpl') % {
     version: versions[0],
   },
 
-  'skel/docs/README.md': (importstr 'README_docs.md.tmpl') % {
+  'skel/docs/README.md': (importstr './README_docs.md.tmpl') % {
     pages: std.join('\n', [
-      '- [%(output)s](%(output)s/README.md)' % spec
-      for spec in specs
+      '- [%(version)s](%(version)s/README.md)' % { version: version }
+      for version in versions
     ]),
   },
 }

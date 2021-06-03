@@ -16,13 +16,16 @@ COPY pkg pkg
 COPY main.go main.go
 
 FROM base AS builder
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o k8s-gen .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+        go build \
+        -ldflags='-s -w -extldflags "-static"' \
+        -o k8s-gen .
 
-FROM golang:1.15.2-alpine3.12 as docsonnet
+FROM golang:1.16.4-alpine3.12 as go-packages
 
 RUN apk add --no-cache git
-RUN go get github.com/jsonnet-libs/docsonnet
-RUN go install github.com/sh0rez/docsonnet
+RUN go get github.com/jsonnet-libs/docsonnet@master
+RUN go get github.com/google/go-jsonnet/cmd/jsonnet
 
 FROM alpine:3.12
 
@@ -31,14 +34,16 @@ WORKDIR /app
 ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
 RUN chmod a+w /app
 
-COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
-COPY --from=k3s /bin/k3s /usr/local/bin
+COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/
+COPY --from=k3s /bin/k3s /usr/local/bin/
 COPY --from=yq2 /usr/bin/yq /usr/local/bin/yq2
-COPY --from=builder /app/k8s-gen /usr/local/bin
-COPY --from=docsonnet /go/bin/docsonnet /usr/local/bin
-#
+COPY --from=builder /app/k8s-gen /usr/local/bin/
+COPY --from=go-packages /go/bin/jsonnet /go/bin/docsonnet /usr/local/bin/
+
 RUN apk add --no-cache bash curl
 
 COPY scripts .
+COPY jsonnet jsonnet
+COPY LICENSE .
 
 ENTRYPOINT ["./gen.sh"]
