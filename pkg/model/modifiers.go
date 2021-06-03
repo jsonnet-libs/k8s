@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/fatih/camelcase"
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
@@ -75,8 +74,6 @@ func modsForProps(props map[string]*swagger.Schema, ctx string) map[string]inter
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
 func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{}) {
-	name = CamelLower(name)
-
 	switch p.Type {
 	case swagger.TypeObject:
 		// if it has children, return modifier group instead
@@ -110,11 +107,4 @@ func fnArg(name string) string {
 		return "Local"
 	}
 	return name
-}
-
-// CamelLower returns the string with the word lowercased.
-func CamelLower(s string) string {
-	elems := camelcase.Split(s)
-	elems[0] = strings.ToLower(elems[0])
-	return strings.Join(elems, "")
 }

@@ -96,7 +96,7 @@ func newVersion(d swagger.Definitions) Version {
 
 	for k, v := range d {
 		name := reSubMatchMap(expr, k)["kind"]
-		ver.Kinds[CamelLower(name)] = newKind(*v, name)
+		ver.Kinds[name] = newKind(*v, name)
 	}
 	return ver
 }
@@ -167,7 +167,6 @@ func (mPtr *modifiers) UnmarshalJSON(data []byte) error {
 // all fields it has. If not a real kind (no ObjectMeta), no constructor will be
 // created
 func newKind(d swagger.Schema, name string) Kind {
-	name = strings.ToLower(name)
 	kind := Kind{
 		// Help text: description
 		Help: safeStr(d.Desc),
@@ -197,6 +196,9 @@ func newKind(d swagger.Schema, name string) Kind {
 func safeStr(s string) string {
 	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
 		return strings.Replace(s, `"`, `'`, -1)
+	}
+	if strings.Contains(s, `\`) {
+		return strings.Replace(s, `\`, `\\`, -1)
 	}
 
 	return s
