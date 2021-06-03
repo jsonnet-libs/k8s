@@ -23,7 +23,7 @@ debug: build
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 run: build
-	docker run --rm -ti \
+	docker run --rm \
 		--user $(shell id -u):$(shell id -g) \
 		-v $(ABS_INPUT_DIR):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
