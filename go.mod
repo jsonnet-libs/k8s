@@ -1,6 +1,6 @@
 module github.com/jsonnet-libs/k8s
 
-go 1.13
+go 1.16
 
 require (
 	github.com/fatih/camelcase v1.0.0

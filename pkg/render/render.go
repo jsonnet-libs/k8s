@@ -21,10 +21,10 @@ const (
 )
 
 // Index creates gen.libsonnet, the index of all generated artifacts
-func Index(groups map[string]model.Group, dir string) j.ObjectType {
+func Index(groups map[string]model.Group, name, repo, dir, description string) j.ObjectType {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg("k", path.Join("github.com/jsonnet-libs/k8s-alpha", dir, "main.libsonnet"), "Generated Kubernetes library"),
+		d.Pkg(name, path.Join(repo, dir, "main.libsonnet"), description),
 	}
 
 	for name := range groups {

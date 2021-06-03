@@ -3,12 +3,11 @@ package model
 import (
 	"fmt"
 	"regexp"
-	"strings"
 
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
-var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.(?P<group>\w*)\.(?P<version>\w*)\.(?P<kind>\w*)$`)
+var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.((?P<group>\w*)\.)?(?P<version>\w*)\.(?P<kind>\w*)$`)
 
 // Short handles for longer types
 const (
@@ -18,6 +17,7 @@ const (
 
 // Load parses swagger definitions into the data model
 func Load(swag *swagger.Swagger, prefix string) map[string]Group {
+	var prefixExpr = regexp.MustCompile(prefix)
 	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
 		if !expr.MatchString(k) {
 			return false
@@ -25,8 +25,8 @@ func Load(swag *swagger.Swagger, prefix string) map[string]Group {
 
 		meta := v.Props["metadata"]
 		if meta == nil || meta.DollarRef == nil {
-			// Check if domain is in the prefix whitelist
-			return strings.HasPrefix(k, prefix)
+			// Check if domain is in the prefix regex
+			return prefixExpr.MatchString(k)
 		}
 		return meta.Ref() != ListMetaID
 	})
@@ -52,6 +52,17 @@ func transform(defs swagger.Definitions) IDs {
 
 		groupName := m["group"]
 		versionName := m["version"]
+
+		if groupName == "" {
+			groupName = "nogroup"
+			if groups[groupName] == nil {
+				groups[groupName] = make(map[string]string)
+			}
+			groups[groupName][versionName] = fmt.Sprintf("%s.%s",
+				m["domain"], m["version"],
+			)
+			continue
+		}
 
 		if groups[groupName] == nil {
 			groups[groupName] = make(map[string]string)
