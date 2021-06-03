@@ -19,12 +19,60 @@
       ],
     }, true),
 
+    readme_template(name, data):: |||
+      # %s Jsonnet library
+
+      The Jsonnet Kubernetes library is a generated with
+      [`k8s`](https://github.com/jsonnet-libs/k8s).
+
+      %s
+    ||| % [name, data],
+
+    'skel/README.md': this.readme_template(
+      name=name,
+      data='[Docs](https://' + this.site_url + ')',
+    ),
+
+    'skel/docs/README.md': this.readme_template(
+      name=name,
+      data=std.join('\n', [
+        '- [%(output)s](%(output)s/README.md)' % spec
+        for spec in specs
+      ]),
+    ),
+
     mkdocs_config:: {
       site_name: name + ' Jsonnet library',
       site_url: 'https://' + this.site_url,
       repo_url: 'https://' + this.repository,
+      repo_name: std.strReplace(this.repository, 'github.com/', ''),
       edit_uri: '',
-      theme: 'material',
+      extra_css: ['stylesheets/extra.css'],
+      theme: {
+        name: 'material',
+        palette: [
+          {
+            scheme: 'default',
+            primary: 'indigo',
+            accent: 'indigo',
+            media: '(prefers-color-scheme: light)',
+            toggle: {
+              icon: 'material/toggle-switch-off-outline',
+              name: 'Switch to dark mode',
+            },
+          },
+          {
+            scheme: 'slate',
+            primary: 'red',
+            accent: 'red',
+            media: '(prefers-color-scheme: dark)',
+            toggle: {
+              icon: 'material/toggle-switch',
+              name: 'Switch to light mode',
+            },
+          },
+        ],
+      },
       plugins: [
         {
           search: {
@@ -34,6 +82,15 @@
             separator: '[\\s\\-]+',
           },
         },
+        {
+          minify: {
+            minify_html: true,
+          },
+        },
+      ],
+      markdown_extensions: [
+        'pymdownx.highlight',
+        'pymdownx.superfences',
       ],
     },
 
@@ -68,7 +125,12 @@
     },
 
     'skel/mkdocs.yml': std.manifestYamlDoc(this.mkdocs_config, true),
+
     'skel/.github/workflows/main.yml': std.manifestYamlDoc(this.mkdocs_github_action, true),
+    'skel/docs/stylesheets/extra.css': |||
+      .md-nav__link:first-letter { text-transform: lowercase; }
+    |||,
+
     'skel/requirements.txt': |||
       # For mkdocs
       # Use newer mkdocs so indexing can be done on titles only
@@ -76,27 +138,5 @@
       # Exclude search to limit search to a subset
       mkdocs-exclude-search>=0.5
     |||,
-
-    readme_template(name, data):: |||
-      # %s Jsonnet library
-
-      The Jsonnet Kubernetes library is a generated with
-      [`k8s`](https://github.com/jsonnet-libs/k8s).
-
-      %s
-    ||| % [name, data],
-
-    'skel/README.md': this.readme_template(
-      name=name,
-      data='[Docs](https://' + this.site_url + ')',
-    ),
-
-    'skel/docs/README.md': this.readme_template(
-      name=name,
-      data=std.join('\n', [
-        '- [%(output)s](%(output)s/README.md)' % spec
-        for spec in specs
-      ]),
-    ),
   },
 }
