@@ -52,6 +52,8 @@ if [ -n "$CRDS" ]; then
     sleep 120
 fi
 
+cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"
+
 k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
 
 ./docs.sh "${INPUT_DIR}" "${OUTPUT_DIR}"

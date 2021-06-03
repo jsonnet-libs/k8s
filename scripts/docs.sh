@@ -13,8 +13,6 @@ mkdir -p "${DOCS}"
 
 LIBS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
 
-cp "${INPUT_DIR}/docs/README.md" "${DOCS}"
-
 pushd "${OUTPUT_DIR}"
 for d in ${LIBS}; do
     [ -d "$d" ] && \
