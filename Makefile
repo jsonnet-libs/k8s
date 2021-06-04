@@ -1,4 +1,4 @@
-.PHONY: build debug run test push push-image
+.PHONY: configure build debug run_user run_ci test push push-image
 
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnet-libs
@@ -11,8 +11,9 @@ ABS_INPUT_DIR := $(shell realpath $(INPUT_DIR))
 JSONNET_FILE := $(ABS_INPUT_DIR)/config.jsonnet
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
-build:
-	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
+## Requires go-jsonnet for -c flag
+configure:
+	 jsonnet -c -m . -S jsonnet/github_action.jsonnet
 
 debug: build
 	docker run --rm -ti \
@@ -34,6 +35,10 @@ run_ci: build
 		-v $(ABS_INPUT_DIR):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
+
+
+build:
+	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
 test: build
 

@@ -1,9 +1,33 @@
-on: [push]
-
-jobs:
-  generate_job:
-    name: 'Generate Jsonnet libraries and their docs'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: make run_ci
+"jobs":
+  "cert-manager":
+    "name": "Generate Jsonnet libraries and their docs"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make run_ci INPUT_DIR=${PWD}/libs/cert-manager"
+  "cnrm":
+    "name": "Generate Jsonnet libraries and their docs"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make run_ci INPUT_DIR=${PWD}/libs/cnrm"
+  "crossplane":
+    "name": "Generate Jsonnet libraries and their docs"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make run_ci INPUT_DIR=${PWD}/libs/crossplane"
+  "istio":
+    "name": "Generate Jsonnet libraries and their docs"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make run_ci INPUT_DIR=${PWD}/libs/istio"
+  "k8s-alpha":
+    "name": "Generate Jsonnet libraries and their docs"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make run_ci INPUT_DIR=${PWD}/libs/k8s-alpha"
+"on":
+- "push"
