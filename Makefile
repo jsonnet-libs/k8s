@@ -22,9 +22,15 @@ debug: build
 		--entrypoint /bin/bash \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-run: build
+run_user: build
 	docker run --rm \
 		--user $(shell id -u):$(shell id -g) \
+		-v $(ABS_INPUT_DIR):/config \
+		-v $(ABS_OUTPUT_DIR):/output \
+		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
+
+run_ci: build
+	docker run --rm \
 		-v $(ABS_INPUT_DIR):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
