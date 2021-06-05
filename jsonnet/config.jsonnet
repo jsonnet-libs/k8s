@@ -111,13 +111,16 @@
             {
               name: 'Checkout main',
               uses: 'actions/checkout@v2',
-            },
-            {
-              name: 'Deploy docs',
-              uses: 'mhausenblas/mkdocs-deploy-gh-pages@master',
-              env: {
-                GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+              with: {
+                'fetch-depth': 0,
               },
+            },
+            { uses: 'actions/setup-python@v2' },
+            { run: 'pip install -r requirements.txt' },
+            { run: "git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'" },
+            {
+              name: 'Publish docs',
+              run: 'mkdocs gh-deploy --force',
             },
           ],
         },
@@ -133,10 +136,18 @@
 
     'skel/requirements.txt': |||
       # For mkdocs
+
       # Use newer mkdocs so indexing can be done on titles only
       git+https://github.com/mkdocs/mkdocs.git@57b5ccd7d63e5b7067d37d0433111e9a5278fb6d
-      # Exclude search to limit search to a subset
+
+      # To limit search to a subset
       mkdocs-exclude-search>=0.5
+
+      # To minify the HTML
+      mkdocs-minify-plugin>=0.3
+
+      # Include the theme
+      mkdocs-material>=7.1.6
     |||,
   },
 }
