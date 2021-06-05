@@ -21,7 +21,7 @@ local jobs = [
           },
           {
             run:
-              'make run_ci INPUT_DIR=${PWD}/libs/' + job,
+              'make run INPUT_DIR=${PWD}/libs/' + job,
           },
         ],
       }
