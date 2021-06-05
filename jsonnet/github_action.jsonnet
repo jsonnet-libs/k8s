@@ -14,7 +14,7 @@ local jobs = [
       ],
       jobs: {
         [job]: {
-          name: 'Generate Jsonnet libraries and their docs',
+          name: 'Generate ' + job + ' Jsonnet library and docs',
           'runs-on': 'ubuntu-latest',
           steps: [
             {
