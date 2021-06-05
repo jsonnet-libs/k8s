@@ -79,7 +79,7 @@
             indexing: 'titles',
             prebuild_index: true,
             min_search_length: 2,
-            separator: '[\\s\\-]+',
+            separator: '[\\s\\-\\.]+',
           },
         },
         {
