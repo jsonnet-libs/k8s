@@ -17,12 +17,14 @@ configure:
 	jsonnet -c -m . -A "libs=$(LIBS)" -S jsonnet/github_action.jsonnet
 
 debug: build
+	mkdir -p $(ABS_OUTPUT_DIR) && \
 	DEBUG=true bash bin/docker.sh \
 		-v $(ABS_INPUT_DIR):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 run: build
+	mkdir -p $(ABS_OUTPUT_DIR) && \
 	bash bin/docker.sh \
 		-v $(ABS_INPUT_DIR):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
