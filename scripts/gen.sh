@@ -4,7 +4,7 @@ set -x
 
 INPUT_DIR="$1"
 
-jsonnet -c -m "${INPUT_DIR}" -J /app -S "${INPUT_DIR}/config.jsonnet"
+jsonnet -c -m "${INPUT_DIR}" -J . -S "${INPUT_DIR}/config.jsonnet"
 
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
