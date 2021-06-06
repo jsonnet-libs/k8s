@@ -10,9 +10,11 @@ OUTPUT_DIR ?= ${PWD}/gen
 ABS_INPUT_DIR := $(shell realpath $(INPUT_DIR))
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
+LIBS=$(shell echo libs/* | sed "s/ /,/g")
+
 ## Requires go-jsonnet for -c flag
 configure:
-	jsonnet -c -m . -S jsonnet/github_action.jsonnet
+	jsonnet -c -m . -A "libs=$(LIBS)" -S jsonnet/github_action.jsonnet
 
 debug: build
 	DEBUG=true bash bin/docker.sh \
