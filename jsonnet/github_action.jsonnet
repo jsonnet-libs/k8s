@@ -6,7 +6,7 @@ function(libs) {
         'push',
       ],
       jobs: {
-        [job]: {
+        [std.strReplace(job, '/', '_')]: {
           name: 'Generate ' + job + ' Jsonnet library and docs',
           'runs-on': 'ubuntu-latest',
           steps: [
