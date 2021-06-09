@@ -3,10 +3,13 @@ set -euo pipefail
 set -x
 
 INPUT_DIR="$1"
+
+jsonnet -c -m "${INPUT_DIR}" -J . -S "${INPUT_DIR}/config.jsonnet"
+
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
 REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
-CRDS=$(yq2 e '.specs[]|select(has("crd"))|.crd' - < "${CONFIG_FILE}")
+CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
@@ -16,8 +19,9 @@ API_LOGFILE=$(mktemp)
 if [ -n "$CRDS" ]; then
     ./bare-k3s >"${API_LOGFILE}" 2>&1 &
 
-    echo "---" > "${CRDFILE}"
+    echo "" > "${CRDFILE}"
     for URL in ${CRDS}; do
+        echo "---" >> "${CRDFILE}"
         echo "Downloading ${URL}..."
         curl -sL "${URL}" >> "${CRDFILE}"
     done
@@ -51,6 +55,11 @@ if [ -n "$CRDS" ]; then
     # the time it takes might increase with more CRDs added.
     sleep 120
 fi
+
+mkdir -p "${OUTPUT_DIR}"
+
+shopt -s dotglob
+cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"
 
 k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
 
