@@ -3,7 +3,7 @@
     site_name: error 'must define site_name',
     site_url: error 'must define site_url',
     repo_url: error 'must define repo_url',
-    repo_name: std.strReplace(self.repo_url, 'github.com/', ''),
+    repo_name: std.strReplace(self.repo_url, 'https://github.com/', ''),
     edit_uri: '',
     extra_css: ['stylesheets/extra.css'],
     theme: {

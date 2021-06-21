@@ -12,6 +12,15 @@ REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
 CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
+rm -rf "${OUTPUT_DIR}"
+
+if [ -n "${DRY_RUN:-}" ]; then
+    mkdir -p "${OUTPUT_DIR}"
+else
+    git clone --depth 1 "https://${REPO}" "${OUTPUT_DIR}"
+fi
+find "${OUTPUT_DIR}" -not -path "${OUTPUT_DIR}/.git/*" -not -name '.git' -delete
+
 
 CRDFILE=$(mktemp)
 API_LOGFILE=$(mktemp)
@@ -55,8 +64,6 @@ if [ -n "$CRDS" ]; then
     # the time it takes might increase with more CRDs added.
     sleep 120
 fi
-
-mkdir -p "${OUTPUT_DIR}"
 
 shopt -s dotglob
 cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"

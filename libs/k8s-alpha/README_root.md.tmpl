@@ -1,26 +1,18 @@
 # k8s-alpha
 
-This repository contains artifacts of the very new Jsonnet Kubernetes library
-generator `k8s-gen`, located at https://github.com/jsonnet-libs/k8s.
+This repository contains artifacts of the `k8s-alpha` Jsonnet Kubernetes library.
+It is generated with `k8s-gen`, located at https://github.com/jsonnet-libs/k8s.
 
 ## Usage
 
 #### With [Tanka](https://tanka.dev)
 
 ```bash
-# set up Tanka project, we will install k8s ourselves
-$ tk init --k8s=false
-
-# pull k8s-alpha for Kubernetes %(version)s
-$ jb install github.com/jsonnet-libs/k8s-alpha/%(version)s
+# set up Tanka project, matching the Kubernetes version
+$ tk init --k8sversion=1.21
 ```
 
-Then put the following into `lib/k.libsonnet`:
-
-```jsonnet
-(import "github.com/jsonnet-libs/k8s-alpha/%(version)s/main.libsonnet")
-
-```
+For more info, refer to the Tanka tutorial at https://tanka.dev/tutorial/k-lib.
 
 #### Standalone
 
@@ -60,18 +52,18 @@ maintained anymore, and only provides artifacts for Kubernetes versions up to
 
 #### Can I use it to replace [ksonnet-lib](https://github.com/ksonnet/ksonnet-lib)?
 
-Yes, however there are a few incompatibilities. Most of them are now covered by
-[`ksonnet-util`](https://github.com/grafana/jsonnet-libs/blob/master/ksonnet-util/),
-please have a look here if you intend to support both libraries.
+Yes, however there are a few incompatibilities. Most of them are now covered by the
+[`ksonnet-util`](https://github.com/grafana/jsonnet-libs/blob/master/ksonnet-util/)
+library, please have a look here if you intend to support both libraries.
 
 Known incompatibilities:
 
 * `ksonnet-lib` has hidden objects that are exposed as 'Type' objects inside
     other objects, for example `core.v1.container.envType`, these are now
     available as first class citizens, for this example `core.v1.envVar`. The
-    `ksonnet-util` covers this problem.
+    `ksonnet-util` library covers this problem.
 * `new(name)` constructors have a mandatory `name` argument, this was not always
-    the case in `ksonnet-lib`. The `ksonnet-util` covers this problem.
+    the case in `ksonnet-lib`. The `ksonnet-util` library covers this problem.
 * `ksonnet-lib` as nested many functions in `.mixin.`, `k8s-alpha` also supports
     this. However, library maintainers should also include this if they intend
     to support both libraries.

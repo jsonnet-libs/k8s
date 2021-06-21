@@ -17,8 +17,8 @@ config.new(
       output: version,
       openapi: 'https://raw.githubusercontent.com/kubernetes/kubernetes/release-' + version + '/api/openapi-spec/swagger.json',
       prefix: '^io\\.k8s\\.api\\..*',
-      patchDir: 'libs/k8s-alpha/custom/core',
-      extensionsDir: 'libs/k8s-alpha/extensions/core',
+      patchDir: 'custom/core',
+      extensionsDir: 'extensions/core',
       localName: 'k',
       description: 'Generated Jsonnet library for Kubernetes v' + version,
     }
@@ -37,7 +37,7 @@ config.new(
 
   'skel/docs/README.md': (importstr './README_docs.md.tmpl') % {
     pages: std.join('\n', [
-      '- [%(version)s](%(version)s/README.md)' % { version: version }
+      '- [v%(version)s](%(version)s/README.md)' % { version: version }
       for version in versions
     ]),
   },

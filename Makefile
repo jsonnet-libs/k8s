@@ -2,7 +2,7 @@
 
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnetlibs
-IMAGE_TAG ?= 0.0.1
+IMAGE_TAG ?= 0.0.2
 
 INPUT_DIR ?= ${PWD}/libs/k8s-alpha
 OUTPUT_DIR ?= ${PWD}/gen
