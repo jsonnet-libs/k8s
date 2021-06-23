@@ -13,10 +13,10 @@ CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
-if [ -n "${DRY_RUN:-}" ]; then
+if [ -z "${GEN_COMMIT}" ]; then
     mkdir -p "${OUTPUT_DIR}"
 else
-    git clone --depth 1 "https://${REPO}" "${OUTPUT_DIR}"
+    git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
 fi
 
 # Remove everything except .git
@@ -76,3 +76,14 @@ cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"
 k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
 
 ./docs.sh "${INPUT_DIR}" "${OUTPUT_DIR}"
+
+
+if [ -z "${GEN_COMMIT}" ]; then
+    ls -lah "${OUTPUT_DIR}"
+else
+    pushd "${OUTPUT_DIR}"
+    git add .
+    git commit -m "update: source github.com/jsonnet-libs/k8s@${GITHUB_SHA:0:8}"
+    git push
+    popd
+fi

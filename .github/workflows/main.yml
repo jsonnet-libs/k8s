@@ -5,30 +5,65 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "if": |
+        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+      "run": |
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GEN_COMMIT=1
     - "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "if": |
+        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+      "run": |
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GEN_COMMIT=1
     - "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "if": |
+        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+      "run": |
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GEN_COMMIT=1
     - "run": "make build libs/crossplane"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "if": |
+        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+      "run": |
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GEN_COMMIT=1
     - "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "if": |
+        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+      "run": |
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        export GEN_COMMIT=1
     - "run": "make build libs/k8s"
 "on":
 - "push"

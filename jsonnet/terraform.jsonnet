@@ -20,9 +20,17 @@ function(libs) {
           acc {
             resource+:
               [{
+                github_repository_deploy_key: {
+                  [lib.name]: {
+                    title: 'jsonnet-libs/k8s deploy key',
+                    repository: '${github_repository.' + lib.name + '.name}',
+                    key: importstr './files/id_rsa.pub',
+                    read_only: false,
+                  },
+                },
                 github_repository: {
                   [lib.name]: {
-                    name: lib.name,
+                    name: lib.name + lib.suffix,
                     description: lib.description,
                     homepage_url: lib.site_url,
                     auto_init: true,
