@@ -29,6 +29,7 @@ function(libs) {
       } + {
         terraform: {
           name: 'create repositories',
+          'runs-on': 'ubuntu-latest',
           steps: [
             { uses: 'actions/checkout@v2' },
             { uses: 'hashicorp/setup-terraform@v1' },
