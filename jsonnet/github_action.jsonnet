@@ -33,6 +33,9 @@ function(libs) {
           steps: [
             { run: 'echo isMaster? ' + onMaster['if'] },
             { run: 'echo isPR? ' + onPR['if'] },
+            { run: 'echo ${{ github.repository }}' },
+            { run: 'echo ${{ github.ref }}' },
+            { run: 'echo ${{ github.event_name }}' },
           ],
         },
         terraform: {

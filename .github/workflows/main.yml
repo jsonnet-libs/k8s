@@ -89,5 +89,8 @@
     "steps":
     - "run": "echo isMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
     - "run": "echo isPR? ${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo ${{ github.repository }}"
+    - "run": "echo ${{ github.ref }}"
+    - "run": "echo ${{ github.event_name }}"
 "on":
 - "push"
