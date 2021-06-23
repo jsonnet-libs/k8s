@@ -1,5 +1,5 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
-local onPR = { 'if': "${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}" };
+local onPR = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
 
 function(libs) {
   '.github/workflows/main.yml':
