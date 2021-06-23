@@ -83,5 +83,11 @@
       "if": "${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform init && terraform plan -no-color"
       "working-directory": "tf"
+  "what_is_this":
+    "name": "what is this"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "run": "echo isMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo isPR? ${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
 "on":
 - "push"

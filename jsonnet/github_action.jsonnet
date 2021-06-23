@@ -27,6 +27,14 @@ function(libs) {
         }
         for lib in libs
       } + {
+        what_is_this: {
+          name: 'what is this',
+          'runs-on': 'ubuntu-latest',
+          steps: [
+            { run: 'echo isMaster? ' + onMaster['if'] },
+            { run: 'echo isPR? ' + onPR['if'] },
+          ],
+        },
         terraform: {
           name: 'create repositories',
           'runs-on': 'ubuntu-latest',
