@@ -15,10 +15,16 @@ default:
 .github/workflows/main.yml:
 	jsonnet -c -m . -S -J . --tla-code "libs=[$(IMPORTS)]" jsonnet/github_action.jsonnet
 
+## Requires go-jsonnet for -c flag
+.PHONY: tf/main.tf.json
+tf/main.tf.json:
+	jsonnet -c -m . -S -J . --tla-code "libs=[$(IMPORTS)]" jsonnet/terraform.jsonnet
+
 clean:
 	rm -f .github/workflows/main.yml:
+	rm -f tf/main.tf.json
 
-configure: clean .github/workflows/main.yml
+configure: clean .github/workflows/main.yml tf/main.tf.json
 
 debug: build
 	make $@ DEBUG=true
