@@ -11,7 +11,7 @@ local versions = [
 ];
 
 config.new(
-  name='k8s-alpha',
+  name='k8s',
   specs=[
     {
       output: version,
@@ -26,10 +26,6 @@ config.new(
   ]
 )
 + {
-
-  repository:: 'github.com/jsonnet-libs/k8s-alpha',
-  branch:: 'master',
-  site_url:: 'jsonnet-libs.github.io/k8s-alpha',
 
   'skel/README.md': (importstr './README_root.md.tmpl') % {
     version: versions[0],

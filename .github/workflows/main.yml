@@ -24,11 +24,11 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "run": "make build libs/istio"
-  "k8s-alpha":
-    "name": "Generate k8s-alpha Jsonnet library and docs"
+  "k8s":
+    "name": "Generate k8s Jsonnet library and docs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "run": "make build libs/k8s-alpha"
+    - "run": "make build libs/k8s"
 "on":
 - "push"

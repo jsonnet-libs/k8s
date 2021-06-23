@@ -1,6 +1,6 @@
-# k8s-alpha
+# k8s-libsonnet
 
-This repository contains artifacts of the `k8s-alpha` Jsonnet Kubernetes library.
+This repository contains artifacts of the `k8s-libsonnet` Jsonnet Kubernetes library.
 It is generated with `k8s-gen`, located at https://github.com/jsonnet-libs/k8s.
 
 ## Usage
@@ -17,13 +17,13 @@ For more info, refer to the Tanka tutorial at https://tanka.dev/tutorial/k-lib.
 #### Standalone
 
 ```bash
-$ jb install github.com/jsonnet-libs/k8s-alpha/%(version)s
+$ jb install github.com/jsonnet-libs/k8s-libsonnet/%(version)s
 ```
 
 Then import it in your project:
 
 ```jsonnet
-local k = import "github.com/jsonnet-libs/k8s-alpha/%(version)s/main.libsonnet"
+local k = import "github.com/jsonnet-libs/k8s-libsonnet/%(version)s/main.libsonnet"
 ```
 
 ## FAQ
@@ -64,7 +64,7 @@ Known incompatibilities:
     `ksonnet-util` library covers this problem.
 * `new(name)` constructors have a mandatory `name` argument, this was not always
     the case in `ksonnet-lib`. The `ksonnet-util` library covers this problem.
-* `ksonnet-lib` as nested many functions in `.mixin.`, `k8s-alpha` also supports
+* `ksonnet-lib` as nested many functions in `.mixin.`, `k8s-libsonnet` also supports
     this. However, library maintainers should also include this if they intend
     to support both libraries.
 * This library does not support chaining of functions, for example
@@ -88,7 +88,7 @@ https://github.com/kube-jsonnet/k as soon as possible.
 
 #### Where can I find documentation?
 
-The generated docs can be found here: https://jsonnet-libs.github.io/k8s-alpha/.
+The generated docs can be found here: https://jsonnet-libs.github.io/k8s-libsonnet/.
 
 #### I found a bug, where can I report this?
 

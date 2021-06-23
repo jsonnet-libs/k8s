@@ -1,11 +1,11 @@
 # k8s-gen
 
-Code generator for the Jsonnet Kubernetes library.
+Code generator for Jsonnet Kubernetes libraries.
 
 ## Artifacts
 
 Pre-generated artifacts of this software are provided at
-https://github.com/jsonnet-libs/k8s-alpha. Check that repo for usage
+https://github.com/jsonnet-libs/k8s-libsonnet. Check that repo for usage
 instructions as well.
 
 ## Usage
@@ -15,11 +15,11 @@ respective Kubernetes versions.
 
 ```bash
 # Generate for all versions
-$ k8s-gen -c libs/k8s-alpha/config.yml
+$ k8s-gen -c libs/k8s/config.yml
 Generating ...
 
 # Only a subset (e.g. for development)
-$ k8s-gen -c libs/k8s-alpha/config.yml 1.18 1.17
+$ k8s-gen -c libs/k8s/config.yml 1.18 1.17
 ```
 
 ### Generating from CRDs
@@ -43,7 +43,7 @@ For that, `k8s-gen` implements two methods for extending:
 
 ### `custom` patches
 
-The [`custom/`](https://github.com/jsonnet-libs/k8s/tree/master/libs/k8s-alpha/custom)
+The [`custom/`](https://github.com/jsonnet-libs/k8s/tree/master/libs/k8s/custom)
 directory contains a set of `.libsonnet` files, that are _automatically merged_
 with the generated result in `main.libsonnet`, so they become part of the
 exported API.
@@ -52,9 +52,8 @@ Current Patches:
 
 ```
 
-libs/k8s-alpha/
-├── config.jsonnet                   # Config to generate the k8s-alpha jsonnet libraries
-├── config.yml                       # Generated from config.jsonnet
+libs/k8s/
+├── config.jsonnet                   # Config to generate the k8s jsonnet libraries
 ├── README.md.tmpl                   # Template for the index of the generated docs
 └── custom
     └── core
@@ -77,8 +76,8 @@ need to added by the user themselves.
 Extensions can be applied as so:
 
 ```jsonnet
-(import "github.com/jsonnet-libs/k8s-alpha/1.21/main.libsonnet")
-+ (import "github.com/jsonnet-libs/k8s-alpha/extensions/<name>.libsonnet")
+(import "github.com/jsonnet-libs/k8s-libsonnet/1.21/main.libsonnet")
++ (import "github.com/jsonnet-libs/k8s-libsonnet/extensions/<name>.libsonnet")
 ```
 
 There are currently no extension patches.
