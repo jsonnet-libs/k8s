@@ -69,18 +69,17 @@
     "name": "create repositories"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "hashicorp/setup-terraform@v1"
     - "run": "make tf/main.tf.json"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform apply -no-color"
-      "uses": "hashicorp/setup-terraform@v1"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform init && terraform plan -no-color"
-      "uses": "hashicorp/setup-terraform@v1"
       "working-directory": "tf"
 "on":
 - "push"

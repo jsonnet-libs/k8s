@@ -31,9 +31,9 @@ function(libs) {
           name: 'create repositories',
           steps: [
             { uses: 'actions/checkout@v2' },
+            { uses: 'hashicorp/setup-terraform@v1' },
             { run: 'make tf/main.tf.json' },
             onMaster {
-              uses: 'hashicorp/setup-terraform@v1',
               // TODO: store state somewhere sane
               run: 'terraform apply -no-color',
               'working-directory': 'tf',
@@ -42,7 +42,6 @@ function(libs) {
               },
             },
             onPR {
-              uses: 'hashicorp/setup-terraform@v1',
               run: 'terraform init && terraform plan -no-color',
               'working-directory': 'tf',
               env: {
