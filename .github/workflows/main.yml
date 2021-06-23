@@ -2,11 +2,11 @@
 "jobs":
   "cert-manager":
     "name": "Generate cert-manager Jsonnet library and docs"
+    "needs": "terraform"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": |
-        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": |
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -15,11 +15,11 @@
     - "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
+    "needs": "terraform"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": |
-        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": |
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -28,11 +28,11 @@
     - "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
+    "needs": "terraform"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": |
-        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": |
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -41,11 +41,11 @@
     - "run": "make build libs/crossplane"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
+    "needs": "terraform"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": |
-        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": |
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -54,16 +54,35 @@
     - "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
+    "needs": "terraform"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": |
-        ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}
+    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": |
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
     - "run": "make build libs/k8s"
+  "terraform":
+    "name": "create repositories"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "run": "make tf/main.tf.json"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run":
+        "shell": "terraform apply -no-color"
+        "working-directory": "tf"
+      "uses": "hashicorp/setup-terraform@v1"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+      "if": "${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run":
+        "shell": "terraform init && terraform plan -no-color"
+        "working-directory": "tf"
+      "uses": "hashicorp/setup-terraform@v1"
 "on":
 - "push"

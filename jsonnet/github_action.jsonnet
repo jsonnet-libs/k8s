@@ -10,7 +10,7 @@ function(libs) {
       jobs: {
         [lib.name]: {
           name: 'Generate ' + lib.name + ' Jsonnet library and docs',
-          needs: terraform,
+          needs: 'terraform',
           'runs-on': 'ubuntu-latest',
           steps: [
             { uses: 'actions/checkout@v2' },
