@@ -28,7 +28,8 @@ With [k3s](https://k3s.io/), it is possible to generate jsonnet libraries from
 CRDs.This can be executed with a makefile target to run it in a container:
 
 ```bash
-$ make run INPUT_DIR=libs/istio/
+$ make build
+$ make libs/istio
 ```
 
 

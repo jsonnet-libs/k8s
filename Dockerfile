@@ -26,6 +26,8 @@ FROM alpine:3.12
 
 WORKDIR /app
 
+RUN apk add --no-cache bash curl git
+
 ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
 RUN chmod a+w /app
 
@@ -35,8 +37,6 @@ COPY --from=mikefarah/yq:4.9.3 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=jsonnetlibs/docsonnet:0.0.3 /usr/local/bin/docsonnet /usr/local/bin/
 COPY --from=builder /app/k8s-gen /usr/local/bin/
 COPY --from=jsonnet /go/bin/jsonnet /usr/local/bin/
-
-RUN apk add --no-cache bash curl git
 
 COPY scripts .
 COPY jsonnet jsonnet

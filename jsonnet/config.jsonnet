@@ -5,9 +5,13 @@
   ):: {
     local this = self,
 
-    repository:: 'github.com/jsonnet-libs/' + name + '-lib',
+    suffix:: '-libsonnet',
+
+    name:: name,
+    description:: this.name + ' jsonnet library',
+    repository:: 'github.com/jsonnet-libs/' + this.name + this.suffix,
     branch:: 'main',
-    site_url:: 'jsonnet-libs.github.io/' + name + '-lib',
+    site_url:: 'https://jsonnet-libs.github.io/' + this.name + this.suffix,
 
     'skel/LICENSE': importstr '../LICENSE',
 
@@ -43,8 +47,8 @@
 
     local mkdocs = import './mkdocs.jsonnet',
     mkdocs_config:: mkdocs.config {
-      site_name: name + ' Jsonnet library',
-      site_url: 'https://' + this.site_url,
+      site_name: this.description,
+      site_url: this.site_url,
       repo_url: 'https://' + this.repository,
     },
 

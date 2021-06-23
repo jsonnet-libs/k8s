@@ -12,14 +12,19 @@ REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
 CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
-rm -rf "${OUTPUT_DIR}"
 
 if [ -n "${DRY_RUN:-}" ]; then
     mkdir -p "${OUTPUT_DIR}"
 else
     git clone --depth 1 "https://${REPO}" "${OUTPUT_DIR}"
 fi
-find "${OUTPUT_DIR}" -not -path "${OUTPUT_DIR}/.git/*" -not -name '.git' -delete
+
+# Remove everything except .git
+find "${OUTPUT_DIR}" \
+    -not -path "${OUTPUT_DIR}" \
+    -not -path "${OUTPUT_DIR}/.git/*" \
+    -not -name '.git' \
+    -delete
 
 
 CRDFILE=$(mktemp)
