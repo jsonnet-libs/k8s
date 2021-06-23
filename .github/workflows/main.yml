@@ -73,16 +73,14 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run":
-        "shell": "terraform apply -no-color"
-        "working-directory": "tf"
+      "run": "terraform apply -no-color"
       "uses": "hashicorp/setup-terraform@v1"
+      "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.event_name == 'pull_request' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run":
-        "shell": "terraform init && terraform plan -no-color"
-        "working-directory": "tf"
+      "run": "terraform init && terraform plan -no-color"
       "uses": "hashicorp/setup-terraform@v1"
+      "working-directory": "tf"
 "on":
 - "push"

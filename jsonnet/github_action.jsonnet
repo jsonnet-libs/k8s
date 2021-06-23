@@ -34,21 +34,17 @@ function(libs) {
             { run: 'make tf/main.tf.json' },
             onMaster {
               uses: 'hashicorp/setup-terraform@v1',
-              run: {
-                // TODO: store state somewhere sane
-                shell: 'terraform apply -no-color',
-                'working-directory': 'tf',
-              },
+              // TODO: store state somewhere sane
+              run: 'terraform apply -no-color',
+              'working-directory': 'tf',
               env: {
                 GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
               },
             },
             onPR {
               uses: 'hashicorp/setup-terraform@v1',
-              run: {
-                shell: 'terraform init && terraform plan -no-color',
-                'working-directory': 'tf',
-              },
+              run: 'terraform init && terraform plan -no-color',
+              'working-directory': 'tf',
               env: {
                 GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
               },
