@@ -33,7 +33,7 @@ function(libs) {
           steps: [
             { uses: 'actions/checkout@v2' },
             { uses: 'hashicorp/setup-terraform@v1' },
-            { uses: 'zendesk/setup-jsonnet@v1' },
+            { uses: 'zendesk/setup-jsonnet@v7' },
             { run: 'make tf/main.tf.json' },
             onMaster {
               // TODO: store state somewhere sane
