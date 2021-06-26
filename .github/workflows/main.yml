@@ -78,28 +78,20 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "run": "terraform init"
-      "with":
-        "github-token": "${{ secrets.GITHUB_TOKEN }}"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "run": "terraform validate -no-color"
-      "with":
-        "github-token": "${{ secrets.GITHUB_TOKEN }}"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform plan -no-color"
-      "with":
-        "github-token": "${{ secrets.GITHUB_TOKEN }}"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform apply -no-color -auto-approve"
-      "with":
-        "github-token": "${{ secrets.GITHUB_TOKEN }}"
       "working-directory": "tf"
   "what_is_this":
     "name": "what is this"

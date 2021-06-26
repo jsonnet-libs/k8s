@@ -41,9 +41,9 @@ function(libs) {
         terraform: {
           local tf_env = {
             'working-directory': 'tf',
-            with: {
-              'github-token': '${{ secrets.GITHUB_TOKEN }}',
-            },
+            //with: {
+            //  'github-token': '${{ secrets.GITHUB_TOKEN }}',
+            //},
             env: {
               GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
             },
