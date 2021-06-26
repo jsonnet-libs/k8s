@@ -10,17 +10,17 @@ function(libs) {
               version: '~>4.0',
             },
           },
+          backend: {
+            remote: {
+              organization: 'jsonnet-libs',
+              workspaces: {
+                name: 'jsonnet-libs',
+              },
+            },
+          },
         },
         provider: {
           github: { owner: 'jsonnet-libs' },
-        },
-        backend: {
-          remote: {
-            organization: 'jsonnet-libs',
-            workspaces: {
-              name: 'jsonnet-libs',
-            },
-          },
         },
       }
       + std.foldl(
