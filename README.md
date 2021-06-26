@@ -65,9 +65,8 @@ Set up CI and Terraform code:
 $ make configure
 ```
 
-That is it, commit the changes to a branch and make a PR to get things rolling. A
-jsonnet-libs community member should be able to execute the Terraform to create the
-corresponding repository and CI should take care of the rest.
+That is it, commit the changes to a branch and make a PR to get things rolling. The CI
+should take care of the rest.
 
 
 ## Customizing
