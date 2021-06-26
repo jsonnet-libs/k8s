@@ -39,28 +39,32 @@ function(libs) {
           ],
         },
         terraform: {
+          local tf_env = {
+            'working-directory': 'tf',
+            with: {
+              'github-token': '${{ secrets.GITHUB_TOKEN }}',
+            },
+            env: {
+              GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+            },
+          },
           name: 'create repositories',
           'runs-on': 'ubuntu-latest',
           steps: [
             { uses: 'actions/checkout@v2' },
-            { uses: 'hashicorp/setup-terraform@v1' },
             { uses: 'zendesk/setup-jsonnet@v7' },
             { run: 'make tf/main.tf.json' },
-            onMaster {
-              // TODO: store state somewhere sane
-              run: 'terraform apply -no-color',
-              'working-directory': 'tf',
-              env: {
-                GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+
+            {
+              uses: 'hashicorp/setup-terraform@v1',
+              with: {
+                cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}',
               },
             },
-            onPR {
-              run: 'terraform init && terraform plan -no-color',
-              'working-directory': 'tf',
-              env: {
-                GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
-              },
-            },
+            tf_env { run: 'terraform init' },
+            tf_env { run: 'terraform validate -no-color' },
+            tf_env + onPR { run: 'terraform plan -no-color' },
+            tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
           ],
         },
       },
