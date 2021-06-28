@@ -5,26 +5,14 @@ local specs = [
     output: '1.6',
     openapi: 'http://localhost:8001/openapi/v2',
     prefix: '^do\\.zalan\\.acid\\..*',
-    crd: 'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/postgresql.crd.yaml',
+    crds: [
+      'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/postgresql.crd.yaml',
+      'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/postgresteam.crd.yaml',
+      'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/operatorconfiguration.crd.yaml'
+    ],
     localName: 'zalando-postgres',
     repository: 'github.com/jsonnet-libs/zalando-postgres-lib',
-  },
-  {
-    output: '1.6',
-    openapi: 'http://localhost:8001/openapi/v2',
-    prefix: '^do\\.zalan\\.acid\\..*',
-    crd: 'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/postgresteam.crd.yaml',
-    localName: 'zalando-postgres',
-    repository: 'github.com/jsonnet-libs/zalando-postgres-lib',
-  },
-  {
-    output: '1.6',
-    openapi: 'http://localhost:8001/openapi/v2',
-    prefix: '^do\\.zalan\\.acid\\..*',
-    crd: 'https://github.com/zalando/postgres-operator/raw/v1.6.3/manifests/operatorconfiguration.crd.yaml',
-    localName: 'zalando-postgres',
-    repository: 'github.com/jsonnet-libs/zalando-postgres-lib',
-  },
+  }
 ];
 
 {
