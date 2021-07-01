@@ -85,23 +85,23 @@
       "with":
         "cli_config_credentials_token": "${{ secrets.TF_API_TOKEN }}"
     - "env":
-        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
-        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
-        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
-        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform apply -no-color -auto-approve"
