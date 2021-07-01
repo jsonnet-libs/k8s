@@ -11,11 +11,8 @@
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-    - "if": "${{ github.ref != 'refs/heads/master' }}"
-      "run": "make build libs/cert-manager"
     - "env":
-        "GEN_COMMIT": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
@@ -28,11 +25,8 @@
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-    - "if": "${{ github.ref != 'refs/heads/master' }}"
-      "run": "make build libs/cnrm"
     - "env":
-        "GEN_COMMIT": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
@@ -45,11 +39,8 @@
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-    - "if": "${{ github.ref != 'refs/heads/master' }}"
-      "run": "make build libs/crossplane"
     - "env":
-        "GEN_COMMIT": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/crossplane"
   "debugging":
     "name": "Debugging Github Action values"
@@ -72,11 +63,8 @@
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-    - "if": "${{ github.ref != 'refs/heads/master' }}"
-      "run": "make build libs/istio"
     - "env":
-        "GEN_COMMIT": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
@@ -89,11 +77,8 @@
         mkdir ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-    - "if": "${{ github.ref != 'refs/heads/master' }}"
-      "run": "make build libs/k8s"
     - "env":
-        "GEN_COMMIT": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/k8s"
   "repos":
     "name": "Create repositories"

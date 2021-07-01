@@ -59,10 +59,9 @@ local libJob(name) = {
         chmod 600 ~/.ssh/id_rsa
       |||,
     },
-    onPR { run: 'make build libs/' + name },
-    onMaster {
+    {
       run: 'make build libs/' + name,
-      env: { GEN_COMMIT: '1' },
+      env: { GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" },
     },
   ],
 };
