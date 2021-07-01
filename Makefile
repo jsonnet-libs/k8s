@@ -6,6 +6,7 @@ OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
 IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}'),")
+PAGES := false
 
 .DEFAULT_GOAL: default
 default:
@@ -18,7 +19,7 @@ default:
 ## Requires go-jsonnet for -c flag
 .PHONY: tf/main.tf.json
 tf/main.tf.json:
-	jsonnet -c -m . -S -J . --tla-code "libs=[$(IMPORTS)]" jsonnet/terraform.jsonnet
+	jsonnet -c -m . -S -J . --tla-code "pages=$(PAGES)" --tla-code "libs=[$(IMPORTS)]" jsonnet/terraform.jsonnet
 
 clean:
 	rm -f .github/workflows/main.yml:

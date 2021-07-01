@@ -17,6 +17,10 @@ if [ -z "${GEN_COMMIT}" ]; then
     mkdir -p "${OUTPUT_DIR}"
 else
     git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
+    set +eo pipefail
+    # Create the gh-pages branch if it doesn't exist.
+    git push origin gh-pages || (git branch -c gh-pages && git push origin gh-pages)
+    set -eo pipefail
 fi
 
 # Remove everything except .git

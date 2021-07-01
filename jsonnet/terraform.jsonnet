@@ -1,4 +1,4 @@
-function(libs) {
+function(libs, pages=false) {
   'tf/main.tf.json':
     std.manifestJsonEx(
       {
@@ -28,19 +28,12 @@ function(libs) {
           acc {
             resource+:
               [{
-                github_repository_deploy_key: {
-                  [lib.name]: {
-                    title: 'jsonnet-libs/k8s deploy key',
-                    repository: '${github_repository.' + lib.name + '.name}',
-                    key: importstr './files/id_rsa.pub',
-                    read_only: false,
-                  },
-                },
                 github_repository: {
                   [lib.name]: {
                     name: lib.name + lib.suffix,
                     description: lib.description,
                     homepage_url: lib.site_url,
+                    topics: ['jsonnet', 'jsonnet-libs'],
                     auto_init: true,
                     has_downloads: false,
                     has_issues: false,
@@ -48,15 +41,26 @@ function(libs) {
                     has_wiki: false,
                     allow_merge_commit: false,
                     allow_rebase_merge: false,
-                    pages:
-                      {
-                        source:
-                          {
-                            branch: 'gh-pages',
-                            path: '/',
-                          },
+                    lifecycle: {
+                      ignore_changes: ['pages'],
+                    },
+                  } + (
+                    if pages
+                    then {
+                      lifecycle: {
+                        ignore_changes: [],
                       },
-                  },
+                      pages:
+                        {
+                          source:
+                            {
+                              branch: 'gh-pages',
+                              path: '/',
+                            },
+                        },
+                    }
+                    else {}
+                  ),
                 },
               }],
           },
