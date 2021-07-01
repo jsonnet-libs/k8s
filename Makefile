@@ -43,7 +43,6 @@ all: build libs/*
 libs/*:
 	mkdir -p $(ABS_OUTPUT_DIR) && \
 	./bin/docker.sh \
-		-it \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
