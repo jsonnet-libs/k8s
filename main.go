@@ -45,6 +45,8 @@ func main() {
 	cmd.Run = func(cmd *cli.Command, args []string) error {
 		config := loadConfig(*configFile)
 
+		os.Chdir(filepath.Dir(*configFile))
+
 		for _, t := range config.Specs {
 			if len(args) > 0 && !hasStr(args, t.Output) {
 				continue
