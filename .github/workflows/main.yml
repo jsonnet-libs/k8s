@@ -7,11 +7,8 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "./scripts/configure_github_ssh.sh"
-    - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
@@ -20,11 +17,8 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "./scripts/configure_github_ssh.sh"
-    - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
@@ -33,11 +27,8 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "./scripts/configure_github_ssh.sh"
-    - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/crossplane"
   "debugging":
     "name": "Debugging Github Action values"
@@ -56,11 +47,8 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "./scripts/configure_github_ssh.sh"
-    - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
@@ -69,11 +57,8 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "./scripts/configure_github_ssh.sh"
-    - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/k8s"
   "repos":
     "name": "Create repositories"

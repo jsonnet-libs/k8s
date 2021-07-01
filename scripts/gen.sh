@@ -2,6 +2,8 @@
 set -euo pipefail
 set -x
 
+DIRNAME=$(realpath "$(dirname "$0")")
+
 INPUT_DIR="$1"
 
 jsonnet -c -m "${INPUT_DIR}" -J . -S "${INPUT_DIR}/config.jsonnet"
@@ -16,6 +18,8 @@ OUTPUT_DIR="$2/${REPO}"
 if [ "${GEN_COMMIT}" != "true" ]; then
     mkdir -p "${OUTPUT_DIR}"
 else
+    ./configure_github_ssh.sh "${DIRNAME}"
+    export GIT_SSH_COMMAND="ssh -F '${DIRNAME}/ssh/config'"
     git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
     set +eo pipefail
     # Create the gh-pages branch if it doesn't exist.

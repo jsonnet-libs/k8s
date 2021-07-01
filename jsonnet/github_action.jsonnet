@@ -52,13 +52,12 @@ local libJob(name) = {
   'runs-on': 'ubuntu-latest',
   steps: [
     { uses: 'actions/checkout@v2' },
-    onMaster {
-      run: './scripts/configure_github_ssh.sh',
-      env: { SSH_KEY: '${{ secrets.DEPLOY_KEY }}' },
-    },
     {
       run: 'make build libs/' + name,
-      env: { GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" },
+      env: {
+        SSH_KEY: '${{ secrets.DEPLOY_KEY }}',
+        GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}",
+      },
     },
   ],
 };
