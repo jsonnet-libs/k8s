@@ -6,11 +6,10 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": |
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - "env":
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "./scripts/configure_github_ssh.sh"
     - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/cert-manager"
@@ -20,11 +19,10 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": |
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - "env":
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "./scripts/configure_github_ssh.sh"
     - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/cnrm"
@@ -34,11 +32,10 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": |
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - "env":
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "./scripts/configure_github_ssh.sh"
     - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/crossplane"
@@ -58,11 +55,10 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": |
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - "env":
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "./scripts/configure_github_ssh.sh"
     - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/istio"
@@ -72,11 +68,10 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": |
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - "env":
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "./scripts/configure_github_ssh.sh"
     - "env":
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "make build libs/k8s"

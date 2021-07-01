@@ -53,11 +53,8 @@ local libJob(name) = {
   steps: [
     { uses: 'actions/checkout@v2' },
     onMaster {
-      run: |||
-        mkdir ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-      |||,
+      run: './scripts/configure_github_ssh.sh',
+      env: { SSH_KEY: '${{ secrets.DEPLOY_KEY }}' },
     },
     {
       run: 'make build libs/' + name,
