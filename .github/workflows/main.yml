@@ -110,7 +110,12 @@
       "working-directory": "tf"
   "repos_with_pages":
     "name": "Set up gh-pages branch"
-    "needs": "jobs"
+    "needs":
+    - "istio"
+    - "crossplane"
+    - "k8s"
+    - "cnrm"
+    - "cert-manager"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"

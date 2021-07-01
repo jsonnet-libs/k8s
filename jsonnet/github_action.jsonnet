@@ -34,9 +34,9 @@ local terraform = {
       self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
     ],
   },
-  withPages: {
+  withPages(needs): {
     name: 'Set up gh-pages branch',
-    needs: 'jobs',
+    needs: needs,
     make_env+:: {
       env+: {
         PAGES: 'true',
@@ -84,7 +84,7 @@ function(libs) {
           ],
         },
         repos: terraform.job,
-        repos_with_pages: terraform.job + terraform.withPages,
+        repos_with_pages: terraform.job + terraform.withPages([lib.name for lib in libs]),
       },
     }),
 }
