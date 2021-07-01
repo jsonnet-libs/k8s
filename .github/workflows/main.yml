@@ -2,7 +2,7 @@
 "jobs":
   "cert-manager":
     "name": "Generate cert-manager Jsonnet library and docs"
-    "needs": "terraform"
+    "needs": "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -15,7 +15,7 @@
     - "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
-    "needs": "terraform"
+    "needs": "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -28,7 +28,7 @@
     - "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
-    "needs": "terraform"
+    "needs": "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -50,7 +50,7 @@
     - "run": "echo ${{ github.event_name }}"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
-    "needs": "terraform"
+    "needs": "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -63,7 +63,7 @@
     - "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
-    "needs": "terraform"
+    "needs": "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -74,13 +74,50 @@
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
     - "run": "make build libs/k8s"
-  "terraform":
+  "repos":
     "name": "create repositories"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
     - "uses": "zendesk/setup-jsonnet@v7"
-    - "run": "make tf/main.tf.json"
+    - "env":
+        "PAGES": "false"
+      "run": "make tf/main.tf.json"
+    - "uses": "hashicorp/setup-terraform@v1"
+      "with":
+        "cli_config_credentials_token": "${{ secrets.TF_API_TOKEN }}"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "TF_IN_AUTOMATION": "1"
+      "run": "terraform init"
+      "working-directory": "tf"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "TF_IN_AUTOMATION": "1"
+      "run": "terraform validate -no-color"
+      "working-directory": "tf"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "TF_IN_AUTOMATION": "1"
+      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "terraform plan -no-color"
+      "working-directory": "tf"
+    - "env":
+        "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+        "TF_IN_AUTOMATION": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "terraform apply -no-color -auto-approve"
+      "working-directory": "tf"
+  "repos_with_pages":
+    "name": "create repositories"
+    "needs": "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "zendesk/setup-jsonnet@v7"
+    - "env":
+        "PAGES": "true"
+      "run": "make tf/main.tf.json"
     - "uses": "hashicorp/setup-terraform@v1"
       "with":
         "cli_config_credentials_token": "${{ secrets.TF_API_TOKEN }}"

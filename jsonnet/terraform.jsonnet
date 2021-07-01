@@ -1,4 +1,4 @@
-function(libs) {
+function(libs, pages=true) {
   'tf/main.tf.json':
     std.manifestJsonEx(
       {
@@ -48,15 +48,20 @@ function(libs) {
                     has_wiki: false,
                     allow_merge_commit: false,
                     allow_rebase_merge: false,
-                    pages:
-                      {
-                        source:
-                          {
-                            branch: 'gh-pages',
-                            path: '/',
-                          },
-                      },
-                  },
+                  } + (
+                    if pages
+                    then {
+                      pages:
+                        {
+                          source:
+                            {
+                              branch: 'gh-pages',
+                              path: '/',
+                            },
+                        },
+                    }
+                    else {}
+                  ),
                 },
               }],
           },

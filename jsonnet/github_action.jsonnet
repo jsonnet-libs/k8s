@@ -1,5 +1,49 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
 local onPR = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
+local terraform = {
+  job: {
+    make_env:: {
+      env: {
+        PAGES: 'false',
+      },
+    },
+    tf_env:: {
+      'working-directory': 'tf',
+      env: {
+        GITHUB_TOKEN: '${{ secrets.PAT }}',
+        TF_IN_AUTOMATION: '1',
+      },
+    },
+    name: 'create repositories',
+    'runs-on': 'ubuntu-latest',
+    steps: [
+      { uses: 'actions/checkout@v2' },
+      { uses: 'zendesk/setup-jsonnet@v7' },
+
+      self.make_env { run: 'make tf/main.tf.json' },
+
+      {
+        uses: 'hashicorp/setup-terraform@v1',
+        with: {
+          cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}',
+        },
+      },
+      self.tf_env { run: 'terraform init' },
+      self.tf_env { run: 'terraform validate -no-color' },
+      self.tf_env + onPR { run: 'terraform plan -no-color' },
+      self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
+    ],
+  },
+  withPages: {
+    needs: 'repos',
+    make_env+:: {
+      env+: {
+        PAGES: 'true',
+      },
+    },
+  },
+};
+
 
 function(libs) {
   '.github/workflows/main.yml':
@@ -10,7 +54,7 @@ function(libs) {
       jobs: {
         [lib.name]: {
           name: 'Generate ' + lib.name + ' Jsonnet library and docs',
-          needs: 'terraform',
+          needs: 'repos',
           'runs-on': 'ubuntu-latest',
           steps: [
             { uses: 'actions/checkout@v2' },
@@ -38,33 +82,8 @@ function(libs) {
             { run: 'echo ${{ github.event_name }}' },
           ],
         },
-        terraform: {
-          local tf_env = {
-            'working-directory': 'tf',
-            env: {
-              GITHUB_TOKEN: '${{ secrets.PAT }}',
-              TF_IN_AUTOMATION: '1',
-            },
-          },
-          name: 'create repositories',
-          'runs-on': 'ubuntu-latest',
-          steps: [
-            { uses: 'actions/checkout@v2' },
-            { uses: 'zendesk/setup-jsonnet@v7' },
-            { run: 'make tf/main.tf.json' },
-
-            {
-              uses: 'hashicorp/setup-terraform@v1',
-              with: {
-                cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}',
-              },
-            },
-            tf_env { run: 'terraform init' },
-            tf_env { run: 'terraform validate -no-color' },
-            tf_env + onPR { run: 'terraform plan -no-color' },
-            tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
-          ],
-        },
+        repos: terraform.job,
+        repos_with_pages: terraform.job + terraform.withPages,
       },
     }),
 }
