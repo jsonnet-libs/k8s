@@ -46,6 +46,26 @@ local terraform = {
   },
 };
 
+local libJob(name) = {
+  name: 'Generate ' + name + ' Jsonnet library and docs',
+  needs: 'repos',
+  'runs-on': 'ubuntu-latest',
+  steps: [
+    { uses: 'actions/checkout@v2' },
+    onMaster {
+      run: |||
+        mkdir ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+      |||,
+    },
+    onPR { run: 'make build libs/' + name },
+    onMaster {
+      run: 'make build libs/' + name,
+      env: { GEN_COMMIT: '1' },
+    },
+  ],
+};
 
 function(libs) {
   '.github/workflows/main.yml':
@@ -54,29 +74,11 @@ function(libs) {
         'push',
       ],
       jobs: {
-        [lib.name]: {
-          name: 'Generate ' + lib.name + ' Jsonnet library and docs',
-          needs: 'repos',
-          'runs-on': 'ubuntu-latest',
-          steps: [
-            { uses: 'actions/checkout@v2' },
-            onMaster {
-              run: |||
-                mkdir ~/.ssh
-                echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-                chmod 600 ~/.ssh/id_rsa
-                export GEN_COMMIT=1
-              |||,
-            },
-            onPR { run: 'make build libs/' + lib.name },
-            onMaster {
-              run: 'make build libs/' + lib.name,
-              env: { GEN_COMMIT: '1' },
-            },
-          ],
-        }
+        [lib.name]: libJob(lib.name)
         for lib in libs
       } + {
+        repos: terraform.job,
+        repos_with_pages: terraform.job + terraform.withPages([lib.name for lib in libs]),
         debugging: {
           name: 'Debugging Github Action values',
           'runs-on': 'ubuntu-latest',
@@ -89,8 +91,6 @@ function(libs) {
             { run: 'echo ${{ github.event_name }}' },
           ],
         },
-        repos: terraform.job,
-        repos_with_pages: terraform.job + terraform.withPages([lib.name for lib in libs]),
       },
     }),
 }
