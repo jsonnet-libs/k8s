@@ -9,6 +9,7 @@ IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}')
 
 PAGES ?= false
 GEN_COMMIT ?= false
+SSH_KEY ?= ""
 
 .DEFAULT_GOAL: default
 default:
@@ -40,6 +41,7 @@ libs/*:
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		-e GEN_COMMIT=$(GEN_COMMIT) \
+		-e SSH_KEY=$(SSH_KEY) \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 build:
