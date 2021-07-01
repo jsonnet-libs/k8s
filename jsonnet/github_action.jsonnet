@@ -14,7 +14,7 @@ local terraform = {
         TF_IN_AUTOMATION: '1',
       },
     },
-    name: 'create repositories',
+    name: 'Create repositories',
     'runs-on': 'ubuntu-latest',
     steps: [
       { uses: 'actions/checkout@v2' },
@@ -35,7 +35,8 @@ local terraform = {
     ],
   },
   withPages: {
-    needs: 'repos',
+    name: 'Set up gh-pages branch',
+    needs: 'jobs',
     make_env+:: {
       env+: {
         PAGES: 'true',

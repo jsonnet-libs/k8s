@@ -75,7 +75,7 @@
         export GEN_COMMIT=1
     - "run": "make build libs/k8s"
   "repos":
-    "name": "create repositories"
+    "name": "Create repositories"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
@@ -109,8 +109,8 @@
       "run": "terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "repos_with_pages":
-    "name": "create repositories"
-    "needs": "repos"
+    "name": "Set up gh-pages branch"
+    "needs": "jobs"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
