@@ -26,7 +26,7 @@ FROM alpine:3.14
 
 WORKDIR /app
 
-RUN apk add --no-cache bash curl git
+RUN apk add --no-cache bash curl git openssh
 
 ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
 RUN chmod a+w /app
