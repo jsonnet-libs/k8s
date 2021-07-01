@@ -6,7 +6,9 @@ OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
 IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}'),")
-PAGES := false
+
+PAGES ?= false
+GEN_COMMIT ?= false
 
 .DEFAULT_GOAL: default
 default:
@@ -37,7 +39,7 @@ libs/*:
 	bash bin/docker.sh \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
-		-e GEN_COMMIT=${GEN_COMMIT} \
+		-e GEN_COMMIT=$(GEN_COMMIT) \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 build:

@@ -13,7 +13,7 @@ CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
-if [ -z "${GEN_COMMIT}" ]; then
+if [ "${GEN_COMMIT}" != "true" ]; then
     mkdir -p "${OUTPUT_DIR}"
 else
     git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
@@ -82,7 +82,7 @@ k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
 ./docs.sh "${INPUT_DIR}" "${OUTPUT_DIR}"
 
 
-if [ -z "${GEN_COMMIT}" ]; then
+if [ "${GEN_COMMIT}" != "true" ]; then
     ls -lah "${OUTPUT_DIR}"
 else
     pushd "${OUTPUT_DIR}"
