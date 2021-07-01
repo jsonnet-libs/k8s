@@ -40,9 +40,15 @@ function(libs, pages=false) {
                     has_wiki: false,
                     allow_merge_commit: false,
                     allow_rebase_merge: false,
+                    lifecycle: {
+                      ignore_changes: ['pages'],
+                    },
                   } + (
                     if pages
                     then {
+                      lifecycle: {
+                        ignore_changes: [],
+                      },
                       pages:
                         {
                           source:
