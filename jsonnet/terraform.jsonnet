@@ -1,4 +1,4 @@
-function(libs, pages=true) {
+function(libs, pages=false) {
   'tf/main.tf.json':
     std.manifestJsonEx(
       {
@@ -28,14 +28,6 @@ function(libs, pages=true) {
           acc {
             resource+:
               [{
-                github_repository_deploy_key: {
-                  [lib.name]: {
-                    title: 'jsonnet-libs/k8s deploy key',
-                    repository: '${github_repository.' + lib.name + '.name}',
-                    key: importstr './files/id_rsa.pub',
-                    read_only: false,
-                  },
-                },
                 github_repository: {
                   [lib.name]: {
                     name: lib.name + lib.suffix,

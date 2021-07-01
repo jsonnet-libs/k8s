@@ -6,7 +6,7 @@ OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
 
 IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}'),")
-PAGES := true
+PAGES := false
 
 .DEFAULT_GOAL: default
 default:
