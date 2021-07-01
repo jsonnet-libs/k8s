@@ -1,5 +1,6 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
-local onPR = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
+local onPR = { 'if': "${{ github.ref != 'refs/heads/master' }}" };
+local onPRnotFork = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
 local terraform = {
   job: {
     make_env:: {
@@ -30,15 +31,15 @@ local terraform = {
       },
       self.tf_env { run: 'terraform init' },
       self.tf_env { run: 'terraform validate -no-color' },
-      self.tf_env + onPR { run: 'terraform plan -no-color' },
+      self.tf_env + onPRnotFork { run: 'terraform plan -no-color' },
       self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
     ],
   },
   withPages(needs): {
     name: 'Set up gh-pages branch',
     needs: needs,
-    make_env+:: {
-      env+: {
+    make_env:: {
+      env: {
         PAGES: 'true',
       },
     },
@@ -67,7 +68,11 @@ function(libs) {
                 export GEN_COMMIT=1
               |||,
             },
-            { run: 'make build libs/' + lib.name },
+            onPR { run: 'make build libs/' + lib.name },
+            onMaster {
+              run: 'make build libs/' + lib.name,
+              env: { GEN_COMMIT: '1' },
+            },
           ],
         }
         for lib in libs
@@ -76,8 +81,9 @@ function(libs) {
           name: 'Debugging Github Action values',
           'runs-on': 'ubuntu-latest',
           steps: [
-            { run: 'echo isMaster? ' + onMaster['if'] },
-            { run: 'echo isPR? ' + onPR['if'] },
+            { run: 'echo onMaster? ' + onMaster['if'] },
+            { run: 'echo onPRnotFork? ' + onPRnotFork['if'] },
+            { run: 'echo onPR? ' + onPR['if'] },
             { run: 'echo ${{ github.repository }}' },
             { run: 'echo ${{ github.ref }}' },
             { run: 'echo ${{ github.event_name }}' },

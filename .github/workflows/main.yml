@@ -12,7 +12,12 @@
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
-    - "run": "make build libs/cert-manager"
+    - "if": "${{ github.ref != 'refs/heads/master' }}"
+      "run": "make build libs/cert-manager"
+    - "env":
+        "GEN_COMMIT": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "make build libs/cert-manager"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
     "needs": "repos"
@@ -25,7 +30,12 @@
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
-    - "run": "make build libs/cnrm"
+    - "if": "${{ github.ref != 'refs/heads/master' }}"
+      "run": "make build libs/cnrm"
+    - "env":
+        "GEN_COMMIT": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "make build libs/cnrm"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
     "needs": "repos"
@@ -38,13 +48,19 @@
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
-    - "run": "make build libs/crossplane"
+    - "if": "${{ github.ref != 'refs/heads/master' }}"
+      "run": "make build libs/crossplane"
+    - "env":
+        "GEN_COMMIT": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "make build libs/crossplane"
   "debugging":
     "name": "Debugging Github Action values"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "run": "echo isMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-    - "run": "echo isPR? ${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo onMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo onPRnotFork? ${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo onPR? ${{ github.ref != 'refs/heads/master' }}"
     - "run": "echo ${{ github.repository }}"
     - "run": "echo ${{ github.ref }}"
     - "run": "echo ${{ github.event_name }}"
@@ -60,7 +76,12 @@
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
-    - "run": "make build libs/istio"
+    - "if": "${{ github.ref != 'refs/heads/master' }}"
+      "run": "make build libs/istio"
+    - "env":
+        "GEN_COMMIT": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "make build libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
     "needs": "repos"
@@ -73,7 +94,12 @@
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         export GEN_COMMIT=1
-    - "run": "make build libs/k8s"
+    - "if": "${{ github.ref != 'refs/heads/master' }}"
+      "run": "make build libs/k8s"
+    - "env":
+        "GEN_COMMIT": "1"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "run": "make build libs/k8s"
   "repos":
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
