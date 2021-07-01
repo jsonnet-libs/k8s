@@ -27,8 +27,8 @@ function(libs) {
         }
         for lib in libs
       } + {
-        what_is_this: {
-          name: 'what is this',
+        debugging: {
+          name: 'Debugging Github Action values',
           'runs-on': 'ubuntu-latest',
           steps: [
             { run: 'echo isMaster? ' + onMaster['if'] },
@@ -43,6 +43,7 @@ function(libs) {
             'working-directory': 'tf',
             env: {
               GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+              TF_IN_AUTOMATION: '1',
             },
           },
           name: 'create repositories',
