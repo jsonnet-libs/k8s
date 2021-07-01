@@ -40,8 +40,8 @@ libs/*:
 	bash bin/docker.sh \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
-		-e GEN_COMMIT=$(GEN_COMMIT) \
-		-e SSH_KEY=$(SSH_KEY) \
+		-e GEN_COMMIT="$(GEN_COMMIT)" \
+		-e SSH_KEY="$(SSH_KEY)" \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 build:
