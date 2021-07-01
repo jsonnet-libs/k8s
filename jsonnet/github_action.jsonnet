@@ -42,7 +42,7 @@ function(libs) {
           local tf_env = {
             'working-directory': 'tf',
             env: {
-              GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+              GITHUB_TOKEN: '${{ secrets.PAT }}',
               TF_IN_AUTOMATION: '1',
             },
           },
