@@ -1,6 +1,6 @@
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnetlibs
-IMAGE_TAG ?= 0.0.4
+IMAGE_TAG ?= 0.0.5
 
 OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
@@ -9,7 +9,6 @@ IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}')
 
 PAGES ?= false
 GEN_COMMIT ?= false
-SSH_KEY ?= ""
 
 .DEFAULT_GOAL: default
 default:
@@ -31,17 +30,24 @@ clean:
 configure: clean .github/workflows/main.yml tf/main.tf.json
 
 debug: build
-	make $@ DEBUG=true
+	mkdir -p $(ABS_OUTPUT_DIR) && \
+	DEBUG=true ./bin/docker.sh \
+		-v $(shell realpath $@):/config \
+		-v $(ABS_OUTPUT_DIR):/output \
+		-e GEN_COMMIT="$(GEN_COMMIT)" \
+		-e SSH_KEY="$${SSH_KEY}" \
+		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 all: build libs/*
 
 libs/*:
 	mkdir -p $(ABS_OUTPUT_DIR) && \
-	bash bin/docker.sh \
+	./bin/docker.sh \
+		-it \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
-		-e SSH_KEY="$(SSH_KEY)" \
+		-e SSH_KEY="$${SSH_KEY}" \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 build:
