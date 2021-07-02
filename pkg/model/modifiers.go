@@ -97,7 +97,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 			Target: strings.TrimPrefix(ctx+"."+name, "."),
 			Type:   p.Type,
 		}
-		return fmt.Sprintf("with%s", strings.Title(name)), fn
+		return fmt.Sprintf("with%s", normalizedTitle(name)), fn
 	}
 }
 
@@ -109,7 +109,19 @@ func fnArg(name string) string {
 	if name == "local" {
 		return "Local"
 	}
+	if strings.HasPrefix(name, "-") {
+		return strings.TrimPrefix(name, "-")
+	}
 	return name
+}
+
+// normalizedTitle normalizes a name and applied strings.Title()
+func normalizedTitle(name string) string {
+	if strings.HasPrefix(name, "-") {
+		name = strings.TrimPrefix(name, "-")
+	}
+
+	return strings.Title(name)
 }
 
 // CamelLower returns the string with the word lowercased.
