@@ -33,7 +33,7 @@ function(libs, pages=false) {
                     name: lib.name + lib.suffix,
                     description: lib.description,
                     homepage_url: lib.site_url,
-                    topics: ['jsonnet', 'jsonnet-libs'],
+                    topics: ['jsonnet', 'jsonnet-lib'],
                     auto_init: true,
                     has_downloads: false,
                     has_issues: false,
