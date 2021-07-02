@@ -9,6 +9,7 @@ IMPORTS=$(shell find libs -name config.jsonnet | xargs -I {} echo "(import '{}')
 
 PAGES ?= false
 GEN_COMMIT ?= false
+GITHUB_SHA ?= $(shell git rev-parse HEAD)
 
 .DEFAULT_GOAL: default
 default:
@@ -46,6 +47,7 @@ libs/*:
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
+		-e GITHUB_SHA="$(GITHUB_SHA)" \
 		-e SSH_KEY="$${SSH_KEY}" \
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
