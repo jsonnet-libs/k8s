@@ -55,6 +55,8 @@ local libJob(name) = {
     {
       run: 'make build libs/' + name,
       env: {
+        GIT_COMMITTER_NAME: 'jsonnet-libs-bot',
+        GIT_COMMITTER_EMAIL: '86770550+jsonnet-libs-bot@users.noreply.github.com',
         SSH_KEY: '${{ secrets.DEPLOY_KEY }}',
         GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}",
       },
