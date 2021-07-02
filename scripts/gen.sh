@@ -95,9 +95,13 @@ k8s-gen -o "${OUTPUT_DIR}" -c "${CONFIG_FILE}"
 if [ "${GEN_COMMIT}" != "true" ]; then
     ls -lah "${OUTPUT_DIR}"
 else
-    pushd "${OUTPUT_DIR}"
-    git add .
-    git commit -m "update: source github.com/jsonnet-libs/k8s@${GITHUB_SHA:0:8}"
-    git push
-    popd
+    if ! git diff --exit-code -s; then
+        pushd "${OUTPUT_DIR}"
+        git add .
+        git commit -m "update: source github.com/jsonnet-libs/k8s@${GITHUB_SHA:0:8}"
+        git push
+        popd
+    else
+        echo "Nothing to commit."
+    fi
 fi
