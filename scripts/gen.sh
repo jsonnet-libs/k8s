@@ -21,10 +21,13 @@ else
     ./configure_github_ssh.sh "${DIRNAME}"
     export GIT_SSH_COMMAND="ssh -F '${DIRNAME}/ssh/config'"
     git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
-    set +eo pipefail
+
     # Create the gh-pages branch if it doesn't exist.
+    pushd "${OUTPUT_DIR}"
+    set +eo pipefail
     git push origin gh-pages || (git branch -c gh-pages && git push origin gh-pages)
     set -eo pipefail
+    popd
 fi
 
 # Remove everything except .git
