@@ -22,6 +22,9 @@ else
     export GIT_SSH_COMMAND="ssh -F '${DIRNAME}/ssh/config'"
     git clone --depth 1 "ssh://git@${REPO}" "${OUTPUT_DIR}"
 
+    git config --global user.name "${GIT_COMITTER_NAME}"
+    git config --global user.email "${GIT_COMITTER_EMAIL}"
+
     # Create the gh-pages branch if it doesn't exist.
     pushd "${OUTPUT_DIR}"
     set +eo pipefail
