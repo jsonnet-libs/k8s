@@ -45,6 +45,9 @@ func escapeKey(s string) string {
 	case "local", "error":
 		return fmt.Sprintf(`'%s'`, s)
 	default:
+		if strings.HasPrefix(s, "-") {
+			return fmt.Sprintf(`'%s'`, s)
+		}
 		if strings.HasPrefix(s, "#") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
