@@ -46,6 +46,18 @@
     - "run": "echo ${{ github.repository }}"
     - "run": "echo ${{ github.ref }}"
     - "run": "echo ${{ github.event_name }}"
+  "eck-operator":
+    "name": "Generate eck-operator Jsonnet library and docs"
+    "needs": "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "env":
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make build libs/eck-operator"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
     "needs": "repos"
@@ -119,13 +131,14 @@
   "repos_with_pages":
     "name": "Set up gh-pages branch"
     "needs":
-    - "kube-prometheus"
-    - "istio"
-    - "crossplane"
     - "strimzi"
+    - "eck-operator"
+    - "istio"
     - "k8s"
-    - "cnrm"
+    - "crossplane"
     - "cert-manager"
+    - "cnrm"
+    - "kube-prometheus"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
