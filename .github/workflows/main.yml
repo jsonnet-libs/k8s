@@ -70,6 +70,18 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/k8s"
+  "kube-prometheus":
+    "name": "Generate kube-prometheus Jsonnet library and docs"
+    "needs": "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "env":
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make build libs/kube-prometheus"
   "repos":
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
@@ -107,6 +119,7 @@
   "repos_with_pages":
     "name": "Set up gh-pages branch"
     "needs":
+    - "kube-prometheus"
     - "istio"
     - "crossplane"
     - "strimzi"

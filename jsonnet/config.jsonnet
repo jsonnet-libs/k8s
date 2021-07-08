@@ -33,7 +33,7 @@
 
     'skel/README.md': this.readme_template(
       name=name,
-      data='[Docs](https://' + this.site_url + ')',
+      data='[Docs](' + this.site_url + ')',
     ),
 
     'skel/docs/README.md': this.readme_template(
