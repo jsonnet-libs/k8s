@@ -27,6 +27,17 @@ config.new(
 )
 + {
 
+  mkdocs_config+: {
+    plugins+: [{
+      'exclude-search': {
+        exclude: [
+          version + '/*'
+          for version in versions[1:]
+        ],
+      },
+    }],
+  },
+
   'skel/README.md': (importstr './README_root.md.tmpl') % {
     version: versions[0],
   },
