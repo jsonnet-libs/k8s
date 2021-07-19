@@ -31,5 +31,12 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.16.1'],
       localName: 'crossplane_azure',
     },
+    {
+      output: 'provider-sql/0.2',
+      openapi: 'http://localhost:8001/openapi/v2',
+      prefix: '^io\\.crossplane\\.sql\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-sql@v0.2.0'],
+      localName: 'crossplane_sql',
+    },
   ]
 )
