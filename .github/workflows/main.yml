@@ -119,13 +119,13 @@
   "repos_with_pages":
     "name": "Set up gh-pages branch"
     "needs":
-    - "kube-prometheus"
-    - "istio"
-    - "crossplane"
     - "strimzi"
-    - "k8s"
-    - "cnrm"
+    - "kube-prometheus"
     - "cert-manager"
+    - "cnrm"
+    - "crossplane"
+    - "k8s"
+    - "istio"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
