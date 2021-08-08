@@ -1,14 +1,17 @@
 local config = import 'jsonnet/config.jsonnet';
 
+local versions = ['0.23', '0.24'];
+
 config.new(
   name='strimzi',
   specs=[
     {
-      output: '0.23',
+      output: version,
       openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.strimzi\\..*',
-      crds: ['https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.23.0/strimzi-crds-0.23.0.yaml'],
+      crds: ['https://github.com/strimzi/strimzi-kafka-operator/releases/download/%(version)s.0/strimzi-crds-%(version)s.0.yaml' % {version: version},],
       localName: 'strimzi',
-    },
+    }
+    for version in versions
   ]
 )
