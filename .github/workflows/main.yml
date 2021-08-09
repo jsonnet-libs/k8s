@@ -131,14 +131,14 @@
   "repos_with_pages":
     "name": "Set up gh-pages branch"
     "needs":
-    - "strimzi"
     - "eck-operator"
     - "istio"
     - "k8s"
-    - "crossplane"
     - "cert-manager"
-    - "cnrm"
+    - "crossplane"
     - "kube-prometheus"
+    - "strimzi"
+    - "cnrm"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
