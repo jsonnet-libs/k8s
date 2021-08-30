@@ -172,3 +172,4 @@
       "run": "make build libs/strimzi"
 "on":
 - "push"
+- "pull_request"
