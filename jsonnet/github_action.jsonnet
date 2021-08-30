@@ -76,7 +76,7 @@ function(libs) {
         for lib in libs
       } + {
         repos: terraform.job,
-        repos_with_pages: terraform.job + terraform.withPages([lib.name for lib in libs]),
+        repos_with_pages: terraform.job + terraform.withPages(std.sort([lib.name for lib in libs])),
         debugging: {
           name: 'Debugging Github Action values',
           'runs-on': 'ubuntu-latest',
