@@ -197,5 +197,9 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/strimzi"
 "on":
-- "push"
-- "pull_request"
+  "pull_request":
+    "branches":
+    - "master"
+  "push":
+    "branches":
+    - "master"
