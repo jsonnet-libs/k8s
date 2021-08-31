@@ -18,7 +18,7 @@
     'config.yml': std.manifestYamlDoc({
       repository: this.repository,
       specs: [
-        { port: 8001 } +
+        { proxy_port: 8001 } +
         spec { repository: this.repository }
         for spec in specs
       ],
