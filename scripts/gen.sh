@@ -44,7 +44,7 @@ BIND_PORT=6443
 SPECS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
 for SPEC in ${SPECS}; do
     CRDS=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.crds[]' - < "${CONFIG_FILE}")
-    PORT=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.proxy_port' - < "${CONFIG_FILE}")
+    PROXY_PORT=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.proxy_port' - < "${CONFIG_FILE}")
     if [ -n "$CRDS" ]; then
         KUBECONFIG=$(mktemp)
         API_LOGFILE=$(mktemp)
@@ -77,7 +77,7 @@ for SPEC in ${SPECS}; do
 
         kubectl apply -f "${CRDFILE}"
 
-        kubectl proxy --port=${PORT:-8001} &
+        kubectl proxy --port=${PROXY_PORT} &
 
         # Waiting for /openapi/v2 reconciliation
         # If we don't wait for this to happen, some CRDs won't show up in the
