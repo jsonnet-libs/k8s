@@ -5,7 +5,6 @@ config.new(
   specs=[
     {
       output: '0.8',
-      openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^com\\.coreos\\.monitoring\\..*',
       crds: [
         'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/v0.8.0/manifests/setup/prometheus-operator-0alertmanagerConfigCustomResourceDefinition.yaml',

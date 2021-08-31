@@ -5,7 +5,6 @@ config.new(
   specs=[
     {
       output: '3.1',
-      openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.argoproj\\..*',
       crds: [
         // Full manifests are broken: https://github.com/argoproj/argo-workflows/issues/6588
