@@ -8,13 +8,17 @@ import (
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
-// we don't need modifiers for these, they shall not be changed
-func modifierBlacklist() map[string]bool {
-	return map[string]bool{
-		"apiVersion": true,
-		"status":     true,
-	}
+type excludeType string
 
+const (
+	notExcluded       = ""
+	excludeEverywhere = "everywhere"
+	excludeInRootOnly = "root"
+)
+
+var propertiesWithoutModifiers = map[string]excludeType{
+	"apiVersion": excludeInRootOnly,
+	"status":     excludeEverywhere,
 }
 
 // Modifier is a function that returns a patch to modify the value at `Target`
@@ -60,10 +64,10 @@ type Object struct {
 
 // modsForProps generates Modifiers for a (nested) map of swagger properties
 // (object fields)
-func modsForProps(props map[string]*swagger.Schema, ctx string) map[string]interface{} {
+func modsForProps(props map[string]*swagger.Schema, ctx string, root bool) map[string]interface{} {
 	mods := make(map[string]interface{})
 	for k, p := range props {
-		if modifierBlacklist()[k] {
+		if excluded := propertiesWithoutModifiers[k]; excluded == excludeEverywhere || (root && excluded == excludeInRootOnly) {
 			continue
 		}
 		name, mod := newModifier(k, p, ctx)
@@ -83,7 +87,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 		if len(p.Props) != 0 {
 			o := Object{
 				Help:   safeStr(p.Desc),
-				Fields: modsForProps(p.Props, ctx+"."+name),
+				Fields: modsForProps(p.Props, ctx+"."+name, false),
 			}
 			return name, o
 		}
