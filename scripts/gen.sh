@@ -43,8 +43,8 @@ BIND_PORT=6443
 
 SPECS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
 for SPEC in ${SPECS}; do
-    CRDS=$(yq2 e '.specs[]|select(.output=='"${SPEC}"')|.crds[]' - < "${CONFIG_FILE}")
-    PORT=$(yq2 e '.specs[]|select(.output=='"${SPEC}"')|.proxy_port' - < "${CONFIG_FILE}")
+    CRDS=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.crds[]' - < "${CONFIG_FILE}")
+    PORT=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.proxy_port' - < "${CONFIG_FILE}")
     if [ -n "$CRDS" ]; then
         KUBECONFIG=$(mktemp)
         API_LOGFILE=$(mktemp)
