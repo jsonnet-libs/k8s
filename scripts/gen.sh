@@ -83,18 +83,19 @@ for SPEC in ${SPECS}; do
         echo "waiting for openapi reconciliation..."
         sleep 5
         EXPECTED_RESOURCES=($(cat ${CRDFILE} | yq2 e '.spec.group + "/[a-zA-Z0-9]*/" + .spec.names.plural' -N -))
-        for i in $(seq 1 10); do
+        for i in $(seq 1 20); do
             echo "checking..."
             SCHEMA="$(curl -s ${OPENAPI})"
-            DONE=false
+            DONE="true"
             for RESOURCE in ${EXPECTED_RESOURCES[*]}; do
                 if ! echo "${SCHEMA}" | grep -e ${RESOURCE} &> /dev/null; then
                     echo "${RESOURCE} is not reconciliated yet..."
+                    DONE="false"
                     break
                 fi
-                DONE=true
-            done 
+            done
             if [ "${DONE}" = "true" ]; then
+                echo "all resources were accounted for "
                 break
             fi
             sleep 5
