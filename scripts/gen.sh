@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-set -x
 
 DIRNAME=$(realpath "$(dirname "$0")")
 
@@ -45,6 +44,7 @@ SPECS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
 for SPEC in ${SPECS}; do
     CRDS=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.crds[]' - < "${CONFIG_FILE}")
     PROXY_PORT=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.proxy_port' - < "${CONFIG_FILE}")
+    OPENAPI=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.openapi' - < "${CONFIG_FILE}")
     if [ -n "$CRDS" ]; then
         KUBECONFIG=$(mktemp)
         API_LOGFILE=$(mktemp)
@@ -80,12 +80,29 @@ for SPEC in ${SPECS}; do
         kubectl proxy --port=${PROXY_PORT} &
 
         # Waiting for /openapi/v2 reconciliation
-        # If we don't wait for this to happen, some CRDs won't show up in the
-        # output, resulting in missing build artifacts on the libraries without
-        # warning or error.
-        # Ideally this script can verify whether all CRDs have been reconciled as
-        # the time it takes might increase with more CRDs added.
-        sleep 120
+        echo "waiting for openapi reconciliation..."
+        sleep 5
+        EXPECTED_RESOURCES=($(cat ${CRDFILE} | yq2 e '.spec.group + "/[a-zA-Z0-9]*/" + .spec.names.plural' -N -))
+        for i in $(seq 1 10); do
+            echo "checking..."
+            SCHEMA="$(curl -s ${OPENAPI})"
+            DONE=false
+            for RESOURCE in ${EXPECTED_RESOURCES[*]}; do
+                if ! echo "${SCHEMA}" | grep -e ${RESOURCE} &> /dev/null; then
+                    echo "${RESOURCE} is not reconciliated yet..."
+                    break
+                fi
+                DONE=true
+            done 
+            if [ "${DONE}" = "true" ]; then
+                break
+            fi
+            sleep 5
+        done
+        if [ "${DONE}" != "true" ]; then
+            echo "resources were never reconciliated in the openapi specs"
+            exit 1
+        fi
 
         BIND_PORT=$((BIND_PORT+100))
     fi
