@@ -5,7 +5,6 @@ config.new(
   specs=[
     {
       output: 'crossplane/1.3',
-      openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.3.1'],
       localName: 'crossplane',
@@ -18,7 +17,6 @@ config.new(
     },
     {
       output: 'provider-aws/0.19',
-      openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.crossplane\\.aws\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-aws@v0.19.0'],
       localName: 'crossplane_aws',
