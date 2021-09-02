@@ -113,6 +113,9 @@ func fnArg(name string) string {
 	if name == "local" {
 		return "Local"
 	}
+	if name == "function" {
+		return "Function"
+	}
 	if strings.HasPrefix(name, "-") {
 		return strings.TrimPrefix(name, "-")
 	}

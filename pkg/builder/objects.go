@@ -42,7 +42,7 @@ func Object(name string, children ...Type) ObjectType {
 
 func escapeKey(s string) string {
 	switch s {
-	case "local", "error":
+	case "local", "error", "function":
 		return fmt.Sprintf(`'%s'`, s)
 	default:
 		if strings.HasPrefix(s, "-") {
