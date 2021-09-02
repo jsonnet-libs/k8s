@@ -7,7 +7,7 @@ config.new(
       output: 'crossplane/1.3',
       openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.3.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.3.1'],
       localName: 'crossplane',
     },
     {
