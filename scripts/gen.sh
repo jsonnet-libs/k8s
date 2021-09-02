@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-set -x
 
 DIRNAME=$(realpath "$(dirname "$0")")
 
@@ -11,7 +10,6 @@ jsonnet -c -m "${INPUT_DIR}" -J . -S "${INPUT_DIR}/config.jsonnet"
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
 REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
-CRDS=$(yq2 e '.specs[]|select(has("crds"))|.crds[]' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
@@ -40,49 +38,76 @@ find "${OUTPUT_DIR}" \
     -not -name '.git' \
     -delete
 
+BIND_PORT=6443
 
-CRDFILE=$(mktemp)
-API_LOGFILE=$(mktemp)
+SPECS=$(yq2 e '.specs[]|.output' - < "${CONFIG_FILE}")
+for SPEC in ${SPECS}; do
+    CRDS=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.crds[]' - < "${CONFIG_FILE}")
+    PROXY_PORT=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.proxy_port' - < "${CONFIG_FILE}")
+    OPENAPI=$(yq2 e '.specs[]|select(.output=="'${SPEC}'")|.openapi' - < "${CONFIG_FILE}")
+    if [ -n "$CRDS" ]; then
+        KUBECONFIG=$(mktemp)
+        API_LOGFILE=$(mktemp)
+        CRDFILE=$(mktemp)
+        ./bare-k3s ${BIND_PORT} >"${API_LOGFILE}" 2>&1 &
 
-if [ -n "$CRDS" ]; then
-    ./bare-k3s >"${API_LOGFILE}" 2>&1 &
-
-    echo "" > "${CRDFILE}"
-    for URL in ${CRDS}; do
-        echo "---" >> "${CRDFILE}"
-        echo "Downloading ${URL}..."
-        curl -sL "${URL}" >> "${CRDFILE}"
-    done
-
-    server_up() {
-        local i
-        for i in $(seq 1 10); do
-          local out
-          if out=$(kubectl get --raw /healthz 2>/dev/null); then
-            echo "On try ${i}: ${out}"
-            return 0
-          fi
-          sleep 1
+        echo "" > "${CRDFILE}"
+        for URL in ${CRDS}; do
+            echo "---" >> "${CRDFILE}"
+            echo "Downloading ${URL}..."
+            curl -sL "${URL}" >> "${CRDFILE}"
         done
-    }
 
-    if ! server_up; then
-      tail -10 "${API_LOGFILE}" >&2 || :
-      exit 1
+        server_up() {
+            local i
+            for i in $(seq 1 10); do
+            local out
+            if out=$(kubectl get --raw /healthz 2>/dev/null); then
+                echo "On try ${i}: ${out}"
+                return 0
+            fi
+            sleep 1
+            done
+        }
+
+        if ! server_up; then
+        tail -10 "${API_LOGFILE}" >&2 || :
+        exit 1
+        fi
+
+        kubectl apply -f "${CRDFILE}"
+
+        kubectl proxy --port=${PROXY_PORT} &
+
+        # Waiting for /openapi/v2 reconciliation
+        echo "waiting for openapi reconciliation..."
+        sleep 5
+        EXPECTED_RESOURCES=($(cat ${CRDFILE} | yq2 e '.spec.group + "/[a-zA-Z0-9]*/" + .spec.names.plural' -N -))
+        for i in $(seq 1 10); do
+            echo "checking..."
+            SCHEMA="$(curl -s ${OPENAPI})"
+            DONE=false
+            for RESOURCE in ${EXPECTED_RESOURCES[*]}; do
+                if ! echo "${SCHEMA}" | grep -e ${RESOURCE} &> /dev/null; then
+                    echo "${RESOURCE} is not reconciliated yet..."
+                    break
+                fi
+                DONE=true
+            done 
+            if [ "${DONE}" = "true" ]; then
+                break
+            fi
+            sleep 5
+        done
+        if [ "${DONE}" != "true" ]; then
+            echo "resources were never reconciliated in the openapi specs"
+            exit 1
+        fi
+
+        BIND_PORT=$((BIND_PORT+100))
     fi
+done
 
-    kubectl apply -f "${CRDFILE}"
-
-    kubectl proxy &
-
-    # Waiting for /openapi/v2 reconciliation
-    # If we don't wait for this to happen, some CRDs won't show up in the
-    # output, resulting in missing build artifacts on the libraries without
-    # warning or error.
-    # Ideally this script can verify whether all CRDs have been reconciled as
-    # the time it takes might increase with more CRDs added.
-    sleep 120
-fi
 
 shopt -s dotglob
 cp -r "${INPUT_DIR}/skel"/* "${OUTPUT_DIR}"

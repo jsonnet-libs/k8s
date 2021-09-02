@@ -18,8 +18,10 @@
     'config.yml': std.manifestYamlDoc({
       repository: this.repository,
       specs: [
-        spec { repository: this.repository }
-        for spec in specs
+        local proxy_port = 8001 + i;
+        { proxy_port: proxy_port, openapi: 'http://localhost:%s/openapi/v2' % proxy_port, repository: this.repository }
+        + specs[i]
+        for i in std.range(0, std.length(specs) - 1)
       ],
     }, true),
 

@@ -34,7 +34,7 @@ config.new(
       output: '<version>',
 
       # openapi spec v2 endpoint
-      # Use the localhost k3s endpoint in case `crds` is defined
+      # No need to define this if `crds` is defined
       openapi: 'http://localhost:8001/openapi/v2',
 
       # prefix Regex that should match the reverse of the CRDs spec.group
