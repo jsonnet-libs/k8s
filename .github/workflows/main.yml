@@ -118,6 +118,18 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/kube-prometheus"
+  "projectcalico":
+    "name": "Generate projectcalico Jsonnet library and docs"
+    "needs": "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "env":
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make build libs/projectcalico"
   "repos":
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
@@ -164,6 +176,7 @@
     - "istio"
     - "k8s"
     - "kube-prometheus"
+    - "projectcalico"
     - "strimzi"
     "runs-on": "ubuntu-latest"
     "steps":
