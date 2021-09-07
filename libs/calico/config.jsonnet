@@ -20,6 +20,9 @@ config.new(
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_ipamblocks.yaml' % version,
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_ipamconfigs.yaml' % version,
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_ipamhandles.yaml' % version,
+        // IPPools resource is currently not included because the CRD breaks jsonnet by having a `-` within the deprecated key name `nat-outgoing`.
+        // Once this has been removed, this file can be included and the comment removed.
+        // 'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_ippools.yaml' % version,
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_kubecontrollersconfigurations.yaml' % version,
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_networkpolicies.yaml' % version,
         'https://raw.githubusercontent.com/projectcalico/calico/v%s.0/_includes/charts/calico/crds/kdd/crd.projectcalico.org_networksets.yaml' % version,
