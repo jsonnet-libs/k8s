@@ -42,10 +42,10 @@ func Object(name string, children ...Type) ObjectType {
 
 func escapeKey(s string) string {
 	switch s {
-	case "local", "error", "function":
+	case "local", "error", "function", "import":
 		return fmt.Sprintf(`'%s'`, s)
 	default:
-		if strings.HasPrefix(s, "-") {
+		if strings.Contains(s, "-") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
 		if strings.HasPrefix(s, "#") {
