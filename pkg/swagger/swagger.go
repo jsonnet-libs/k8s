@@ -36,18 +36,24 @@ func Load(data []byte) (*Swagger, error) {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return nil, err
 	}
+	s.resolveMap = map[string]*Schema{}
 
 	for k, def := range s.Definitions {
-		s.Definitions[k] = resolveRefs(def, s.Definitions)
+		s.Definitions[k] = s.resolveRefs(def)
 	}
 
 	return &s, nil
 }
 
-func resolveRefs(d *Schema, defs Definitions) *Schema {
+type Swagger struct {
+	resolveMap  map[string]*Schema // store objects in a map in order to support recursive references
+	Definitions Definitions        `json:"definitions"`
+}
+
+func (s *Swagger) resolveRefs(d *Schema) *Schema {
 	for key, prop := range d.Props {
-		resolved := get(prop, defs)
-		resolved.Items = get(resolved.Items, defs)
+		resolved := s.get(prop)
+		resolved.Items = s.get(resolved.Items)
 
 		d.Props[key] = resolved
 	}
@@ -55,7 +61,7 @@ func resolveRefs(d *Schema, defs Definitions) *Schema {
 	return d
 }
 
-func get(prop *Schema, defs Definitions) *Schema {
+func (s *Swagger) get(prop *Schema) *Schema {
 	if prop == nil || prop.DollarRef == nil {
 		return prop
 	}
@@ -65,13 +71,14 @@ func get(prop *Schema, defs Definitions) *Schema {
 		return prop
 	}
 
-	rs := defs[ref]
+	if rs, ok := s.resolveMap[ref]; ok {
+		return rs
+	}
+	rs := s.Definitions[ref]
 	rs.ResolvedRef = ref
-	return resolveRefs(rs, defs)
-}
-
-type Swagger struct {
-	Definitions Definitions `json:"definitions"`
+	s.resolveMap[ref] = rs
+	rs = s.resolveRefs(rs)
+	return rs
 }
 
 type Definitions map[string]*Schema
