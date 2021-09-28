@@ -59,6 +59,7 @@ local libJob(name) = {
         GIT_COMMITTER_EMAIL: '86770550+jsonnet-libs-bot@users.noreply.github.com',
         SSH_KEY: '${{ secrets.DEPLOY_KEY }}',
         GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}",
+        DIFF: 'true',
       },
     },
   ],
