@@ -1,7 +1,6 @@
 package render
 
 import (
-	"fmt"
 	"path"
 	"path/filepath"
 
@@ -92,17 +91,16 @@ func Service(name string, service *cloudformation.Service, gen string) Objects {
 	}
 
 	objects := make(Objects)
+
 	for resourceName, resource := range service.ResourceTypes {
 		r := Resource(resourceName, resource)
-		fmt.Println("ON:", resource.OriginName)
 		fn := filepath.Join(gen, resource.FilePath()+GenExt)
 		objects[fn] = r
 		fields = append(fields, j.Import(resource.Name, fn))
 	}
 
 	SortFields(fields)
-
-	objects[MainFile] = j.Object(service.PackageName, fields...)
+	objects[filepath.Join(gen, service.FilePath(), MainFile)] = j.Object(service.PackageName, fields...)
 
 	return objects
 }
@@ -113,7 +111,6 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 		d.Pkg(resource.PackageName, "", resource.Resource.Documentation()),
 	}
 
-	fmt.Println("Resource", name)
 	// with... functions
 	for k, m := range resource.Modifiers {
 		if i := Modifier(k, m); i != nil {
@@ -130,16 +127,17 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 				dArgs := ""
 			}*/
 		argName := strcase.LowerCamelCase(propName)
+		dArgs := d.Args(argName, "string")
 		args := j.Args(
 			j.Required(j.String(argName, "")),
 		)
 		//set := fnResult(f, false)
 		fields = append(fields,
-			d.Func("with"+propName, prop.Documentation(), d.Args()),
+			d.Func("with"+propName, prop.Documentation(), dArgs),
 			j.Func("with"+propName, args, j.ConciseObject("",
-				j.ConciseObject("Properties",
+				j.Merge(j.ConciseObject("Properties",
 					j.Ref(propName, argName),
-				),
+				)),
 			)),
 		)
 
@@ -147,10 +145,10 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 
 	SortFields(fields)
 
-	fields = append(fields,
-		j.String("#mixin", "ignore"),
-		j.Ref("mixin", "self"),
-	)
+	// fields = append(fields,
+	// 	j.String("#mixin", "ignore"),
+	// 	j.Ref("mixin", "self"),
+	//)
 
 	return j.Object(resource.PackageName, fields...)
 }

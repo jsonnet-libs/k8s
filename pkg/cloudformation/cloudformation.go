@@ -97,7 +97,7 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 					Service:        si,
 					Name:           name,
 					FullName:       FullName("resource", resourceName, "."),
-					PackageName:    FullName("resource", resourceName, "."),
+					PackageName:    Name("resource", resourceName),
 					OriginName:     resourceName,
 					Resource:       *resource,
 				}
@@ -112,7 +112,7 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 				Realm:          ri,
 				Name:           Name("service", resourceName),
 				FullName:       FullName("service", resourceName, "."),
-				PackageName:    FullName("service", resourceName, "."),
+				PackageName:    Name("service", resourceName),
 				OriginName:     FullName("service", resourceName, "::"),
 				ResourceTypes:  ris,
 				//	PropertyTypes  map[string]*PropertyType

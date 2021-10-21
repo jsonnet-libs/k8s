@@ -111,47 +111,12 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 		log.Fatalln(err)
 	}
 
-	for name, realm := range cloudformation.ListRealms() {
-		file := filepath.Join(gen, realm.FilePath(), render.MainFile)
-		os.MkdirAll(filepath.Dir(file), os.ModePerm)
-		fmt.Println("file", name, file)
-		if err := writeJsonnet(file, render.Realm(name, realm).String()); err != nil {
-			log.Fatalln(err)
-		}
-	}
-
-	fmt.Println("Start service gen")
-	for name, service := range cloudformation.ListServices() {
-		s := render.Service(name, service, gen)
-		fmt.Println("Gen ", name)
-
-		for _, o := range s {
-			file := filepath.Join(gen, service.FilePath(), render.MainFile)
-			os.MkdirAll(filepath.Dir(file), os.ModePerm)
-			if err := writeJsonnet(file, o.String()); err != nil {
-				log.Fatalln(err)
-			}
-		}
-	}
-
 	for realmName, realm := range cloudformation.ListRealms() {
 
 		for serviceName, service := range realm.Services {
 
-			for name, resource := range service.ResourceTypes {
-				r := render.Resource(name, resource)
-
-				file := filepath.Join(gen, resource.FilePath()+render.GenExt)
-				os.MkdirAll(filepath.Dir(file), os.ModePerm)
-				if err := writeJsonnet(file, r.String()); err != nil {
-					log.Fatalln(err)
-				}
-			}
-
 			s := render.Service(serviceName, service, gen)
-			fmt.Println("Gen ", serviceName)
 			for fn, o := range s {
-
 				os.MkdirAll(filepath.Dir(fn), os.ModePerm)
 				if err := writeJsonnet(fn, o.String()); err != nil {
 					log.Fatalln(err)
@@ -161,66 +126,10 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 
 		file := filepath.Join(gen, realm.FilePath(), render.MainFile)
 		os.MkdirAll(filepath.Dir(file), os.ModePerm)
-		fmt.Println("file", realmName, file)
 		if err := writeJsonnet(file, render.Realm(realmName, realm).String()); err != nil {
 			log.Fatalln(err)
 		}
 	}
-	// for name, resource := range cloudformation.ListResourceTypes() {
-	// 	r := render.Resource(name, resource)
-
-	// 	file := filepath.Join(gen, resource.FilePath()+render.GenExt)
-	// 	os.MkdirAll(filepath.Dir(file), os.ModePerm)
-	// 	if err := writeJsonnet(file, r.String()); err != nil {
-	// 		log.Fatalln(err)
-	// 	}
-
-	// }
-
-	// if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-	// 	log.Fatalln(err)
-	// }
-
-	// // gen.libsonnet
-	// index := render.Index(s, target.LocalName, target.Repository, target.Output, target.Description)
-	// indexFile := filepath.Join(dir, render.IndexFile)
-	// if err := writeJsonnet(indexFile, index.String()); err != nil {
-	// 	log.Fatalln("writing gen.libsonnet:", err)
-	// }
-
-	// // _gen/<group>/<version>/<kind>.libsonnet
-	// gen := filepath.Join(dir, render.GenPrefix)
-	// if err := os.MkdirAll(gen, os.ModePerm); err != nil {
-	// 	log.Fatalln(err)
-	// }
-
-	// for realmName, realm := range cloudformation.Realms(s) {
-	// 	g := render.Realm(realmName, realm)
-
-	// 	for _, o := range g {
-	// 		file := filepath.Join(gen, realm.RealmName, render.MainFile+render.GenExt)
-	// 		fmt.Println("gen", file)
-	// 		os.MkdirAll(filepath.Dir(file), os.ModePerm)
-	// 		if err := writeJsonnet(file, o.String()); err != nil {
-	// 			log.Fatalln(err)
-	// 		}
-	// 		fmt.Println("done", file)
-	// 	}
-	// }
-
-	// for resourceName, resource := range cloudformation.Resources(s, "") {
-	// 	g := render.Resource(resourceName, resource)
-
-	// 	for _, o := range g {
-	// 		file := filepath.Join(gen, resource.RealmName, resource.ServiceName, resource.ResourceName+render.GenExt)
-	// 		fmt.Println("gen", file)
-	// 		os.MkdirAll(filepath.Dir(file), os.ModePerm)
-	// 		if err := writeJsonnet(file, o.String()); err != nil {
-	// 			log.Fatalln(err)
-	// 		}
-	// 		fmt.Println("done", file)
-	// 	}
-	// }
 
 	var adds []string
 
@@ -228,7 +137,6 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 	main := render.Main(adds)
 	mainFile := filepath.Join(dir, render.MainFile)
 
-	fmt.Println("last file is... ", mainFile, main.String())
 	if err := writeJsonnet(mainFile, main.String()); err != nil {
 		log.Fatalln(err)
 	}
@@ -236,7 +144,6 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 }
 
 func writeJsonnet(to, data string) error {
-	fmt.Println("write into ", to)
 	s, err := formatter.Format("", data, formatter.DefaultOptions())
 	if err != nil {
 		return fmt.Errorf("%s: %s", err, data)

@@ -2,7 +2,28 @@
 
 Code generator for Jsonnet AWS CloudFormation libraries.
 
-🚧 This generator is still under construction to support AWS CloudFormation 🚧
+## 👷 This generator is under migration from [jsonnet-libs/k8s](https://github.com/jsonnet-libs/k8s) 🚧
+
+### What does work ?
+
+* Not much
+
+* ResourceTypes can generate with properties (Mixin not yet implemented)
+
+
+### What doesn't ?
+
+* Only type supported for the moment is `string`
+
+* Mixin not implemented yet
+
+* Composed types not implemented (List, Map, Object)
+
+* Everything
+
+* Workflow for automatic library generation
+
+🚧 Documentation beyond this point is probably not up to date 🚧
 
 This repository contains the generator code and relevant bits to generate the jsonnet
 libraries. It can generate libraries directly from OpenAPI spec v2 or by providing CRDs.
@@ -11,6 +32,7 @@ The latter are then loaded into `k3s`, which serves them back in OpenAPI spec v2
 The CI job is set up to generate and update the content of a corresponding Github
 repository for each library. The management of these repositories is done through
 Terraform.
+
 
 ## Usage
 
