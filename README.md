@@ -1,6 +1,8 @@
-# k8s-gen
+# cfn-gen
 
-Code generator for Jsonnet Kubernetes libraries.
+Code generator for Jsonnet AWS CloudFormation libraries.
+
+🚧 This generator is still under construction to support AWS CloudFormation 🚧
 
 This repository contains the generator code and relevant bits to generate the jsonnet
 libraries. It can generate libraries directly from OpenAPI spec v2 or by providing CRDs.
