@@ -1,6 +1,6 @@
-local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
+local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}" };
 local onPR = { 'if': "${{ github.ref != 'refs/heads/master' }}" };
-local onPRnotFork = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
+local onPRnotFork = { 'if': "${{ github.ref != 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}" };
 local terraform = {
   job: {
     make_env:: {
@@ -58,7 +58,7 @@ local libJob(name) = {
         GIT_COMMITTER_NAME: 'jsonnet-libs-bot',
         GIT_COMMITTER_EMAIL: '86770550+jsonnet-libs-bot@users.noreply.github.com',
         SSH_KEY: '${{ secrets.DEPLOY_KEY }}',
-        GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}",
+        GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}",
       },
     },
   ],

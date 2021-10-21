@@ -5,9 +5,11 @@ import (
 	"path"
 	"path/filepath"
 
-	j "github.com/jsonnet-libs/k8s/pkg/builder"
-	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
-	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
+	"github.com/stoewer/go-strcase"
+
+	j "github.com/Cicatrice/cfn-gen/pkg/builder"
+	d "github.com/Cicatrice/cfn-gen/pkg/builder/docsonnet"
+	"github.com/Cicatrice/cfn-gen/pkg/cloudformation"
 )
 
 // Common set of directory structure / file extensions
@@ -56,7 +58,6 @@ func Main(adds []string) j.Type {
 	if len(adds) == 0 {
 		return index
 	}
-
 	elems := []j.Type{index}
 	for _, a := range adds {
 		a = filepath.Join(CustomPrefix, filepath.Base(a))
@@ -70,7 +71,7 @@ func Main(adds []string) j.Type {
 func Realm(name string, realm *cloudformation.Realm) j.ObjectType {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "", ""),
+		d.Pkg(realm.PackageName, "", ""),
 	}
 
 	for _, service := range realm.Services {
@@ -79,29 +80,29 @@ func Realm(name string, realm *cloudformation.Realm) j.ObjectType {
 	}
 
 	SortFields(fields)
-	rr := j.Object(name, fields...)
+	rr := j.Object(realm.PackageName, fields...)
 	return rr
 
 }
 
-func Service(name string, service *cloudformation.Service) Objects {
+func Service(name string, service *cloudformation.Service, gen string) Objects {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "", ""),
+		d.Pkg(service.PackageName, "", ""),
 	}
 
 	objects := make(Objects)
 	for resourceName, resource := range service.ResourceTypes {
 		r := Resource(resourceName, resource)
 		fmt.Println("ON:", resource.OriginName)
-		fn := filepath.Join(resource.N("resource") + GenExt)
+		fn := filepath.Join(gen, resource.FilePath()+GenExt)
 		objects[fn] = r
 		fields = append(fields, j.Import(resource.Name, fn))
 	}
 
 	SortFields(fields)
 
-	objects[MainFile] = j.Object(name, fields...)
+	objects[MainFile] = j.Object(service.PackageName, fields...)
 
 	return objects
 }
@@ -109,7 +110,7 @@ func Service(name string, service *cloudformation.Service) Objects {
 func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 	fields := []j.Type{
 		d.Import(),
-		d.Pkg(name, "", resource.Resource.Documentation),
+		d.Pkg(resource.PackageName, "", resource.Resource.Documentation()),
 	}
 
 	fmt.Println("Resource", name)
@@ -121,21 +122,23 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 	}
 
 	// PROPERTIES
-	for propName, _ := range resource.Resource.Props {
+	for propName, prop := range resource.Resource.Props {
 		/*
 			if prop.Type {
 				dArgs := d.Args(string(prop.Type), string(prop.Type))
 			} else {
 				dArgs := ""
 			}*/
+		argName := strcase.LowerCamelCase(propName)
 		args := j.Args(
-			j.Required(j.String("p", "")),
+			j.Required(j.String(argName, "")),
 		)
 		//set := fnResult(f, false)
 		fields = append(fields,
-			j.Func(propName, args, j.ConciseObject("",
+			d.Func("with"+propName, prop.Documentation(), d.Args()),
+			j.Func("with"+propName, args, j.ConciseObject("",
 				j.ConciseObject("Properties",
-					j.Ref(propName, "p"),
+					j.Ref(propName, argName),
 				),
 			)),
 		)
@@ -149,5 +152,5 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 		j.Ref("mixin", "self"),
 	)
 
-	return j.Object(name, fields...)
+	return j.Object(resource.PackageName, fields...)
 }

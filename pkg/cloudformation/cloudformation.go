@@ -97,6 +97,7 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 					Service:        si,
 					Name:           name,
 					FullName:       FullName("resource", resourceName, "."),
+					PackageName:    FullName("resource", resourceName, "."),
 					OriginName:     resourceName,
 					Resource:       *resource,
 				}
@@ -111,6 +112,7 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 				Realm:          ri,
 				Name:           Name("service", resourceName),
 				FullName:       FullName("service", resourceName, "."),
+				PackageName:    FullName("service", resourceName, "."),
 				OriginName:     FullName("service", resourceName, "::"),
 				ResourceTypes:  ris,
 				//	PropertyTypes  map[string]*PropertyType
@@ -128,7 +130,9 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 			Name:           realmName,
 			FullName:       realmName,
 			OriginName:     realmName,
-			Services:       sis,
+			PackageName:    realmName,
+
+			Services: sis,
 		}
 		ris[realmName] = &ri
 
@@ -228,6 +232,14 @@ func (s Realm) N(part string) string {
 	return fmt.Sprintf("%s", m[part])
 }
 
+func (p Prop) Documentation() string {
+	return regexp.MustCompile(`^http(s)?://`).ReplaceAllString(p.UnsecureDocumentation, "https://")
+}
+
+func (p Schema) Documentation() string {
+	return regexp.MustCompile(`^http(s)?://`).ReplaceAllString(p.UnsecureDocumentation, "https://")
+}
+
 func Name(part string, resourceName string) string {
 	m := reSubMatchMap(exprResourceTypes, resourceName)
 	return fmt.Sprintf("%s", m[part])
@@ -246,6 +258,7 @@ type Realm struct {
 	Name           string `json:"name"`
 	OriginName     string
 	FullName       string
+	PackageName    string
 	Services       map[string]*Service
 }
 
@@ -267,6 +280,7 @@ type ResourceType struct {
 	Realm          Realm
 	Name           string `json:"name"`
 	FullName       string
+	PackageName    string
 	OriginName     string
 	FileName       string
 	Resource       Schema
@@ -293,7 +307,7 @@ type PropertyTypes map[string]*Schema
 // Schema is a general object definition
 type Schema struct {
 	// general
-	Documentation string `json:"Documentation"`
+	UnsecureDocumentation string `json:"Documentation"`
 
 	// type: object
 	Props map[string]*Prop `json:"Properties"`
@@ -302,14 +316,14 @@ type Schema struct {
 
 //  zcat ../goformation/CloudFormationResourceSpecification.json |  jq -r '.PropertyTypes|values[].Properties|values[]|keys[]' | sort -u
 type Prop struct {
-	Documentation     string            `json:"Documentation"`
-	DuplicatesAllowed bool              `json:"DuplicatesAllowed"`
-	ItemType          ItemType          `json:"ItemType"`
-	PrimitiveType     PrimitiveType     `json:"PrimitiveType"`
-	PrimitiveItemType PrimitiveItemType `json:"PrimitiveItemType"`
-	Required          bool              `json:"Required"`
-	Type              Type              `json:"Type"`
-	UpdateType        UpdateType        `json:"UpdateType"`
+	UnsecureDocumentation string            `json:"Documentation"`
+	DuplicatesAllowed     bool              `json:"DuplicatesAllowed"`
+	ItemType              ItemType          `json:"ItemType"`
+	PrimitiveType         PrimitiveType     `json:"PrimitiveType"`
+	PrimitiveItemType     PrimitiveItemType `json:"PrimitiveItemType"`
+	Required              bool              `json:"Required"`
+	Type                  Type              `json:"Type"`
+	UpdateType            UpdateType        `json:"UpdateType"`
 }
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-resource-specification-format.html#cfn-resource-specification-format-propertytypes

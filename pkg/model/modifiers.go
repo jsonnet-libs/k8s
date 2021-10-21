@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Cicatrice/cfn-gen/pkg/cloudformation"
 	"github.com/fatih/camelcase"
-	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
 )
 
 type excludeType string

@@ -7,10 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/Cicatrice/cfn-gen/pkg/cloudformation"
+	"github.com/Cicatrice/cfn-gen/pkg/render"
 	"github.com/go-clix/cli"
 	"github.com/google/go-jsonnet/formatter"
-	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
-	"github.com/jsonnet-libs/k8s/pkg/render"
 	"gopkg.in/yaml.v2"
 )
 
@@ -122,7 +122,7 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 
 	fmt.Println("Start service gen")
 	for name, service := range cloudformation.ListServices() {
-		s := render.Service(name, service)
+		s := render.Service(name, service, gen)
 		fmt.Println("Gen ", name)
 
 		for _, o := range s {
@@ -148,7 +148,7 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 				}
 			}
 
-			s := render.Service(serviceName, service)
+			s := render.Service(serviceName, service, gen)
 			fmt.Println("Gen ", serviceName)
 			for fn, o := range s {
 
@@ -227,6 +227,8 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 	// main.libsonnet
 	main := render.Main(adds)
 	mainFile := filepath.Join(dir, render.MainFile)
+
+	fmt.Println("last file is... ", mainFile, main.String())
 	if err := writeJsonnet(mainFile, main.String()); err != nil {
 		log.Fatalln(err)
 	}

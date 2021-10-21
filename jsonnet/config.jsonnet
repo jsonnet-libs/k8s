@@ -28,7 +28,7 @@
     readme_template(name, data):: |||
       # %s Jsonnet library
 
-      This library is generated with [`k8s`](https://github.com/jsonnet-libs/k8s).
+      This library is generated with [`k8s`](https://github.com/Cicatrice/cfn-gen).
 
       %s
     ||| % [name, data],

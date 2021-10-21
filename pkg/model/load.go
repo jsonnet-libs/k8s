@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
+	"github.com/Cicatrice/cfn-gen/pkg/cloudformation"
 )
 
 var exprResourceTypes = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)::(?P<resource>[A-Za-z0-9]+)$`)

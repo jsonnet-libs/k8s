@@ -7,7 +7,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -19,7 +19,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -31,7 +31,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -43,7 +43,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -55,7 +55,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -64,8 +64,8 @@
     "name": "Debugging Github Action values"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "run": "echo onMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-    - "run": "echo onPRnotFork? ${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+    - "run": "echo onMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
+    - "run": "echo onPRnotFork? ${{ github.ref != 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
     - "run": "echo onPR? ${{ github.ref != 'refs/heads/master' }}"
     - "run": "echo ${{ github.repository }}"
     - "run": "echo ${{ github.ref }}"
@@ -77,7 +77,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -89,7 +89,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -101,7 +101,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -113,7 +113,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -125,7 +125,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
@@ -155,13 +155,13 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
       "run": "terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "repos_with_pages":
@@ -201,13 +201,13 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
       "run": "terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "strimzi":
@@ -217,7 +217,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
-        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'Cicatrice/cfn-gen' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"

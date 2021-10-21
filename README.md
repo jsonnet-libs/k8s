@@ -81,7 +81,7 @@ For that, there are two methods for extending:
 
 ### `custom` patches
 
-The [`custom/`](https://github.com/jsonnet-libs/k8s/tree/master/libs/k8s/custom)
+The [`custom/`](https://github.com/Cicatrice/cfn-gen/tree/master/libs/k8s/custom)
 directory contains a set of `.libsonnet` files, that are _automatically merged_
 with the generated result in `main.libsonnet`, so they become part of the
 exported API.
@@ -131,8 +131,8 @@ need to added by the user themselves.
 Extensions can be applied as so:
 
 ```jsonnet
-(import "github.com/jsonnet-libs/k8s-libsonnet/1.21/main.libsonnet")
-+ (import "github.com/jsonnet-libs/k8s-libsonnet/extensions/<name>.libsonnet")
+(import "github.com/Cicatrice/cfn-gen-libsonnet/1.21/main.libsonnet")
++ (import "github.com/Cicatrice/cfn-gen-libsonnet/extensions/<name>.libsonnet")
 ```
 
 A reference for these must also be made in the `config.jsonnet`:

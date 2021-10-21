@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	j "github.com/jsonnet-libs/k8s/pkg/builder"
-	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
-	"github.com/jsonnet-libs/k8s/pkg/model"
+	j "github.com/Cicatrice/cfn-gen/pkg/builder"
+	d "github.com/Cicatrice/cfn-gen/pkg/builder/docsonnet"
+	"github.com/Cicatrice/cfn-gen/pkg/model"
 )
 
 const (
