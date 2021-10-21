@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/jsonnet-libs/k8s/pkg/swagger"
+	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
 )
 
-var expr = regexp.MustCompile(`(?mU)(?P<domain>.+)\.((?P<group>\w*)\.)?(?P<version>\w*)\.(?P<kind>\w*)$`)
+var exprResourceTypes = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)::(?P<resource>[A-Za-z0-9]+)$`)
+var expr = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)::(?P<resource>[A-Za-z0-9]+)$`)
 
 // Short handles for longer types
 const (
@@ -15,26 +16,54 @@ const (
 	ObjectMetaID = "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
 )
 
-// Load parses swagger definitions into the data model
-func Load(swag *swagger.Swagger, prefix string) map[string]Group {
-	var prefixExpr = regexp.MustCompile(prefix)
-	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
-		if !expr.MatchString(k) {
-			return false
-		}
+type Resource struct {
+	Help string `json:"help"`
 
-		meta := v.Props["metadata"]
-		if meta == nil || meta.DollarRef == nil {
-			// Check if domain is in the prefix regex
-			return prefixExpr.MatchString(k)
-		}
-		return meta.Ref() != ListMetaID
-	})
+	Service string `json:"service"`
 
-	ids := transform(defs)
-	return newGroups(defs, ids)
+	// constructor
+	New *Constructor `json:"new"`
+
+	// modifiers
+	Modifiers modifiers `json:"modifiers,omitempty"`
 }
 
+// Load parses swagger definitions into the data model
+
+/*
+func Load(s *cloudformation.CloudFormationSpec, prefix string) map[string]Group {
+	//var prefixExpr = regexp.MustCompile(prefix)
+
+	//	rTypes := s.ResourceTypes
+
+	//services := transform(rTypes)
+	//fmt.Println("ids", ids)
+
+	return s
+}
+
+
+func newResourceTypes(s cloudformation.CloudFormationSpec) map[string]Service {
+	services := make(map[string]Service)
+
+	for serviceName, service := range transform(s.ResourceTypes) {
+		s := make(Service)
+
+		for resourceName, resource := range service {
+			// add dot to end to avoid partial matches.
+			// also escape the dots
+			xp := regexp.QuoteMeta(id + ".")
+
+			fmt.Println(versionName, xp)
+			s[resourceName] = resource
+		}
+
+		services[serviceName] = s
+	}
+
+	return groups
+}
+*/
 // transform creates an ID-table that maps our structure to the one of the
 // swagger spec:
 //
@@ -45,33 +74,23 @@ func Load(swag *swagger.Swagger, prefix string) map[string]Group {
 //    },
 //
 // These are used in newGroups to match the all kinds for a given version
-func transform(defs swagger.Definitions) IDs {
-	groups := make(IDs)
+func transform(defs cloudformation.ResourceTypes) IDs {
+	services := make(IDs)
+
 	for k := range defs {
-		m := reSubMatchMap(expr, k)
+		m := reSubMatchMap(exprResourceTypes, k)
 
-		groupName := m["group"]
-		versionName := m["version"]
+		realmName := m["realm"]
+		serviceName := m["service"]
 
-		if groupName == "" {
-			groupName = "nogroup"
-			if groups[groupName] == nil {
-				groups[groupName] = make(map[string]string)
-			}
-			groups[groupName][versionName] = fmt.Sprintf("%s.%s",
-				m["domain"], m["version"],
-			)
-			continue
+		if services[realmName] == nil {
+			services[realmName] = make(map[string]string)
 		}
 
-		if groups[groupName] == nil {
-			groups[groupName] = make(map[string]string)
-		}
-
-		groups[groupName][versionName] = fmt.Sprintf("%s.%s.%s",
-			m["domain"], m["group"], m["version"],
+		services[realmName][serviceName] = fmt.Sprintf("%s.%s",
+			m["realm"], m["service"],
 		)
 	}
 
-	return groups
+	return services
 }

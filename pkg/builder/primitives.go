@@ -25,43 +25,57 @@ func (s StringType) String() string {
 }
 
 // floats
-type FloatType struct {
+type DoubleType struct {
 	named
 	value float64
 }
 
-func Float(name string, value float64) FloatType {
-	return FloatType{named: named(name), value: value}
+func Double(name string, value float64) DoubleType {
+	return DoubleType{named: named(name), value: value}
 }
 
-func (f FloatType) String() string {
-	return fmt.Sprintf("%f", f.value)
+func (f DoubleType) String() string {
+	return fmt.Sprintf("%d", f.value)
 }
 
 // ints
-type IntType struct {
+type IntegerType struct {
 	named
 	value int
 }
 
-func Int(name string, value int) IntType {
-	return IntType{named: named(name), value: value}
+func Integer(name string, value int) IntegerType {
+	return IntegerType{named: named(name), value: value}
 }
 
-func (s IntType) String() string {
+func (s IntegerType) String() string {
 	return strconv.Itoa(s.value)
 }
 
 // bools
-type BoolType struct {
+type BooleanType struct {
 	named
 	value bool
 }
 
-func Bool(name string, value bool) BoolType {
-	return BoolType{named: named(name), value: value}
+func Boolean(name string, value bool) BooleanType {
+	return BooleanType{named: named(name), value: value}
 }
 
-func (s BoolType) String() string {
+func (s BooleanType) String() string {
 	return fmt.Sprintf(`%v`, s.value)
 }
+
+// timestamp
+// type TimestampType struct {
+// 	named
+// 	value time
+// }
+
+// func Timestamp(name string, value time) TimestampType {
+// 	return TimestampType{named: named(name), value: value}
+// }
+
+// func (s TimestampType) String() string {
+// 	return fmt.Sprintf(`%s`, s.value)
+// }

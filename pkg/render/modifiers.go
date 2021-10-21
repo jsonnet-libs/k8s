@@ -7,7 +7,6 @@ import (
 	j "github.com/jsonnet-libs/k8s/pkg/builder"
 	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
 	"github.com/jsonnet-libs/k8s/pkg/model"
-	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
 const (
@@ -65,20 +64,20 @@ func modFunction(name string, f model.Modifier) []j.Type {
 		d.Func(name, f.Help, dArgs),
 		j.Func(name, args, j.ConciseObject("", set)),
 	)
-
-	// withXyzMixin()
-	if f.Type == swagger.TypeObject || f.Type == swagger.TypeArray {
-		add := fnResult(f, true)
-		mixName := name + "Mixin"
-		out = append(out,
-			d.Func(mixName,
-				f.Help+"\n\n**Note:** This function appends passed data to existing values",
-				dArgs,
-			),
-			j.Func(mixName, args, j.ConciseObject("", add)),
-		)
-	}
-
+	/*
+		// withXyzMixin()
+		if f.Type == swagger.TypeObject || f.Type == swagger.TypeArray {
+			add := fnResult(f, true)
+			mixName := name + "Mixin"
+			out = append(out,
+				d.Func(mixName,
+					f.Help+"\n\n**Note:** This function appends passed data to existing values",
+					dArgs,
+				),
+				j.Func(mixName, args, j.ConciseObject("", add)),
+			)
+		}
+	*/
 	return out
 }
 
@@ -88,13 +87,13 @@ func fnResult(f model.Modifier, adder bool) j.Type {
 		switch i {
 		case 0:
 			// if array, also accept single value
-			if f.Type == swagger.TypeArray {
-				return j.IfThenElse(s,
-					j.Call("", "std.isArray", j.Args(j.Ref("v", f.Arg.Key))),
-					j.Ref("", f.Arg.Key),
-					j.List("", j.Ref("", f.Arg.Key)),
-				)
-			}
+			// if f.Type == swagger.TypeArray {
+			// 	return j.IfThenElse(s,
+			// 		j.Call("", "std.isArray", j.Args(j.Ref("v", f.Arg.Key))),
+			// 		j.Ref("", f.Arg.Key),
+			// 		j.List("", j.Ref("", f.Arg.Key)),
+			// 	)
+			// }
 			return j.Ref(s, f.Arg.Key)
 		case 1:
 			if !adder {

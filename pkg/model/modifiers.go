@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/fatih/camelcase"
-	"github.com/jsonnet-libs/k8s/pkg/swagger"
+	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
 )
 
 type excludeType string
@@ -31,7 +31,7 @@ type Modifier struct {
 	Target string `json:"target"`
 
 	// Type is the type of the modified value
-	Type swagger.Type `json:"type"`
+	Type cloudformation.Type `json:"type"`
 }
 
 // Constructor creates new objects
@@ -64,45 +64,23 @@ type Object struct {
 
 // modsForProps generates Modifiers for a (nested) map of swagger properties
 // (object fields)
-func modsForProps(props map[string]*swagger.Schema, ctx string, root bool) map[string]interface{} {
+func modsForProps(props map[string]*cloudformation.Schema, ctx string, root bool) map[string]interface{} {
 	mods := make(map[string]interface{})
-	for k, p := range props {
+	for k, _ := range props {
 		if excluded := propertiesWithoutModifiers[k]; excluded == excludeEverywhere || (root && excluded == excludeInRootOnly) {
 			continue
 		}
-		name, mod := newModifier(k, p, ctx)
-		mods[name] = mod
+		//		name, mod := newModifier(k, p, ctx)
+		//	mods[name] = mod
 	}
 	return mods
 }
 
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
-func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{}) {
+func newModifier(name string, p *cloudformation.Prop, ctx string) (string, interface{}) {
 	name = CamelLower(name)
-
-	switch p.Type {
-	case swagger.TypeObject:
-		// if it has children, return modifier group instead
-		if len(p.Props) != 0 {
-			o := Object{
-				Help:   safeStr(p.Desc),
-				Fields: modsForProps(p.Props, ctx+"."+name, false),
-			}
-			return name, o
-		}
-
-		// no children? create modifier
-		fallthrough
-	default:
-		fn := Modifier{
-			Help:   safeStr(p.Desc),
-			Arg:    Parameter{Key: fnArg(name)},
-			Target: strings.TrimPrefix(ctx+"."+name, "."),
-			Type:   p.Type,
-		}
-		return fmt.Sprintf("with%s", normalizedTitle(name)), fn
-	}
+	return "", ""
 }
 
 // fnArg normalizes an arguments name so it does not use any reserved words

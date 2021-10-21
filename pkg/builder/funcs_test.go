@@ -23,8 +23,8 @@ func TestLargeFunc(t *testing.T) {
 		Hidden(LargeFunc("large",
 			Args(
 				String("string", "string"),
-				Bool("bool", true),
-				Int("number", 5),
+				Boolean("bool", true),
+				Integer("number", 5),
 				ConciseObject("map", String("foo", "bar")),
 			),
 			Object("",

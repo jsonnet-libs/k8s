@@ -15,10 +15,10 @@ func TestObjectPrimitive(t *testing.T) {
 `
 
 	o := Object("",
-		Int("int", 1),
+		Integer("int", 1),
 		String("string", "hello"),
-		Bool("bool", true),
-		Float("float", 23.5),
+		Boolean("bool", true),
+		Double("float", 23.5),
 	)
 
 	assertRender(t, o, want)
@@ -41,9 +41,9 @@ func TestObjectFuncs(t *testing.T) {
 		Func("regular",
 			Args(
 				String("s", "string"),
-				Bool("b", false),
-				Int("i", 3),
-				Float("f", 23.5),
+				Boolean("b", false),
+				Integer("i", 3),
+				Double("f", 23.5),
 			),
 			Object("",
 				Ref("s", "s"),
@@ -53,7 +53,7 @@ func TestObjectFuncs(t *testing.T) {
 			),
 		),
 		Func("hidden",
-			Args(Int("h", 3)),
+			Args(Integer("h", 3)),
 			Ref("h", "h"),
 		),
 	)
@@ -75,7 +75,7 @@ func TestObjectMerge(t *testing.T) {
 
 	o := Object("",
 		Merge(Object("regular",
-			Int("int", 2),
+			Integer("int", 2),
 		)),
 		Hidden(Merge(Object("hidden",
 			String("incognito", "yes!"),
@@ -107,7 +107,7 @@ func TestObjectConcise(t *testing.T) {
 	want := `{ s: "string", b: false }`
 	o := ConciseObject("",
 		String("s", "string"),
-		Bool("b", false),
+		Boolean("b", false),
 	)
 	assertRender(t, o, want)
 }

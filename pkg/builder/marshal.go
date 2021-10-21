@@ -23,13 +23,13 @@ func Marshal(name string, ptr interface{}) Type {
 func marshal(name string, ptr interface{}) Type {
 	switch t := ptr.(type) {
 	case int:
-		return Int(name, t)
+		return Integer(name, t)
 	case float64:
-		return Int(name, int(t))
+		return Integer(name, int(t))
 	case string:
 		return String(name, t)
 	case bool:
-		return Bool(name, t)
+		return Boolean(name, t)
 	case map[string]interface{}:
 		childs := []Type{}
 		for k, v := range t {

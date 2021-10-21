@@ -9,9 +9,8 @@ import (
 
 	"github.com/go-clix/cli"
 	"github.com/google/go-jsonnet/formatter"
-	"github.com/jsonnet-libs/k8s/pkg/model"
+	"github.com/jsonnet-libs/k8s/pkg/cloudformation"
 	"github.com/jsonnet-libs/k8s/pkg/render"
-	"github.com/jsonnet-libs/k8s/pkg/swagger"
 	"gopkg.in/yaml.v2"
 )
 
@@ -35,8 +34,8 @@ type Config struct {
 func main() {
 	log.SetFlags(0)
 	cmd := &cli.Command{
-		Use:   "k8s-gen [versions]",
-		Short: "k8s-gen generates the Jsonnet Kubernetes library from OpenAPI specs",
+		Use:   "cfn-gen [versions]",
+		Short: "cfn-gen generates the Jsonnet CloudFormation library from CloudFormation specs",
 	}
 
 	configFile := cmd.Flags().StringP("config", "c", "config.yml", "YAML configuration file")
@@ -54,14 +53,15 @@ func main() {
 
 			log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
 
-			s, err := swagger.LoadHTTP(t.Openapi)
+			s, err := cloudformation.LoadHTTP(t.Openapi)
 			if err != nil {
+				fmt.Println("Error in swagger")
 				return err
 			}
 
-			groups := model.Load(s, t.Prefix)
+			//	services := model.Load(s, t.Prefix)
 			path := filepath.Join(*output, t.Output)
-			renderJsonnet(path, groups, t)
+			renderJsonnet(path, s, t)
 		}
 		return nil
 	}
@@ -95,28 +95,38 @@ func loadConfig(file string) Config {
 	return c
 }
 
-func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
+func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Target) {
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 		log.Fatalln(err)
 	}
-
 	// gen.libsonnet
-	index := render.Index(groups, target.LocalName, target.Repository, target.Output, target.Description)
+	index := render.Index(cloudformation.Get().Realms, target.LocalName, target.Repository, target.Output, target.Description)
 	indexFile := filepath.Join(dir, render.IndexFile)
 	if err := writeJsonnet(indexFile, index.String()); err != nil {
 		log.Fatalln("writing gen.libsonnet:", err)
 	}
 
-	// _gen/<group>/<version>/<kind>.libsonnet
 	gen := filepath.Join(dir, render.GenPrefix)
 	if err := os.MkdirAll(gen, os.ModePerm); err != nil {
 		log.Fatalln(err)
 	}
-	for name, group := range groups {
-		g := render.Group(name, group)
 
-		for fn, o := range g {
-			file := filepath.Join(gen, name, fn)
+	for name, realm := range cloudformation.ListRealms() {
+		file := filepath.Join(gen, realm.FilePath(), render.MainFile)
+		os.MkdirAll(filepath.Dir(file), os.ModePerm)
+		fmt.Println("file", name, file)
+		if err := writeJsonnet(file, render.Realm(name, realm).String()); err != nil {
+			log.Fatalln(err)
+		}
+	}
+
+	fmt.Println("Start service gen")
+	for name, service := range cloudformation.ListServices() {
+		s := render.Service(name, service)
+		fmt.Println("Gen ", name)
+
+		for _, o := range s {
+			file := filepath.Join(gen, service.FilePath(), render.MainFile)
 			os.MkdirAll(filepath.Dir(file), os.ModePerm)
 			if err := writeJsonnet(file, o.String()); err != nil {
 				log.Fatalln(err)
@@ -124,24 +134,95 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 		}
 	}
 
+	for realmName, realm := range cloudformation.ListRealms() {
+
+		for serviceName, service := range realm.Services {
+
+			for name, resource := range service.ResourceTypes {
+				r := render.Resource(name, resource)
+
+				file := filepath.Join(gen, resource.FilePath()+render.GenExt)
+				os.MkdirAll(filepath.Dir(file), os.ModePerm)
+				if err := writeJsonnet(file, r.String()); err != nil {
+					log.Fatalln(err)
+				}
+			}
+
+			s := render.Service(serviceName, service)
+			fmt.Println("Gen ", serviceName)
+			for fn, o := range s {
+
+				os.MkdirAll(filepath.Dir(fn), os.ModePerm)
+				if err := writeJsonnet(fn, o.String()); err != nil {
+					log.Fatalln(err)
+				}
+			}
+		}
+
+		file := filepath.Join(gen, realm.FilePath(), render.MainFile)
+		os.MkdirAll(filepath.Dir(file), os.ModePerm)
+		fmt.Println("file", realmName, file)
+		if err := writeJsonnet(file, render.Realm(realmName, realm).String()); err != nil {
+			log.Fatalln(err)
+		}
+	}
+	// for name, resource := range cloudformation.ListResourceTypes() {
+	// 	r := render.Resource(name, resource)
+
+	// 	file := filepath.Join(gen, resource.FilePath()+render.GenExt)
+	// 	os.MkdirAll(filepath.Dir(file), os.ModePerm)
+	// 	if err := writeJsonnet(file, r.String()); err != nil {
+	// 		log.Fatalln(err)
+	// 	}
+
+	// }
+
+	// if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+	// 	log.Fatalln(err)
+	// }
+
+	// // gen.libsonnet
+	// index := render.Index(s, target.LocalName, target.Repository, target.Output, target.Description)
+	// indexFile := filepath.Join(dir, render.IndexFile)
+	// if err := writeJsonnet(indexFile, index.String()); err != nil {
+	// 	log.Fatalln("writing gen.libsonnet:", err)
+	// }
+
+	// // _gen/<group>/<version>/<kind>.libsonnet
+	// gen := filepath.Join(dir, render.GenPrefix)
+	// if err := os.MkdirAll(gen, os.ModePerm); err != nil {
+	// 	log.Fatalln(err)
+	// }
+
+	// for realmName, realm := range cloudformation.Realms(s) {
+	// 	g := render.Realm(realmName, realm)
+
+	// 	for _, o := range g {
+	// 		file := filepath.Join(gen, realm.RealmName, render.MainFile+render.GenExt)
+	// 		fmt.Println("gen", file)
+	// 		os.MkdirAll(filepath.Dir(file), os.ModePerm)
+	// 		if err := writeJsonnet(file, o.String()); err != nil {
+	// 			log.Fatalln(err)
+	// 		}
+	// 		fmt.Println("done", file)
+	// 	}
+	// }
+
+	// for resourceName, resource := range cloudformation.Resources(s, "") {
+	// 	g := render.Resource(resourceName, resource)
+
+	// 	for _, o := range g {
+	// 		file := filepath.Join(gen, resource.RealmName, resource.ServiceName, resource.ResourceName+render.GenExt)
+	// 		fmt.Println("gen", file)
+	// 		os.MkdirAll(filepath.Dir(file), os.ModePerm)
+	// 		if err := writeJsonnet(file, o.String()); err != nil {
+	// 			log.Fatalln(err)
+	// 		}
+	// 		fmt.Println("done", file)
+	// 	}
+	// }
+
 	var adds []string
-	var err error
-
-	customDirStat, err := os.Stat(target.PatchDir)
-	if err == nil && customDirStat.IsDir() {
-		// custom patches
-		adds, err = copyDirLibsonnet(target.PatchDir, filepath.Join(dir, render.CustomPrefix))
-		if err != nil {
-			log.Fatalln("Copying custom patches:", err)
-		}
-	}
-
-	extDirStat, err := os.Stat(target.ExtensionDir)
-	if err == nil && extDirStat.IsDir() {
-		if _, err := copyDirLibsonnet(target.ExtensionDir, filepath.Join(dir, render.ExtPrefix)); err != nil {
-			log.Fatalln("Copying extensions:", err)
-		}
-	}
 
 	// main.libsonnet
 	main := render.Main(adds)
@@ -153,6 +234,7 @@ func renderJsonnet(dir string, groups map[string]model.Group, target Target) {
 }
 
 func writeJsonnet(to, data string) error {
+	fmt.Println("write into ", to)
 	s, err := formatter.Format("", data, formatter.DefaultOptions())
 	if err != nil {
 		return fmt.Errorf("%s: %s", err, data)
