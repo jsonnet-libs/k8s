@@ -1,7 +1,7 @@
 local config = import 'jsonnet/config.jsonnet';
 
 config.new(
-  name='cloudformation',
+  name='cfn',
   specs=[
     {
       output: '44.00',

@@ -6,12 +6,13 @@
     local this = self,
 
     suffix:: '-libsonnet',
-
     name:: name,
+    gen_author:: 'Cicatrice',
+    gen_repo:: 'cfn-gen',
     description:: this.name + ' jsonnet library',
-    repository:: 'github.com/jsonnet-libs/' + this.name + this.suffix,
+    repository:: 'github.com/Cicatrice/' + this.name + this.suffix,
     branch:: 'main',
-    site_url:: 'https://jsonnet-libs.github.io/' + this.name + this.suffix,
+    site_url:: 'https://Cicatrice.github.io/' + this.name + this.suffix,
 
     'skel/LICENSE': importstr '../LICENSE',
 
@@ -26,12 +27,17 @@
     }, true),
 
     readme_template(name, data):: |||
-      # %s Jsonnet library
+      # %(name)s Jsonnet library
 
-      This library is generated with [`k8s`](https://github.com/Cicatrice/cfn-gen).
+      This library is generated with [`%(gen_repo)s`](https://github.com/%(gen_author)s/%(gen_repo)s).
 
-      %s
-    ||| % [name, data],
+      %(data)s
+    ||| % {
+      name: name,
+      data: data,
+      gen_repo: this.gen_repo,
+      gen_author: this.gen_author,
+    }, 
 
     'skel/README.md': this.readme_template(
       name=name,

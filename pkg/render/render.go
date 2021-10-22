@@ -4,8 +4,6 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/stoewer/go-strcase"
-
 	j "github.com/Cicatrice/cfn-gen/pkg/builder"
 	d "github.com/Cicatrice/cfn-gen/pkg/builder/docsonnet"
 	"github.com/Cicatrice/cfn-gen/pkg/cloudformation"
@@ -118,37 +116,16 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 		}
 	}
 
-	// PROPERTIES
-	for propName, prop := range resource.Resource.Props {
-		/*
-			if prop.Type {
-				dArgs := d.Args(string(prop.Type), string(prop.Type))
-			} else {
-				dArgs := ""
-			}*/
-		argName := strcase.LowerCamelCase(propName)
-		dArgs := d.Args(argName, "string")
-		args := j.Args(
-			j.Required(j.String(argName, "")),
-		)
-		//set := fnResult(f, false)
-		fields = append(fields,
-			d.Func("with"+propName, prop.Documentation(), dArgs),
-			j.Func("with"+propName, args, j.ConciseObject("",
-				j.Merge(j.ConciseObject("Properties",
-					j.Ref(propName, argName),
-				)),
-			)),
-		)
-
-	}
+	fields = append(fields, modNew(resource)...)
+	fields = append(fields, modDependsOn(resource)...)
+	fields = append(fields, modPolicies(resource, "CreationPolicy")...)
+	fields = append(fields, modPolicies(resource, "DeletionPolicy")...)
+	fields = append(fields, modPolicies(resource, "UpdatePolicy")...)
+	fields = append(fields, modPolicies(resource, "UpdateReplacePolicy")...)
+	fields = append(fields, modMetadata(resource)...)
+	fields = append(fields, modProperties(resource)...)
 
 	SortFields(fields)
-
-	// fields = append(fields,
-	// 	j.String("#mixin", "ignore"),
-	// 	j.Ref("mixin", "self"),
-	//)
 
 	return j.Object(resource.PackageName, fields...)
 }
