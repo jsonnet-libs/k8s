@@ -12,8 +12,7 @@ config.new(
     {
       output: '3.2',
       prefix: '^io\\.argoproj\\..*',
-      // TODO: Use 3.2.0 tag once it's released
-      openapi: 'https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json',
+      openapi: 'https://raw.githubusercontent.com/argoproj/argo-workflows/v3.2.2/api/jsonschema/schema.json',
       localName: 'argo_workflows',
     },
   ]
