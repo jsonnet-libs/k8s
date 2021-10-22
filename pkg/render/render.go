@@ -92,9 +92,9 @@ func Service(name string, service *cloudformation.Service, gen string) Objects {
 
 	for resourceName, resource := range service.ResourceTypes {
 		r := Resource(resourceName, resource)
-		fn := filepath.Join(gen, resource.FilePath()+GenExt)
-		objects[fn] = r
-		fields = append(fields, j.Import(resource.Name, fn))
+		fn := filepath.Join(resource.N("resource") + GenExt)
+		objects[filepath.Join(gen, resource.FilePath()+GenExt)] = r
+		fields = append(fields, j.Hidden(j.Import(resource.Name, fn)))
 	}
 
 	SortFields(fields)
@@ -124,8 +124,6 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 	fields = append(fields, modPolicies(resource, "UpdateReplacePolicy")...)
 	fields = append(fields, modMetadata(resource)...)
 	fields = append(fields, modProperties(resource)...)
-
-	SortFields(fields)
 
 	return j.Object(resource.PackageName, fields...)
 }

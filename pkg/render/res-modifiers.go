@@ -19,9 +19,20 @@ func modNew(resource *cloudformation.ResourceType) []j.Type {
 	args := j.Args()
 	dArgs := d.Args()
 
+	props := []j.Type{}
+
+	for propName, property := range resource.Resource.Props {
+		if property.Required {
+			props = append(props,
+				j.Error(propName, fmt.Sprintf("You need to define %s properties for %s resource", propName, resource.OriginName)),
+			)
+		}
+	}
+
 	result := j.Add("",
 		j.ConciseObject("",
 			j.String("Type", resource.OriginName),
+			j.ConciseObject("Properties", props...),
 		),
 	)
 
@@ -161,10 +172,53 @@ func modProperties(resource *cloudformation.ResourceType) []j.Type {
 
 	for propName, prop := range resource.Resource.Props {
 		argName := strcase.LowerCamelCase(propName)
-		dArgs := d.Args(argName, "string")
-		args := j.Args(
-			j.Required(j.String(argName, "")),
-		)
+
+		stype := prop.Value()
+
+		dArgs := d.Args(argName, stype)
+		args := j.Args()
+
+		hasMixin := false
+
+		switch stype {
+		case "bool":
+			args = j.Args(
+				j.Required(j.Boolean(argName, false)),
+			)
+		case "string":
+			args = j.Args(
+				j.Required(j.String(argName, "")),
+			)
+		case "integer", "long":
+			stype = "number"
+			dArgs = d.Args(argName, stype)
+			args = j.Args(
+				j.Required(j.Integer(argName, 0)),
+			)
+		case "float", "double":
+			stype = "number"
+			dArgs = d.Args(argName, stype)
+			args = j.Args(
+				j.Required(j.Double(argName, 0)),
+			)
+		case "array":
+			hasMixin = true
+			args = j.Args(
+				j.Required(j.List(argName, []j.Type{}...)),
+			)
+		case "object":
+			hasMixin = true
+			args = j.Args(
+				j.Required(j.ConciseObject(argName)),
+			)
+		default:
+			hasMixin = true
+			args = j.Args(
+				j.Required(j.ConciseObject(argName)),
+			)
+			fmt.Println("Not supported yet ", resource.FullName, propName)
+		}
+
 		//set := fnResult(f, false)
 		doc := d.Func(withPfx+propName, prop.Documentation(), dArgs)
 		fun := j.Func(withPfx+propName, args, j.ConciseObject("",
@@ -174,7 +228,21 @@ func modProperties(resource *cloudformation.ResourceType) []j.Type {
 		))
 
 		out = append(out, fun, doc)
-	}
 
+		if hasMixin {
+			docMixin := d.Func(withPfx+propName+mixinSuf,
+				prop.Documentation(),
+				dArgs,
+			)
+			funMixin := j.Func(withPfx+propName+mixinSuf, args, j.ConciseObject("",
+				j.Merge(j.ConciseObject("Properties",
+					j.Merge(j.Ref(propName, argName)),
+				)),
+			))
+			out = append(out, funMixin, docMixin)
+		}
+
+	}
+	SortFields(out)
 	return out
 }

@@ -8,18 +8,12 @@ Code generator for Jsonnet AWS CloudFormation libraries.
 
 * Not much
 
-* ResourceTypes can generate with properties (Mixin not yet implemented)
+* ResourceTypes can generate with properties 
 
 
 ### What doesn't ?
 
-* Only type supported for the moment is `string`
-
-* Mixin not implemented yet
-
 * Composed types not implemented (List, Map, Object)
-
-* Everything
 
 * Workflow for automatic library generation
 

@@ -10,6 +10,7 @@ import (
 )
 
 var exprResourceTypes = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)::(?P<resource>[A-Za-z0-9]+)$`)
+var exprPorpertyTypes = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)::(?P<resource>[A-Za-z0-9]+)\.(?P<proptype>[A-Za-z0-9]+)$`)
 var exprService = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)::(?P<service>[A-Za-z0-9]+)$`)
 var exprRealm = regexp.MustCompile(`^(?P<realm>[A-Za-z0-9]+)$`)
 
@@ -18,6 +19,10 @@ var skipRefs = map[string]bool{}
 var url string
 var spec CloudFormationSpec
 var cloudformationInstance *CloudFormation
+
+func escapePropertyTypes() []string {
+	return []string{"Tag"}
+}
 
 func LoadHTTP(u string) (*CloudFormationSpec, error) {
 	r, err := http.Get(u)
@@ -91,7 +96,40 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 					continue
 				}
 
-				r := ResourceType{
+				propertytypes := []string{}
+
+				var r ResourceType
+				ps := make(map[string]*PropertyType)
+
+				// List resources for the current service
+				for propertytypeName, propertytype := range sp.PropertyTypes {
+					if contains(escapePropertyTypes(), propertytypeName) {
+						continue
+					}
+					name := PName("proptype", propertytypeName)
+					propertytypeResource := PFullName("resource", propertytypeName, ".", ".")
+
+					// ensure resource is not already in the list
+					if resourceName != propertytypeResource || contains(propertytypes, propertytypeName) {
+						continue
+					}
+
+					p := PropertyType{
+						CloudFormation: c,
+						Realm:          ri,
+						Service:        si,
+						ResourceType:   r,
+						Name:           name,
+						OriginName:     propertytypeName,
+						Prop:           *propertytype,
+					}
+
+					ps[PFullName("property", propertytypeName, ".", ".")] = &p
+
+					propertytypes = append(propertytypes, name)
+				}
+
+				r = ResourceType{
 					CloudFormation: c,
 					Realm:          ri,
 					Service:        si,
@@ -100,6 +138,7 @@ func Load(data []byte) (*CloudFormationSpec, error) {
 					PackageName:    Name("resource", resourceName),
 					OriginName:     resourceName,
 					Resource:       *resource,
+					PropertyTypes:  ps,
 				}
 
 				ris[FullName("resource", resourceName, ".")] = &r
@@ -205,6 +244,21 @@ func FullName(part string, resourceName string, sep string) string {
 	return ""
 }
 
+func PFullName(part string, propertytypeName string, sep string, ssep string) string {
+	m := reSubMatchMap(exprPorpertyTypes, propertytypeName)
+	switch part {
+	case "realm":
+		return fmt.Sprintf("%s", m["realm"])
+	case "service":
+		return fmt.Sprintf("%s%s%s", m["realm"], sep, m["service"])
+	case "resource":
+		return fmt.Sprintf("%s%s%s%s%s", m["realm"], sep, m["service"], sep, m["resource"])
+	case "proptype":
+		return fmt.Sprintf("%s%s%s%s%s%s%s", m["realm"], sep, m["service"], sep, m["resource"], ssep, m["proptype"])
+	}
+	return ""
+}
+
 func (r Realm) FilePath() string {
 	return filepath.Join(r.N("realm"))
 }
@@ -240,6 +294,11 @@ func (p Schema) Documentation() string {
 	return regexp.MustCompile(`^http(s)?://`).ReplaceAllString(p.UnsecureDocumentation, "https://")
 }
 
+func PName(part string, propertytypeName string) string {
+	m := reSubMatchMap(exprPorpertyTypes, propertytypeName)
+	return fmt.Sprintf("%s", m[part])
+}
+
 func Name(part string, resourceName string) string {
 	m := reSubMatchMap(exprResourceTypes, resourceName)
 	return fmt.Sprintf("%s", m[part])
@@ -247,6 +306,7 @@ func Name(part string, resourceName string) string {
 
 type CloudFormationSpec struct {
 	ResourceTypes ResourceTypes `json:"ResourceTypes"`
+	PropertyTypes PropertyTypes `json:"PropertyTypes"`
 }
 
 type CloudFormation struct {
@@ -270,13 +330,13 @@ type Service struct {
 	PackageName    string `json:"package"`
 	OriginName     string
 	ResourceTypes  map[string]*ResourceType
-	PropertyTypes  map[string]*PropertyType
 	Modifiers      modifiers `json:"modifiers,omitempty"`
 }
 
 type ResourceType struct {
 	CloudFormation CloudFormation
 	Service        Service
+	PropertyTypes  map[string]*PropertyType
 	Realm          Realm
 	Name           string `json:"name"`
 	FullName       string
@@ -291,11 +351,12 @@ type PropertyType struct {
 	CloudFormation CloudFormation
 	Realm          Realm
 	Service        Service
-	CleanName      string
+	ResourceType   ResourceType
+	Name           string
 	PropertyName   string `json:"name"`
 	OriginName     string
 	FileName       string
-	Prop           Prop
+	Prop           Schema
 	Modifiers      modifiers `json:"modifiers,omitempty"`
 }
 
@@ -327,32 +388,37 @@ type Prop struct {
 }
 
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-resource-specification-format.html#cfn-resource-specification-format-propertytypes
-// func (p Prop) Value(v interface{}) interface{} {
-// 	if p.PrimitiveType != "" {
-// 		switch p.PrimitiveType {
-// 		case PrimitiveTypeBoolean:
-// 			return builder.Boolean(p.,v)
-// 		case PrimitiveTypeDouble:
-// 			return builder.Float
-// 		case PrimitiveTypeInteger:
-// 			return builder.Int
-// 		case PrimitiveTypeString:
-// 			return builder.String
-// 		case PrimitiveTypeTimestamp:
-// 			// TODO Need to find a way to explain this is not implemented so far
-// 		}
-// 		return p.PrimitiveItemType
-// 		return f, t
-// 	} else if p.Type == "List" || p.Type == "Map" {
-// 		if p.PrimitiveItemType != "" {
-// 			return
-// 		} else if prop.ItemType != "" {
-// 			return
-// 		}
-// 	} else {
-// 		return string(prop.Type)
-// 	}
-// }
+func (p Prop) Value() string {
+	if p.PrimitiveType != "" {
+		switch p.PrimitiveType {
+		case PrimitiveTypeBoolean:
+			return "bool"
+		case PrimitiveTypeDouble:
+			//return "double"
+			return "float"
+		case PrimitiveTypeLong:
+			return "long"
+		case PrimitiveTypeInteger:
+			return "integer"
+		case PrimitiveTypeJson:
+			return "object"
+		case PrimitiveTypeString:
+			return "string"
+		case PrimitiveTypeTimestamp:
+			// TODO Need to find a way to explain this is not implemented so far
+		}
+	} else {
+		switch p.Type {
+		case "List":
+			return "array"
+		case "Map":
+			return "object"
+		default:
+			return "object"
+		}
+	}
+	return ""
+}
 
 type Att struct {
 	PrimitiveType PrimitiveType `json:"PrimitiveType"`
@@ -382,7 +448,9 @@ const (
 	PrimitiveTypeString    PrimitiveType = "String"
 	PrimitiveTypeDouble    PrimitiveType = "Double"
 	PrimitiveTypeInteger   PrimitiveType = "Integer"
+	PrimitiveTypeLong      PrimitiveType = "Long"
 	PrimitiveTypeBoolean   PrimitiveType = "Boolean"
+	PrimitiveTypeJson      PrimitiveType = "Json"
 	PrimitiveTypeNull      PrimitiveType = "null"
 	PrimitiveTypeTimestamp PrimitiveType = "Timestamp"
 )
