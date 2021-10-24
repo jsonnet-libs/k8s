@@ -1,5 +1,5 @@
 # k8s-gen binary name
-./k8s
+./cfn
 
 # really want to make sure I don't commit that
 id_rsa

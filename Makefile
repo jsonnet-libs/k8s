@@ -1,4 +1,4 @@
-IMAGE_NAME ?= k8s-gen
+IMAGE_NAME ?= cfn-gen
 IMAGE_PREFIX ?= jsonnetlibs
 IMAGE_TAG ?= 0.0.5
 

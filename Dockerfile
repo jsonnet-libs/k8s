@@ -15,7 +15,7 @@ FROM base AS builder
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
         go build \
         -ldflags='-s -w -extldflags "-static"' \
-        -o k8s-gen .
+        -o cfn-gen .
 
 FROM golang:1.16-alpine3.14 as jsonnet
 
@@ -35,7 +35,7 @@ COPY --from=mikefarah/yq:4.9.6 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=bitnami/kubectl:1.21.2 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/
 COPY --from=rancher/k3s:v1.21.2-k3s1 /bin/k3s /usr/local/bin/
 COPY --from=cicatrice/docsonnet:0.0.4 /usr/local/bin/docsonnet /usr/local/bin/
-COPY --from=builder /app/k8s-gen /usr/local/bin/
+COPY --from=builder /app/cfn-gen /usr/local/bin/
 COPY --from=jsonnet /go/bin/jsonnet /usr/local/bin/
 
 COPY scripts .
