@@ -394,8 +394,7 @@ func (p Prop) Value() string {
 		case PrimitiveTypeBoolean:
 			return "bool"
 		case PrimitiveTypeDouble:
-			//return "double"
-			return "float"
+			return "double"
 		case PrimitiveTypeLong:
 			return "long"
 		case PrimitiveTypeInteger:

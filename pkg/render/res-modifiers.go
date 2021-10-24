@@ -196,7 +196,7 @@ func modProperties(resource *cloudformation.ResourceType) []j.Type {
 				j.Required(j.Integer(argName, 0)),
 			)
 		case "float", "double":
-			stype = "number"
+			stype = "double"
 			dArgs = d.Args(argName, stype)
 			args = j.Args(
 				j.Required(j.Double(argName, 0)),
