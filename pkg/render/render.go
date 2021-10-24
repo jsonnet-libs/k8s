@@ -82,13 +82,13 @@ func Realm(name string, realm *cloudformation.Realm) j.ObjectType {
 
 }
 
-func Service(name string, service *cloudformation.Service, gen string) Objects {
+func Service(name string, service *cloudformation.Service, gen string) map[string]j.Type {
 	fields := []j.Type{
 		d.Import(),
 		d.Pkg(service.PackageName, "", ""),
 	}
 
-	objects := make(Objects)
+	objects := make(map[string]j.Type)
 
 	for resourceName, resource := range service.ResourceTypes {
 		r := Resource(resourceName, resource)
@@ -103,7 +103,7 @@ func Service(name string, service *cloudformation.Service, gen string) Objects {
 	return objects
 }
 
-func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
+func Resource(name string, resource *cloudformation.ResourceType) j.Type {
 	fields := []j.Type{
 		d.Import(),
 		d.Pkg(resource.PackageName, "", resource.Resource.Documentation()),
@@ -117,13 +117,13 @@ func Resource(name string, resource *cloudformation.ResourceType) j.ObjectType {
 	}
 
 	fields = append(fields, modNew(resource)...)
-	fields = append(fields, modDependsOn(resource)...)
-	fields = append(fields, modPolicies(resource, "CreationPolicy")...)
-	fields = append(fields, modPolicies(resource, "DeletionPolicy")...)
-	fields = append(fields, modPolicies(resource, "UpdatePolicy")...)
-	fields = append(fields, modPolicies(resource, "UpdateReplacePolicy")...)
-	fields = append(fields, modMetadata(resource)...)
+	//fields = append(fields, modDependsOn(resource)...)
+	//fields = append(fields, modPolicies(resource, "CreationPolicy")...)
+	//fields = append(fields, modPolicies(resource, "DeletionPolicy")...)
+	//fields = append(fields, modPolicies(resource, "UpdatePolicy")...)
+	//fields = append(fields, modPolicies(resource, "UpdateReplacePolicy")...)
+	//fields = append(fields, modMetadata(resource)...)
 	fields = append(fields, modProperties(resource)...)
 
-	return j.Object(resource.PackageName, fields...)
+	return j.Add("", j.Import("", "../../../extensions/attributes.libsonnet"), j.Object(resource.PackageName, fields...))
 }

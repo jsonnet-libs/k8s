@@ -1,5 +1,5 @@
+  local d = (import 'doc-util/main.libsonnet');
 {
-  local d = (import 'doc-util/main.libsonnet'),
     fn+:: {
         '#':: d.pkg(name='fn', url='', help='https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html'),
         '#base64':: d.fn(help='The intrinsic function Fn::Base64 returns the Base64 representation of the input string. This function is typically used to pass encoded data to Amazon EC2 instances by way of the UserData property.\nhttps://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html', args=[d.arg(name='valueToEncode', type=d.T.string)]),

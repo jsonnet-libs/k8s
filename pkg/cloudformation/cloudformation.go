@@ -413,7 +413,7 @@ func (p Prop) Value() string {
 		case "Map":
 			return "object"
 		default:
-			return "object"
+			return ""
 		}
 	}
 	return ""
