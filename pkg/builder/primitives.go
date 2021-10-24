@@ -66,6 +66,19 @@ func (s BooleanType) String() string {
 	return fmt.Sprintf(`%v`, s.value)
 }
 
+// bools
+type NullType struct {
+	named
+}
+
+func Null(name string) NullType {
+	return NullType{named: named(name)}
+}
+
+func (s NullType) String() string {
+	return "null"
+}
+
 // timestamp
 // type TimestampType struct {
 // 	named

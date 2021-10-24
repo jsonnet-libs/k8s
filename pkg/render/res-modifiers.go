@@ -16,7 +16,9 @@ const (
 )
 
 func modNew(resource *cloudformation.ResourceType) []j.Type {
-	args := j.Args()
+	args := j.Args(
+		j.Boolean("errorOnEmptyProp", true),
+	)
 	dArgs := d.Args()
 
 	props := []j.Type{}
@@ -24,7 +26,7 @@ func modNew(resource *cloudformation.ResourceType) []j.Type {
 	for propName, property := range resource.Resource.Props {
 		if property.Required {
 			props = append(props,
-				j.Error(propName, fmt.Sprintf("You need to define %s properties for %s resource", propName, resource.OriginName)),
+				j.IfThenElse(propName, j.Ref("errorOnEmptyProp", "errorOnEmptyProp"), j.Error("", fmt.Sprintf("You need to define %s properties for %s resource", propName, resource.OriginName)), j.Null("")),
 			)
 		}
 	}
