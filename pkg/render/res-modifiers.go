@@ -196,7 +196,8 @@ func modProperties(resource *cloudformation.ResourceType) []j.Type {
 				j.Required(j.Integer(argName, 0)),
 			)
 		case "float", "double":
-			stype = "double"
+			//stype = "double"
+			stype = "number" // fallback to number as `double` is not supported by `docsonnet` yet
 			dArgs = d.Args(argName, stype)
 			args = j.Args(
 				j.Required(j.Double(argName, 0)),

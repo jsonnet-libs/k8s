@@ -132,6 +132,23 @@ func renderJsonnet(dir string, s *cloudformation.CloudFormationSpec, target Targ
 	}
 
 	var adds []string
+	var err error
+
+	customDirStat, err := os.Stat(target.PatchDir)
+	if err == nil && customDirStat.IsDir() {
+		// custom patches
+		adds, err = copyDirLibsonnet(target.PatchDir, filepath.Join(dir, render.CustomPrefix))
+		if err != nil {
+			log.Fatalln("Copying custom patches:", err)
+		}
+	}
+
+	extDirStat, err := os.Stat(target.ExtensionDir)
+	if err == nil && extDirStat.IsDir() {
+		if _, err := copyDirLibsonnet(target.ExtensionDir, filepath.Join(dir, render.ExtPrefix)); err != nil {
+			log.Fatalln("Copying extensions:", err)
+		}
+	}
 
 	// main.libsonnet
 	main := render.Main(adds)
