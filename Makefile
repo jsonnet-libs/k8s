@@ -50,6 +50,7 @@ libs/*:
 	./bin/docker.sh \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
+		-e DIFF \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
 		-e GITHUB_SHA="$(GITHUB_SHA)" \
 		-e GIT_AUTHOR_NAME="$(GIT_AUTHOR_NAME)" \
