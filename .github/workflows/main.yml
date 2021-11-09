@@ -70,8 +70,6 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "run": "echo onMaster? ${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-    - "run": "echo onPRnotFork? ${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-    - "run": "echo onPR? ${{ github.ref != 'refs/heads/master' }}"
     - "run": "echo ${{ github.repository }}"
     - "run": "echo ${{ github.ref }}"
     - "run": "echo ${{ github.event_name }}"
@@ -155,17 +153,19 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
@@ -201,17 +201,19 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ github.ref != 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
