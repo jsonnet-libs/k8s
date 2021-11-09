@@ -133,11 +133,11 @@ else
 fi
 
 
-if [ "${DIFF}" == "true" ]; then
+if [ "${DIFF:-false}" == "true" ]; then
     echo "Diffing..."
     DIFF_DIR="${TMPDIR:-/tmp/}${REPO}"
     # HTTPS should always be usable without creds
-    git clone --depth 1 "https://${REPO}" "${DIFF_DIR}"
+    git clone --depth 1 "https://${REPO}" "${DIFF_DIR}" || echo "error cloning the repository!"
 
     (diff -r --exclude .git "${DIFF_DIR}" "${OUTPUT_DIR}" && echo "No diff!") || echo "There's a diff!"
 fi
