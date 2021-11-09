@@ -32,6 +32,8 @@ local terraform = {
       self.tf_env + onPRnotFork { run: 'terraform init' },
       self.tf_env + onPRnotFork { run: 'terraform validate -no-color' },
       self.tf_env + onPRnotFork { run: 'terraform plan -no-color' },
+      self.tf_env + onMaster { run: 'terraform init' },
+      self.tf_env + onMaster { run: 'terraform validate -no-color' },
       self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
     ],
   },
