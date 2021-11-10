@@ -1,6 +1,5 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
-
-local hasRequiredTokens = { 'if': "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}" };
+local notFork = { 'if': 'github.event.pull_request.head.repo.full_name == github.repository' };
 
 local terraform = {
   job: {
@@ -30,10 +29,10 @@ local terraform = {
           cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}',
         },
       },
-      self.tf_env + hasRequiredTokens { run: 'terraform init' },
-      self.tf_env + hasRequiredTokens { run: 'terraform validate -no-color' },
-      self.tf_env + hasRequiredTokens { run: 'terraform plan -no-color' },
-      self.tf_env + hasRequiredTokens + onMaster { run: 'terraform apply -no-color -auto-approve' },
+      self.tf_env + notFork { run: 'terraform init' },
+      self.tf_env + notFork { run: 'terraform validate -no-color' },
+      self.tf_env + notFork { run: 'terraform plan -no-color' },
+      self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
     ],
   },
   withPages(needs): {
