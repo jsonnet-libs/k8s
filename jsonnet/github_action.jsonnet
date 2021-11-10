@@ -32,7 +32,7 @@ local terraform = {
       self.tf_env + notFork { run: 'terraform init' },
       self.tf_env + notFork { run: 'terraform validate -no-color' },
       self.tf_env + notFork { run: 'terraform plan -no-color' },
-      self.tf_env + onMaster { run: 'terraform apply -no-color -auto-approve' },
+      self.tf_env + onMaster { run: 'terraform init && terraform apply -no-color -auto-approve' },
     ],
   },
   withPages(needs): {

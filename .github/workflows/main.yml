@@ -185,7 +185,7 @@
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "terraform apply -no-color -auto-approve"
+      "run": "terraform init && terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "repos_with_pages":
     "name": "Set up gh-pages branch"
@@ -234,7 +234,7 @@
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "terraform apply -no-color -auto-approve"
+      "run": "terraform init && terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "strimzi":
     "name": "Generate strimzi Jsonnet library and docs"
