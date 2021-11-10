@@ -66,7 +66,7 @@ config.new(
     {
       output: 'provider-sql/0.2',
       prefix: '^io\\.crossplane\\.sql\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-sql@v0.2.1'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-sql@v0.2.0'],
       localName: 'crossplane_sql',
     },
   ]
