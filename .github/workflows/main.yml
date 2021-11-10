@@ -152,6 +152,7 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make build libs/rabbitmq"
   "repos":
+    "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
     "steps":
@@ -166,19 +167,16 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
@@ -188,6 +186,7 @@
       "run": "terraform apply -no-color -auto-approve"
       "working-directory": "tf"
   "repos_with_pages":
+    "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
     "name": "Set up gh-pages branch"
     "needs":
     - "argo-workflows"
@@ -215,19 +214,16 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "${{ secrets.TF_API_TOKEN != '' && secrets.PAT != '' }}"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
