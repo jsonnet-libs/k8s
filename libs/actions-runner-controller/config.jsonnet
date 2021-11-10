@@ -1,13 +1,15 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local versions = ['0.20.1'];
+local versions = [
+  {output: '0.20', version: '0.20.3'}
+];
 
 config.new(
   name='actions-runner-controller',
   specs=[
     {
-      local url = 'https://raw.githubusercontent.com/actions-runner-controller/actions-runner-controller/v%s/charts/actions-runner-controller/crds' % version,
-      output: version,
+      local url = 'https://raw.githubusercontent.com/actions-runner-controller/actions-runner-controller/v%s/charts/actions-runner-controller/crds' % v.version,
+      output: v.output,
       prefix: '^dev\\.summerwind\\.actions\\..*',
       crds: [
         '%s/actions.summerwind.dev_horizontalrunnerautoscalers.yaml' % url,
@@ -18,6 +20,6 @@ config.new(
       ],
       localName: 'actions-runner-controller',
     }
-    for version in versions
+    for v in versions
   ]
 )
