@@ -3,7 +3,7 @@ local config = import 'jsonnet/config.jsonnet';
 local versions = ['0.34.1'];
 
 config.new(
-  name='consul-k8s',
+  name='consul',
   specs=[
     {
       local url = 'https://raw.githubusercontent.com/hashicorp/consul-k8s/v%s/control-plane/config/crd/bases' % version,
@@ -20,7 +20,7 @@ config.new(
         '%s/consul.hashicorp.com_serviceresolvers.yaml' % url,
         '%s/consul.hashicorp.com_terminatinggateways.yaml' % url,
       ],
-      localName: 'consul-k8s',
+      localName: 'consul',
     }
     for version in versions
   ]
