@@ -1,6 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local versions = ['1.7'];
+local versions = ['1.7', '1.8'];
 
 config.new(
   name='eck-operator',

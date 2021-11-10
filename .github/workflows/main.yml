@@ -106,6 +106,7 @@
     "steps":
     - "uses": "actions/checkout@v2"
     - "env":
+        "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
