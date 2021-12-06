@@ -116,6 +116,9 @@ func fnArg(name string) string {
 	if name == "function" {
 		return "Function"
 	}
+	if name == "import" {
+		return "Import"
+	}
 	if strings.HasPrefix(name, "-") {
 		return strings.TrimPrefix(name, "-")
 	}
