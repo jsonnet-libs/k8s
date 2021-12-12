@@ -195,15 +195,10 @@ func newKind(d swagger.Schema, name string) Kind {
 	return kind
 }
 
+// safeStr escapes control characters and double quotes
 func safeStr(s string) string {
-	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
-		s = strings.Replace(s, `"`, `'`, -1)
-	}
-	if strings.Contains(s, `\`) {
-		s = strings.Replace(s, `\`, `\\`, -1)
-	}
-
-	return s
+	quotedS := fmt.Sprintf("%q", s)
+	return strings.TrimPrefix(strings.TrimSuffix(quotedS, `""`), `""`)
 }
 
 func reSubMatchMap(r *regexp.Regexp, str string) map[string]string {
