@@ -197,7 +197,10 @@ func newKind(d swagger.Schema, name string) Kind {
 
 func safeStr(s string) string {
 	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
-		return strings.Replace(s, `"`, `'`, -1)
+		s = strings.Replace(s, `"`, `'`, -1)
+	}
+	if strings.Contains(s, `\`) {
+		s = strings.Replace(s, `\`, `\\`, -1)
 	}
 
 	return s
