@@ -52,6 +52,12 @@ config.new(
       localName: 'crossplane_gcp',
     },
     {
+      output: 'provider-azure/0.18',
+      prefix: '^io\\.crossplane\\.azure\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.18.0'],
+      localName: 'crossplane_azure',
+    },
+    {
       output: 'provider-azure/0.17',
       prefix: '^io\\.crossplane\\.azure\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.17.0'],
