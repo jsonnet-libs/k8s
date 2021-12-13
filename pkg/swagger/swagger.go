@@ -148,6 +148,23 @@ func (s Schema) GroupVersionKind() (*XGvk, bool) {
 		return nil, false
 	}
 
-	x := s.XGvk[0]
-	return &x, true
+	// sometimes multiple XGVKs exist for the same schema. In this case we want to
+	// select the most specific one.
+	var x *XGvk
+	for _, g := range s.XGvk {
+		if x == nil || (x.Group == "" && g.Group != "") {
+			x = &g
+		}
+		if x.Version == "" && g.Version != "" {
+			x = &g
+		}
+		if x.Kind == "" && g.Kind != "" {
+			x = &g
+		}
+	}
+	// safeguard against malformed schemas with completely empty XGVKs
+	if x == nil {
+		return nil, false
+	}
+	return x, true
 }
