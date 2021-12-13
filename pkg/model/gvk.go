@@ -106,6 +106,7 @@ func newVersion(d swagger.Definitions) Version {
 type Kind struct {
 	Help string `json:"help"`
 
+	Kind    string `json:"kind"`
 	Group   string `json:"group"`
 	Version string `json:"version"`
 
@@ -167,7 +168,6 @@ func (mPtr *modifiers) UnmarshalJSON(data []byte) error {
 // all fields it has. If not a real kind (no ObjectMeta), no constructor will be
 // created
 func newKind(d swagger.Schema, name string) Kind {
-	name = strings.ToLower(name)
 	kind := Kind{
 		// Help text: description
 		Help: safeStr(d.Desc),
@@ -175,6 +175,7 @@ func newKind(d swagger.Schema, name string) Kind {
 
 	gvk, real := d.GroupVersionKind()
 	if real {
+		kind.Kind = gvk.Kind
 		kind.Group = gvk.Group
 		kind.Version = gvk.Version
 	}
@@ -194,12 +195,10 @@ func newKind(d swagger.Schema, name string) Kind {
 	return kind
 }
 
+// safeStr escapes control characters and double quotes
 func safeStr(s string) string {
-	if strings.Contains(s, `'`) && strings.Contains(s, `"`) {
-		return strings.Replace(s, `"`, `'`, -1)
-	}
-
-	return s
+	quotedS := fmt.Sprintf("%q", s)
+	return strings.TrimPrefix(strings.TrimSuffix(quotedS, `""`), `""`)
 }
 
 func reSubMatchMap(r *regexp.Regexp, str string) map[string]string {

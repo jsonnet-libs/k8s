@@ -3,7 +3,6 @@ package render
 import (
 	"path"
 	"path/filepath"
-	"strings"
 
 	j "github.com/jsonnet-libs/k8s/pkg/builder"
 	d "github.com/jsonnet-libs/k8s/pkg/builder/docsonnet"
@@ -126,7 +125,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 
 	// perhaps constructor
 	if k.New != nil {
-		fn := constructor(*k.New, strings.Title(name), k.APIVersion())
+		fn := constructor(*k.New, k.Kind, k.APIVersion())
 		doc := d.Func("new", k.New.Help, d.Args("name", "string"))
 		fields = append(fields, fn, doc)
 	}
