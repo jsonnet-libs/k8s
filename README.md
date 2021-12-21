@@ -43,6 +43,8 @@ config.new(
       prefix: '^<prefix>\\.<name>\\..*',
 
       # crds Endpoints of the CRD manifests, should be omitted if there is an openapi spec
+      # Only resources of kind CustomResourceDefintion are applied; the default policy is to just
+      # pass in the CRDs here though.
       crds: ['https://url.to.crd.manifest/<version>/manifests/crd-all.gen.yaml'],
 
       # localName used in the docs for the example(s)
