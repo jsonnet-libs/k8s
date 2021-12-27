@@ -82,7 +82,7 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 	name = CamelLower(name)
 
 	switch p.Type {
-	case swagger.TypeObject:
+	case swagger.TypeObject, "":
 		// if it has children, return modifier group instead
 		if len(p.Props) != 0 {
 			o := Object{
