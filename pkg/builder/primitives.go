@@ -65,3 +65,16 @@ func Bool(name string, value bool) BoolType {
 func (s BoolType) String() string {
 	return fmt.Sprintf(`%v`, s.value)
 }
+
+// null
+type NullType struct {
+	named
+}
+
+func Null(name string) NullType {
+	return NullType{named: named(name)}
+}
+
+func (s NullType) String() string {
+	return "null"
+}

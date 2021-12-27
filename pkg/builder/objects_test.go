@@ -10,7 +10,8 @@ func TestObjectPrimitive(t *testing.T) {
   int: 1,
   string: "hello",
   bool: true,
-  float: 23.5
+  float: 23.5,
+  null: null
 }
 `
 
@@ -19,6 +20,7 @@ func TestObjectPrimitive(t *testing.T) {
 		String("string", "hello"),
 		Bool("bool", true),
 		Float("float", 23.5),
+		Null("null"),
 	)
 
 	assertRender(t, o, want)

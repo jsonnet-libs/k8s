@@ -42,6 +42,8 @@ func marshal(name string, ptr interface{}) Type {
 			childs = append(childs, marshal("", v))
 		}
 		return List(name, childs...)
+	case nil:
+		return Null(name)
 	default:
 		panic(fmt.Sprintf("unsupported type: %T", ptr))
 	}
