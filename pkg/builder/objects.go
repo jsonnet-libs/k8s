@@ -45,10 +45,10 @@ func escapeKey(s string) string {
 	case "local", "error", "function", "import":
 		return fmt.Sprintf(`'%s'`, s)
 	default:
-		if strings.Contains(s, "-") {
+		if strings.HasPrefix(s, "#") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
-		if strings.HasPrefix(s, "#") {
+		if strings.ContainsAny(s, "-.") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
 		return s
