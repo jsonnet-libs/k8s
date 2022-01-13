@@ -78,7 +78,7 @@ for SPEC in ${SPECS}; do
         # Only apply CRDs, some projects don't publish CRDs independent but as part of an "install bundle"
         cat ${CRDFILE} \
           | yq2 e 'select(.kind == "CustomResourceDefinition")' - \
-          | kubectl apply -f -
+          | kubectl apply --server-side -f -
 
         kubectl proxy --port=${PROXY_PORT} &
 
