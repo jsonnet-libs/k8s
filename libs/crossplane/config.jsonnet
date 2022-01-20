@@ -4,6 +4,12 @@ config.new(
   name='crossplane',
   specs=[
     {
+      output: 'crossplane/1.6',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.1'],
+      localName: 'crossplane',
+    },
+    {
       output: 'crossplane/1.5',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.5.1'],
@@ -20,6 +26,12 @@ config.new(
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.2.1'],
       localName: 'crossplane',
+    },
+    {
+      output: 'provider-aws/0.23',
+      prefix: '^io\\.crossplane\\.aws\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-aws@v0.23.0'],
+      localName: 'crossplane_aws',
     },
     {
       output: 'provider-aws/0.22',
