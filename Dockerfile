@@ -28,8 +28,7 @@ WORKDIR /app
 
 RUN apk add --no-cache bash curl git openssh diffutils
 
-ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
-RUN chmod a+w /app
+RUN chmod a+w /tmp
 
 COPY --from=mikefarah/yq:4.9.6 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=bitnami/kubectl:1.21.2 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/
