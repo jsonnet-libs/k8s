@@ -28,6 +28,12 @@ config.new(
       localName: 'crossplane_gcp',
     },
     {
+      output: 'provider-jet-gcp/0.2',
+      prefix: '^io\\.crossplane\\.jet\\.gcp\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-jet-gcp@v0.2.0-preview'],
+      localName: 'crossplane_jet_gcp',
+    },
+    {
       output: 'provider-azure/0.18',
       prefix: '^io\\.crossplane\\.azure\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.18.1'],
