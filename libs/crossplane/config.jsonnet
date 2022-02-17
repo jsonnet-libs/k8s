@@ -6,7 +6,7 @@ config.new(
     {
       output: 'crossplane/1.6',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.1'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.3'],
       localName: 'crossplane',
     },
     {
@@ -16,15 +16,15 @@ config.new(
       localName: 'crossplane',
     },
     {
-      output: 'provider-aws/0.23',
+      output: 'provider-aws/0.24',
       prefix: '^io\\.crossplane\\.aws\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-aws@v0.23.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-aws@v0.24.1'],
       localName: 'crossplane_aws',
     },
     {
-      output: 'provider-gcp/0.19',
+      output: 'provider-gcp/0.20',
       prefix: '^io\\.crossplane\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-gcp@v0.19.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-gcp@v0.20.0'],
       localName: 'crossplane_gcp',
     },
     {
@@ -40,9 +40,9 @@ config.new(
       localName: 'crossplane_sql',
     },
     {
-      output: 'provider-kubernetes/0.1',
+      output: 'provider-kubernetes/0.2',
       prefix: '^io\\.crossplane\\.kubernetes\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.1.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.2.0'],
       localName: 'crossplane_kubernetes',
     },
   ]
