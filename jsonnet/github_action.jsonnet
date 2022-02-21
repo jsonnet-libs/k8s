@@ -79,6 +79,7 @@ local build = {
   name: 'Build docker image',
   'runs-on': 'ubuntu-latest',
   steps: [
+    { uses: 'actions/checkout@v2' },
     { run: 'make build save' },
     {
       uses: 'actions/upload-artifact@v2',
