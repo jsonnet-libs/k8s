@@ -1,6 +1,6 @@
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnetlibs
-IMAGE_TAG ?= 0.0.5
+IMAGE_TAG ?= 0.0.6
 
 OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
@@ -62,6 +62,12 @@ libs/*:
 
 build:
 	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
+
+save:
+	docker save $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) > artifacts/docker-image.tar
+
+load:
+	docker load < artifacts/docker-image.tar
 
 push: build push-image
 

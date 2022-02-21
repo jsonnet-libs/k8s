@@ -2,134 +2,214 @@
 "jobs":
   "actions-runner-controller":
     "name": "Generate actions-runner-controller Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/actions-runner-controller"
+      "run": "make libs/actions-runner-controller"
   "argo-cd":
     "name": "Generate argo-cd Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/argo-cd"
+      "run": "make libs/argo-cd"
   "argo-workflows":
     "name": "Generate argo-workflows Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/argo-workflows"
+      "run": "make libs/argo-workflows"
+  "build":
+    "name": "Build docker image"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "run": "make build save"
+    - "uses": "actions/upload-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+        "retention-days": 1
   "calico":
     "name": "Generate calico Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/calico"
+      "run": "make libs/calico"
   "cert-manager":
     "name": "Generate cert-manager Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/cert-manager"
+      "run": "make libs/cert-manager"
   "cluster-api":
     "name": "Generate cluster-api Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/cluster-api"
+      "run": "make libs/cluster-api"
   "cluster-api-provider-aws":
     "name": "Generate cluster-api-provider-aws Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/cluster-api-provider-aws"
+      "run": "make libs/cluster-api-provider-aws"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/cnrm"
+      "run": "make libs/cnrm"
   "consul":
     "name": "Generate consul Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/consul"
+      "run": "make libs/consul"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/crossplane"
+      "run": "make libs/crossplane"
   "debugging":
     "name": "Debugging Github Action values"
     "runs-on": "ubuntu-latest"
@@ -140,160 +220,244 @@
     - "run": "echo ${{ github.event_name }}"
   "eck-operator":
     "name": "Generate eck-operator Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/eck-operator"
+      "run": "make libs/eck-operator"
   "external-secrets":
     "name": "Generate external-secrets Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/external-secrets"
+      "run": "make libs/external-secrets"
   "flagger":
     "name": "Generate flagger Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/flagger"
+      "run": "make libs/flagger"
   "fluxcd":
     "name": "Generate fluxcd Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/fluxcd"
+      "run": "make libs/fluxcd"
   "grafana-agent":
     "name": "Generate grafana-agent Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/grafana-agent"
+      "run": "make libs/grafana-agent"
   "grafana-operator":
     "name": "Generate grafana-operator Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/grafana-operator"
+      "run": "make libs/grafana-operator"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/istio"
+      "run": "make libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/k8s"
+      "run": "make libs/k8s"
   "keda":
     "name": "Generate keda Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/keda"
+      "run": "make libs/keda"
   "kube-prometheus":
     "name": "Generate kube-prometheus Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/kube-prometheus"
+      "run": "make libs/kube-prometheus"
   "openshift":
     "name": "Generate openshift Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/openshift"
+      "run": "make libs/openshift"
   "rabbitmq":
     "name": "Generate rabbitmq Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/rabbitmq"
+      "run": "make libs/rabbitmq"
   "repos":
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
@@ -393,30 +557,44 @@
       "working-directory": "tf"
   "strimzi":
     "name": "Generate strimzi Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/strimzi"
+      "run": "make libs/strimzi"
   "zalando-postgres-operator":
     "name": "Generate zalando-postgres-operator Jsonnet library and docs"
-    "needs": "repos"
+    "needs":
+    - "build"
+    - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
-      "run": "make build libs/zalando-postgres-operator"
+      "run": "make libs/zalando-postgres-operator"
 "on":
   "pull_request":
     "branches":

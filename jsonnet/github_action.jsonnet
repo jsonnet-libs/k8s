@@ -48,18 +48,44 @@ local terraform = {
 
 local libJob(name) = {
   name: 'Generate ' + name + ' Jsonnet library and docs',
-  needs: 'repos',
+  needs: ['build', 'repos'],
   'runs-on': 'ubuntu-latest',
   steps: [
     { uses: 'actions/checkout@v2' },
     {
-      run: 'make build libs/' + name,
+      uses: 'actions/download-artifact@v2',
+      with: {
+        name: 'docker-artifact',
+        path: 'artifacts',
+      },
+    },
+    // Load docker image from cache
+    { run: 'make load' },
+    {
+      run: 'make libs/' + name,
       env: {
         GIT_COMMITTER_NAME: 'jsonnet-libs-bot',
         GIT_COMMITTER_EMAIL: '86770550+jsonnet-libs-bot@users.noreply.github.com',
         SSH_KEY: '${{ secrets.DEPLOY_KEY }}',
         GEN_COMMIT: "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}",
         DIFF: 'true',
+      },
+    },
+  ],
+};
+
+// Build and cache docker image
+local build = {
+  name: 'Build docker image',
+  'runs-on': 'ubuntu-latest',
+  steps: [
+    { run: 'make build save' },
+    {
+      uses: 'actions/upload-artifact@v2',
+      with: {
+        name: 'docker-artifact',
+        path: 'artifacts',
+        'retention-days': 1,
       },
     },
   ],
@@ -81,6 +107,7 @@ function(libs) {
         [lib.name]: libJob(lib.name)
         for lib in libs
       } + {
+        build: build,
         repos: terraform.job,
         repos_with_pages: terraform.job + terraform.withPages(std.sort([lib.name for lib in libs])),
         debugging: {
