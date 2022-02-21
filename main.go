@@ -54,7 +54,11 @@ func main() {
 
 			log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
 
-			s, err := swagger.LoadHTTP(t.Openapi)
+			loader := swagger.Loader{
+				Load: swagger.LoadSwagger,
+			}
+
+			s, err := loader.LoadHTTP(t.Openapi)
 			if err != nil {
 				return err
 			}

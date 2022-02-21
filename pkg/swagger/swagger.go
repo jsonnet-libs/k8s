@@ -17,7 +17,11 @@ var skipRefs = map[string]bool{
 	"io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta": true,
 }
 
-func LoadHTTP(url string) (*Swagger, error) {
+type Loader struct {
+	Load func([]byte) (*Swagger, error)
+}
+
+func (l Loader) LoadHTTP(url string) (*Swagger, error) {
 	r, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -28,10 +32,10 @@ func LoadHTTP(url string) (*Swagger, error) {
 		return nil, err
 	}
 
-	return Load(data)
+	return l.Load(data)
 }
 
-func Load(data []byte) (*Swagger, error) {
+func LoadSwagger(data []byte) (*Swagger, error) {
 	var s Swagger
 	if err := json.Unmarshal(data, &s); err != nil {
 		return nil, err
