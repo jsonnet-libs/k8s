@@ -13,12 +13,12 @@ var skipRefs = map[string]bool{
 	"io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta": true,
 }
 
-type SwaggerLoader struct{
+type SwaggerLoader struct {
 	resolveMap  map[string]*Schema // store objects in a map in order to support recursive references
 	Definitions Definitions        `json:"definitions"`
 }
 
-func (s *SwaggerLoader) Load(data []byte) (*Definitions, error) {
+func (s *SwaggerLoader) Load(data []byte) (Definitions, error) {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (s *SwaggerLoader) Load(data []byte) (*Definitions, error) {
 		s.Definitions[k] = s.resolveRefs(def)
 	}
 
-	return &s.Definitions, nil
+	return s.Definitions, nil
 }
 
 func (s *SwaggerLoader) resolveRefs(d *Schema) *Schema {
@@ -56,6 +56,12 @@ func (s *SwaggerLoader) get(prop *Schema) *Schema {
 		return rs
 	}
 	rs := s.Definitions[ref]
+
+    // return if cannot resolve reference
+	if rs == nil {
+		return nil
+	}
+
 	rs.ResolvedRef = ref
 	s.resolveMap[ref] = rs
 	rs = s.resolveRefs(rs)

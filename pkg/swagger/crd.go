@@ -2,6 +2,7 @@ package swagger
 
 import (
 	"bytes"
+	_ "embed"
 	"io"
 	"strings"
 
@@ -10,11 +11,20 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-type CRDLoader struct{}
+//go:embed objectmeta.json
+var objectmeta []byte
 
-func (c *CRDLoader) Load(manifest []byte) (*Definitions, error) {
+type CRDLoader struct {
+	objectMetaDefinitions *Schema
+}
+
+func (c *CRDLoader) Load(manifest []byte) (Definitions, error) {
 	crds, err := c.splitYAML(manifest)
 	if err != nil {
+		return nil, err
+	}
+
+	if err := c.loadObjectMeta(); err != nil {
 		return nil, err
 	}
 
@@ -29,7 +39,7 @@ func (c *CRDLoader) Load(manifest []byte) (*Definitions, error) {
 		definitions = append(definitions, crd)
 	}
 
-	var defs Definitions
+	defs := make(Definitions)
 	for _, d := range definitions {
 		toReverse := strings.Split(d.ObjectMeta.Name, ".")
 		reversed := []string{}
@@ -59,13 +69,28 @@ func (c *CRDLoader) Load(manifest []byte) (*Definitions, error) {
 			}
 		}
 	}
-	return &defs,nil
+	return defs, nil
+}
+
+func (c *CRDLoader) loadObjectMeta() error {
+	loader := &SwaggerLoader{}
+	definitions, err := loader.Load(objectmeta)
+	if err != nil {
+		return err
+	}
+
+	c.objectMetaDefinitions = definitions["io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"]
+	return nil
 }
 
 func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps) Definitions {
-	var s Definitions
+	s := make(Definitions, len(prop))
 
 	for key, value := range prop {
+		if key == "metadata" && value.Type == "object" {
+			s[key] = c.objectMetaDefinitions
+			continue
+		}
 		s[key] = &Schema{
 			Type:  Type(value.Type),
 			Desc:  value.Description,
@@ -78,6 +103,9 @@ func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps
 }
 
 func (c *CRDLoader) itemsToSchema(item *apiextensionsv1.JSONSchemaPropsOrArray) *Schema {
+	if item == nil {
+		return nil
+	}
 	schema := item.Schema
 	return &Schema{
 		Type:  Type(schema.Type),

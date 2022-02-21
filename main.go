@@ -17,14 +17,15 @@ import (
 
 // Target defines an API subset to generate
 type Target struct {
-	Output       string `yaml:"output"`
-	Openapi      string `yaml:"openapi"`
-	Prefix       string `yaml:"prefix"`
-	PatchDir     string `yaml:"patchDir"`
-	ExtensionDir string `yaml:"extensionDir"`
-	LocalName    string `yaml:"localName"`
-	Repository   string `yaml:"repository"`
-	Description  string `yaml:"description"`
+	Output       string   `yaml:"output"`
+	Crds         []string `yaml:"crds"`
+	Openapi      string   `yaml:"openapi"`
+	Prefix       string   `yaml:"prefix"`
+	PatchDir     string   `yaml:"patchDir"`
+	ExtensionDir string   `yaml:"extensionDir"`
+	LocalName    string   `yaml:"localName"`
+	Repository   string   `yaml:"repository"`
+	Description  string   `yaml:"description"`
 }
 
 // Config holds settings for this generator
@@ -52,14 +53,32 @@ func main() {
 				continue
 			}
 
-			log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
+			definitions := make(swagger.Definitions)
 
-			definitions, err := swagger.Load(&swagger.SwaggerLoader{}, t.Openapi)
-			if err != nil {
-				return err
+			if len(t.Crds) > 0 {
+				for _, url := range t.Crds {
+					log.Printf("Generating '%s' from '%s, %s'", t.Output, url, t.Prefix)
+
+					defs, err := swagger.Load(&swagger.CRDLoader{}, url)
+					if err != nil {
+						return err
+					}
+					for k, v := range defs {
+						definitions[k] = v
+					}
+				}
+
+			} else {
+				log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
+
+				d, err := swagger.Load(&swagger.SwaggerLoader{}, t.Openapi)
+				if err != nil {
+					return err
+				}
+				definitions = d
 			}
 
-			groups := model.Load(definitions, t.Prefix)
+			groups := model.Load(&definitions, t.Prefix)
 			path := filepath.Join(*output, t.Output)
 			renderJsonnet(path, groups, t)
 		}

@@ -6,10 +6,10 @@ import (
 )
 
 type Loader interface {
-	Load([]byte) (*Definitions, error)
+	Load([]byte) (Definitions, error)
 }
 
-func Load(loader Loader, url string) (*Definitions, error) {
+func Load(loader Loader, url string) (Definitions, error) {
 	r, err := http.Get(url)
 	if err != nil {
 		return nil, err
