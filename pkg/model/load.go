@@ -16,9 +16,9 @@ const (
 )
 
 // Load parses swagger definitions into the data model
-func Load(swag *swagger.Swagger, prefix string) map[string]Group {
+func Load(definitions *swagger.Definitions, prefix string) map[string]Group {
 	prefixExpr := regexp.MustCompile(prefix)
-	defs := swag.Definitions.Filter(func(k string, v swagger.Schema) bool {
+	defs := definitions.Filter(func(k string, v swagger.Schema) bool {
 		if !expr.MatchString(k) {
 			return false
 		}

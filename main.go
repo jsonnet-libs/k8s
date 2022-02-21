@@ -54,16 +54,12 @@ func main() {
 
 			log.Printf("Generating '%s' from '%s, %s'", t.Output, t.Openapi, t.Prefix)
 
-			loader := swagger.Loader{
-				Load: swagger.LoadSwagger,
-			}
-
-			s, err := loader.LoadHTTP(t.Openapi)
+			definitions, err := swagger.Load(&swagger.SwaggerLoader{}, t.Openapi)
 			if err != nil {
 				return err
 			}
 
-			groups := model.Load(s, t.Prefix)
+			groups := model.Load(definitions, t.Prefix)
 			path := filepath.Join(*output, t.Output)
 			renderJsonnet(path, groups, t)
 		}

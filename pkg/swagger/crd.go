@@ -10,36 +10,15 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-func SplitYAML(resources []byte) ([][]byte, error) {
-	dec := goyaml.NewDecoder(bytes.NewReader(resources))
+type CRDLoader struct{}
 
-	var res [][]byte
-	for {
-		var value interface{}
-		err := dec.Decode(&value)
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			return nil, err
-		}
-		valueBytes, err := goyaml.Marshal(value)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, valueBytes)
-	}
-	return res, nil
-}
-
-func LoadCRDs(manifest []byte) (*Swagger, error) {
-	crds, err := SplitYAML(manifest)
+func (c *CRDLoader) Load(manifest []byte) (*Definitions, error) {
+	crds, err := c.splitYAML(manifest)
 	if err != nil {
 		return nil, err
 	}
 
 	definitions := []apiextensionsv1.CustomResourceDefinition{}
-	//decoder := yaml.NewYAMLToJSONDecoder(bytes.NewBuffer(f))
 	for _, crdfile := range crds {
 		crd := apiextensionsv1.CustomResourceDefinition{}
 
@@ -68,8 +47,8 @@ func LoadCRDs(manifest []byte) (*Swagger, error) {
 			defs[name] = &Schema{
 				Type:  Type(schema.Type),
 				Desc:  schema.Description,
-				Props: propToSchema(schema.Properties),
-				Items: itemsToSchema(schema.Items),
+				Props: c.propToSchema(schema.Properties),
+				Items: c.itemsToSchema(schema.Items),
 				XGvk: []XGvk{
 					{
 						Group:   d.Spec.Group,
@@ -80,32 +59,53 @@ func LoadCRDs(manifest []byte) (*Swagger, error) {
 			}
 		}
 	}
-	return &Swagger{
-		Definitions: defs,
-	}, nil
+	return &defs,nil
 }
 
-func propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps) Definitions {
+func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps) Definitions {
 	var s Definitions
 
 	for key, value := range prop {
 		s[key] = &Schema{
 			Type:  Type(value.Type),
 			Desc:  value.Description,
-			Props: propToSchema(value.Properties),
-			Items: itemsToSchema(value.Items),
+			Props: c.propToSchema(value.Properties),
+			Items: c.itemsToSchema(value.Items),
 		}
 	}
 
 	return s
 }
 
-func itemsToSchema(item *apiextensionsv1.JSONSchemaPropsOrArray) *Schema {
+func (c *CRDLoader) itemsToSchema(item *apiextensionsv1.JSONSchemaPropsOrArray) *Schema {
 	schema := item.Schema
 	return &Schema{
 		Type:  Type(schema.Type),
 		Desc:  schema.Description,
-		Props: propToSchema(schema.Properties),
-		Items: itemsToSchema(schema.Items),
+		Props: c.propToSchema(schema.Properties),
+		Items: c.itemsToSchema(schema.Items),
 	}
 }
+
+func (c *CRDLoader) splitYAML(resources []byte) ([][]byte, error) {
+	dec := goyaml.NewDecoder(bytes.NewReader(resources))
+
+	var res [][]byte
+	for {
+		var value interface{}
+		err := dec.Decode(&value)
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+		valueBytes, err := goyaml.Marshal(value)
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, valueBytes)
+	}
+	return res, nil
+}
+
