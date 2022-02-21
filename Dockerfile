@@ -28,14 +28,7 @@ WORKDIR /app
 
 RUN apk add --no-cache bash curl git openssh diffutils
 
-ENV KUBECONFIG=/app/kubeconfig/kube-config.yaml
-RUN chmod a+w /app
-
-RUN chmod a+w /tmp
-
 COPY --from=mikefarah/yq:4.9.6 /usr/bin/yq /usr/local/bin/yq2
-COPY --from=bitnami/kubectl:1.21.2 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/
-COPY --from=rancher/k3s:v1.21.2-k3s1 /bin/k3s /usr/local/bin/
 COPY --from=jsonnetlibs/docsonnet:0.0.3 /usr/local/bin/docsonnet /usr/local/bin/
 COPY --from=builder /app/k8s-gen /usr/local/bin/
 COPY --from=jsonnet /go/bin/jsonnet /usr/local/bin/

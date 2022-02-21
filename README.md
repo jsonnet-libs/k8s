@@ -3,8 +3,8 @@
 Code generator for Jsonnet Kubernetes libraries.
 
 This repository contains the generator code and relevant bits to generate the jsonnet
-libraries. It can generate libraries directly from OpenAPI spec v2 or by providing CRDs.
-The latter are then loaded into `k3s`, which serves them back in OpenAPI spec v2.
+libraries. It can generate libraries directly from OpenAPI spec v2 (Swagger) or by
+providing CustomResourceDefinitions.
 
 The CI job is set up to generate and update the content of a corresponding Github
 repository for each library. The management of these repositories is done through
@@ -33,6 +33,11 @@ config.new(
       # output directory, usually the version of the upstream application/CRD
       output: '<version>',
 
+      # crds Endpoints of the CRD manifests, should be omitted if there is an openapi spec
+      # Only resources of kind CustomResourceDefintion are applied; the default policy is to just
+      # pass in the CRDs here though.
+      crds: ['https://url.to.crd.manifest/<version>/manifests/crd-all.gen.yaml'],
+
       # openapi spec v2 endpoint
       # No need to define this if `crds` is defined
       openapi: 'http://localhost:8001/openapi/v2',
@@ -41,11 +46,6 @@ config.new(
       # for example `group: networking.istio.io`
       # would become ^io\\.istio\\.networking\\..*"
       prefix: '^<prefix>\\.<name>\\..*',
-
-      # crds Endpoints of the CRD manifests, should be omitted if there is an openapi spec
-      # Only resources of kind CustomResourceDefintion are applied; the default policy is to just
-      # pass in the CRDs here though.
-      crds: ['https://url.to.crd.manifest/<version>/manifests/crd-all.gen.yaml'],
 
       # localName used in the docs for the example(s)
       localName: '<name>',
