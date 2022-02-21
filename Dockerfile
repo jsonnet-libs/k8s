@@ -20,7 +20,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 FROM golang:1.17-alpine3.14 as jsonnet
 
 RUN apk add --no-cache git
-RUN go get github.com/google/go-jsonnet/cmd/jsonnet
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
 
 FROM alpine:3.14
 
