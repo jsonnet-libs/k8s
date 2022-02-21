@@ -64,6 +64,7 @@ build:
 	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
 save:
+	mkdir -p artifacts
 	docker save $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) > artifacts/docker-image.tar
 
 load:
