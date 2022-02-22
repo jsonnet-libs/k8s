@@ -41,7 +41,7 @@ func (c *CRDLoader) Load(manifest []byte) (Definitions, error) {
 
 	defs := make(Definitions)
 	for _, d := range definitions {
-		toReverse := strings.Split(d.ObjectMeta.Name, ".")
+		toReverse := strings.Split(d.Spec.Group, ".")
 		reversed := []string{}
 		for i := range toReverse {
 			n := toReverse[len(toReverse)-1-i]
@@ -57,7 +57,7 @@ func (c *CRDLoader) Load(manifest []byte) (Definitions, error) {
 			defs[name] = &Schema{
 				Type:  Type(schema.Type),
 				Desc:  schema.Description,
-				Props: c.propToSchema(schema.Properties),
+				Props: c.propToSchema(schema.Properties, true),
 				Items: c.itemsToSchema(schema.Items),
 				XGvk: []XGvk{
 					{
@@ -83,18 +83,18 @@ func (c *CRDLoader) loadObjectMeta() error {
 	return nil
 }
 
-func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps) Definitions {
+func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps, replaceObjectMeta bool) Definitions {
 	s := make(Definitions, len(prop))
 
 	for key, value := range prop {
-		if key == "metadata" && value.Type == "object" {
+		if replaceObjectMeta && key == "metadata" && value.Type == "object" {
 			s[key] = c.objectMetaDefinitions
 			continue
 		}
 		s[key] = &Schema{
 			Type:  Type(value.Type),
 			Desc:  value.Description,
-			Props: c.propToSchema(value.Properties),
+			Props: c.propToSchema(value.Properties, false),
 			Items: c.itemsToSchema(value.Items),
 		}
 	}
@@ -110,7 +110,7 @@ func (c *CRDLoader) itemsToSchema(item *apiextensionsv1.JSONSchemaPropsOrArray) 
 	return &Schema{
 		Type:  Type(schema.Type),
 		Desc:  schema.Description,
-		Props: c.propToSchema(schema.Properties),
+		Props: c.propToSchema(schema.Properties, false),
 		Items: c.itemsToSchema(schema.Items),
 	}
 }
