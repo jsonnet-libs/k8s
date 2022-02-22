@@ -83,20 +83,19 @@ func (c *CRDLoader) loadObjectMeta() error {
 	return nil
 }
 
-func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps, replaceObjectMeta bool) Definitions {
+func (c *CRDLoader) propToSchema(prop map[string]apiextensionsv1.JSONSchemaProps, addObjectMeta bool) Definitions {
 	s := make(Definitions, len(prop))
 
 	for key, value := range prop {
-		if replaceObjectMeta && key == "metadata" && value.Type == "object" {
-			s[key] = c.objectMetaDefinitions
-			continue
-		}
 		s[key] = &Schema{
 			Type:  Type(value.Type),
 			Desc:  value.Description,
 			Props: c.propToSchema(value.Properties, false),
 			Items: c.itemsToSchema(value.Items),
 		}
+	}
+	if addObjectMeta {
+		s["metadata"] = c.objectMetaDefinitions
 	}
 
 	return s
