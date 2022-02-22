@@ -4,7 +4,7 @@ config.new(
   name='cnrm',
   specs=[
     {
-      output: '1.33',
+      output: '1.74',
       prefix: '^com\\.google\\.cloud\\.cnrm\\..*',
       crds: ['https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.74.0/install-bundles/install-bundle-workload-identity/crds.yaml'],
       localName: 'cnrm',
