@@ -7,7 +7,7 @@ function(libs, pages=false) {
           required_providers: {
             github: {
               source: 'integrations/github',
-              version: '~>4.14.0',
+              version: '~>4.20.0',
             },
           },
           backend: {
