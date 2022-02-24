@@ -16,6 +16,8 @@ GIT_AUTHOR_EMAIL ?= $(shell git --no-pager log --format=format:'%ae' -n 1)
 GIT_COMMITTER_NAME ?= $(shell git --no-pager log --format=format:'%an' -n 1)
 GIT_COMMITTER_EMAIL ?= $(shell git --no-pager log --format=format:'%ae' -n 1)
 
+OBJECTMETA_VERSION := v1.23.4
+
 .DEFAULT_GOAL: default
 default:
 
@@ -34,6 +36,9 @@ clean:
 	rm -f tf/main.tf.json
 
 configure: clean .github/workflows/main.yml tf/main.tf.json
+
+update_objectmeta:
+	curl -sL "https://raw.githubusercontent.com/kubernetes/kubernetes/$(OBJECTMETA_VERSION)/api/openapi-spec/swagger.json" | jsonnet -o pkg/swagger/objectmeta.json jsonnet/objectmeta.jsonnet
 
 debug: build
 	mkdir -p $(ABS_OUTPUT_DIR) && \
@@ -77,4 +82,4 @@ push-image:
 	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
 	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):latest
 
-.PHONY: clean configure debug run all libs/* build push push-image
+.PHONY: clean configure update_objectmeta debug run all libs/* build push push-image

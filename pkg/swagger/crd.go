@@ -34,7 +34,7 @@ func (c *CRDLoader) Load(manifest []byte) (Definitions, error) {
 
 		decoder := yaml.NewYAMLOrJSONDecoder(bytes.NewBuffer(crdfile), 4096)
 		if err := decoder.Decode(&crd); err != nil {
-			panic(err)
+			return nil, err
 		}
 		definitions = append(definitions, crd)
 	}
