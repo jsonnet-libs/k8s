@@ -14,7 +14,7 @@ config.new(
     {
       output: version,
       openapi: 'https://raw.githubusercontent.com/kubernetes/kubernetes/release-' + version + '/api/openapi-spec/swagger.json',
-      prefix: '^io\\.k8s\\.(api|kube-aggregator\\.pkg\\.apis)\\..*',
+      prefix: '^io\\.k8s\\.(api|(kube-aggregator|apimachinery)\\.pkg\\.apis)\\..*',
       patchDir: 'custom/core',
       extensionsDir: 'extensions/core',
       localName: 'k',
