@@ -40,9 +40,9 @@ config.new(
       localName: 'crossplane_azure',
     },
     {
-      output: 'provider-sql/0.3',
+      output: 'provider-sql/0.4',
       prefix: '^io\\.crossplane\\.sql\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-sql@v0.3.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-sql@v0.4.0'],
       localName: 'crossplane_sql',
     },
     {
