@@ -4,9 +4,15 @@ config.new(
   name='crossplane',
   specs=[
     {
+      output: 'crossplane/1.7',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.7.0'],
+      localName: 'crossplane',
+    },
+    {
       output: 'crossplane/1.6',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.3'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.4'],
       localName: 'crossplane',
     },
     {
@@ -46,9 +52,9 @@ config.new(
       localName: 'crossplane_sql',
     },
     {
-      output: 'provider-kubernetes/0.2',
+      output: 'provider-kubernetes/0.3',
       prefix: '^io\\.crossplane\\.kubernetes\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.2.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.3.0'],
       localName: 'crossplane_kubernetes',
     },
     {
