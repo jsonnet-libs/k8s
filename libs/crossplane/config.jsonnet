@@ -63,5 +63,11 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/grafana/crossplane-provider-grafana@v0.0.9'],
       localName: 'crossplane_grafana',
     },
+    {
+      output: 'provider-helm/10.0',
+      prefix: '^io\\.crossplane\\.helm\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-helm@v0.10.0'],
+      localName: 'crossplane_helm',
+    },
   ]
 )
