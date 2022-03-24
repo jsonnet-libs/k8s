@@ -59,7 +59,7 @@ config.new(
     },
     {
       output: 'provider-grafana/0.0',
-      prefix: '^io\\.crossplane\\.jet\\.grafana\\.grafana\\..*',
+      prefix: '^io\\.crossplane\\.jet\\.grafana\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/grafana/crossplane-provider-grafana@v0.0.9'],
       localName: 'crossplane_grafana',
     },
