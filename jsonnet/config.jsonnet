@@ -78,6 +78,9 @@
 
       # Include the theme
       mkdocs-material>=7.1.6
+
+      # Jinja >= 3.1.0 triggers a bug: https://github.com/mkdocs/mkdocs/issues/2799
+      jinja2==3.0.0
     |||,
   },
 }
