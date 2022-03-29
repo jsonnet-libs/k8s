@@ -65,10 +65,8 @@
     |||,
 
     'skel/requirements.txt': |||
-      # For mkdocs
-
-      # Use newer mkdocs so indexing can be done on titles only
-      git+https://github.com/mkdocs/mkdocs.git@57b5ccd7d63e5b7067d37d0433111e9a5278fb6d
+      # mkdocs
+      mkdocs>=1.3.0
 
       # To limit search to a subset
       mkdocs-exclude-search>=0.5
@@ -78,9 +76,6 @@
 
       # Include the theme
       mkdocs-material>=7.1.6
-
-      # Jinja >= 3.1.0 triggers a bug: https://github.com/mkdocs/mkdocs/issues/2799
-      jinja2==3.0.0
     |||,
   },
 }
