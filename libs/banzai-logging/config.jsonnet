@@ -4,7 +4,12 @@ local versions = [
   { output: '3.17.3', version: '3.17.3' },
 ];
 
-local crds = ['logging.banzaicloud.io_flows.yaml', 'logging.banzaicloud.io_clusterflows.yaml', 'logging.banzaicloud.io_clusteroutputs.yaml', 'logging.banzaicloud.io_outputs.yaml'];
+local crds = [
+  'logging.banzaicloud.io_flows.yaml', 
+  'logging.banzaicloud.io_clusterflows.yaml', 
+  'logging.banzaicloud.io_clusteroutputs.yaml', 
+  'logging.banzaicloud.io_outputs.yaml',
+];
 
 config.new(
   name='banzai-logging',
