@@ -58,9 +58,9 @@ config.new(
       localName: 'crossplane_kubernetes',
     },
     {
-      output: 'provider-grafana/0.0',
+      output: 'provider-grafana/0.1',
       prefix: '^io\\.crossplane\\.jet\\.grafana\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/grafana/crossplane-provider-grafana@v0.0.9'],
+      crds: ['https://doc.crds.dev/raw/github.com/grafana/crossplane-provider-grafana@v0.1.0'],
       localName: 'crossplane_grafana',
     },
     {
