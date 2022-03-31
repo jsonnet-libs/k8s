@@ -231,6 +231,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/consul"
+  "contour":
+    "name": "Generate contour Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/contour"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
     "needs":
@@ -549,6 +569,7 @@
     - "cnrm"
     - "composable"
     - "consul"
+    - "contour"
     - "crossplane"
     - "eck-operator"
     - "external-secrets"
