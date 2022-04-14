@@ -8,18 +8,21 @@ config.new(
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.7.0'],
       localName: 'crossplane',
+      patchDir: 'custom/crossplane',
     },
     {
       output: 'crossplane/1.6',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.4'],
       localName: 'crossplane',
+      patchDir: 'custom/crossplane',
     },
     {
       output: 'crossplane/1.5',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.5.1'],
       localName: 'crossplane',
+      patchDir: 'custom/crossplane',
     },
     {
       output: 'provider-aws/0.24',
