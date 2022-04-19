@@ -81,7 +81,7 @@ local d = import 'doc-util/main.libsonnet';
             resource.spec.writeConnectionSecretToRef.withNamespace(namespace),
         )
         + self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.patch.fromCompositeFieldPath(
             'metadata.uid',
             'spec.writeConnectionSecretToRef.name'
           ) + {
@@ -106,11 +106,11 @@ local d = import 'doc-util/main.libsonnet';
             instance.spec.withDeletionPolicy(default)
         )
         + self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.patch.fromCompositeFieldPath(
             'spec.parameters.deleteProtection',
             'spec.deletionPolicy',
           )
-          + this.patches.transforms.bool(
+          + this.patch.transforms.bool(
             true_value='Orphan',
             false_value='Delete',
           ),
@@ -122,15 +122,15 @@ local d = import 'doc-util/main.libsonnet';
       |||),
       withExternalNamePatch()::
         self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.patch.fromCompositeFieldPath(
             'spec.parameters.externalName',
             'metadata.annotations["crossplane.io/external-name"]',
           ),
         ]),
     },
 
-    patches: {
-      '#':: d.pkg(name='patches', url='', help='Create patches for Composition resources.'),
+    patch: {
+      '#':: d.pkg(name='patch', url='', help='Create patches for Composition resources.'),
 
       '#fromCompositeFieldPath':: d.fn(help=|||
         This type patches from a field within the XR to a field within the composed
@@ -233,8 +233,8 @@ local d = import 'doc-util/main.libsonnet';
       },
     },
 
-    connectionDetails: {
-      '#':: d.pkg(name='connectionDetails', url='', help='Create connectionDetails for Compositions.'),
+    connectionDetail: {
+      '#':: d.pkg(name='connectionDetail', url='', help='Create connectionDetails for Compositions.'),
 
       '#fromConnectionSecretKey':: d.fn(help=|||
         Derive the XR's connection detail field `name` from the `key` of the composed
