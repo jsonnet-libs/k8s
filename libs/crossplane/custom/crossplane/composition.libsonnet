@@ -16,7 +16,10 @@ local d = import 'doc-util/main.libsonnet';
           - `xrdVersion` Version of XRD object with which this composition is compatible
         |||, args=[
           d.arg('name', d.T.string),
-          d.arg('resource', d.T.object),
+          d.arg('namespace', d.T.string),
+          d.arg('provider', d.T.string),
+          d.arg('xrdRef', d.T.object),
+          d.arg('xrdVersion', d.T.string),
         ]),
         fromXRD(name, namespace, provider, xrdRef, xrdVersion):
           super.new(name)
