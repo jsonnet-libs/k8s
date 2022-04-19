@@ -8,15 +8,18 @@ local d = import 'doc-util/main.libsonnet';
           Create a Composition based on an XRD.
 
           Attributes:
-          - <name> of the composition
-          - <namespace> where connectionDetails are propagated too, commonly the the
+          - `name` of the composition
+          - `namespace` where connectionDetails are propagated too, commonly the the
             management namespace (ie. crossplane)
-          - <provider> of the resources in this composition
-          - <xrdRef> XRD object with which this composition is compatible
-          - <xrdVersion> Version of XRD object with which this composition is compatible
+          - `provider` of the resources in this composition
+          - `xrdRef` XRD object with which this composition is compatible
+          - `xrdVersion` Version of XRD object with which this composition is compatible
         |||, args=[
           d.arg('name', d.T.string),
-          d.arg('resource', d.T.object),
+          d.arg('namespace', d.T.string),
+          d.arg('provider', d.T.string),
+          d.arg('xrdRef', d.T.object),
+          d.arg('xrdVersion', d.T.string),
         ]),
         fromXRD(name, namespace, provider, xrdRef, xrdVersion):
           super.new(name)

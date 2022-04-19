@@ -70,7 +70,7 @@ local d = import 'doc-util/main.libsonnet';
       '#withConnectionSecretMixin':: d.fn(help=|||
         withConnectionSecretMixin ensures connectionSecrets are propagated to the
         management (ie. crossplane) namespace, the name of the secret will be
-        <metadata.uid>-<suffix>.
+        &lt;metadata.uid&gt;-&lt;suffix&gt;.
       |||, args=[
         d.arg('suffix', d.T.string),
         d.arg('namespace', d.T.string),
@@ -81,7 +81,7 @@ local d = import 'doc-util/main.libsonnet';
             resource.spec.writeConnectionSecretToRef.withNamespace(namespace),
         )
         + self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'metadata.uid',
             'spec.writeConnectionSecretToRef.name'
           ) + {
@@ -106,11 +106,11 @@ local d = import 'doc-util/main.libsonnet';
             instance.spec.withDeletionPolicy(default)
         )
         + self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'spec.parameters.deleteProtection',
             'spec.deletionPolicy',
           )
-          + this.patches.transforms.bool(
+          + this.util.patch.transforms.bool(
             true_value='Orphan',
             false_value='Delete',
           ),
@@ -122,15 +122,15 @@ local d = import 'doc-util/main.libsonnet';
       |||),
       withExternalNamePatch()::
         self.withPatchesMixin([
-          this.patches.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'spec.parameters.externalName',
             'metadata.annotations["crossplane.io/external-name"]',
           ),
         ]),
     },
 
-    patches: {
-      '#':: d.pkg(name='patches', url='', help='Create patches for Composition resources.'),
+    patch: {
+      '#':: d.pkg(name='patch', url='', help='Create patches for Composition resources.'),
 
       '#fromCompositeFieldPath':: d.fn(help=|||
         This type patches from a field within the XR to a field within the composed
@@ -233,15 +233,15 @@ local d = import 'doc-util/main.libsonnet';
       },
     },
 
-    connectionDetails: {
-      '#':: d.pkg(name='connectionDetails', url='', help='Create connectionDetails for Compositions.'),
+    connectionDetail: {
+      '#':: d.pkg(name='connectionDetail', url='', help='Create connectionDetails for Compositions.'),
 
       '#fromConnectionSecretKey':: d.fn(help=|||
-        Derive the XR's connection detail field <name> from the <key> of the composed
-        resource's connection secret. The argument <name> defaults to the value of <key>.
+        Derive the XR's connection detail field `name` from the `key` of the composed
+        resource's connection secret. The argument `name` defaults to the value of `key`.
       |||, args=[
         d.arg('key', d.T.string),
-        d.arg('name', d.T.string, '<same as key>'),
+        d.arg('name', d.T.string, '-same as key-'),
       ]),
       fromConnectionSecretKey(key, name=''): {
         name: if name == '' then key else name,
@@ -249,7 +249,7 @@ local d = import 'doc-util/main.libsonnet';
       },
 
       '#fromFieldPath':: d.fn(help=|||
-        Derive the XR's connection detail field <name> from the <key> field path of the
+        Derive the XR's connection detail field `name` from the `key` field path of the
         composed resource.
       |||, args=[
         d.arg('key', d.T.string),
@@ -262,7 +262,7 @@ local d = import 'doc-util/main.libsonnet';
       },
 
       '#fromValue':: d.fn(help=|||
-        Always sets the XR's connection detail field <name> to <value>.
+        Always sets the XR's connection detail field `name` to `value`.
       |||, args=[
         d.arg('value', d.T.string),
         d.arg('name', d.T.string),
@@ -278,13 +278,13 @@ local d = import 'doc-util/main.libsonnet';
       '#':: d.pkg(name='version', url='', help='Create versions for CompositeResourceDefinitions.'),
 
       '#new':: d.fn(help=|||
-        Create a new <version> (e.g. v1alpha1, v1beta1 and v1) schema for an XRD.
+        Create a new `version` (e.g. v1alpha1, v1beta1 and v1) schema for an XRD.
 
-        <served> specifies that XRs should be served at this version. It can be set to
+        `served` specifies that XRs should be served at this version. It can be set to
         false to temporarily disable a version, for example to test whether doing so
         breaks anything before a version is removed wholesale.
 
-        <referenceable> denotes the version of a type of XR that Compositions may use.
+        `referenceable` denotes the version of a type of XR that Compositions may use.
         Only one version may be referenceable.
       |||, args=[
         d.arg('version', d.T.string),
@@ -349,11 +349,11 @@ local d = import 'doc-util/main.libsonnet';
 
         Attributes:
 
-        - <name> of the property
-        - <type> eg. string, number, array, object
-        - <description> for documentation
-        - <required> is this a required property?
-        - <mixin> can be used to add enums or the type of an array member for validation.
+        - `name` of the property
+        - `type` eg. string, number, array, object
+        - `description` for documentation
+        - `required` is this a required property?
+        - `mixin` can be used to add enums or the type of an array member for validation.
       |||, args=[
         d.arg('value', d.T.object),
       ]),
