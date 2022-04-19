@@ -81,7 +81,7 @@ local d = import 'doc-util/main.libsonnet';
             resource.spec.writeConnectionSecretToRef.withNamespace(namespace),
         )
         + self.withPatchesMixin([
-          this.patch.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'metadata.uid',
             'spec.writeConnectionSecretToRef.name'
           ) + {
@@ -106,11 +106,11 @@ local d = import 'doc-util/main.libsonnet';
             instance.spec.withDeletionPolicy(default)
         )
         + self.withPatchesMixin([
-          this.patch.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'spec.parameters.deleteProtection',
             'spec.deletionPolicy',
           )
-          + this.patch.transforms.bool(
+          + this.util.patch.transforms.bool(
             true_value='Orphan',
             false_value='Delete',
           ),
@@ -122,7 +122,7 @@ local d = import 'doc-util/main.libsonnet';
       |||),
       withExternalNamePatch()::
         self.withPatchesMixin([
-          this.patch.fromCompositeFieldPath(
+          this.util.patch.fromCompositeFieldPath(
             'spec.parameters.externalName',
             'metadata.annotations["crossplane.io/external-name"]',
           ),
