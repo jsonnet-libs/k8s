@@ -355,7 +355,11 @@ local d = import 'doc-util/main.libsonnet';
         - `required` is this a required property?
         - `mixin` can be used to add enums or the type of an array member for validation.
       |||, args=[
-        d.arg('value', d.T.object),
+        d.arg('name', d.T.string),
+        d.arg('type', d.T.string, 'string|number|array|object'),
+        d.arg('description', d.T.string, ''),
+        d.arg('required', d.T.bool),
+        d.arg('mixin', d.T.object),
       ]),
       addParameterProperty(name, type, description='', required=false, mixin={}):
         self.withPropertiesMixin({
@@ -366,7 +370,7 @@ local d = import 'doc-util/main.libsonnet';
                 properties+: {
                   [name]: {
                     type: type,
-                    description: description,
+                    [if description != '' then 'description']: description,
                   } + mixin,
                 },
                 required+:
