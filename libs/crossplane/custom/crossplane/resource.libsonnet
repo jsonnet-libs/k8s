@@ -256,7 +256,7 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('name', d.T.string),
       ]),
       fromFieldPath(key, name): {
-        type: 'fromFieldPath',
+        type: 'FromFieldPath',
         name: name,
         fromFieldPath: key,
       },
@@ -268,7 +268,7 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('name', d.T.string),
       ]),
       fromValue(value, name): {
-        type: 'fromFieldPath',
+        type: 'FromFieldPath',
         name: name,
         fromValue: value,
       },
