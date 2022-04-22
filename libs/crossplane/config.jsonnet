@@ -43,6 +43,12 @@ config.new(
       localName: 'crossplane_jet_gcp',
     },
     {
+      output: 'provider-jet-mongodbatlas/0.2',
+      prefix: '^io\\.crossplane\\.jet\\.mongodbatlas\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-jet-mongodbatlas@v0.2.1'],
+      localName: 'crossplane_jet_mongodbatlas',
+    },
+    {
       output: 'provider-azure/0.18',
       prefix: '^io\\.crossplane\\.azure\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.18.1'],
