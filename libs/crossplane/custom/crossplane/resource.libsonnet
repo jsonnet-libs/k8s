@@ -58,12 +58,19 @@ local d = import 'doc-util/main.libsonnet';
 
       '#withConnectionDetailsMixin':: d.fn(help=|||
         Add connectionDetails that will be provided by this resource.
+
+        This also configures the writeConnectionSecretToRef to properly propagate the
+        connectionDetails. The `namespace` attribute conventionally matches the Crossplane
+        system namespace.
       |||, args=[
+        d.arg('namespace', d.T.string),
         d.arg('connectionDetails', d.T.array),
       ]),
-      withConnectionDetailsMixin(connectionDetails):: {
-        connectionDetails+: connectionDetails,
-      },
+      withConnectionDetailsMixin(namespace, connectionDetails)::
+        self.withConnectionSecretMixin(self.name, namespace)
+        + {
+          connectionDetails+: connectionDetails,
+        },
 
       // Here are a few common base/patch combinations
 
