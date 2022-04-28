@@ -66,11 +66,14 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('namespace', d.T.string),
         d.arg('connectionDetails', d.T.array),
       ]),
-      withConnectionDetailsMixin(namespace, connectionDetails)::
-        self.withConnectionSecretMixin(self.name, namespace)
-        + {
-          connectionDetails+: connectionDetails,
-        },
+      withConnectionDetailsMixin(namespace, connectionDetails):: {
+        local resource = super.resource,
+        local m = { resource:: resource } + this.util.resource.withConnectionSecretMixin(super.name, namespace),
+        base+: m.base,
+        patches+: m.patches,
+
+        connectionDetails+: connectionDetails,
+      },
 
       // Here are a few common base/patch combinations
 
