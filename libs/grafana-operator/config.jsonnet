@@ -15,5 +15,11 @@ config.new(
       crds: ['https://raw.githubusercontent.com/grafana-operator/grafana-operator/v4.2.0/deploy/manifests/v4.2.0/crds.yaml'],
       localName: 'grafana_operator',
     },
+    {
+      output: '4.3',
+      prefix: '^org\\.integreatly\\..*',
+      crds: ['https://raw.githubusercontent.com/grafana-operator/grafana-operator/v4.3.0/deploy/manifests/v4.3.0/crds.yaml'],
+      localName: 'grafana_operator',
+    },
   ]
 )
