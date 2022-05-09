@@ -125,7 +125,7 @@ func Kind(name string, k model.Kind) j.ObjectType {
 
 	// perhaps constructor
 	if k.New != nil {
-		fn := constructor(*k.New, k.Kind, k.APIVersion())
+		fn := constructor(*k.New, k.Kind, k.APIVersion(), k.Scope)
 		doc := d.Func("new", k.New.Help, d.Args("name", "string"))
 		fields = append(fields, fn, doc)
 	}
@@ -150,14 +150,27 @@ func Kind(name string, k model.Kind) j.ObjectType {
 // constructor creates a generic constructor, that 'just' adds apiVersion and
 // kind to an object. For more sophisticated constructors, the generated
 // artifact is overridden using hand-written files later on.
-func constructor(c model.Constructor, kind, apiVersion string) j.FuncType {
-	result := j.Add("",
+func constructor(c model.Constructor, kind, apiVersion string, scope *string) j.FuncType {
+
+	operands := []j.Type{
 		j.Object("",
 			j.String("apiVersion", apiVersion),
 			j.String("kind", kind),
 		),
 		j.Call("", "self.metadata.withName", j.Args(j.Ref("name", "name"))),
-	)
+	}
+
+	if scope != nil && *scope == "Cluster" {
+		operands = append(operands,
+			j.Call("", "self.metadata.withAnnotations", j.Args(
+				j.Object("annotations",
+					j.String("tanka.dev/namespaced", "true"),
+				),
+			)),
+		)
+	}
+
+	result := j.Add("", operands...)
 
 	return j.Func("new",
 		j.Args(j.Required(j.String("name", ""))),

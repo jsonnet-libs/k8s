@@ -115,6 +115,9 @@ type Kind struct {
 
 	// modifiers
 	Modifiers modifiers `json:"modifiers,omitempty"`
+
+	// Cluster or Namespaced scope, ignored if unset
+	Scope *string
 }
 
 // APIVersion constructs the full api path for a group
@@ -171,6 +174,7 @@ func newKind(d swagger.Schema, name string) Kind {
 	kind := Kind{
 		// Help text: description
 		Help: safeStr(d.Desc),
+		Scope: d.Scope,
 	}
 
 	gvk, real := d.GroupVersionKind()
