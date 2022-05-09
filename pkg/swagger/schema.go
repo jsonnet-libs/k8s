@@ -30,6 +30,9 @@ type Schema struct {
 	DollarRef   *string `json:"$ref"`
 	ResolvedRef string
 
+	// Cluster or Namespaced scope, ignored if unset
+	Scope *string
+
 	// vendor extensions
 	XGvk []XGvk `json:"x-kubernetes-group-version-kind"`
 }

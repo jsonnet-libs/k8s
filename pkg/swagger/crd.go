@@ -3,6 +3,7 @@ package swagger
 import (
 	"bytes"
 	_ "embed"
+	"fmt"
 	"io"
 	"strings"
 
@@ -54,11 +55,14 @@ func (c *CRDLoader) Load(manifest []byte) (Definitions, error) {
 			nameArray := append(reversed, []string{version.Name, d.Spec.Names.Kind}...)
 			name := strings.Join(nameArray, ".")
 
+			scope := fmt.Sprint(d.Spec.Scope)
+
 			defs[name] = &Schema{
 				Type:  Type(schema.Type),
 				Desc:  schema.Description,
 				Props: c.propToSchema(schema.Properties, true),
 				Items: c.itemsToSchema(schema.Items),
+				Scope: &scope,
 				XGvk: []XGvk{
 					{
 						Group:   d.Spec.Group,
