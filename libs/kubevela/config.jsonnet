@@ -8,14 +8,13 @@ config.new(
     {
       local url = 'https://raw.githubusercontent.com/kubevela/kubevela/v%s/charts/vela-core/crds' % v.version,
       output: v.output,
-      prefix: '^io\\.kubevela\\..*',
+      prefix: '^dev\\.oam\\..*',
       crds: [
         '%s/core.oam.dev_applicationrevisions.yaml' % url,
         '%s/core.oam.dev_applications.yaml' % url,
         '%s/core.oam.dev_componentdefinitions.yaml' % url,
         '%s/core.oam.dev_definitionrevisions.yaml' % url,
         '%s/core.oam.dev_envbindings.yaml' % url,
-        '%s/core.oam.dev_healthscopes.yaml' % url,
         '%s/core.oam.dev_manualscalertraits.yaml' % url,
         '%s/core.oam.dev_policies.yaml' % url,
         '%s/core.oam.dev_policydefinitions.yaml' % url,
