@@ -668,6 +668,7 @@
     - "rabbitmq"
     - "securecodebox"
     - "strimzi"
+    - "vertical-pod-autoscaler"
     - "zalando-postgres-operator"
     "runs-on": "ubuntu-latest"
     "steps":
@@ -743,6 +744,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/strimzi"
+  "vertical-pod-autoscaler":
+    "name": "Generate vertical-pod-autoscaler Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/vertical-pod-autoscaler"
   "zalando-postgres-operator":
     "name": "Generate zalando-postgres-operator Jsonnet library and docs"
     "needs":
