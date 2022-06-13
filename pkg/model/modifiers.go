@@ -62,37 +62,68 @@ type Object struct {
 	Fields modifiers `json:"fields"`
 }
 
+
 // modsForProps generates Modifiers for a (nested) map of swagger properties
 // (object fields)
-func modsForProps(props map[string]*swagger.Schema, ctx string, root bool) map[string]interface{} {
+func modsForProps(props map[string]*swagger.Schema, ctx string, root bool,
+	inArray bool, defArray bool) map[string]interface{} {
 	mods := make(map[string]interface{})
 	for k, p := range props {
 		if excluded := propertiesWithoutModifiers[k]; excluded == excludeEverywhere || (root && excluded == excludeInRootOnly) {
 			continue
 		}
-		name, mod := newModifier(k, p, ctx)
-		mods[name] = mod
+
+		// for an array field with object type, we define the withField first  
+		if p.Items != nil {
+			name, mod := newModifier(k, p, ctx, inArray, true)
+			mods[name] = mod
+		}
+
+		// for an array field with object type, here defines the 
+		// arrayWithSubField helper methods  
+		name, mod := newModifier(k, p, ctx, inArray, false)
+		if name != "" {
+			mods[name] = mod
+		}
 	}
 	return mods
 }
 
+
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
-func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{}) {
+func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
+	defArray bool) (string, interface{}) {
 	name = CamelLower(name)
 
 	switch p.Type {
+	case swagger.TypeArray:
+		// when defArray is true, create modifier directly
+		if !defArray {
+			if p.Items != nil && p.Items.ResolvedRef == "" && len(p.Items.Props) != 0 {
+				// arrayWith is for sub elements and thus removes all
+				// context
+				o := Object{
+					Help:   safeStr(p.Desc),
+					Fields: modsForProps(p.Items.Props, "", false, true, false),
+				}
+				return name, o
+			}
+			return "", nil
+		} 
+
+		// no children? create modifier
+		fallthrough
 	case swagger.TypeObject, "":
 		// if it has children, return modifier group instead
 		if len(p.Props) != 0 {
 			o := Object{
 				Help:   safeStr(p.Desc),
-				Fields: modsForProps(p.Props, ctx+"."+name, false),
+				Fields: modsForProps(p.Props, ctx+"."+name, false, inArray, defArray),
 			}
 			return name, o
 		}
 
-		// no children? create modifier
 		fallthrough
 	default:
 		fn := Modifier{
@@ -101,31 +132,26 @@ func newModifier(name string, p *swagger.Schema, ctx string) (string, interface{
 			Target: strings.TrimPrefix(ctx+"."+name, "."),
 			Type:   p.Type,
 		}
-		return fmt.Sprintf("with%s", normalizedTitle(name)), fn
+
+		funcPrefix := "with"
+		if defArray {
+			funcPrefix = "arrayWith"
+		}
+		return fmt.Sprintf("%s%s", funcPrefix, normalizedTitle(name)), fn
 	}
 }
 
 // fnArg normalizes an arguments name so it does not use any reserved words
 func fnArg(name string) string {
-	if name == "error" {
-		return "err"
+	name = strings.Replace(name, "-", "_", -1);
+	switch name {
+	case "assert", "else", "error", "false", "for", "function", "if",
+		"import", "importstr", "in", "local", "null", "tailstrict", 
+		"then", "self", "super", "true":
+		return normalizedTitle(name)
+	default:
+		return name
 	}
-	if name == "local" {
-		return "Local"
-	}
-	if name == "function" {
-		return "Function"
-	}
-	if name == "import" {
-		return "Import"
-	}
-	if name == "null" {
-		return "Null"
-	}
-	if strings.HasPrefix(name, "-") {
-		return strings.TrimPrefix(name, "-")
-	}
-	return name
 }
 
 // normalizedTitle normalizes a name and applied strings.Title()

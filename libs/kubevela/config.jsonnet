@@ -15,6 +15,7 @@ config.new(
         '%s/core.oam.dev_componentdefinitions.yaml' % url,
         '%s/core.oam.dev_definitionrevisions.yaml' % url,
         '%s/core.oam.dev_envbindings.yaml' % url,
+        '%s/core.oam.dev_healthscopes.yaml' % url,
         '%s/core.oam.dev_manualscalertraits.yaml' % url,
         '%s/core.oam.dev_policies.yaml' % url,
         '%s/core.oam.dev_policydefinitions.yaml' % url,
