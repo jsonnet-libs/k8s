@@ -185,7 +185,7 @@ func newKind(d swagger.Schema, name string) Kind {
 	}
 
 	// modifiers for properties
-	kind.Modifiers = modsForProps(d.Props, "", true)
+	kind.Modifiers = modsForProps(d.Props, "", true, false, false)
 
 	// real resource? add constructor, remove withKind
 	if real {
