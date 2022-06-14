@@ -133,11 +133,7 @@ func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
 			Type:   p.Type,
 		}
 
-		funcPrefix := "with"
-		if defArray {
-			funcPrefix = "arrayWith"
-		}
-		return fmt.Sprintf("%s%s", funcPrefix, normalizedTitle(name)), fn
+		return fmt.Sprintf("with%s", normalizedTitle(name)), fn
 	}
 }
 
@@ -145,7 +141,9 @@ func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
 func fnArg(name string) string {
 	name = strings.Replace(name, "-", "_", -1);
 	switch name {
-	case "assert", "else", "error", "false", "for", "function", "if",
+	case "error": // for backward compatibility
+		return "err"
+	case "assert", "else", "false", "for", "function", "if",
 		"import", "importstr", "in", "local", "null", "tailstrict", 
 		"then", "self", "super", "true":
 		return normalizedTitle(name)
