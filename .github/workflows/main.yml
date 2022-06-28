@@ -559,6 +559,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/kyverno"
+  "litmus-chaos":
+    "name": "Generate litmus-chaos Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/litmus-chaos"
   "openshift":
     "name": "Generate openshift Jsonnet library and docs"
     "needs":
@@ -664,6 +684,7 @@
     - "keda"
     - "kube-prometheus"
     - "kyverno"
+    - "litmus-chaos"
     - "openshift"
     - "rabbitmq"
     - "securecodebox"
