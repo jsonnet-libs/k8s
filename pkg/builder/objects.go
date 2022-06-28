@@ -50,7 +50,7 @@ func escapeKey(s string) string {
 		if strings.HasPrefix(s, "#") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
-		if strings.ContainsAny(s, "-.") {
+		if strings.ContainsAny(s, "-./") {
 			return fmt.Sprintf(`'%s'`, s)
 		}
 		return s
