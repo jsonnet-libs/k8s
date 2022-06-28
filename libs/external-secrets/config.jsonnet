@@ -4,7 +4,7 @@ local old_versions = [
   { output: '0.4', version: '0.4.4' },
 ];
 local versions = [  // since 0.5
-  { output: '0.5', version: '0.5.1' },
+  { output: '0.5', version: '0.5.6' },
 ];
 
 config.new(
