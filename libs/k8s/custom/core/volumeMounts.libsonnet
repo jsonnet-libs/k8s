@@ -21,9 +21,10 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('name', d.T.string),
         d.arg('path', d.T.string),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    configVolumeMount(name, path, volumeMountMixin={})::
+    configVolumeMount(name, path, volumeMountMixin={}, volumeMixin={})::
       local addMount(c) = c + container.withVolumeMountsMixin(
         volumeMount.new(name, path) +
         volumeMountMixin,
@@ -31,7 +32,7 @@ local d = import 'doc-util/main.libsonnet';
 
       super.mapContainers(addMount) +
       super.spec.template.spec.withVolumesMixin([
-        volume.fromConfigMap(name, name),
+        volume.fromConfigMap(name, name) + volumeMixin,
       ]),
 
 
@@ -46,9 +47,10 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('configMap', d.T.object),
         d.arg('path', d.T.string),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    configMapVolumeMount(configMap, path, volumeMountMixin={})::
+    configMapVolumeMount(configMap, path, volumeMountMixin={}, volumeMixin={})::
       local name = configMap.metadata.name,
             hash = std.md5(std.toString(configMap)),
             addMount(c) = c + container.withVolumeMountsMixin(
@@ -58,7 +60,7 @@ local d = import 'doc-util/main.libsonnet';
 
       super.mapContainers(addMount) +
       super.spec.template.spec.withVolumesMixin([
-        volume.fromConfigMap(name, name),
+        volume.fromConfigMap(name, name) + volumeMixin,
       ]) +
       super.spec.template.metadata.withAnnotationsMixin({
         ['%s-hash' % name]: hash,
@@ -74,9 +76,10 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('path', d.T.string),
         d.arg('readOnly', d.T.bool),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    hostVolumeMount(name, hostPath, path, readOnly=false, volumeMountMixin={})::
+    hostVolumeMount(name, hostPath, path, readOnly=false, volumeMountMixin={}, volumeMixin={})::
       local addMount(c) = c + container.withVolumeMountsMixin(
         volumeMount.new(name, path, readOnly=readOnly) +
         volumeMountMixin,
@@ -84,7 +87,7 @@ local d = import 'doc-util/main.libsonnet';
 
       super.mapContainers(addMount) +
       super.spec.template.spec.withVolumesMixin([
-        volume.fromHostPath(name, hostPath),
+        volume.fromHostPath(name, hostPath) + volumeMixin,
       ]),
 
 
@@ -96,9 +99,10 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('path', d.T.string),
         d.arg('readOnly', d.T.bool),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    pvcVolumeMount(name, path, readOnly=false, volumeMountMixin={})::
+    pvcVolumeMount(name, path, readOnly=false, volumeMountMixin={}, volumeMixin={})::
       local addMount(c) = c + container.withVolumeMountsMixin(
         volumeMount.new(name, path, readOnly=readOnly) +
         volumeMountMixin,
@@ -106,7 +110,7 @@ local d = import 'doc-util/main.libsonnet';
 
       super.mapContainers(addMount) +
       super.spec.template.spec.withVolumesMixin([
-        volume.fromPersistentVolumeClaim(name, name),
+        volume.fromPersistentVolumeClaim(name, name) + volumeMixin,
       ]),
 
 
@@ -118,9 +122,10 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('path', d.T.string),
         d.arg('defaultMode', d.T.string),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    secretVolumeMount(name, path, defaultMode=256, volumeMountMixin={})::
+    secretVolumeMount(name, path, defaultMode=256, volumeMountMixin={}, volumeMixin={})::
       local addMount(c) = c + container.withVolumeMountsMixin(
         volumeMount.new(name, path) +
         volumeMountMixin,
@@ -129,7 +134,7 @@ local d = import 'doc-util/main.libsonnet';
       super.mapContainers(addMount) +
       super.spec.template.spec.withVolumesMixin([
         volume.fromSecret(name, secretName=name) +
-        volume.secret.withDefaultMode(defaultMode),
+        volume.secret.withDefaultMode(defaultMode) + volumeMixin,
       ]),
 
     '#secretVolumeMountAnnotated': d.fn(
@@ -140,12 +145,13 @@ local d = import 'doc-util/main.libsonnet';
         d.arg('path', d.T.string),
         d.arg('defaultMode', d.T.string),
         d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
       ]
     ),
-    secretVolumeMountAnnotated(name, path, defaultMode=256, volumeMountMixin={})::
+    secretVolumeMountAnnotated(name, path, defaultMode=256, volumeMountMixin={}, volumeMixin={})::
       local annotations = { ['%s-secret-hash' % name]: std.md5(std.toString(name)) };
 
-      self.secretVolumeMount(name, path, defaultMode, volumeMountMixin)
+      self.secretVolumeMount(name, path, defaultMode, volumeMountMixin, volumeMixin)
       + super.spec.template.metadata.withAnnotationsMixin(annotations),
 
     '#emptyVolumeMount': d.fn(
