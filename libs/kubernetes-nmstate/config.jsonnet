@@ -11,7 +11,7 @@ config.new(
       output: v.version,
       prefix: '^io\\.nmstate\\..*',
       crds: ['https://github.com/nmstate/kubernetes-nmstate/releases/download/' + v.tag + '/nmstate.io_nmstates.yaml'],
-      localName: 'cert_manager',
+      localName: 'nmstate',
     }
     for v in versions
   ]
