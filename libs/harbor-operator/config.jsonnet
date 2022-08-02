@@ -8,7 +8,7 @@ config.new(
   specs=[
     {
       output: v.version,
-      prefix: '^goharbor\\.io\\..*',
+      prefix: '^io\\.goharbor\\..*',
       crds: ['https://raw.githubusercontent.com/goharbor/harbor-operator/'+v.tag+'/manifests/cluster/deployment.yaml'],
       localName: 'harbor-operator',
     }
