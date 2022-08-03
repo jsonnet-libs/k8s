@@ -20,6 +20,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/actions-runner-controller"
+  "aiven":
+    "name": "Generate aiven Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/aiven"
   "argo-cd":
     "name": "Generate argo-cd Jsonnet library and docs"
     "needs":
@@ -439,6 +459,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/grafana-operator"
+  "harbor-operator":
+    "name": "Generate harbor-operator Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/harbor-operator"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
     "needs":
@@ -719,6 +759,7 @@
     "name": "Set up gh-pages branch"
     "needs":
     - "actions-runner-controller"
+    - "aiven"
     - "argo-cd"
     - "argo-workflows"
     - "aws-load-balancer-controller"
@@ -739,6 +780,7 @@
     - "fluxcd"
     - "grafana-agent"
     - "grafana-operator"
+    - "harbor-operator"
     - "istio"
     - "k8s"
     - "keda"
