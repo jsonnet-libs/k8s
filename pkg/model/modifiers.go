@@ -140,6 +140,7 @@ func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
 // fnArg normalizes an arguments name so it does not use any reserved words
 func fnArg(name string) string {
 	name = strings.Replace(name, "-", "_", -1);
+  name = strings.Replace(name, ".", "_", -1)
 	switch name {
 	case "error": // for backward compatibility
 		return "err"
@@ -157,6 +158,8 @@ func normalizedTitle(name string) string {
 	if strings.HasPrefix(name, "-") {
 		name = strings.TrimPrefix(name, "-")
 	}
+
+  name = strings.Replace(name, ".", "_", -1)
 
 	return strings.Title(name)
 }
