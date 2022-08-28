@@ -1,13 +1,19 @@
 local config = import 'jsonnet/config.jsonnet';
+local versions = [
+  ['1.74', '1.74.0'],
+  ['1.82', '1.82.0'],
+];
+
 
 config.new(
   name='cnrm',
   specs=[
     {
-      output: '1.74',
+      output: version[0],
       prefix: '^com\\.google\\.cloud\\.cnrm\\..*',
-      crds: ['https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.74.0/install-bundles/install-bundle-workload-identity/crds.yaml'],
+      crds: ['https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v' + version[1] +'/install-bundles/install-bundle-workload-identity/crds.yaml'],
       localName: 'cnrm',
-    },
+    }
+    for version in versions
   ],
 )
