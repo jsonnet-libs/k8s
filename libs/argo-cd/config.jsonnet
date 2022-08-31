@@ -21,5 +21,14 @@ config.new(
         'https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.3/manifests/crds/appproject-crd.yaml',
       ],
     },
+    {
+      output: '2.4',
+      prefix: '^io\\.argoproj\\..*',
+      localName: 'argo_cd',
+      crds: [
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.11/manifests/crds/application-crd.yaml',
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.11/manifests/crds/appproject-crd.yaml',
+      ],
+    },
   ]
 )
