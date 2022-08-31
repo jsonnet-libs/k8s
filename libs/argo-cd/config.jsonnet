@@ -8,8 +8,8 @@ config.new(
       prefix: '^io\\.argoproj\\..*',
       localName: 'argo_cd',
       crds: [
-        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.2.8/manifests/crds/application-crd.yaml',
-        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.2.8/manifests/crds/appproject-crd.yaml',
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.2.12/manifests/crds/application-crd.yaml',
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.2.12/manifests/crds/appproject-crd.yaml',
       ],
     },
     {
@@ -17,8 +17,8 @@ config.new(
       prefix: '^io\\.argoproj\\..*',
       localName: 'argo_cd',
       crds: [
-        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.3/manifests/crds/application-crd.yaml',
-        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.3/manifests/crds/appproject-crd.yaml',
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.7/manifests/crds/application-crd.yaml',
+        'https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.7/manifests/crds/appproject-crd.yaml',
       ],
     },
     {
