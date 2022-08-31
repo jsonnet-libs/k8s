@@ -1,8 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local legacy_versions = [
-  ['3.15', '3.15.5'],
-  ['3.16', '3.16.10'],
   ['3.17', '3.17.6'],
   ['3.18', '3.18.6'],
   ['3.19', '3.19.4'],
