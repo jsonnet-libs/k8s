@@ -1,8 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local legacy_versions = [
-  ['3.15', '3.15.5'],
-  ['3.16', '3.16.10'],
   ['3.17', '3.17.6'],
   ['3.18', '3.18.6'],
   ['3.19', '3.19.4'],
@@ -12,8 +10,10 @@ local legacy_versions = [
 local legacy_path = 'https://raw.githubusercontent.com/projectcalico/calico/v%s/_includes/charts/calico/crds/kdd/';
 
 local versions = [
-  ['3.21', '3.21.4'],
+  ['3.21', '3.21.6'],
   ['3.22', '3.22.0'],
+  ['3.23', '3.22.3'],
+  ['3.24', '3.24.1'],
 ];
 
 // The files in new versions were moved here:
@@ -37,8 +37,10 @@ config.new(
         (path % version[1]) + 'crd.projectcalico.org_ipamblocks.yaml',
         (path % version[1]) + 'crd.projectcalico.org_ipamconfigs.yaml',
         (path % version[1]) + 'crd.projectcalico.org_ipamhandles.yaml',
+        (path % version[1]) + 'crd.projectcalico.org_ipreservations.yaml',
         // IPPools resource is currently not included because the CRD breaks jsonnet by having a `-` within the deprecated key name `nat-outgoing`.
         // Once this has been removed, this file can be included and the comment removed.
+        // https://github.com/projectcalico/calico/issues/6638
         // (path % version[1]) + 'crd.projectcalico.org_ippools.yaml',
         (path % version[1]) + 'crd.projectcalico.org_kubecontrollersconfigurations.yaml',
         (path % version[1]) + 'crd.projectcalico.org_networkpolicies.yaml',
