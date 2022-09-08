@@ -4,23 +4,23 @@ config.new(
   name='crossplane',
   specs=[
     {
+      output: 'crossplane/1.9',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.9.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
+      output: 'crossplane/1.8',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.8.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
       output: 'crossplane/1.7',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.7.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.6',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.6.4'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.5',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.5.1'],
       localName: 'crossplane',
       patchDir: 'custom/crossplane',
     },
@@ -31,9 +31,9 @@ config.new(
       localName: 'crossplane_aws',
     },
     {
-      output: 'provider-gcp/0.20',
+      output: 'provider-gcp/0.21',
       prefix: '^io\\.crossplane\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-gcp@v0.20.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-gcp@v0.21.0'],
       localName: 'crossplane_gcp',
     },
     {
@@ -49,9 +49,9 @@ config.new(
       localName: 'crossplane_jet_mongodbatlas',
     },
     {
-      output: 'provider-azure/0.18',
+      output: 'provider-azure/0.19',
       prefix: '^io\\.crossplane\\.azure\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.18.1'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/provider-azure@v0.19.0'],
       localName: 'crossplane_azure',
     },
     {
