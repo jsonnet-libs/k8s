@@ -1,6 +1,6 @@
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= jsonnetlibs
-IMAGE_TAG ?= 0.0.7
+IMAGE_TAG ?= 0.0.8
 
 OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))

@@ -164,7 +164,7 @@ func constructor(c model.Constructor, kind, apiVersion string, scope *string) j.
 		operands = append(operands,
 			j.Call("", "self.metadata.withAnnotations", j.Args(
 				j.Object("annotations",
-					j.String("tanka.dev/namespaced", "true"),
+					j.String("tanka.dev/namespaced", "false"),
 				),
 			)),
 		)
