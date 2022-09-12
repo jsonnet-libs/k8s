@@ -1,6 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = ['2.4.11', '2.3.7', '2.2.12'];
-local manifests = ['application-crd.yaml', 'appproject-crd.yaml'];
+local manifests = ['application-crd.yaml', 'appproject-crd.yaml', 'applicationset-crd.yaml'];
 
 config.new(
   name='argo-cd',
