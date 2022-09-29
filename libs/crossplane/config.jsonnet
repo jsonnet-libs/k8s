@@ -37,6 +37,12 @@ config.new(
       localName: 'crossplane_gcp',
     },
     {
+      output: 'provider-jet-aws/0.5',
+      prefix: '^io\\.crossplane\\.jet\\.aws\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-jet-aws@v0.5.0-preview'],
+      localName: 'crossplane_jet_aws',
+    },
+    {
       output: 'provider-jet-gcp/0.2',
       prefix: '^io\\.crossplane\\.jet\\.gcp\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-jet-gcp@v0.2.0-preview'],
