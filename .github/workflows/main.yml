@@ -191,6 +191,26 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "run": "make libs/cert-manager"
+  "cilium":
+    "name": "Generate cilium Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/cilium"
   "cluster-api":
     "name": "Generate cluster-api Jsonnet library and docs"
     "needs":
@@ -807,6 +827,7 @@
     - "banzaicloud-bank-vaults"
     - "calico"
     - "cert-manager"
+    - "cilium"
     - "cluster-api"
     - "cluster-api-provider-aws"
     - "cnrm"
