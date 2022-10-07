@@ -84,5 +84,11 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-helm@v0.10.0'],
       localName: 'crossplane_helm',
     },
+    {
+      output: 'provider-terraform/0.3',
+      prefix: '^io\\.crossplane\\.tf\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-terraform@v0.3.0'],
+      localName: 'crossplane_terraform',
+    },
   ]
 )
