@@ -1,14 +1,15 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  {output: '0.16', version: '0.16.1'},
+  {output: '0.16', version: '0.16.1', url: 'https://raw.githubusercontent.com/aws/karpenter/v0.16.1/charts/karpenter/crds' },
+  {output: '0.19', version: '0.19.0'},
 ];
 
 config.new(
   name='karpenter',
   specs=[
     {
-      local url = 'https://raw.githubusercontent.com/aws/karpenter/v%s/charts/karpenter/crds' % v.version,
+      local url = if std.objectHas(v, 'url') then v.url else 'https://raw.githubusercontent.com/aws/karpenter/v%s/pkg/apis/crds' % v.version,
       output: v.output,
       prefix: '^(aws\\.k8s\\.karpenter|sh\\.karpenter)\\..*',
       crds: [
