@@ -90,5 +90,26 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-terraform@v0.3.0'],
       localName: 'crossplane_terraform',
     },
+
+    // Upbound official providers
+    // https://marketplace.upbound.io/
+    {
+      output: 'upbound-provider-aws/0.21',
+      prefix: '^io\\.upbound\\.aws\\..*',
+      crds: ['https://doc.crds.dev/github.com/upbound/provider-aws@v0.21.0'],
+      localName: 'upbound_aws',
+    },
+    {
+      output: 'upbound-provider-azure/0.19',
+      prefix: '^io\\.upbound\\.azure\\..*',
+      crds: ['https://doc.crds.dev/github.com/upbound/provider-azure@v0.19.0'],
+      localName: 'upbound_azure',
+    },
+    {
+      output: 'upbound-provider-gcp/0.19',
+      prefix: '^io\\.upbound\\.gcp\\..*',
+      crds: ['https://doc.crds.dev/github.com/upbound/provider-gcp@v0.19.0'],
+      localName: 'upbound_gcp',
+    },
   ]
 )
