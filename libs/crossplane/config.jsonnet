@@ -96,19 +96,19 @@ config.new(
     {
       output: 'upbound-provider-aws/0.21',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://doc.crds.dev/github.com/upbound/provider-aws@v0.21.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.21.0'],
       localName: 'upbound_aws',
     },
     {
       output: 'upbound-provider-azure/0.19',
       prefix: '^io\\.upbound\\.azure\\..*',
-      crds: ['https://doc.crds.dev/github.com/upbound/provider-azure@v0.19.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.19.0'],
       localName: 'upbound_azure',
     },
     {
       output: 'upbound-provider-gcp/0.19',
       prefix: '^io\\.upbound\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/github.com/upbound/provider-gcp@v0.19.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-gcp@v0.19.0'],
       localName: 'upbound_gcp',
     },
   ]
