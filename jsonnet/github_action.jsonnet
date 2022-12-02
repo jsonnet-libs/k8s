@@ -19,7 +19,7 @@ local terraform = {
     'runs-on': 'ubuntu-latest',
     steps: [
       { uses: 'actions/checkout@v2' },
-      { uses: 'zendesk/setup-jsonnet@v7' },
+      { uses: 'zendesk/setup-jsonnet@v10' },
 
       self.make_env { run: 'make tf/main.tf.json' },
 

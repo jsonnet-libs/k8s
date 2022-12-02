@@ -784,7 +784,7 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "zendesk/setup-jsonnet@v7"
+    - "uses": "zendesk/setup-jsonnet@v10"
     - "env":
         "PAGES": "false"
       "run": "make tf/main.tf.json"
@@ -863,7 +863,7 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "zendesk/setup-jsonnet@v7"
+    - "uses": "zendesk/setup-jsonnet@v10"
     - "env":
         "PAGES": "true"
       "run": "make tf/main.tf.json"
