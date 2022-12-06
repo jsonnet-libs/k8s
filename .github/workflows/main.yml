@@ -856,6 +856,7 @@
     - "prometheus-operator"
     - "rabbitmq"
     - "rabbitmq-messaging-topology-operator"
+    - "secrets-store-csi-driver"
     - "securecodebox"
     - "strimzi"
     - "vertical-pod-autoscaler"
@@ -894,6 +895,26 @@
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
       "run": "terraform init && terraform apply -no-color -auto-approve"
       "working-directory": "tf"
+  "secrets-store-csi-driver":
+    "name": "Generate secrets-store-csi-driver Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "run": "make libs/secrets-store-csi-driver"
   "securecodebox":
     "name": "Generate securecodebox Jsonnet library and docs"
     "needs":
