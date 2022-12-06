@@ -794,19 +794,19 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":
@@ -874,19 +874,19 @@
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform init"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform validate -no-color"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
-      "if": "github.event.pull_request.head.repo.full_name == github.repository"
+      "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
       "run": "terraform plan -no-color"
       "working-directory": "tf"
     - "env":

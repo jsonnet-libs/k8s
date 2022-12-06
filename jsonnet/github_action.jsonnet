@@ -1,5 +1,5 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
-local notFork = { 'if': 'github.event.pull_request.head.repo.full_name == github.repository' };
+local notFork = { 'if': "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'" };
 
 local terraform = {
   job: {
