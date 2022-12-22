@@ -14,6 +14,7 @@ config.new(
       prefix: '^io\\.istio\\..*',
       crds: ['https://raw.githubusercontent.com/istio/istio/' + version[1] + '/manifests/charts/base/crds/crd-all.gen.yaml'],
       localName: 'istio',
+      patchDir: 'custom',
     }
     for version in versions
   ]
