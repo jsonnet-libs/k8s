@@ -11,6 +11,7 @@ config.new(
       output: std.join('.', std.split(version, '.')[:2]),
       prefix: '^io\\.x-k8s\\.csi\\.secrets-store\\..*',
       localName: 'secrets_store_csi_driver',
+      patchDir: 'custom/secrets-store-csi-driver',
       crds: [
         'https://github.com/kubernetes-sigs/secrets-store-csi-driver/releases/download/v%s/%s' %
         [version, manifest]
