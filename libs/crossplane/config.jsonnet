@@ -4,6 +4,13 @@ config.new(
   name='crossplane',
   specs=[
     {
+      output: 'crossplane/1.10',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.10.1'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
       output: 'crossplane/1.9',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.9.0'],
