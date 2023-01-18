@@ -1,7 +1,7 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { output: '3.17.3', version: '3.17.3' },
+  { output: '3.17.10', version: '3.17.10' },
 ];
 
 local crds = [
