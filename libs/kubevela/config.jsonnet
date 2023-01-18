@@ -1,6 +1,9 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  {output: '1.4', version:'1.4.1'}
+  {output: '1.4', version:'1.4.14'},
+  {output: '1.5', version:'1.5.10'},
+  {output: '1.6', version:'1.6.7'},
+  {output: '1.7', version:'1.7.0'},
 ];
 config.new(
   name='kubevela',
