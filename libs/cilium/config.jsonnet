@@ -1,6 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { version: '1.12', tag: 'v1.12.2' },
+  { version: '1.12', tag: 'v1.12.5' },
 ];
 
 local pathPrefix = 'https://raw.githubusercontent.com/cilium/cilium/%s/pkg/k8s/apis/cilium.io/client/crds/v2/';
