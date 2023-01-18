@@ -14,6 +14,7 @@ local versions = [
   ['3.22', '3.22.0'],
   ['3.23', '3.22.3'],
   ['3.24', '3.24.1'],
+  ['3.25', '3.25.0'],
 ];
 
 // The files in new versions were moved here:
