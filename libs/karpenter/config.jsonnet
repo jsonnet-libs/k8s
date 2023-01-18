@@ -3,6 +3,9 @@ local config = import 'jsonnet/config.jsonnet';
 local versions = [
   {output: '0.16', version: '0.16.1', url: 'https://raw.githubusercontent.com/aws/karpenter/v0.16.1/charts/karpenter/crds' },
   {output: '0.19', version: '0.19.0'},
+  {output: '0.20', version: '0.20.0'},
+  {output: '0.21', version: '0.21.1'},
+  {output: '0.22', version: '0.22.1'},
 ];
 
 config.new(
