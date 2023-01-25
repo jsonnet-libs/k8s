@@ -8,17 +8,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/actions-runner-controller/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/actions-runner-controller"
   "aiven":
     "name": "Generate aiven Jsonnet library and docs"
@@ -28,17 +48,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/aiven/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/aiven"
   "argo-cd":
     "name": "Generate argo-cd Jsonnet library and docs"
@@ -48,17 +88,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/argo-cd/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/argo-cd"
   "argo-workflows":
     "name": "Generate argo-workflows Jsonnet library and docs"
@@ -68,17 +128,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/argo-workflows/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/argo-workflows"
   "aws-load-balancer-controller":
     "name": "Generate aws-load-balancer-controller Jsonnet library and docs"
@@ -88,17 +168,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/aws-load-balancer-controller/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/aws-load-balancer-controller"
   "banzai-logging":
     "name": "Generate banzai-logging Jsonnet library and docs"
@@ -108,17 +208,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/banzai-logging/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/banzai-logging"
   "banzaicloud-bank-vaults":
     "name": "Generate banzaicloud-bank-vaults Jsonnet library and docs"
@@ -128,17 +248,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/banzaicloud-bank-vaults/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/banzaicloud-bank-vaults"
   "build":
     "name": "Build docker image"
@@ -159,17 +299,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/calico/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/calico"
   "cert-manager":
     "name": "Generate cert-manager Jsonnet library and docs"
@@ -179,17 +339,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cert-manager/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cert-manager"
   "cilium":
     "name": "Generate cilium Jsonnet library and docs"
@@ -199,17 +379,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cilium/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cilium"
   "cluster-api":
     "name": "Generate cluster-api Jsonnet library and docs"
@@ -219,17 +419,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cluster-api/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cluster-api"
   "cluster-api-provider-aws":
     "name": "Generate cluster-api-provider-aws Jsonnet library and docs"
@@ -239,17 +459,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cluster-api-provider-aws/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cluster-api-provider-aws"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
@@ -259,17 +499,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cnrm/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cnrm"
   "composable":
     "name": "Generate composable Jsonnet library and docs"
@@ -279,17 +539,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/composable/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/composable"
   "consul":
     "name": "Generate consul Jsonnet library and docs"
@@ -299,17 +579,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/consul/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/consul"
   "contour":
     "name": "Generate contour Jsonnet library and docs"
@@ -319,17 +619,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/contour/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/contour"
   "crossplane":
     "name": "Generate crossplane Jsonnet library and docs"
@@ -339,17 +659,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/crossplane"
   "debugging":
     "name": "Debugging Github Action values"
@@ -367,17 +707,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/eck-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/eck-operator"
   "external-secrets":
     "name": "Generate external-secrets Jsonnet library and docs"
@@ -387,17 +747,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/external-secrets/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/external-secrets"
   "flagger":
     "name": "Generate flagger Jsonnet library and docs"
@@ -407,17 +787,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/flagger/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/flagger"
   "fluxcd":
     "name": "Generate fluxcd Jsonnet library and docs"
@@ -427,17 +827,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/fluxcd/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/fluxcd"
   "grafana-agent":
     "name": "Generate grafana-agent Jsonnet library and docs"
@@ -447,17 +867,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/grafana-agent/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/grafana-agent"
   "grafana-operator":
     "name": "Generate grafana-operator Jsonnet library and docs"
@@ -467,17 +907,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/grafana-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/grafana-operator"
   "harbor-operator":
     "name": "Generate harbor-operator Jsonnet library and docs"
@@ -487,17 +947,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/harbor-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/harbor-operator"
   "istio":
     "name": "Generate istio Jsonnet library and docs"
@@ -507,17 +987,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/istio/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/istio"
   "k8s":
     "name": "Generate k8s Jsonnet library and docs"
@@ -527,17 +1027,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/k8s/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/k8s"
   "karpenter":
     "name": "Generate karpenter Jsonnet library and docs"
@@ -547,17 +1067,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/karpenter/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/karpenter"
   "keda":
     "name": "Generate keda Jsonnet library and docs"
@@ -567,17 +1107,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/keda/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/keda"
   "kube-prometheus":
     "name": "Generate kube-prometheus Jsonnet library and docs"
@@ -587,17 +1147,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kube-prometheus/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kube-prometheus"
   "kubernetes-nmstate":
     "name": "Generate kubernetes-nmstate Jsonnet library and docs"
@@ -607,17 +1187,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kubernetes-nmstate/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kubernetes-nmstate"
   "kubernetes-secret-generator":
     "name": "Generate kubernetes-secret-generator Jsonnet library and docs"
@@ -627,17 +1227,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kubernetes-secret-generator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kubernetes-secret-generator"
   "kubevela":
     "name": "Generate kubevela Jsonnet library and docs"
@@ -647,17 +1267,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kubevela/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kubevela"
   "kyverno":
     "name": "Generate kyverno Jsonnet library and docs"
@@ -667,17 +1307,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kyverno/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kyverno"
   "litmus-chaos":
     "name": "Generate litmus-chaos Jsonnet library and docs"
@@ -687,17 +1347,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/litmus-chaos/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/litmus-chaos"
   "openshift":
     "name": "Generate openshift Jsonnet library and docs"
@@ -707,17 +1387,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/openshift/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/openshift"
   "prometheus-operator":
     "name": "Generate prometheus-operator Jsonnet library and docs"
@@ -727,17 +1427,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/prometheus-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/prometheus-operator"
   "rabbitmq":
     "name": "Generate rabbitmq Jsonnet library and docs"
@@ -747,17 +1467,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/rabbitmq/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/rabbitmq"
   "rabbitmq-messaging-topology-operator":
     "name": "Generate rabbitmq-messaging-topology-operator Jsonnet library and docs"
@@ -767,17 +1507,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/rabbitmq-messaging-topology-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/rabbitmq-messaging-topology-operator"
   "repos":
     "name": "Create repositories"
@@ -903,17 +1663,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/secrets-store-csi-driver/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/secrets-store-csi-driver"
   "securecodebox":
     "name": "Generate securecodebox Jsonnet library and docs"
@@ -923,17 +1703,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/securecodebox/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/securecodebox"
   "strimzi":
     "name": "Generate strimzi Jsonnet library and docs"
@@ -943,17 +1743,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/strimzi/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/strimzi"
   "vertical-pod-autoscaler":
     "name": "Generate vertical-pod-autoscaler Jsonnet library and docs"
@@ -963,17 +1783,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/vertical-pod-autoscaler/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/vertical-pod-autoscaler"
   "zalando-postgres-operator":
     "name": "Generate zalando-postgres-operator Jsonnet library and docs"
@@ -983,17 +1823,37 @@
     "runs-on": "ubuntu-latest"
     "steps":
     - "uses": "actions/checkout@v2"
-    - "uses": "actions/download-artifact@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/zalando-postgres-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
-    - "run": "make load"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
     - "env":
         "DIFF": "true"
         "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
         "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/zalando-postgres-operator"
 "on":
   "pull_request":
