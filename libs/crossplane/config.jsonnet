@@ -64,6 +64,12 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-helm@v0.13.0'],
       localName: 'crossplane_helm',
     },
+    {
+      output: 'provider-jet-mongodbatlas/0.3',
+      prefix: '^io\\.crossplane\\.jet\\.mongodbatlas\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-jet-mongodbatlas@v0.3.0'],
+      localName: 'crossplane_jet_mongodbatlas',
+    },
 
     // Grafana
     {
