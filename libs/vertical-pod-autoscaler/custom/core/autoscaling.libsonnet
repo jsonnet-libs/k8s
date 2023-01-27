@@ -1,6 +1,20 @@
 local d = import 'doc-util/main.libsonnet';
 
+local withTargetRef = {
+  '#withTargetRef':: d.fn(help='Set spec.TargetRef to `object`', args=[d.arg(name='object', type=d.T.object)]),
+  withTargetRef(object):
+    { spec+: { targetRef+: {
+      apiVersion: object.apiVersion,
+      kind: object.kind,
+      name: object.metadata.name,
+    } } },
+};
+
 local patch = {
+  verticalPodAutoscaler+: {
+    spec+: withTargetRef,
+  },
+
   verticalPodAutoscalerContainerResourcePolicy+: {
     '#':: d.pkg(
       name='verticalPodAutoscalerContainerResourcePolicy',
