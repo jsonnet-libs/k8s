@@ -103,7 +103,7 @@ config.new(
       output: 'provider-terraform/0.4',
       prefix: '^io\\.upbound\\.tf\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.4.0'],
-      localName: 'crossplane_terraform',
+      localName: 'upbound_terraform',
     },
   ]
 )
