@@ -50,6 +50,13 @@ local d = import 'doc-util/main.libsonnet';
         volumeMixin,
       ]),
 
+      local volumeMixins = [volume.fromConfigMap(name, name) + volumeMixin];
+
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
+
 
     '#configMapVolumeMount': d.fn(
       |||
@@ -84,15 +91,17 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
+      local volumeMixins = [volume.fromConfigMap(name, name) + volumeMixin];
+      local annotations = {['%s-hash' % name]: hash};
 
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromConfigMap(name, name) +
-        volumeMixin,
-      ]) +
-      super.spec.template.metadata.withAnnotationsMixin({
-        ['%s-hash' % name]: hash,
-      }),
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then
+        super.spec.template.spec.withVolumesMixin(volumeMixins) +
+        super.spec.template.metadata.withAnnotationsMixin(annotations)
+      else
+        super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins) +
+        super.spec.jobTemplate.spec.template.metadata.withAnnotationsMixin(annotations),
 
 
     '#hostVolumeMount': d.fn(
@@ -126,12 +135,12 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
+      local volumeMixins = [volume.fromHostPath(name, hostPath) + volumeMixin];
 
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromHostPath(name, hostPath) +
-        volumeMixin,
-      ]),
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
 
 
     '#pvcVolumeMount': d.fn(
@@ -164,12 +173,12 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
+      local volumeMixins = [volume.fromPersistentVolumeClaim(name, name) + volumeMixin];
 
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromPersistentVolumeClaim(name, name) +
-        volumeMixin,
-      ]),
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
 
 
     '#secretVolumeMount': d.fn(
@@ -202,13 +211,16 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
-
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
+      local volumeMixins = [
         volume.fromSecret(name, secretName=name) +
         volume.secret.withDefaultMode(defaultMode) +
         volumeMixin,
-      ]),
+      ];
+
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
 
     '#secretVolumeMountAnnotated': d.fn(
       'same as `secretVolumeMount`, adding an annotation to force redeploy on change.'
@@ -257,11 +269,12 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
+      local volumeMixins = [volume.fromEmptyDir(name) + volumeMixin];
 
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromEmptyDir(name) + volumeMixin,
-      ]),
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
 
     '#csiVolumeMount': d.fn(
       |||
@@ -292,15 +305,18 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromCsi(name, driver, volumeAttributes) + volumeMixin,
-      ]),
+      local volumeMixins = [volume.fromCsi(name, driver, volumeAttributes) + volumeMixin];
+
+      super.mapContainers(addMount) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
   },
 
   batch+: {
     v1+: {
       job+: patch,
+      cronJob+: patch,
     },
   },
   apps+: { v1+: {
