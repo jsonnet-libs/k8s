@@ -64,8 +64,6 @@ local cronPatch = patch {
   batch+: {
     v1+: {
       job+: patch,
-    },
-    v1beta1+: {
       cronJob+: cronPatch,
     },
   },
