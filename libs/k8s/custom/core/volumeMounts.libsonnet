@@ -318,6 +318,9 @@ local d = import 'doc-util/main.libsonnet';
       job+: patch,
       cronJob+: patch,
     },
+    v1beta1+: {
+      cronJob+: patch,
+    },
   },
   apps+: { v1+: {
     daemonSet+: patch,

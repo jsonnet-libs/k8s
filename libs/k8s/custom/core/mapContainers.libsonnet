@@ -66,6 +66,9 @@ local cronPatch = patch {
       job+: patch,
       cronJob+: cronPatch,
     },
+    v1beta1+: {
+      cronJob+: cronPatch,
+    },
   },
   apps+: { v1+: {
     daemonSet+: patch,
