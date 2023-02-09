@@ -43,13 +43,6 @@ local d = import 'doc-util/main.libsonnet';
         )
         else {}
       );
-
-      super.mapContainers(addMount, includeInitContainers) +
-      super.spec.template.spec.withVolumesMixin([
-        volume.fromConfigMap(name, name) +
-        volumeMixin,
-      ]),
-
       local volumeMixins = [volume.fromConfigMap(name, name) + volumeMixin];
 
       super.mapContainers(addMount) +
