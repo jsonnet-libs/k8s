@@ -20,7 +20,7 @@ local patch = {
       template+: {
         spec+: {
           containers: std.map(f, podContainers),
-              initContainers: if includeInitContainers then std.map(f, podInitContainers) else podInitContainers,
+          [if includeInitContainers then 'initContainers']: std.map(f, podInitContainers),
         },
       },
     },
@@ -46,7 +46,7 @@ local cronPatch = patch {
           template+: {
             spec+: {
               containers: std.map(f, podContainers),
-              initContainers: if includeInitContainers then std.map(f, podInitContainers) else podInitContainers,
+              [if includeInitContainers then 'initContainers']: std.map(f, podInitContainers),
             },
           },
         },
