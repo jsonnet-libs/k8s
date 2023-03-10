@@ -170,6 +170,57 @@ local d = import 'doc-util/main.libsonnet';
         toFieldPath: to,
       },
 
+      local combine(type, toFieldPath, fmtString, fromFieldPaths) = {
+        type: 'CombineFromComposite',
+        combine: {
+          variables: [
+            {
+              fromFieldPath: fromFieldPath,
+            }
+            for fromFieldPath in fromFieldPaths
+          ],
+          strategy: 'string',
+          string: {
+            fmt: fmtString,
+          },
+        },
+        toFieldPath: toFieldPath,
+      },
+
+
+      '#combineFromComposite':: d.fn(help=|||
+        This type patches from a combination of multiple fields within the XR 
+        to a field within the composed resource. 
+        It’s commonly used to expose a composed resource spec field as an XR spec field.
+      |||, args=[
+        d.arg('toFieldPath', d.T.string),
+        d.arg('fmtString', d.T.string),
+        d.arg('fromFieldPaths', d.T.array),
+      ]),
+      combineFromComposite(toFieldPath, fmtString, fromFieldPaths):: combine(
+        'CombineFromComposite',
+        toFieldPath,
+        fmtString,
+        fromFieldPaths,
+      ),
+
+      '#combineToComposite':: d.fn(help=|||
+        The inverse of CombineFromComposite. This type patches from multiple fields 
+        within the composed resource to a a field within the XR.
+        It’s commonly used to derive an XR status field from a combination of resource fields.
+      |||, args=[
+        d.arg('toFieldPath', d.T.string),
+        d.arg('fmtString', d.T.string),
+        d.arg('fromFieldPaths', d.T.array),
+      ]),
+      combineToComposite(toFieldPath, fmtString, fromFieldPaths):: combine(
+        'CombineToComposite',
+        toFieldPath,
+        fmtString,
+        fromFieldPaths,
+      ),
+
+
       policy: {
         '#fromFieldPath':: d.fn(help=|||
           By default Crossplane will skip the patch until all of the variables to be
