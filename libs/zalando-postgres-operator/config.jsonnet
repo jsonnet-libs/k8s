@@ -1,5 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
+  {version: '1.8', tag: 'v1.8.2' },
   {version: '1.7', tag: 'v1.7.1' },
   {version: '1.6', tag: 'v1.6.3' },
 ];
