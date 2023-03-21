@@ -18,7 +18,7 @@ const (
 
 var propertiesWithoutModifiers = map[string]excludeType{
 	"apiVersion": excludeInRootOnly,
-	"status":     excludeEverywhere,
+	"status":     excludeInRootOnly,
 }
 
 // Modifier is a function that returns a patch to modify the value at `Target`
@@ -62,7 +62,6 @@ type Object struct {
 	Fields modifiers `json:"fields"`
 }
 
-
 // modsForProps generates Modifiers for a (nested) map of swagger properties
 // (object fields)
 func modsForProps(props map[string]*swagger.Schema, ctx string, root bool,
@@ -73,14 +72,14 @@ func modsForProps(props map[string]*swagger.Schema, ctx string, root bool,
 			continue
 		}
 
-		// for an array field with object type, we define the withField first  
+		// for an array field with object type, we define the withField first
 		if p.Items != nil {
 			name, mod := newModifier(k, p, ctx, inArray, true)
 			mods[name] = mod
 		}
 
-		// for an array field with object type, here defines the 
-		// arrayWithSubField helper methods  
+		// for an array field with object type, here defines the
+		// arrayWithSubField helper methods
 		name, mod := newModifier(k, p, ctx, inArray, false)
 		if name != "" {
 			mods[name] = mod
@@ -88,7 +87,6 @@ func modsForProps(props map[string]*swagger.Schema, ctx string, root bool,
 	}
 	return mods
 }
-
 
 // newModifier returns a modifier for the given swagger Property.
 // calls modsForProps in case of a nested object.
@@ -110,7 +108,7 @@ func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
 				return name, o
 			}
 			return "", nil
-		} 
+		}
 
 		// no children? create modifier
 		fallthrough
@@ -139,13 +137,13 @@ func newModifier(name string, p *swagger.Schema, ctx string, inArray bool,
 
 // fnArg normalizes an arguments name so it does not use any reserved words
 func fnArg(name string) string {
-	name = strings.Replace(name, "-", "_", -1);
-  name = strings.Replace(name, ".", "_", -1)
+	name = strings.Replace(name, "-", "_", -1)
+	name = strings.Replace(name, ".", "_", -1)
 	switch name {
 	case "error": // for backward compatibility
 		return "err"
 	case "assert", "else", "false", "for", "function", "if",
-		"import", "importstr", "in", "local", "null", "tailstrict", 
+		"import", "importstr", "in", "local", "null", "tailstrict",
 		"then", "self", "super", "true":
 		return normalizedTitle(name)
 	default:
@@ -159,7 +157,7 @@ func normalizedTitle(name string) string {
 		name = strings.TrimPrefix(name, "-")
 	}
 
-  name = strings.Replace(name, ".", "_", -1)
+	name = strings.Replace(name, ".", "_", -1)
 
 	return strings.Title(name)
 }
