@@ -97,7 +97,7 @@ config.new(
       output: 'upbound-provider-azuread/0.5',
       prefix: '^io\\.upbound\\.azuread\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azuread@v0.5.0'],
-      localName: 'upbound_azure',
+      localName: 'upbound_azuread',
     },
     {
       output: 'upbound-provider-gcp/0.29',
