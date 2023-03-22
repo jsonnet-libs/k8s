@@ -73,36 +73,42 @@ config.new(
 
     // Grafana
     {
-      output: 'provider-grafana/0.1',
+      output: 'provider-grafana/0.3',
       prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.1.0/crds.yaml'],
+      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.3.0/crds.yaml'],
       localName: 'crossplane_grafana',
     },
 
     // Upbound official providers
     // https://marketplace.upbound.io/
     {
-      output: 'upbound-provider-aws/0.28',
+      output: 'upbound-provider-aws/0.31',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.28.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.31.0'],
       localName: 'upbound_aws',
     },
     {
-      output: 'upbound-provider-azure/0.26',
+      output: 'upbound-provider-azure/0.29',
       prefix: '^io\\.upbound\\.azure\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.26.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.29.0'],
       localName: 'upbound_azure',
     },
     {
-      output: 'upbound-provider-gcp/0.26',
+      output: 'upbound-provider-azuread/0.5',
+      prefix: '^io\\.upbound\\.azuread\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azuread@v0.5.0'],
+      localName: 'upbound_azuread',
+    },
+    {
+      output: 'upbound-provider-gcp/0.29',
       prefix: '^io\\.upbound\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-gcp@v0.26.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-gcp@v0.29.0'],
       localName: 'upbound_gcp',
     },
     {
-      output: 'provider-terraform/0.4',
+      output: 'provider-terraform/0.5',
       prefix: '^io\\.upbound\\.tf\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.4.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.5.0'],
       localName: 'upbound_terraform',
     },
   ]
