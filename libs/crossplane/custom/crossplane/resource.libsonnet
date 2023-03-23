@@ -291,6 +291,54 @@ local d = import 'doc-util/main.libsonnet';
             },
           ],
         },
+
+        '#match':: d.fn(help=|||
+          Match a value to a list of patterns.
+          Use the literalPattern or regexpPattern function to create the patterns.
+          Return the fallbackValue if no pattern matches.
+        |||, args=[
+          d.arg('patterns', d.T.array),
+          d.arg('fallbackValue', d.T.string),
+        ]),
+        match(patterns, fallbackValue): {
+          local patternsArray = if std.isArray(patterns) then patterns else [patterns],
+
+          transforms+: [
+            {
+              type: 'match',
+              match: {
+                patterns: patterns,
+                fallbackValue: fallbackValue,
+              },
+            },
+          ],
+        },
+
+        '#literalPattern':: d.fn(help=|||
+          Match a value against a literal, and return the result if the value matches.
+          To be used with the match transform.
+        |||, args=[
+          d.arg('literal', d.T.string),
+          d.arg('result', d.T.string),
+        ]),
+        literalPattern(literal, result): {
+          type: 'literal',
+          literal: literal,
+          result: result,
+        },
+
+        '#regexpPattern':: d.fn(help=|||
+          Match a value against a regexp, and return the result if the value matches.
+          To be used with the match transform.
+        |||, args=[
+          d.arg('regexp', d.T.string),
+          d.arg('result', d.T.string),
+        ]),
+        regexpPattern(regexp, result): {
+          type: 'regexp',
+          regexp: regexp,
+          result: result,
+        },
       },
     },
 
