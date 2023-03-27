@@ -256,6 +256,20 @@ local d = import 'doc-util/main.libsonnet';
       },
 
       transforms: {
+        local convertTransform(toType) = {
+          type: 'convert',
+          convert: { toType: toType },
+        },
+
+        '#convert':: d.fn(help=|||
+          Convert a field to a different type.
+        |||, args=[
+          d.arg('toType', d.T.string),
+        ]),
+        convert(toType): {
+          transforms+: [convertTransform(toType)],
+        },
+
         '#bool':: d.fn(help=|||
           Transform strings to booleans.
           Example: `bool(true_value='Orphan', false_value='Delete')`
@@ -265,10 +279,7 @@ local d = import 'doc-util/main.libsonnet';
         ]),
         bool(true_value, false_value): {
           transforms+: [
-            {
-              type: 'convert',
-              convert: { toType: 'string' },
-            },
+            convertTransform('string'),
             {
               type: 'map',
               map: {
@@ -304,6 +315,7 @@ local d = import 'doc-util/main.libsonnet';
           local patternsArray = if std.isArray(patterns) then patterns else [patterns],
 
           transforms+: [
+            convertTransform('string'),
             {
               type: 'match',
               match: {
