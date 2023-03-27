@@ -129,5 +129,19 @@ config.new(
       ],
       localName: 'fluxcd',
     },
+    {
+      // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v0.41.1/manifests/crds/kustomization.yaml
+      output: '0.41.1',
+      prefix: '^io\\.fluxcd\\.toolkit\\..*',
+      crds: [
+        'https://github.com/fluxcd/source-controller/releases/download/v0.36.0/source-controller.crds.yaml',
+        'https://github.com/fluxcd/kustomize-controller/releases/download/v0.35.0/kustomize-controller.crds.yaml',
+        'https://github.com/fluxcd/helm-controller/releases/download/v0.31.1/helm-controller.crds.yaml',
+        'https://github.com/fluxcd/notification-controller/releases/download/v0.33.0/notification-controller.crds.yaml',
+        'https://github.com/fluxcd/image-reflector-controller/releases/download/v0.26.0/image-reflector-controller.crds.yaml',
+        'https://github.com/fluxcd/image-automation-controller/releases/download/v0.31.0/image-automation-controller.crds.yaml',
+      ],
+      localName: 'fluxcd',
+    },
   ]
 )
