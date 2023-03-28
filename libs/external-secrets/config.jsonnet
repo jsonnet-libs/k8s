@@ -8,6 +8,7 @@ local versions = [  // since 0.5
   { output: '0.5', version: '0.5.6' },
   { output: '0.6', version: '0.6.1' },
   { output: '0.7', version: '0.7.2' },
+  { output: '0.8', version: '0.8.1' },
 ];
 
 config.new(
