@@ -67,5 +67,21 @@ config.new(
       localName: 'kube_prometheus',
       patchDir: 'custom',
     },
+    {
+      output: '0.12',
+      prefix: '^com\\.coreos\\.monitoring\\..*',
+      crds: [
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0alertmanagerConfigCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0alertmanagerCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0podmonitorCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0probeCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0prometheusCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0prometheusruleCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0servicemonitorCustomResourceDefinition.yaml',
+        'https://raw.githubusercontent.com/prometheus-operator/kube-prometheus/release-0.12/manifests/setup/0thanosrulerCustomResourceDefinition.yaml',
+      ],
+      localName: 'kube_prometheus',
+      patchDir: 'custom',
+    },
   ]
 )
