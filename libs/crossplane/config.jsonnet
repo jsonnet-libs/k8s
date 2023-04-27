@@ -6,6 +6,13 @@ config.new(
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
     {
+      output: 'crossplane/1.12',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.12.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
       output: 'crossplane/1.11',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.11.2'],
@@ -80,9 +87,9 @@ config.new(
 
     // Grafana
     {
-      output: 'provider-grafana/0.3',
+      output: 'provider-grafana/0.5',
       prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.3.0/crds.yaml'],
+      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.5.0/crds.yaml'],
       localName: 'crossplane_grafana',
     },
 
