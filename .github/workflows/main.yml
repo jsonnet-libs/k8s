@@ -1619,6 +1619,7 @@
     - "secrets-store-csi-driver"
     - "securecodebox"
     - "strimzi"
+    - "teleport-operator"
     - "traefik"
     - "vertical-pod-autoscaler"
     - "zalando-postgres-operator"
@@ -1776,6 +1777,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/strimzi"
+  "teleport-operator":
+    "name": "Generate teleport-operator Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/teleport-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/teleport-operator"
   "traefik":
     "name": "Generate traefik Jsonnet library and docs"
     "needs":
