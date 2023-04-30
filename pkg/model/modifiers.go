@@ -18,7 +18,7 @@ const (
 
 var propertiesWithoutModifiers = map[string]excludeType{
 	"apiVersion": excludeInRootOnly,
-	"status":     excludeInRootOnly,
+	"status":     excludeEverywhere,
 }
 
 // Modifier is a function that returns a patch to modify the value at `Target`
