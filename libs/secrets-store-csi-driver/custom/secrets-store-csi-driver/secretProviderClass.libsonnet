@@ -43,6 +43,8 @@ local patch = {
         withCloudName(cloudName):: { cloudName: cloudName },
         '#withTenantId':: d.fn(help='Helper-function to set attribute according to to specification (https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#use-a-user-assigned-managed-identity)', args=[d.arg('withTenantId', d.T.string)]),
         withTenantId(tenantId):: { tenantId: tenantId },
+        '#withClientId':: d.fn(help='Helper-function to set attribute according to to specification (https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-identity-access#use-a-user-assigned-managed-identity)', args=[d.arg('withClientId', d.T.string)]),
+        withClientId(clientId):: { clientId: clientId },
 
         '#withObjects':: d.fn(help='Function to render objects-text. Takes an object-array e.g. [{objectName:"name",objectType:"secret"}] or an single object.', args=[d.arg('objects', d.T.array)]),
         withObjects(objects):: {
@@ -116,7 +118,7 @@ local patch = {
               userAssignedIdentityId=userAssignedIdentityId,
               keyvaultName=keyvaultName,
               tenantId=tenantId
-            ) + secrets_store_csi_driver.spec.parameters.withObjects(std.objectValues(objects)),
+            ) + secrets_store_csi_driver.spec.parameters.withObjects(objects),
           },
         }
         + if secretName != null then self.spec.withSecretObjects([
