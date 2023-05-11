@@ -326,9 +326,9 @@ local d = import 'doc-util/main.libsonnet';
                 patterns: patterns,
                 fallbackTo: fallbackTo,
               } + (
-                if fallbackTo == 'Input' then {} else {
+                if fallbackTo == 'Value' then {
                   fallbackValue: fallbackValue,
-                }
+                } else {}
               ),
             },
           ],
