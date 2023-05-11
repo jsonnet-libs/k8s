@@ -289,6 +289,7 @@ local d = import 'doc-util/main.libsonnet';
             },
           ],
         },
+
         '#map':: d.fn(help=|||
           Use a Map to transform keys into values.
         |||, args=[
@@ -306,12 +307,15 @@ local d = import 'doc-util/main.libsonnet';
         '#match':: d.fn(help=|||
           Match a value to a list of patterns.
           Use the literalPattern or regexpPattern function to create the patterns.
-          Return the fallbackValue if no pattern matches.
+          Return the fallbackValue or fallback to the input if no pattern matches.
         |||, args=[
           d.arg('patterns', d.T.array),
           d.arg('fallbackValue', d.T.string),
+          d.arg('fallbackTo', d.T.string),
         ]),
-        match(patterns, fallbackValue): {
+        match(patterns, fallbackValue=null, fallbackTo='Value'): {
+          assert fallbackTo == 'Input' || (fallbackTo == 'Value' && fallbackValue != null) :
+                 'fallbackTo must be set to either "Input" or "Value" (with a fallbackValue in that case))',
           local patternsArray = if std.isArray(patterns) then patterns else [patterns],
 
           transforms+: [
@@ -320,8 +324,12 @@ local d = import 'doc-util/main.libsonnet';
               type: 'match',
               match: {
                 patterns: patterns,
-                fallbackValue: fallbackValue,
-              },
+                fallbackTo: fallbackTo,
+              } + (
+                if fallbackTo == 'Input' then {} else {
+                  fallbackValue: fallbackValue,
+                }
+              ),
             },
           ],
         },
@@ -351,6 +359,28 @@ local d = import 'doc-util/main.libsonnet';
           regexp: regexp,
           result: result,
         },
+
+        local mathTransform(type, attribute, value) = {
+          type: 'math',
+          math: {
+            type: type,
+            [attribute]: value,
+          },
+        },
+
+        '#clampMin':: d.fn(help=|||
+          Clamp a number to a minimum value.
+        |||, args=[
+          d.arg('min', d.T.number),
+        ]),
+        clampMin(min): mathTransform('ClampMin', 'clampMin', min),
+
+        '#clampMax':: d.fn(help=|||
+          Clamp a number to a maximum value.
+        |||, args=[
+          d.arg('max', d.T.number),
+        ]),
+        clampMax(max): mathTransform('ClampMax', 'clampMax', max),
       },
     },
 
