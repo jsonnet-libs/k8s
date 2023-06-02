@@ -12,9 +12,21 @@ config.new(
       output: v.output,
       prefix: '^sh\\.gatekeeper\\..*',
       crds: [
-        '%s/external-secrets.io_clustersecretstores.yaml' % url,
-        '%s/external-secrets.io_externalsecrets.yaml' % url,
-        '%s/external-secrets.io_secretstores.yaml' % url,
+        '%s/%s' % [url, crd]
+
+        for crd in [
+          'assign-customresourcedefinition.yaml',
+          'assignimage-customresourcedefinition.yaml',
+          'assignmetadata-customresourcedefinition.yaml',
+          'config-customresourcedefinition.yaml',
+          'constraintpodstatus-customresourcedefinition.yaml',
+          'constrainttemplate-customresourcedefinition.yaml',
+          'constrainttemplatepodstatus-customresourcedefinition.yaml',
+          'expansiontemplate-customresourcedefinition.yaml',
+          'modifyset-customresourcedefinition.yaml',
+          'mutatorpodstatus-customresourcedefinition.yaml',
+          'provider-customresourcedefinition.yaml',
+        ]
       ],
       localName: 'external_secrets',
     }
