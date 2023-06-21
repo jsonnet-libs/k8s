@@ -171,7 +171,7 @@ local d = import 'doc-util/main.libsonnet';
       },
 
       local combine(type, toFieldPath, fmtString, fromFieldPaths) = {
-        type: 'CombineFromComposite',
+        type: type,
         combine: {
           variables: [
             {
