@@ -360,6 +360,108 @@ local d = import 'doc-util/main.libsonnet';
           result: result,
         },
 
+        string: {
+          '#fmt':: d.fn(help=|||
+            Format a string. The format string is a Go format string.
+          |||, args=[
+            d.arg('fmt', d.T.string),
+          ]),
+          fmt(fmt): {
+            type: 'string',
+            string: {
+              type: 'Format',
+              fmt: fmt,
+            },
+          },
+
+          local convertTransform(type) = {
+            type: 'string',
+            string: {
+              type: 'Convert',
+              convert: type,
+            },
+          },
+
+          // generate a convertXXX for each of the convert types
+          '#convertToUpper':: d.fn(help=|||
+            Convert a string to upper case.
+          |||),
+          convertToUpper: convertTransform('ToUpper'),
+
+          '#convertToLower':: d.fn(help=|||
+            Convert a string to lower case.
+          |||),
+          convertToLower: convertTransform('ToLower'),
+
+          '#convertToBase64':: d.fn(help=|||
+            Convert a string to base64.
+          |||),
+          convertToBase64: convertTransform('ToBase64'),
+
+          '#convertFromBase64':: d.fn(help=|||
+            Convert a base64 string to a string.
+          |||),
+          convertFromBase64: convertTransform('FromBase64'),
+
+          '#convertToJson':: d.fn(help=|||
+            Convert a string to JSON.
+          |||),
+
+          '#convertToSha1':: d.fn(help=|||
+            Convert a string to a SHA1 hash.
+          |||),
+          convertToSha1: convertTransform('ToSha1'),
+
+          '#convertToSha256':: d.fn(help=|||
+            Convert a string to a SHA256 hash.
+          |||),
+          convertToSha256: convertTransform('ToSha256'),
+
+          '#convertToSha512':: d.fn(help=|||
+            Convert a string to a SHA512 hash.
+          |||),
+          convertToSha512: convertTransform('ToSha512'),
+
+          local trimTransform(type, trim) = {
+            type: 'string',
+            string: {
+              type: type,
+              trim: trim,
+            },
+          },
+
+          '#trimPrefix':: d.fn(help=|||
+            Trim a prefix from a string.
+          |||, args=[
+            d.arg('trim', d.T.string),
+          ]),
+          trimPrefix(trim): trimTransform('TrimPrefix', trim),
+
+          '#trimSuffix':: d.fn(help=|||
+            Trim a suffix from a string.
+          |||, args=[
+            d.arg('trim', d.T.string),
+          ]),
+          trimSuffix(trim): trimTransform('TrimSuffix', trim),
+
+          '#regexp':: d.fn(help=|||
+            Match a regexp against a string. The group is optional and if omitted, the whole match is returned.
+          |||, args=[
+            d.arg('match', d.T.string),
+            d.arg('group', d.T.number),
+          ]),
+          regexp(match, group=''): {
+            type: 'string',
+            string: {
+              type: 'Regexp',
+              regexp: {
+                match: match,
+                [if group != '' then 'group']: group,
+              },
+            },
+          },
+        },
+
         local mathTransform(type, attribute, value) = {
           type: 'math',
           math: {
