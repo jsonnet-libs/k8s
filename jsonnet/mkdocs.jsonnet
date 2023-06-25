@@ -70,7 +70,7 @@
         steps: [
           {
             name: 'Checkout main',
-            uses: 'actions/checkout@v2',
+            uses: 'actions/checkout@v3',
             with: {
               'fetch-depth': 0,
             },

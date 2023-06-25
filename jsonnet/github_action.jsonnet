@@ -18,7 +18,7 @@ local terraform = {
     name: 'Create repositories',
     'runs-on': 'ubuntu-latest',
     steps: [
-      { uses: 'actions/checkout@v2' },
+      { uses: 'actions/checkout@v3' },
       { uses: 'zendesk/setup-jsonnet@v10' },
 
       self.make_env { run: 'make tf/main.tf.json' },
@@ -52,7 +52,7 @@ local libJob(name) = {
   'runs-on': 'ubuntu-latest',
 
   steps: [
-    { uses: 'actions/checkout@v2' },
+    { uses: 'actions/checkout@v3' },
     {
       uses: 'dorny/paths-filter@v2',
       id: 'filter',
@@ -107,7 +107,7 @@ local build = {
   name: 'Build docker image',
   'runs-on': 'ubuntu-latest',
   steps: [
-    { uses: 'actions/checkout@v2' },
+    { uses: 'actions/checkout@v3' },
     { run: 'make build save' },
     {
       uses: 'actions/upload-artifact@v2',
