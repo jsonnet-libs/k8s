@@ -24,10 +24,10 @@ config.new(
         '%s/monitoring.coreos.com_alertmanagers.yaml' % url,
         '%s/monitoring.coreos.com_podmonitors.yaml' % url,
         '%s/monitoring.coreos.com_probes.yaml' % url,
-        '%s/monitoring.coreos.com_prometheusagents.yaml' % url,
+        '%s/monitoring.coreos.com_prometheusagents.yaml' % url,  // Added in 0.64
         '%s/monitoring.coreos.com_prometheuses.yaml' % url,
         '%s/monitoring.coreos.com_prometheusrules.yaml' % url,
-        '%s/monitoring.coreos.com_scrapeconfigs.yaml' % url,
+        '%s/monitoring.coreos.com_scrapeconfigs.yaml' % url,  // Added in 0.65
         '%s/monitoring.coreos.com_servicemonitors.yaml' % url,
         '%s/monitoring.coreos.com_thanosrulers.yaml' % url,
       ],
