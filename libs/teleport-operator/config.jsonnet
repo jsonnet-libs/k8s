@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['12.2.2'];
+local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3'];
 local manifests = [
   'resources.teleport.dev_githubconnectors.yaml',
   'resources.teleport.dev_loginrules.yaml',
@@ -7,6 +7,8 @@ local manifests = [
   'resources.teleport.dev_roles.yaml',
   'resources.teleport.dev_samlconnectors.yaml',
   'resources.teleport.dev_users.yaml',
+  'resources.teleport.dev_provisiontokens.yaml', # added in 13.0
+  'resources.teleport.dev_oktaimportrules.yaml', # added in 13.2
 ];
 
 config.new(
