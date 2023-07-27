@@ -85,6 +85,12 @@ config.new(
       localName: 'crossplane_jet_mongodbatlas',
     },
     {
+      output: 'provider-nop/0.1.1',
+      prefix: '^io\\.crossplane\\.nop\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-nop@v0.1.1'],
+      localName: 'crossplane_nop',
+    },
+    {
       output: 'provider-nop/0.2.0',
       prefix: '^io\\.crossplane\\.nop\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-nop@v0.2.0'],
