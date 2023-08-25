@@ -4,6 +4,7 @@ local versions = [
   {output: '0.26', version: '0.26.0', legacy: true},
   {output: '0.27', version: '0.27.4', legacy: true},
   {output: '0.4', version: 'gha-runner-scale-set-0.4.0'},
+  {output: '0.5', version: 'gha-runner-scale-set-0.5.0'},
 ];
 
 config.new(
