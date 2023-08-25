@@ -1,7 +1,8 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  {output: '1.15.0', version:'v1.15.0'}
+  {output: '1.15.0', version:'v1.15.0'},
+  {output: '1.17.0', version:'v1.17.0'}
 ];
 
 config.new(
@@ -12,6 +13,8 @@ config.new(
       output: v.output,
       prefix: '^com\\.epam\\.edp\\..*',
       crds: [
+        '%s/v1.edp.epam.com_clusterkeycloakrealms.yaml' % url,
+        '%s/v1.edp.epam.com_clusterkeycloaks.yaml' % url,
         '%s/v1.edp.epam.com_keycloakauthflows.yaml' % url,
         '%s/v1.edp.epam.com_keycloakclients.yaml' % url,
         '%s/v1.edp.epam.com_keycloakclientscopes.yaml' % url,
