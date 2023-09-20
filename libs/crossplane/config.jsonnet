@@ -114,6 +114,12 @@ config.new(
       localName: 'upbound_aws',
     },
     {
+      output: 'upbound-provider-azure/0.36',
+      prefix: '^io\\.upbound\\.azure\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.36.0'],
+      localName: 'upbound_azure',
+    },
+    {
       output: 'upbound-provider-azure/0.29',
       prefix: '^io\\.upbound\\.azure\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.29.0'],
