@@ -120,6 +120,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/argo-cd"
+  "argo-rollouts":
+    "name": "Generate argo-rollouts Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v2"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v2"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/argo-rollouts/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v2"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/argo-rollouts"
   "argo-workflows":
     "name": "Generate argo-workflows Jsonnet library and docs"
     "needs":
@@ -1581,6 +1621,7 @@
     - "actions-runner-controller"
     - "aiven"
     - "argo-cd"
+    - "argo-rollouts"
     - "argo-workflows"
     - "aws-load-balancer-controller"
     - "banzai-logging"
