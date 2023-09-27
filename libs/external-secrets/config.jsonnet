@@ -36,6 +36,7 @@ config.new(
         '%s/external-secrets.io_clusterexternalsecrets.yaml' % url,
         '%s/external-secrets.io_clustersecretstores.yaml' % url,
         '%s/external-secrets.io_externalsecrets.yaml' % url,
+        '%s/external-secrets.io_pushsecrets.yaml' % url,
         '%s/external-secrets.io_secretstores.yaml' % url,
 
         '%s/generators.external-secrets.io_acraccesstokens.yaml' % url,
