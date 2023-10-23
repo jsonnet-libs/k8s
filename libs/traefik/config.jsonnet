@@ -2,6 +2,7 @@
 
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
+  { version: '2.10.5', chartTag: 'v25.0.0' },
   { version: '2.10.4', chartTag: 'v24.0.0' },
   { version: '2.10.4', chartTag: 'v23.2.0' },
   { version: '2.10.0', chartTag: 'v22.3.0' },  // breaking change with Traefik v2.9.10
