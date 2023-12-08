@@ -19,6 +19,8 @@ config.new(
       crds: [
         '%s/karpenter.k8s.aws_awsnodetemplates.yaml' % url,
         '%s/karpenter.sh_provisioners.yaml' % url,
+        '%s/karpenter.k8s.aws_ec2nodeclasses.yaml' % url,
+        '%s/karpenter.sh_nodepools.yaml' % url,
       ],
       localName: 'karpenter',
     }
