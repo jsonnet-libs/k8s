@@ -1,12 +1,10 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  '3.11',
-  '4.0',
-  '4.1',
-  '4.2',
-  '4.3',
-  '4.4',
-  '4.5',
+  '4.12',
+  '4.13',
+  '4.14',
+  '4.15',
+  '4.16',
 ];
 
 config.new(
@@ -14,7 +12,7 @@ config.new(
   specs=[
     {
       output: version,
-      openapi: 'https://raw.githubusercontent.com/openshift/origin/release-'+version+'/api/swagger-spec/openshift-openapi-spec.json',
+      openapi: 'https://raw.githubusercontent.com/openshift/api/release-%s/openapi/openapi.json' % version,
       prefix: '^com\\.github\\.openshift\\.api\\..*',
       localName: 'o',
       description: 'Generated Jsonnet library for OpenShift v' + version,
