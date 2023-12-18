@@ -4,6 +4,20 @@ config.new(
   name='fluxcd',
   specs=[
     {
+      // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v2.2.0/manifests/crds/kustomization.yaml
+      output: '2.2.0',
+      prefix: '^io\\.fluxcd\\.toolkit\\..*',
+      crds: [
+        'https://github.com/fluxcd/source-controller/releases/download/v1.2.2/source-controller.crds.yaml',
+        'https://github.com/fluxcd/kustomize-controller/releases/download/v1.2.0/kustomize-controller.crds.yaml',
+        'https://github.com/fluxcd/helm-controller/releases/download/v0.37.0/helm-controller.crds.yaml',
+        'https://github.com/fluxcd/notification-controller/releases/download/v1.2.2/notification-controller.crds.yaml',
+        'https://github.com/fluxcd/image-reflector-controller/releases/download/v0.31.1/image-reflector-controller.crds.yaml',
+        'https://github.com/fluxcd/image-automation-controller/releases/download/v0.37.0/image-automation-controller.crds.yaml'
+      ],
+      localName: 'fluxcd',
+    },
+    {
       // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v2.0.1/manifests/crds/kustomization.yaml
       output: '2.0.1',
       prefix: '^io\\.fluxcd\\.toolkit\\..*',
