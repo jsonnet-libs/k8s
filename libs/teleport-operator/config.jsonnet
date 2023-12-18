@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3'];
+local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3', '14.1.1'];
 local manifests = [
   'resources.teleport.dev_githubconnectors.yaml',
   'resources.teleport.dev_loginrules.yaml',
