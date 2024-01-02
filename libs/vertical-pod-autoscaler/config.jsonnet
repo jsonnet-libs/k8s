@@ -43,7 +43,7 @@ config.new(
       output: '1.0.0',
       prefix: '^io\\.k8s\\.autoscaling\\..*',
       crds: [
-        'https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-1.0.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml,
+        'https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-1.0.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml',
       ],
       localName: 'vertical-pod-autoscaler',
       patchDir: 'custom/core',
