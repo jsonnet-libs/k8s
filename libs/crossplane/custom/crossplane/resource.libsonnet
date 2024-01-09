@@ -99,6 +99,7 @@ local d = import 'doc-util/main.libsonnet';
               type: 'string',
               string: {
                 fmt: '%s-' + suffix,
+                type: 'Format',
               },
             }],
           },
