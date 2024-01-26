@@ -1,19 +1,18 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local old_versions = [
-  {output: '0.34', version:'0.34.1'}
+  { output: '0.34', version: '0.34.1' },
 ];
 
 local versions = [
-  {output: '1.3', version:'1.3.1'}
+  { output: '1.3', version: '1.3.1' },
 ];
-
-local url = 'https://raw.githubusercontent.com/hashicorp/consul-k8s/v%s/control-plane/config/crd/bases' % v.version;
 
 config.new(
   name='consul',
   specs=[
     {
+      local url = 'https://raw.githubusercontent.com/hashicorp/consul-k8s/v%s/control-plane/config/crd/bases' % v.version,
       output: v.output,
       prefix: '^com\\.hashicorp\\.consul\\..*',
       crds: [
@@ -32,6 +31,7 @@ config.new(
     for v in old_versions
   ] + [
     {
+      local url = 'https://raw.githubusercontent.com/hashicorp/consul-k8s/v%s/control-plane/config/crd/bases' % v.version,
       output: v.output,
       prefix: '^com\\.hashicorp\\.consul\\..*',
       crds: [
