@@ -1826,6 +1826,7 @@
     - "strimzi"
     - "teleport-operator"
     - "traefik"
+    - "vault-secrets-operator"
     - "vertical-pod-autoscaler"
     - "zalando-postgres-operator"
     "runs-on": "ubuntu-latest"
