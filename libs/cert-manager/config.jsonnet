@@ -1,7 +1,8 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { version: '1.13', tag: 'v1.13.2'},
-  { version: '1.12', tag: 'v1.12.6'},
+  { version: '1.14', tag: 'v1.14.2'},
+  { version: '1.13', tag: 'v1.13.3'},
+  { version: '1.12', tag: 'v1.12.7'},
   { version: '1.11', tag: 'v1.11.5'},
   { version: '1.10', tag: 'v1.10.2'},
   { version: '1.9', tag: 'v1.9.2'},
@@ -19,7 +20,7 @@ config.new(
     {
       output: v.version,
       prefix: '^io\\.cert-manager\\..*',
-      crds: ['https://github.com/jetstack/cert-manager/releases/download/'+v.tag+'/cert-manager.crds.yaml'],
+      crds: ['https://github.com/cert-manager/cert-manager/releases/download/'+v.tag+'/cert-manager.crds.yaml'],
       localName: 'cert_manager',
     }
     for v in versions
