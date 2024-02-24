@@ -6,7 +6,7 @@ config.new(
   name='knative-eventing',
   specs=[
     {
-      output: v.output,
+      output: v,
       crds: ['https://github.com/knative/eventing/releases/download/knative-v%s/eventing-crds.yaml' % v],
       prefix: '^dev\\.knative\\..*',
       localName: 'knative-eventing',
