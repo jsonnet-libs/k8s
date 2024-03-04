@@ -7,9 +7,9 @@ config.new(
     {
       output: version,
       prefix: '^io\\.envoyproxy\\.gateway\\..*',
-	    crds: ['https://github.com/envoyproxy/gateway/releases/download/%s/install.yaml' % version],
+      crds: ['https://github.com/envoyproxy/gateway/releases/download/%s/install.yaml' % version],
       localName: 'envoy-gateway',
-    },
+    }
     for version in versions
   ]
 )
