@@ -5,7 +5,7 @@ config.new(
   name='gateway-api',
   specs=[
     {
-      output: std.join('.', std.split(version, '.')[:2]),
+      output: version,
       prefix: '^io\\.k8s\\.networking\\.gateway\\..*',
 	  crds: ['https://github.com/kubernetes-sigs/gateway-api/releases/download/%s/standard-install.yaml' % version],
       localName: 'gateway-api',
