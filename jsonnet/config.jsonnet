@@ -60,9 +60,7 @@
     'skel/mkdocs.yml': std.manifestYamlDoc(this.mkdocs_config, true),
 
     'skel/.github/workflows/main.yml': std.manifestYamlDoc(this.mkdocs_github_action, true),
-    'skel/docs/stylesheets/extra.css': |||
-      .md-nav__link:first-letter { text-transform: lowercase; }
-    |||,
+    'skel/docs/stylesheets/extra.css': importstr 'files/mkdocs.css',
 
     'skel/requirements.txt': |||
       # mkdocs
@@ -76,6 +74,9 @@
 
       # Include the theme
       mkdocs-material>=7.1.6
+
+      # Deal with list indent of 2 spaces
+      mdx-truly-sane-lists>=1.3
     |||,
   },
 }
