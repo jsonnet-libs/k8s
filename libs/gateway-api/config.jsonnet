@@ -13,7 +13,7 @@ config.new(
       output: v.output,
       prefix: '^io\\.k8s\\.networking\\.gateway\\..*',
 	    crds: [
-        'https://github.com/kubernetes-sigs/gateway-api/releases/download/v$(version)s/standard-install.yaml' % { version: v.version }
+        'https://github.com/kubernetes-sigs/gateway-api/releases/download/v%(version)s/standard-install.yaml' % { version: v.version }
       ],
       localName: 'gateway-api',
     }
