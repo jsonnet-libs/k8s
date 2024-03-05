@@ -1,12 +1,10 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  {output: '0.16', version: '0.16.1', url: 'https://raw.githubusercontent.com/aws/karpenter/v0.16.1/charts/karpenter/crds' },
-  {output: '0.19', version: '0.19.0'},
-  {output: '0.27', version: '0.27.0'},
-  {output: '0.31', version: '0.31.3'},
-  {output: '0.32', version: '0.32.0'},
-  {output: '0.33', version: '0.33.0'},
+  { output: '0.27', version: '0.27.0' },
+  { output: '0.31', version: '0.31.3' },
+  { output: '0.32', version: '0.32.0' },
+  { output: '0.33', version: '0.33.0' },
 ];
 local getURL(v) =
   if std.objectHas(v, 'url')
