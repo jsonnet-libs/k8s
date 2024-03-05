@@ -8,19 +8,34 @@ local versions = [
   {output: '0.32', version: '0.32.0'},
   {output: '0.33', version: '0.33.0'},
 ];
+local getURL(v) =
+  if std.objectHas(v, 'url')
+  then v.url
+  else 'https://raw.githubusercontent.com/aws/karpenter/v%s/pkg/apis/crds' % v.version;
 
 config.new(
   name='karpenter',
   specs=[
     {
-      local url = if std.objectHas(v, 'url') then v.url else 'https://raw.githubusercontent.com/aws/karpenter/v%s/pkg/apis/crds' % v.version,
-      output: v.output,
-      prefix: '^(aws\\.k8s\\.karpenter|sh\\.karpenter)\\..*',
+      local url = getURL(v),
+      output: v.output + '/aws',
+      prefix: '^(aws\\.k8s\\.karpenter)\\..*',
       crds: [
         '%s/karpenter.k8s.aws_awsnodetemplates.yaml' % url,
-        '%s/karpenter.sh_provisioners.yaml' % url,
         '%s/karpenter.k8s.aws_ec2nodeclasses.yaml' % url,
+      ],
+      localName: 'karpenter',
+    }
+    for v in versions
+  ] + [
+    {
+      local url = getURL(v),
+      output: v.output + '/sh',
+      prefix: '^(sh\\.karpenter)\\..*',
+      crds: [
+        '%s/karpenter.sh_provisioners.yaml' % url,
         '%s/karpenter.sh_nodepools.yaml' % url,
+        '%s/karpenter.sh_nodeclaims.yaml' % url,
       ],
       localName: 'karpenter',
     }
