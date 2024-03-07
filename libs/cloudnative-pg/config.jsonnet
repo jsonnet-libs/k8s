@@ -3,9 +3,9 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { version: '1.22.0' }, // released on December 21, 2023
-  { version: '1.21.2' }, // released on December 21, 2023
-  { version: '1.20.5' }, // released on November 3, 2023
+  { version: '1.22.1' }, // released on February 2, 2024
+  { version: '1.21.3' }, // released on February 2, 2024
+  { version: '1.20.6' }, // released on February 2, 2024
 ];
 
 config.new(

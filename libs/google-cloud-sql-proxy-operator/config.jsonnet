@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['0.5.0'];
+local versions = ['0.5.0', '1.4.2'];
 local manifests = ['cloud-sql-proxy-operator.yaml'];
 
 config.new(
