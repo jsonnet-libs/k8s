@@ -6,6 +6,13 @@ config.new(
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
     {
+      output: 'crossplane/1.15',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.15.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
       output: 'crossplane/1.14',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.14.4'],
@@ -91,6 +98,18 @@ config.new(
       output: 'upbound-provider-aws/0.40',
       prefix: '^io\\.upbound\\.aws\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.40.0'],
+      localName: 'upbound_aws',
+    },
+    {
+      output: 'upbound-provider-aws/1.0',
+      prefix: '^io\\.upbound\\.aws\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v1.0.0'],
+      localName: 'upbound_aws',
+    },
+    {
+      output: 'upbound-provider-aws/1.1',
+      prefix: '^io\\.upbound\\.aws\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v1.1.0'],
       localName: 'upbound_aws',
     },
     {
