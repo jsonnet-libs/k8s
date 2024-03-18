@@ -8,6 +8,10 @@
     extra_css: ['stylesheets/extra.css'],
     theme: {
       name: 'material',
+      features: [
+        'navigation.tabs',
+        'navigation.indexes',
+      ],
       palette: [
         {
           scheme: 'default',
@@ -34,9 +38,6 @@
     plugins: [
       {
         search: {
-          indexing: 'titles',
-          prebuild_index: true,
-          min_search_length: 2,
           separator: '[\\s\\-\\.]+',
         },
       },
@@ -49,6 +50,12 @@
     markdown_extensions: [
       'pymdownx.highlight',
       'pymdownx.superfences',
+      {
+        mdx_truly_sane_lists: {
+          nested_indent: 2,
+          truly_sane: true,
+        },
+      },
     ],
   },
 
