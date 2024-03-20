@@ -79,9 +79,9 @@ config.new(
 
     // Grafana
     {
-      output: 'provider-grafana/0.7',
+      output: 'provider-grafana/0.12',
       prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.7.0/crds.yaml'],
+      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.12.0/crds.yaml'],
       localName: 'crossplane_grafana',
     },
 
