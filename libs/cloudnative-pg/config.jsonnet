@@ -3,6 +3,7 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
+  { version: '1.23.0' }   // released on April 25, 2024
   { version: '1.22.2' },  // released on March 14, 2024
   { version: '1.21.4' },  // released on March 14, 2024
 ];
