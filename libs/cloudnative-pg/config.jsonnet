@@ -3,8 +3,9 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { version: '1.22.2' }, // released on March 14, 2024
-  { version: '1.21.4' }, // released on March 14, 2024
+  { version: '1.23.1' }   // released on April 30, 2024
+  { version: '1.22.3' },  // released on April 24, 2024
+  { version: '1.21.5' },  // released on April 24, 2024
 ];
 
 config.new(
@@ -12,12 +13,14 @@ config.new(
   specs=[
     {
 
-      local url = 'https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/' ,
+      local url = 'https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/',
 
       output: v.version,
       crds: [
         '%s/postgresql.cnpg.io_backups.yaml' % url,
         '%s/postgresql.cnpg.io_clusters.yaml' % url,
+        '%s/postgresql.cnpg.io_clusterimagecatalogs.yaml' % url,
+        '%s/postgresql.cnpg.io_imagecatalogs.yaml' % url,
         '%s/postgresql.cnpg.io_poolers.yaml' % url,
         '%s/postgresql.cnpg.io_scheduledbackups.yaml' % url,
       ],

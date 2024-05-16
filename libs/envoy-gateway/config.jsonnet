@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['v0.6.0'];
+local versions = ['v0.6.0', 'v1.0.1'];
 
 config.new(
   name='envoy-gateway',
