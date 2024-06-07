@@ -60,5 +60,28 @@ config.new(
         'https://raw.githubusercontent.com/kyverno/kyverno/v1.11.0/config/crds/wgpolicyk8s.io_policyreports.yaml',
       ],
     },
+    {
+      output: '1.12',
+      prefix: '^io\\.kyverno\\..*',
+      localName: 'kyverno',
+      crds: [
+        // CRDs retrieved from https://github.com/kyverno/kyverno/tree/v1.12.0/config/crds
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_admissionreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_backgroundscanreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_cleanuppolicies.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_clusteradmissionreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_clusterbackgroundscanreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_clustercleanuppolicies.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_clusterpolicies.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_globalcontextentries.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_policies.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_policyexceptions.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/kyverno/kyverno.io_updaterequests.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/policyreport/wgpolicyk8s.io_clusterpolicyreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/policyreport/wgpolicyk8s.io_policyreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/reports/reports.kyverno.io_clusterephemeralreports.yaml',
+        'https://raw.githubusercontent.com/kyverno/kyverno/v1.12.0/config/crds/reports/reports.kyverno.io_ephemeralreports.yaml',
+      ],
+    },
   ],
 )
