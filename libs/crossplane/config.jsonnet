@@ -117,5 +117,11 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.10.0'],
       localName: 'upbound_terraform',
     },
+    {
+      output: 'provider-terraform/0.16',
+      prefix: '^io\\.upbound\\.tf\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.16.0'],
+      localName: 'upbound_terraform',
+    },
   ]
 )
