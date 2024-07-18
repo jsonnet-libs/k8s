@@ -7,7 +7,8 @@ local manifests = [
   'rollout-crd.yaml',
 ];
 local versions = [
-  '1.6.0'
+  '1.6.0',
+  '1.7.0',
 ];
 
 config.new(
