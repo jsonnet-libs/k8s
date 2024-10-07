@@ -7,9 +7,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -26,7 +26,7 @@
             - 'tf/**'
             - 'libs/actions-runner-controller/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -47,9 +47,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -66,7 +66,7 @@
             - 'tf/**'
             - 'libs/aiven/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -87,9 +87,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -106,7 +106,7 @@
             - 'tf/**'
             - 'libs/argo-cd/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -127,9 +127,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -146,7 +146,7 @@
             - 'tf/**'
             - 'libs/argo-rollouts/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -167,9 +167,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -186,7 +186,7 @@
             - 'tf/**'
             - 'libs/argo-workflows/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -207,9 +207,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -226,7 +226,7 @@
             - 'tf/**'
             - 'libs/aws-load-balancer-controller/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -247,9 +247,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -266,7 +266,7 @@
             - 'tf/**'
             - 'libs/banzai-logging/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -287,9 +287,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -306,7 +306,7 @@
             - 'tf/**'
             - 'libs/banzaicloud-bank-vaults/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -324,9 +324,9 @@
     "name": "Build docker image"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "run": "make build save"
-    - "uses": "actions/upload-artifact@v2"
+    - "uses": "actions/upload-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -338,9 +338,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -357,7 +357,7 @@
             - 'tf/**'
             - 'libs/calico/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -378,9 +378,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -397,7 +397,7 @@
             - 'tf/**'
             - 'libs/cert-manager/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -418,9 +418,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -437,7 +437,7 @@
             - 'tf/**'
             - 'libs/cilium/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -458,9 +458,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -477,7 +477,7 @@
             - 'tf/**'
             - 'libs/clickhouse-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -498,9 +498,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -517,7 +517,7 @@
             - 'tf/**'
             - 'libs/cloudnative-pg/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -538,9 +538,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -557,7 +557,7 @@
             - 'tf/**'
             - 'libs/cluster-api/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -578,9 +578,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -597,7 +597,7 @@
             - 'tf/**'
             - 'libs/cluster-api-provider-aws/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -618,9 +618,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -637,7 +637,7 @@
             - 'tf/**'
             - 'libs/cnrm/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -658,9 +658,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -677,7 +677,7 @@
             - 'tf/**'
             - 'libs/composable/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -698,9 +698,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -717,7 +717,7 @@
             - 'tf/**'
             - 'libs/consul/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -738,9 +738,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -757,7 +757,7 @@
             - 'tf/**'
             - 'libs/contour/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -778,9 +778,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -797,7 +797,7 @@
             - 'tf/**'
             - 'libs/crossplane/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -818,9 +818,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -837,7 +837,7 @@
             - 'tf/**'
             - 'libs/datadog-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -866,9 +866,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -885,7 +885,7 @@
             - 'tf/**'
             - 'libs/eck-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -906,9 +906,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -925,7 +925,7 @@
             - 'tf/**'
             - 'libs/edp-keycloak-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -946,9 +946,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -965,7 +965,7 @@
             - 'tf/**'
             - 'libs/emissary/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -986,9 +986,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1005,7 +1005,7 @@
             - 'tf/**'
             - 'libs/envoy-gateway/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1026,9 +1026,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1045,7 +1045,7 @@
             - 'tf/**'
             - 'libs/external-dns/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1066,9 +1066,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1085,7 +1085,7 @@
             - 'tf/**'
             - 'libs/external-secrets/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1106,9 +1106,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1125,7 +1125,7 @@
             - 'tf/**'
             - 'libs/flagger/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1146,9 +1146,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1165,7 +1165,7 @@
             - 'tf/**'
             - 'libs/fluxcd/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1186,9 +1186,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1205,7 +1205,7 @@
             - 'tf/**'
             - 'libs/gatekeeper/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1226,9 +1226,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1245,7 +1245,7 @@
             - 'tf/**'
             - 'libs/gateway-api/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1266,9 +1266,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1285,7 +1285,7 @@
             - 'tf/**'
             - 'libs/google-cloud-sql-proxy-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1306,9 +1306,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1325,7 +1325,7 @@
             - 'tf/**'
             - 'libs/grafana-agent/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1346,9 +1346,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1365,7 +1365,7 @@
             - 'tf/**'
             - 'libs/grafana-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1386,9 +1386,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1405,7 +1405,7 @@
             - 'tf/**'
             - 'libs/harbor-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1426,9 +1426,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1445,7 +1445,7 @@
             - 'tf/**'
             - 'libs/istio/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1466,9 +1466,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1485,7 +1485,7 @@
             - 'tf/**'
             - 'libs/k8s/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1506,9 +1506,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1525,7 +1525,7 @@
             - 'tf/**'
             - 'libs/karpenter/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1546,9 +1546,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1565,7 +1565,7 @@
             - 'tf/**'
             - 'libs/keda/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1586,9 +1586,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1605,7 +1605,7 @@
             - 'tf/**'
             - 'libs/knative-eventing/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1626,9 +1626,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1645,7 +1645,7 @@
             - 'tf/**'
             - 'libs/knative-serving/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1666,9 +1666,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1685,7 +1685,7 @@
             - 'tf/**'
             - 'libs/kube-prometheus/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1706,9 +1706,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1725,7 +1725,7 @@
             - 'tf/**'
             - 'libs/kubernetes-nmstate/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1746,9 +1746,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1765,7 +1765,7 @@
             - 'tf/**'
             - 'libs/kubernetes-secret-generator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1786,9 +1786,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1805,7 +1805,7 @@
             - 'tf/**'
             - 'libs/kubevela/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1826,9 +1826,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1845,7 +1845,7 @@
             - 'tf/**'
             - 'libs/kyverno/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1866,9 +1866,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1885,7 +1885,7 @@
             - 'tf/**'
             - 'libs/litmus-chaos/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1906,9 +1906,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1925,7 +1925,7 @@
             - 'tf/**'
             - 'libs/milvus-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1946,9 +1946,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -1965,7 +1965,7 @@
             - 'tf/**'
             - 'libs/minio-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -1986,9 +1986,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2005,7 +2005,7 @@
             - 'tf/**'
             - 'libs/mysql-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2026,9 +2026,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2045,7 +2045,7 @@
             - 'tf/**'
             - 'libs/openshift/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2066,9 +2066,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2085,7 +2085,7 @@
             - 'tf/**'
             - 'libs/prometheus-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2106,9 +2106,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2125,7 +2125,7 @@
             - 'tf/**'
             - 'libs/rabbitmq/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2146,9 +2146,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2165,7 +2165,7 @@
             - 'tf/**'
             - 'libs/rabbitmq-messaging-topology-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2183,12 +2183,12 @@
     "name": "Create repositories"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
-    - "uses": "zendesk/setup-jsonnet@v10"
+    - "uses": "actions/checkout@v4"
+    - "uses": "zendesk/setup-jsonnet@v12"
     - "env":
         "PAGES": "false"
       "run": "make tf/main.tf.json"
-    - "uses": "hashicorp/setup-terraform@v1"
+    - "uses": "hashicorp/setup-terraform@v3"
       "with":
         "cli_config_credentials_token": "${{ secrets.TF_API_TOKEN }}"
     - "env":
@@ -2284,12 +2284,12 @@
     - "zalando-postgres-operator"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
-    - "uses": "zendesk/setup-jsonnet@v10"
+    - "uses": "actions/checkout@v4"
+    - "uses": "zendesk/setup-jsonnet@v12"
     - "env":
         "PAGES": "true"
       "run": "make tf/main.tf.json"
-    - "uses": "hashicorp/setup-terraform@v1"
+    - "uses": "hashicorp/setup-terraform@v3"
       "with":
         "cli_config_credentials_token": "${{ secrets.TF_API_TOKEN }}"
     - "env":
@@ -2323,9 +2323,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2342,7 +2342,7 @@
             - 'tf/**'
             - 'libs/secrets-store-csi-driver/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2363,9 +2363,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2382,7 +2382,7 @@
             - 'tf/**'
             - 'libs/securecodebox/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2403,9 +2403,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2422,7 +2422,7 @@
             - 'tf/**'
             - 'libs/spicedb-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2443,9 +2443,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2462,7 +2462,7 @@
             - 'tf/**'
             - 'libs/strimzi/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2483,9 +2483,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2502,7 +2502,7 @@
             - 'tf/**'
             - 'libs/teleport-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2523,9 +2523,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2542,7 +2542,7 @@
             - 'tf/**'
             - 'libs/traefik/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2563,9 +2563,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2582,7 +2582,7 @@
             - 'tf/**'
             - 'libs/triggermesh/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2603,9 +2603,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2622,7 +2622,7 @@
             - 'tf/**'
             - 'libs/vault-secrets-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2643,9 +2643,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2662,7 +2662,7 @@
             - 'tf/**'
             - 'libs/vertical-pod-autoscaler/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
@@ -2683,9 +2683,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -2702,7 +2702,7 @@
             - 'tf/**'
             - 'libs/zalando-postgres-operator/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
