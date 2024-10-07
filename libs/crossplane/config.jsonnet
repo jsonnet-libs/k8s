@@ -88,9 +88,9 @@ config.new(
     // Upbound official providers
     // https://marketplace.upbound.io/
     {
-      output: 'upbound-provider-aws/0.40',
+      output: 'upbound-provider-aws/1.6.1',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.40.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-upjet-aws@v1.6.1'],
       localName: 'upbound_aws',
     },
     {
