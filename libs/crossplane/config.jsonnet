@@ -90,7 +90,7 @@ config.new(
     {
       output: 'upbound-provider-aws/1.6.1',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-upjet-aws@v1.6.1'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-upjet-aws@v1.6.0'],
       localName: 'upbound_aws',
     },
     {
