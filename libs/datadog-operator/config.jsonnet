@@ -20,6 +20,8 @@ config.new(
         'https://raw.githubusercontent.com/DataDog/datadog-operator/%s/config/crd/bases/v1/datadoghq.com_datadogmonitors.yaml' % [v.tag],
         'https://raw.githubusercontent.com/DataDog/datadog-operator/%s/config/crd/bases/v1/datadoghq.com_datadogslos.yaml' % [v.tag],
         'https://raw.githubusercontent.com/DataDog/datadog-operator/%s/config/crd/bases/v1/datadoghq.com_datadogpodautoscalers.yaml' % [v.tag],  // new in v1.8.0 but we can do it this lazy way because the k8s build will silently succeed regardless of remote http code
+        'https://raw.githubusercontent.com/DataDog/datadog-operator/%s/config/crd/bases/v1/datadoghq.com_datadogdashboards.yaml' % [v.tag], 
+      
       ],
       localName: 'datadog-operator',
     }
