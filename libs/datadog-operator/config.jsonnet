@@ -4,6 +4,7 @@ local versions = [
   { version: '1.6.0', tag: 'v1.6.0' },
   { version: '1.7.0', tag: 'v1.7.0' },
   { version: '1.8.0', tag: 'v1.8.0' },
+  { version: '1.9.0', tag: 'v1.9.0' },
 ];
 
 config.new(
