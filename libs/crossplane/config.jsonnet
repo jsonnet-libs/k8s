@@ -1,10 +1,19 @@
 local config = import 'jsonnet/config.jsonnet';
 
+local upbound_aws_crds = import './upbound_aws_crds.libsonnet';
+
 config.new(
   name='crossplane',
   specs=[
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
+    {
+      output: 'crossplane/1.15',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.15.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
     {
       output: 'crossplane/1.14',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
@@ -91,6 +100,12 @@ config.new(
       output: 'upbound-provider-aws/1.6.0',
       prefix: '^io\\.upbound\\.aws\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-upjet-aws@v1.6.0'],
+      localName: 'upbound_aws',
+    },
+    {
+      output: 'upbound-provider-aws/1.6',
+      prefix: '^io\\.upbound\\.aws\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-aws/v1.6.1/package/crds/%s' % crd for crd in upbound_aws_crds],
       localName: 'upbound_aws',
     },
     {
