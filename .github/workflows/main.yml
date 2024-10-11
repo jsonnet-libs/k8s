@@ -87,9 +87,9 @@
     - "repos"
     "runs-on": "ubuntu-latest"
     "steps":
-    - "uses": "actions/checkout@v3"
+    - "uses": "actions/checkout@v4"
     - "id": "filter"
-      "uses": "dorny/paths-filter@v2"
+      "uses": "dorny/paths-filter@v3"
       "with":
         "filters": |
           workflows:
@@ -106,7 +106,7 @@
             - 'tf/**'
             - 'libs/amazon-vpc-resource-controller/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
-      "uses": "actions/download-artifact@v2"
+      "uses": "actions/download-artifact@v4"
       "with":
         "name": "docker-artifact"
         "path": "artifacts"
