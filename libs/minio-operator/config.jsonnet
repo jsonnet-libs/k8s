@@ -2,10 +2,6 @@ local config = import 'jsonnet/config.jsonnet';
 local versions = [
   'v6.0.0',
   'v5.0.15',
-  'v5.0.14',
-  'v5.0.13',
-  'v5.0.12',
-  'v5.0.11'
 ];
 
 config.new(
@@ -24,4 +20,3 @@ config.new(
     for v in versions
   ]
 )
-
