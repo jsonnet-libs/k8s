@@ -96,10 +96,12 @@ config.new(
 
     // Upbound official providers
     // https://marketplace.upbound.io/
+    // WARNING: When bumping the version, ensure that you also update the 
+    // version in the Makefile and run `make upbound_aws_crds.libsonnet` to update the CRDs list.
     {
-      output: 'upbound-provider-aws/1.6',
+      output: 'upbound-provider-aws/1.7',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-aws/v1.6.1/package/crds/%s' % crd for crd in upbound_aws_crds],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-aws/v1.7.0/package/crds/%s' % crd for crd in upbound_aws_crds],
       localName: 'upbound_aws',
     },
     {
