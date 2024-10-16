@@ -96,6 +96,8 @@ config.new(
 
     // Upbound official providers
     // https://marketplace.upbound.io/
+    // WARNING: When bumping the version, ensure that you also update the 
+    // version in the Makefile and run `make upbound_aws_crds.libsonnet` to update the CRDs list.
     {
       output: 'upbound-provider-aws/1.7',
       prefix: '^io\\.upbound\\.aws\\..*',
