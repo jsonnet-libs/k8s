@@ -1,6 +1,8 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local upbound_aws_crds = import './upbound_aws_crds.libsonnet';
+local upbound_gcp_crds = import './upbound_gcp_crds.libsonnet';
+
 
 config.new(
   name='crossplane',
@@ -116,13 +118,16 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azuread@v0.11.0'],
       localName: 'upbound_azuread',
     },
+    // WARNING: When bumping the version, ensure that you also update the 
+    // version in the Makefile and run `make upbound_gcp_crds.libsonnet` to update the CRDs list.
     {
-      output: 'upbound-provider-gcp/0.36',
+      output: 'upbound-provider-gcp/1.8',
       prefix: '^io\\.upbound\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-gcp@v0.36.0'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-gcp/v1.8.3/package/crds/%s' % crd for crd in upbound_gcp_crds],
       localName: 'upbound_gcp',
     },
     {
+      
       output: 'provider-terraform/0.10',
       prefix: '^io\\.upbound\\.tf\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.10.0'],
