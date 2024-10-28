@@ -22,7 +22,7 @@ GCP_VERSION?=v1.8.3
 upbound_gcp_crds.libsonnet:
 	cd $(TMP) && \
 	jb init && \
-	jb install github.com/crossplane-contrib/provider-upjet-gcp/package/crds@$(AWS_VERSION) && \
+	jb install github.com/crossplane-contrib/provider-upjet-gcp/package/crds@$(GCP_VERSION) && \
 	echo '[' > $(ROOT_DIR)/upbound_gcp_crds.libsonnet && \
 	cd vendor/github.com/crossplane-contrib/provider-upjet-gcp/package/crds && \
 	find . -type f -printf "%f\n" | sort | xargs -I {} echo "'{}'," >> $(ROOT_DIR)/upbound_gcp_crds.libsonnet && \
