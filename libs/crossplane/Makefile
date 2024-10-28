@@ -30,3 +30,19 @@ upbound_gcp_crds.libsonnet:
 	jsonnetfmt -i $(ROOT_DIR)/upbound_gcp_crds.libsonnet && \
 	rm -rf $(TMP) || \
 	rm -rf $(TMP)
+
+
+AZURE_VERSION?=v1.3.0
+
+.PHONY: upbound_azure_crds.libsonnet
+upbound_azure_crds.libsonnet:
+	cd $(TMP) && \
+	jb init && \
+	jb install github.com/crossplane-contrib/provider-upjet-azure/package/crds@$(AZURE_VERSION) && \
+	echo '[' > $(ROOT_DIR)/upbound_azure_crds.libsonnet && \
+	cd vendor/github.com/crossplane-contrib/provider-upjet-azure/package/crds && \
+	find . -type f -printf "%f\n" | sort | xargs -I {} echo "'{}'," >> $(ROOT_DIR)/upbound_azure_crds.libsonnet && \
+	echo ']' >> $(ROOT_DIR)/upbound_azure_crds.libsonnet && \
+	jsonnetfmt -i $(ROOT_DIR)/upbound_azure_crds.libsonnet && \
+	rm -rf $(TMP) || \
+	rm -rf $(TMP)
