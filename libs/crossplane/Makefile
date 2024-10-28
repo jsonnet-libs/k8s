@@ -1,6 +1,6 @@
 ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 TMP:=$(shell mktemp -d)
-AWS_VERSION?=v1.7.0
+AWS_VERSION?=v1.14.0
 
 .PHONY: upbound_aws_crds.libsonnet
 upbound_aws_crds.libsonnet:
