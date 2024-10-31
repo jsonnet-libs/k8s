@@ -2,7 +2,9 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { output: '0.9', version: '0.9.15' },
+  '0.9.11',
+  '1.0.0',
+  '1.0.7',
 ];
 
 config.new(
@@ -10,12 +12,12 @@ config.new(
   specs=[
     {
       crds: [
-        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvusclusters.yaml' % v.version,
-        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvuses.yaml' % v.version,
-        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvusupgrades.yaml' % v.version,
+        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvusclusters.yaml' % v,
+        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvuses.yaml' % v,
+        'https://raw.githubusercontent.com/zilliztech/milvus-operator/v%s/config/crd/bases/milvus.io_milvusupgrades.yaml' % v,
       ],
       localName: 'milvus-operator',
-      output: v.output,
+      output: v,
       prefix: '^io\\.milvus\\..*',
     }
     for v in versions
