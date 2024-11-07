@@ -1,10 +1,35 @@
 local config = import 'jsonnet/config.jsonnet';
 
+local upbound_aws_crds = import './upbound_aws_crds.libsonnet';
+local upbound_azure_crds = import './upbound_azure_crds.libsonnet';
+local upbound_gcp_crds = import './upbound_gcp_crds.libsonnet';
+
 config.new(
   name='crossplane',
   specs=[
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
+    {
+      output: 'crossplane/1.17',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.17.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
+      output: 'crossplane/1.16',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.16.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
+    {
+      output: 'crossplane/1.15',
+      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.15.0'],
+      localName: 'crossplane',
+      patchDir: 'custom/crossplane',
+    },
     {
       output: 'crossplane/1.14',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
@@ -79,24 +104,28 @@ config.new(
 
     // Grafana
     {
-      output: 'provider-grafana/0.15',
+      output: 'provider-grafana/0.20',
       prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.15.0/crds.yaml'],
+      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.20.0/crds.yaml'],
       localName: 'crossplane_grafana',
     },
 
     // Upbound official providers
     // https://marketplace.upbound.io/
+    // WARNING: When bumping the version, ensure that you also update the
+    // version in the Makefile and run `make upbound_aws_crds.libsonnet` to update the CRDs list.
     {
-      output: 'upbound-provider-aws/0.40',
+      output: 'upbound-provider-aws/1.14',
       prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-aws@v0.40.0'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-aws/v1.14.0/package/crds/%s' % crd for crd in upbound_aws_crds],
       localName: 'upbound_aws',
     },
+    // WARNING: When bumping the version, ensure that you also update the
+    // version in the Makefile and run `make upbound_azure_crds.libsonnet` to update the CRDs list.
     {
-      output: 'upbound-provider-azure/0.29',
+      output: 'upbound-provider-azure/1.3',
       prefix: '^io\\.upbound\\.azure\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azure@v0.29.0'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-azure/v1.3.0/package/crds/%s' % crd for crd in upbound_azure_crds],
       localName: 'upbound_azure',
     },
     {
@@ -105,10 +134,12 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azuread@v0.11.0'],
       localName: 'upbound_azuread',
     },
+    // WARNING: When bumping the version, ensure that you also update the
+    // version in the Makefile and run `make upbound_gcp_crds.libsonnet` to update the CRDs list.
     {
-      output: 'upbound-provider-gcp/0.36',
+      output: 'upbound-provider-gcp/1.8',
       prefix: '^io\\.upbound\\.gcp\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-gcp@v0.36.0'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-gcp/v1.8.3/package/crds/%s' % crd for crd in upbound_gcp_crds],
       localName: 'upbound_gcp',
     },
     {

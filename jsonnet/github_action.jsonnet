@@ -18,21 +18,21 @@ local terraform = {
     name: 'Create repositories',
     'runs-on': 'ubuntu-latest',
     steps: [
-      { uses: 'actions/checkout@v3' },
-      { uses: 'zendesk/setup-jsonnet@v10' },
+      { uses: 'actions/checkout@v4' },
+      { uses: 'zendesk/setup-jsonnet@v12' },
 
-      self.make_env { run: 'make tf/main.tf.json' },
+      self.make_env + { run: 'make tf/main.tf.json' },
 
       {
-        uses: 'hashicorp/setup-terraform@v1',
+        uses: 'hashicorp/setup-terraform@v3',
         with: {
           cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}',
         },
       },
-      self.tf_env + notFork { run: 'terraform init' },
-      self.tf_env + notFork { run: 'terraform validate -no-color' },
-      self.tf_env + notFork { run: 'terraform plan -no-color' },
-      self.tf_env + onMaster { run: 'terraform init && terraform apply -no-color -auto-approve' },
+      self.tf_env + notFork + { run: 'terraform init' },
+      self.tf_env + notFork + { run: 'terraform validate -no-color' },
+      self.tf_env + notFork + { run: 'terraform plan -no-color' },
+      self.tf_env + onMaster + { run: 'terraform init && terraform apply -no-color -auto-approve' },
     ],
   },
   withPages(needs): {
@@ -52,9 +52,9 @@ local libJob(name) = {
   'runs-on': 'ubuntu-latest',
 
   steps: [
-    { uses: 'actions/checkout@v3' },
+    { uses: 'actions/checkout@v4' },
     {
-      uses: 'dorny/paths-filter@v2',
+      uses: 'dorny/paths-filter@v3',
       id: 'filter',
       with: {
         filters: |||
@@ -76,7 +76,7 @@ local libJob(name) = {
     }
     ,
     {
-      uses: 'actions/download-artifact@v2',
+      uses: 'actions/download-artifact@v4',
       'if': "steps.filter.outputs.workflows == 'true'",
       with: {
         name: 'docker-artifact',
@@ -107,10 +107,10 @@ local build = {
   name: 'Build docker image',
   'runs-on': 'ubuntu-latest',
   steps: [
-    { uses: 'actions/checkout@v3' },
+    { uses: 'actions/checkout@v4' },
     { run: 'make build save' },
     {
-      uses: 'actions/upload-artifact@v2',
+      uses: 'actions/upload-artifact@v4',
       with: {
         name: 'docker-artifact',
         path: 'artifacts',

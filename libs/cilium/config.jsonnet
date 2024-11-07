@@ -4,6 +4,7 @@ local versions = [
   { version: '1.13', tag: 'v1.13.12' },
   { version: '1.14', tag: 'v1.14.7' },
   { version: '1.15', tag: 'v1.15.1' },
+  { version: '1.16', tag: 'v1.16.1' },
 ];
 
 local pathPrefix = 'https://raw.githubusercontent.com/cilium/cilium/%s/pkg/k8s/apis/cilium.io/client/crds/v2/';
@@ -17,6 +18,7 @@ local crdFiles = [
   'ciliumidentities.yaml',
   'ciliumlocalredirectpolicies.yaml',
   'ciliumnetworkpolicies.yaml',
+  'ciliumnodeconfigs.yaml',
   'ciliumnodes.yaml',
 ];
 
