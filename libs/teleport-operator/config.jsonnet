@@ -22,7 +22,7 @@ config.new(
       prefix: '^dev\\.teleport\\.resources\\..*',
       localName: 'teleport-operator',
       crds: [
-        'https://raw.githubusercontent.com/gravitational/teleport/v%s/examples/chart/teleport-cluster/charts/teleport-operator/templates/%s' %
+        'https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v%s/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/%s' %
         [version, manifest]
         for manifest in manifests
       ],
