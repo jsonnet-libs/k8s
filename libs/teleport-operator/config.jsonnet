@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3', '14.1.1', '15.0.1'];
+local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3', '14.1.1', '15.0.1', '16.4.8'];
 local manifests = [
   'resources.teleport.dev_accesslists.yaml',  // added in 15.0
   'resources.teleport.dev_githubconnectors.yaml',
@@ -22,7 +22,7 @@ config.new(
       prefix: '^dev\\.teleport\\.resources\\..*',
       localName: 'teleport-operator',
       crds: [
-        'https://raw.githubusercontent.com/gravitational/teleport/v%s/examples/chart/teleport-cluster/charts/teleport-operator/templates/%s' %
+        'https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v%s/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/%s' %
         [version, manifest]
         for manifest in manifests
       ],
