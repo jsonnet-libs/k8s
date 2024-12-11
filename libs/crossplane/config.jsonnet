@@ -78,9 +78,9 @@ config.new(
       localName: 'crossplane_sql',
     },
     {
-      output: 'provider-kubernetes/0.9',
+      output: 'provider-kubernetes/0.15',
       prefix: '^io\\.crossplane\\.kubernetes\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.9.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.15.0'],
       localName: 'crossplane_kubernetes',
     },
     {
