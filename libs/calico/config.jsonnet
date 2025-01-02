@@ -1,20 +1,14 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local legacy_versions = [
-  ['3.17', '3.17.6'],
-  ['3.18', '3.18.6'],
-  ['3.19', '3.19.4'],
-  ['3.20', '3.20.4'],
+  ['3.24', '3.24.1'],
+  ['3.25', '3.25.0'],
 ];
 
 local legacy_path = 'https://raw.githubusercontent.com/projectcalico/calico/v%s/_includes/charts/calico/crds/kdd/';
 
 local versions = [
-  ['3.21', '3.21.6'],
-  ['3.22', '3.22.0'],
-  ['3.23', '3.22.3'],
-  ['3.24', '3.24.1'],
-  ['3.25', '3.25.0'],
+  ['3.28', '3.28.1'],
 ];
 
 // The files in new versions were moved here:
@@ -28,8 +22,10 @@ config.new(
       prefix: '^org\\.projectcalico\\.crd\\..*',
       crds: [
         (path % version[1]) + 'crd.projectcalico.org_bgpconfigurations.yaml',
+        (path % version[1]) + 'crd.projectcalico.org_bgpfilters.yaml',
         (path % version[1]) + 'crd.projectcalico.org_bgppeers.yaml',
         (path % version[1]) + 'crd.projectcalico.org_blockaffinities.yaml',
+        (path % version[1]) + 'crd.projectcalico.org_caliconodestatuses.yaml',
         (path % version[1]) + 'crd.projectcalico.org_clusterinformations.yaml',
         (path % version[1]) + 'crd.projectcalico.org_felixconfigurations.yaml',
         (path % version[1]) + 'crd.projectcalico.org_globalnetworkpolicies.yaml',

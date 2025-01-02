@@ -3,7 +3,11 @@ local config = import 'jsonnet/config.jsonnet';
 local versions = [
   { version: '0.1.0' },
   { version: '0.2.0' },
-  { version: '0.3.0' },
+  { version: '0.4.0' },
+  { version: '0.5.0' },
+  { version: '0.6.0' },
+  { version: '0.7.0' },
+  { version: '0.8.0' },
 ];
 
 config.new(
@@ -16,6 +20,8 @@ config.new(
       crds: [
         '%s/secrets.hashicorp.com_hcpauths.yaml' % url,
         '%s/secrets.hashicorp.com_hcpvaultsecretsapps.yaml' % url,
+        '%s/secrets.hashicorp.com_secrettransformations.yaml' % url,
+        '%s/secrets.hashicorp.com_vaultauthglobals.yaml' % url,
         '%s/secrets.hashicorp.com_vaultauths.yaml' % url,
         '%s/secrets.hashicorp.com_vaultconnections.yaml' % url,
         '%s/secrets.hashicorp.com_vaultdynamicsecrets.yaml' % url,
