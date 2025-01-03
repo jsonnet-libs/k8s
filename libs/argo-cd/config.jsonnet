@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['2.5.6', '2.6.11', '2.7.6', '2.8.7', '2.9.3', '2.10.9', '2.11.0'];
+local versions = ['2.9.3', '2.10.9', '2.11.12', '2.12.8', '2.13.2'];
 local manifests = ['application-crd.yaml', 'appproject-crd.yaml', 'applicationset-crd.yaml'];
 
 config.new(
