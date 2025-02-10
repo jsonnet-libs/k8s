@@ -78,9 +78,9 @@ config.new(
       localName: 'crossplane_sql',
     },
     {
-      output: 'provider-kubernetes/0.9',
+      output: 'provider-kubernetes/0.15',
       prefix: '^io\\.crossplane\\.kubernetes\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.9.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane-contrib/provider-kubernetes@v0.15.0'],
       localName: 'crossplane_kubernetes',
     },
     {
@@ -104,9 +104,9 @@ config.new(
 
     // Grafana
     {
-      output: 'provider-grafana/0.20',
+      output: 'provider-grafana/0.21',
       prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.20.0/crds.yaml'],
+      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.21.0/crds.yaml'],
       localName: 'crossplane_grafana',
     },
 
@@ -154,5 +154,17 @@ config.new(
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.16.0'],
       localName: 'upbound_terraform',
     },
+    {
+      output: 'function-patch-and-transform/0.7',
+      prefix: '^io\\.crossplane\\.fn\\.pt\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-patch-and-transform/refs/tags/v0.7.0/package/input/pt.fn.crossplane.io_resources.yaml'],
+      localName: 'function_patch_and_transform'
+    },
+    {
+      output: 'function-cel-filter/0.1',
+      prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-cel-filter/refs/tags/v0.1.1/package/input/cel.fn.crossplane.io_filters.yaml'],
+      localName: 'function_cel_filter'
+    }
   ]
 )
