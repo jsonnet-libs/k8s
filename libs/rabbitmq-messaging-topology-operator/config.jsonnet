@@ -7,6 +7,7 @@ local versions = [
   { tag: 'v1.12.0', version: '1.12' },
   { tag: 'v1.13.0', version: '1.13' },
   { tag: 'v1.14.0', version: '1.14' },
+  { tag: 'v1.16.0', version: '1.16' },
 ];
 
 
