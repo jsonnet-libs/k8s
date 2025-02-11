@@ -28,13 +28,13 @@ config.new(
     },
     {
       output: 'function-status-transformer/0.4',
-      prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
+      prefix: '^io\\.crossplane\\.fn\\.function-status-transformer\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-status-transformer/refs/tags/v0.4.0/package/input/function-status-transformer.fn.crossplane.io_statustransformations.yaml'],
       localName: 'function_status_transformer',
     },
     {
       output: 'function-go-templating/0.9',
-      prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
+      prefix: '^io\\.crossplane\\.fn\\.gotemplating\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-go-templating/refs/tags/v0.9.1/package/input/gotemplating.fn.crossplane.io_gotemplates.yaml'],
       localName: 'function_go_templating',
     },
