@@ -165,6 +165,12 @@ config.new(
       prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-cel-filter/refs/tags/v0.1.1/package/input/cel.fn.crossplane.io_filters.yaml'],
       localName: 'function_cel_filter'
+    },
+    {
+      output: 'function-status-transformer/0.4',
+      prefix: '^io\\.crossplane\\.fn\\.function-status-transformer\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-status-transformer/refs/tags/v0.4.0/package/input/function-status-transformer.fn.crossplane.io_statustransformations.yaml'],
+      localName: 'function_status_transformer'
     }
   ]
 )
