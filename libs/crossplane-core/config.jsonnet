@@ -6,9 +6,9 @@ config.new(
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
     {
-      output: 'crossplane/1.17',
+      output: 'crossplane/1.18',
       prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.17.0'],
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.18.0'],
       localName: 'crossplane',
       patchDir: 'custom/crossplane',
     },
@@ -25,6 +25,18 @@ config.new(
       prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-cel-filter/refs/tags/v0.1.1/package/input/cel.fn.crossplane.io_filters.yaml'],
       localName: 'function_cel_filter',
+    },
+    {
+      output: 'function-status-transformer/0.4',
+      prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-status-transformer/refs/tags/v0.4.0/package/input/function-status-transformer.fn.crossplane.io_statustransformations.yaml'],
+      localName: 'function_status_transformer',
+    },
+    {
+      output: 'function-go-templating/0.9',
+      prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-go-templating/refs/tags/v0.9.1/package/input/gotemplating.fn.crossplane.io_gotemplates.yaml'],
+      localName: 'function_go_templating',
     },
   ]
 )
