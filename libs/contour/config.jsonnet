@@ -1,26 +1,10 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
+  { version: '1.30', tag: 'v1.30.0'},
   { version: '1.29', tag: 'v1.29.0'},
   { version: '1.28', tag: 'v1.28.1'},
   { version: '1.27', tag: 'v1.27.1'},
   { version: '1.26', tag: 'v1.26.2'},
-  { version: '1.25', tag: 'v1.25.3'},
-  { version: '1.24', tag: 'v1.24.4'},
-  { version: '1.23', tag: 'v1.23.5'},
-  { version: '1.22', tag: 'v1.22.6'},
-  { version: '1.21', tag: 'v1.21.3'},
-  { version: '1.20', tag: 'v1.20.2'},
-  { version: '1.19', tag: 'v1.19.1'},
-  { version: '1.18', tag: 'v1.18.3'},
-  { version: '1.17', tag: 'v1.17.2'},
-  { version: '1.16', tag: 'v1.16.1'},
-  { version: '1.15', tag: 'v1.15.2'},
-  { version: '1.14', tag: 'v1.14.2'},
-  { version: '1.13', tag: 'v1.13.1'},
-  { version: '1.12', tag: 'v1.12.0'},
-  { version: '1.11', tag: 'v1.11.0'},
-  { version: '1.10', tag: 'v1.10.1'},
-  { version: '1.9', tag: 'v1.9.0'},
 ];
 
 config.new(
