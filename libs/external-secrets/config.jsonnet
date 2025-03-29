@@ -12,6 +12,10 @@ local versions = [  // since 0.5
   { output: '0.9', version: '0.9.12' },
 ];
 
+local kustomization_versions = [ // since 0.15
+  { output: '0.15', version: '0.15.1', kustomization: importstr './vendor/0.15/config/crds/bases/kustomization.yaml' },
+];
+
 config.new(
   name='external-secrets',
   specs=[
@@ -49,5 +53,17 @@ config.new(
       localName: 'external_secrets',
     }
     for v in versions
+  ] + [
+    {
+      local url = 'https://raw.githubusercontent.com/external-secrets/external-secrets/v%s/config/crds/bases' % v.version,
+      output: v.output,
+      prefix: '^io\\.external-secrets\\..*',
+      crds: [
+        '%s/%s' % [url, resource]
+        for resource in std.parseYaml(v.kustomization)[0].resources
+      ],
+      localName: 'external_secrets',
+    }
+    for v in kustomization_versions
   ]
 )

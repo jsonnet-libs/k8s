@@ -1,0 +1,12 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: 'vendor/0.15'
+  contents:
+  - path: .
+    git:
+      url: https://github.com/external-secrets/external-secrets
+      ref: v0.15.1
+      shallowClone: true
+    includePaths:
+      - config/crds/bases/kustomization.yaml
