@@ -1,7 +1,7 @@
 local config = import 'jsonnet/config.jsonnet';
 
 config.new(
-  'upbound-opentofu',
+  'upbound-provider-opentofu',
   [
     {
       output: 'provider-opentofu/0.2',
