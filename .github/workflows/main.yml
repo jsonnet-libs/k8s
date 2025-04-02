@@ -2567,7 +2567,7 @@
     - "teleport-operator"
     - "traefik"
     - "triggermesh"
-    - "upbound-opentofu"
+    - "upbound-provider-opentofu"
     - "vault-secrets-operator"
     - "vertical-pod-autoscaler"
     - "victoria-metrics-operator"
@@ -2926,8 +2926,8 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/triggermesh"
-  "upbound-opentofu":
-    "name": "Generate upbound-opentofu Jsonnet library and docs"
+  "upbound-provider-opentofu":
+    "name": "Generate upbound-provider-opentofu Jsonnet library and docs"
     "needs":
     - "build"
     - "repos"
@@ -2950,7 +2950,7 @@
             - 'pkg/**'
             - 'scripts/**'
             - 'tf/**'
-            - 'libs/upbound-opentofu/**'
+            - 'libs/upbound-provider-opentofu/**'
     - "if": "steps.filter.outputs.workflows == 'true'"
       "uses": "actions/download-artifact@v4"
       "with":
@@ -2965,7 +2965,7 @@
         "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
-      "run": "make libs/upbound-opentofu"
+      "run": "make libs/upbound-provider-opentofu"
   "vault-secrets-operator":
     "name": "Generate vault-secrets-operator Jsonnet library and docs"
     "needs":
