@@ -165,6 +165,12 @@ config.new(
       prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-cel-filter/refs/tags/v0.1.1/package/input/cel.fn.crossplane.io_filters.yaml'],
       localName: 'function_cel_filter'
+    },
+    {
+      output: 'function-kcl/0.11',
+      prefix: '^io\\.crossplane\\.fn\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-kcl/refs/tags/v0.11.4/package/input/template.fn.crossplane.io_kclinputs.yaml'],
+      localName: 'function_kcl'
     }
   ]
 )
