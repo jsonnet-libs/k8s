@@ -1,6 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local versions = ['1.13.1', '1.12.3', '1.11.6'];
+local versions = ['1.17.0', '1.16.0', '1.15.0'];
 
 config.new(
   name='knative-serving',

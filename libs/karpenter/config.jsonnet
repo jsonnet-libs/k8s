@@ -7,11 +7,13 @@ local versions = [
   { output: '0.33', version: '0.33.0' },
   { output: '0.34', version: '0.34.0' },
   { output: '0.35', version: '0.35.0' },
+  { output: '0.37', version: '0.37.0' },
+  { output: '1.0', version: '1.0.0' },
 ];
 local getURL(v) =
   if std.objectHas(v, 'url')
   then v.url
-  else 'https://raw.githubusercontent.com/aws/karpenter/v%s/pkg/apis/crds' % v.version;
+  else 'https://raw.githubusercontent.com/aws/karpenter-provider-aws/v%s/pkg/apis/crds' % v.version;
 
 config.new(
   name='karpenter',

@@ -4,6 +4,7 @@ local versions = [
   ['1.82', '1.82.0'],
   ['1.93', '1.93.0'],
   ['1.99', '1.99.0'],
+  ['1.130', '1.130.2'],
 ];
 
 
@@ -13,7 +14,7 @@ config.new(
     {
       output: version[0],
       prefix: '^com\\.google\\.cloud\\.cnrm\\..*',
-      crds: ['https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v' + version[1] +'/install-bundles/install-bundle-workload-identity/crds.yaml'],
+      crds: ['https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v' + version[1] + '/install-bundles/install-bundle-workload-identity/crds.yaml'],
       localName: 'cnrm',
     }
     for version in versions
