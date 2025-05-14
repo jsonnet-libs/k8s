@@ -1,5 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['1.2.4', '1.3.3'];
+local versions = ['1.2.4', '1.3.3', '1.4.8'];
 local manifests = [
     'secrets-store.csi.x-k8s.io_secretproviderclasses.yaml',
 ];

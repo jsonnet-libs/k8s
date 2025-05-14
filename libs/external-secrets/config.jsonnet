@@ -1,50 +1,43 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local old_versions = [
-  { output: '0.4', version: '0.4.4' },
-];
+local
+  version(
+    output,
+    version,
+    crdFiles=['bundle.yaml'] // from v0.5 onward, a single bundle.yaml contains all of the external-secrets CRDs.
+  ) =
+    {
+      output: output,
+      version: version,
+      crdFiles: crdFiles,
+    };
 
-local versions = [  // since 0.5
-  { output: '0.5', version: '0.5.9' },
-  { output: '0.6', version: '0.6.1' },
-  { output: '0.7', version: '0.7.3' },
-  { output: '0.8', version: '0.8.12' },
-  { output: '0.9', version: '0.9.12' },
+local versions = [
+  version('0.4', '0.4.4', crdFiles=[
+    // 0.4.4 is the last version with individual CRD files
+    'external-secrets.io_clustersecretstores.yaml',
+    'external-secrets.io_externalsecrets.yaml',
+    'external-secrets.io_secretstores.yaml',
+  ]),
+  version('0.5', '0.5.9'),
+  version('0.6', '0.6.1'),
+   // From v0.7, the upstream kustomization.yaml was actually not properly containing all CRDs, we parse the bundle.yaml instead across the board for now.
+  version('0.7', '0.7.3'),
+  version('0.8', '0.8.12'),
+  version('0.9', '0.9.12'),
+  version('0.15', '0.15.1'),
 ];
 
 config.new(
   name='external-secrets',
   specs=[
     {
-      local url = 'https://raw.githubusercontent.com/external-secrets/external-secrets/v%s/deploy/crds' % v.version,
+      local urlTemplate = 'https://raw.githubusercontent.com/external-secrets/external-secrets/v%s/deploy/crds/%s',
       output: v.output,
       prefix: '^io\\.external-secrets\\..*',
       crds: [
-        '%s/external-secrets.io_clustersecretstores.yaml' % url,
-        '%s/external-secrets.io_externalsecrets.yaml' % url,
-        '%s/external-secrets.io_secretstores.yaml' % url,
-      ],
-      localName: 'external_secrets',
-    }
-    for v in old_versions
-  ] + [
-    {
-      local url = 'https://raw.githubusercontent.com/external-secrets/external-secrets/v%s/config/crds/bases' % v.version,
-      output: v.output,
-      prefix: '^io\\.external-secrets\\..*',
-      crds: [
-        '%s/external-secrets.io_clusterexternalsecrets.yaml' % url,
-        '%s/external-secrets.io_clustersecretstores.yaml' % url,
-        '%s/external-secrets.io_externalsecrets.yaml' % url,
-        '%s/external-secrets.io_pushsecrets.yaml' % url,
-        '%s/external-secrets.io_secretstores.yaml' % url,
-
-        '%s/generators.external-secrets.io_acraccesstokens.yaml' % url,
-        '%s/generators.external-secrets.io_ecrauthorizationtokens.yaml' % url,
-        '%s/generators.external-secrets.io_fakes.yaml' % url,
-        '%s/generators.external-secrets.io_gcraccesstokens.yaml' % url,
-        '%s/generators.external-secrets.io_passwords.yaml' % url,
-        '%s/generators.external-secrets.io_vaultdynamicsecrets.yaml' % url,
+        urlTemplate % [v.version, crdFile]
+        for crdFile in v.crdFiles
       ],
       localName: 'external_secrets',
     }
