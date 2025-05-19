@@ -7,7 +7,7 @@ config.new(
     {
       output: version,
       prefix: '^io\\.upbound\\.vault\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@%s' % version],
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-vault@%s' % version],
       localName: 'crossplane_vault',
     },
     for version in versions
