@@ -155,6 +155,12 @@ config.new(
       localName: 'upbound_terraform',
     },
     {
+      output: 'provider-vault/2.1',
+      prefix: '^io\\.upbound\\.vault\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v2.1.1'],
+      localName: 'upbound_vault',
+    },
+    {
       output: 'function-patch-and-transform/0.7',
       prefix: '^io\\.crossplane\\.fn\\.pt\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-patch-and-transform/refs/tags/v0.7.0/package/input/pt.fn.crossplane.io_resources.yaml'],
