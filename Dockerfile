@@ -1,4 +1,4 @@
-FROM golang:1.20 as base
+FROM golang:1.20 AS base
 
 ENV GO111MODULE=on
 WORKDIR /app
@@ -17,10 +17,10 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
         -ldflags='-s -w -extldflags "-static"' \
         -o k8s-gen .
 
-FROM golang:1.20-alpine3.18 as jsonnet
+FROM golang:1.20-alpine3.18 AS jsonnet
 
 RUN apk add --no-cache git
-RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.20.0
 
 FROM alpine:3.18
 
