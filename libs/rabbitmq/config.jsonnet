@@ -20,7 +20,7 @@ config.new(
       openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^com\\.rabbitmq\\..*',
       crds: [
-        "https://github.com/rabbitmq/cluster-operator/releases/download/v%s/cluster-operator.yml" % v.tag,
+        'https://github.com/rabbitmq/cluster-operator/releases/download/v%s/cluster-operator.yml' % v.tag
       ],
       localName: 'rabbitmq',
     }
