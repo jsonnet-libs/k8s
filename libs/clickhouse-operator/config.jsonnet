@@ -1,8 +1,10 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { output: '0.23', version: 'release-0.23.5' },
-  { output: '0.22', version: 'release-0.22.2' },
   { output: '0.21', version: 'release-0.21.3' },
+  { output: '0.22', version: 'release-0.22.2' },
+  { output: '0.23', version: 'release-0.23.5' },
+  { output: '0.24', version: 'release-0.24.5' },
+  { output: '0.25', version: 'release-0.25.0' },
 ];
 
 config.new(
