@@ -8,6 +8,7 @@ local versions = [
   { output: '2.14', version: '2.14.1' },
   { output: '2.15', version: '2.15.1' },
   { output: '2.16', version: '2.16.1' },
+  { output: '2.17', version: '2.17.1' },
 ];
 
 config.new(
@@ -22,7 +23,10 @@ config.new(
         '%s/keda.sh_scaledjobs.yaml' % url,
         '%s/keda.sh_scaledobjects.yaml' % url,
         '%s/keda.sh_triggerauthentications.yaml' % url,
-      ],
+      ] + if std.parseInt(std.split(v.version, '.')[1]) >= 16 then [
+        '%s/eventing.keda.sh_cloudeventsources.yaml' % url,
+        '%s/eventing.keda.sh_clustercloudeventsources.yaml' % url,
+      ] else [],
       localName: 'keda',
     }
     for v in versions
