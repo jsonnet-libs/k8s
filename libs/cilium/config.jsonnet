@@ -1,10 +1,10 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { version: '1.12', tag: 'v1.12.19' },
-  { version: '1.13', tag: 'v1.13.12' },
-  { version: '1.14', tag: 'v1.14.7' },
-  { version: '1.15', tag: 'v1.15.1' },
-  { version: '1.16', tag: 'v1.16.1' },
+  { version: '1.13', tag: 'v1.13.18' },
+  { version: '1.14', tag: 'v1.14.19' },
+  { version: '1.15', tag: 'v1.15.16' },
+  { version: '1.16', tag: 'v1.16.9' },
+  { version: '1.17', tag: 'v1.17.3' },
 ];
 
 local pathPrefix = 'https://raw.githubusercontent.com/cilium/cilium/%s/pkg/k8s/apis/cilium.io/client/crds/v2/';
