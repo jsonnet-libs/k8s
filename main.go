@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -101,7 +100,7 @@ func hasStr(slice []string, s string) bool {
 }
 
 func loadConfig(file string) Config {
-	data, err := ioutil.ReadFile(file)
+	data, err := os.ReadFile(file)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -177,7 +176,7 @@ func writeJsonnet(to, data string) error {
 		return fmt.Errorf("%s: %s", err, data)
 	}
 
-	return ioutil.WriteFile(to, []byte(s), 0644)
+	return os.WriteFile(to, []byte(s), 0644)
 }
 
 func copyDirLibsonnet(dir, to string) ([]string, error) {
@@ -199,14 +198,14 @@ func copyDirLibsonnet(dir, to string) ([]string, error) {
 	})
 
 	for _, a := range adds {
-		content, err := ioutil.ReadFile(a)
+		content, err := os.ReadFile(a)
 		if err != nil {
 			return nil, err
 		}
 
 		a = filepath.Join(to, filepath.Base(a))
 		os.MkdirAll(filepath.Dir(a), os.ModePerm)
-		if err := ioutil.WriteFile(a, content, 0644); err != nil {
+		if err := os.WriteFile(a, content, 0644); err != nil {
 			return nil, err
 		}
 	}
