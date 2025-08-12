@@ -4,6 +4,34 @@ config.new(
   name='fluxcd',
   specs=[
     {
+      // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v2.6.1/manifests/crds/kustomization.yaml
+      output: '2.6.1',
+      prefix: '^io\\.fluxcd\\.toolkit\\..*',
+      crds: [
+        'https://github.com/fluxcd/source-controller/releases/download/v1.6.0/source-controller.crds.yaml',
+        'https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml',
+        'https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml',
+        'https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml',
+        'https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.1/image-reflector-controller.crds.yaml',
+        'https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.0/image-automation-controller.crds.yaml',
+      ],
+      localName: 'fluxcd',
+    },
+    {
+      // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v2.6.0/manifests/crds/kustomization.yaml
+      output: '2.6.0',
+      prefix: '^io\\.fluxcd\\.toolkit\\..*',
+      crds: [
+        'https://github.com/fluxcd/source-controller/releases/download/v1.6.0/source-controller.crds.yaml',
+        'https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml',
+        'https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml',
+        'https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml',
+        'https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.0/image-reflector-controller.crds.yaml',
+        'https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.0/image-automation-controller.crds.yaml',
+      ],
+      localName: 'fluxcd',
+    },
+    {
       // CRDs retrieved from https://github.com/fluxcd/flux2/blob/v2.5.1/manifests/crds/kustomization.yaml
       output: '2.5.1',
       prefix: '^io\\.fluxcd\\.toolkit\\..*',
