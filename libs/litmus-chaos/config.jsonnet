@@ -1,6 +1,6 @@
 # libs/<name>/config.jsonnet
 local config = (import 'jsonnet/config.jsonnet');
-local versions = ['2.8.0', '2.9.0', '2.10.0'];
+local versions = ['2.8.0', '2.9.0', '2.10.0', '3.20.0'];
 local crdFilesOperator = ['chaosengine_crd.yaml','chaosexperiment_crd.yaml','chaosresults_crd.yaml'];
 local crdFilesScheduler = ['chaosschedule_crd.yaml'];
 
