@@ -3,8 +3,10 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { version: '1.26.0' },  // released on 23 May 2025
-  { version: '1.25.2' },  // released on 23 May 2025
+  { version: '1.27.0' },
+  { version: '1.26.1' },
+  { version: '1.26.0' },
+  { version: '1.25.3' },
 ];
 
 config.new(
@@ -23,11 +25,18 @@ config.new(
           '%s/postgresql.cnpg.io_scheduledbackups.yaml' % url,
         ]
         + (
-          if (v.version == '1.25.0')
+          if (v.version >= '1.25.0')
           then [
             '%s/postgresql.cnpg.io_databases.yaml' % url,
             '%s/postgresql.cnpg.io_publications.yaml' % url,
             '%s/postgresql.cnpg.io_subscriptions.yaml' % url,
+          ]
+          else []
+        )
+        + (
+          if (v.version >= '1.27.0')
+          then [
+            '%s/postgresql.cnpg.io_failoverquorums.yaml' % url,
           ]
           else []
         ),
