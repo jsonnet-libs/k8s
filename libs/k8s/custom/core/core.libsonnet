@@ -106,11 +106,13 @@ local d = import 'doc-util/main.libsonnet';
           d.arg('name', d.T.string),
           d.arg('secretRefName', d.T.string),
           d.arg('secretRefKey', d.T.string),
+          d.arg('optional', d.T.bool, false),
         ]),
-        fromSecretRef(name, secretRefName, secretRefKey)::
+        fromSecretRef(name, secretRefName, secretRefKey, optional=false)::
           super.withName(name)
           + super.valueFrom.secretKeyRef.withName(secretRefName)
-          + super.valueFrom.secretKeyRef.withKey(secretRefKey),
+          + super.valueFrom.secretKeyRef.withKey(secretRefKey)
+          + super.valueFrom.secretKeyRef.withOptional(optional),
 
         '#fromFieldPath': d.fn('fromFieldPath creates a `envVar` from a field path', [
           d.arg('name', d.T.string),
