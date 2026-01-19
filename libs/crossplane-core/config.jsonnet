@@ -6,9 +6,9 @@ config.new(
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
     {
-      output: 'crossplane/2.0',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v2.0.0'],
+      output: 'crossplane/2.1',
+      prefix: '^io\\.crossplane\\.(ops|pkg|apiextensions|connection)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v2.1.0'],
       localName: 'crossplane',
       patchDir: 'custom/crossplane',
     },
