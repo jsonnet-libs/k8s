@@ -7,51 +7,6 @@ local upbound_gcp_crds = import './upbound_gcp_crds.libsonnet';
 config.new(
   name='crossplane',
   specs=[
-    // Crossplane itself
-    // Release support table: https://github.com/crossplane/crossplane#releases
-    {
-      output: 'crossplane/1.17',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.17.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.16',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.16.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.15',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.15.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.14',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.14.4'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.13',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.13.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-    {
-      output: 'crossplane/1.12',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.12.0'],
-      localName: 'crossplane',
-      patchDir: 'custom/crossplane',
-    },
-
     // crossplane-contrib
     {
       output: 'provider-aws/0.36',
@@ -158,19 +113,19 @@ config.new(
       output: 'function-patch-and-transform/0.7',
       prefix: '^io\\.crossplane\\.fn\\.pt\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-patch-and-transform/refs/tags/v0.7.0/package/input/pt.fn.crossplane.io_resources.yaml'],
-      localName: 'function_patch_and_transform'
+      localName: 'function_patch_and_transform',
     },
     {
       output: 'function-cel-filter/0.1',
       prefix: '^io\\.crossplane\\.fn\\.cel\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-cel-filter/refs/tags/v0.1.1/package/input/cel.fn.crossplane.io_filters.yaml'],
-      localName: 'function_cel_filter'
+      localName: 'function_cel_filter',
     },
     {
       output: 'function-kcl/0.11',
       prefix: '^io\\.crossplane\\.fn\\..*',
       crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-kcl/refs/tags/v0.11.4/package/input/template.fn.crossplane.io_kclinputs.yaml'],
-      localName: 'function_kcl'
-    }
+      localName: 'function_kcl',
+    },
   ]
 )
