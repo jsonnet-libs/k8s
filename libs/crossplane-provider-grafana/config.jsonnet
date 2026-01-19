@@ -4,7 +4,7 @@ local versions = [
 ];
 
 config.new(
-  name='provider-grafana',
+  name='crossplane-provider-grafana',
   specs=
   std.flatMap(
     function(v)
