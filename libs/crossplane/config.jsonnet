@@ -64,12 +64,6 @@ config.new(
     // Upbound official providers
     // https://marketplace.upbound.io/
     {
-      output: 'upbound-provider-azuread/0.11',
-      prefix: '^io\\.upbound\\.azuread\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-azuread@v0.11.0'],
-      localName: 'upbound_azuread',
-    },
-    {
       output: 'provider-terraform/0.10',
       prefix: '^io\\.upbound\\.tf\\..*',
       crds: ['https://doc.crds.dev/raw/github.com/upbound/provider-terraform@v0.10.0'],
