@@ -1,6 +1,5 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local upbound_aws_crds = import './upbound_aws_crds.libsonnet';
 local upbound_azure_crds = import './upbound_azure_crds.libsonnet';
 local upbound_gcp_crds = import './upbound_gcp_crds.libsonnet';
 
@@ -67,14 +66,6 @@ config.new(
 
     // Upbound official providers
     // https://marketplace.upbound.io/
-    // WARNING: When bumping the version, ensure that you also update the
-    // version in the Makefile and run `make upbound_aws_crds.libsonnet` to update the CRDs list.
-    {
-      output: 'upbound-provider-aws/1.14',
-      prefix: '^io\\.upbound\\.aws\\..*',
-      crds: ['https://raw.githubusercontent.com/crossplane-contrib/provider-upjet-aws/v1.14.0/package/crds/%s' % crd for crd in upbound_aws_crds],
-      localName: 'upbound_aws',
-    },
     // WARNING: When bumping the version, ensure that you also update the
     // version in the Makefile and run `make upbound_azure_crds.libsonnet` to update the CRDs list.
     {
