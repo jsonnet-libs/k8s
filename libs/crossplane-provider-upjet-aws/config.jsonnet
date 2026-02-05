@@ -1,7 +1,7 @@
 local config = import 'jsonnet/config.jsonnet';
 
 // Run `make` to get the latest version and regenerate `crds.libsonnet`
-local version = importstr './version';
+local version = std.stripChars(importstr './version', ' \n');
 local crds = import './crds.libsonnet';
 
 config.new(
