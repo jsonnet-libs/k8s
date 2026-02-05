@@ -1,6 +1,6 @@
 local config = import 'jsonnet/config.jsonnet';
 
-// Bump version in `version` file and run `make` to regenerate `crds.libsonnet`
+// Run `make` to get the latest version and regenerate `crds.libsonnet`
 local version = importstr './version';
 local crds = import './crds.libsonnet';
 
