@@ -1,27 +1,23 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = [
-  { version: '1.0', tag: 'v1.0.0' },
-];
+
+// Run `make` to get the latest version and regenerate `crds.libsonnet`
+local version = std.stripChars(importstr './version', ' \n');
+local crds = import './crds.libsonnet';
 
 config.new(
   name='crossplane-provider-grafana',
-  specs=
-  std.flatMap(
-    function(v)
-      [
-        {
-          output: v.version + '/namespaced',
-          prefix: '^io\\.crossplane\\.m\\.grafana\\..*',
-          crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/%(tag)s/crds.yaml' % v],
-          localName: 'crossplane_grafana',
-        },
-        {
-          output: v.version + '/cluster',
-          prefix: '^io\\.crossplane\\.grafana\\..*',
-          crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/%(tag)s/crds.yaml' % v],
-          localName: 'crossplane_grafana',
-        },
-      ],
-    versions
-  )
+  specs=[
+    {
+      output: 'crossplane-provider-grafana/namespaced',
+      prefix: '^io\\.crossplane\\.m\\.grafana\\..*',
+      crds: ['https://raw.githubusercontent.com/grafana/crossplane-provider-grafana/%s/package/crds/%s' % [version, crd] for crd in crds],
+      localName: 'grafana',
+    },
+    {
+      output: 'crossplane-provider-grafana/cluster',
+      prefix: '^io\\.crossplane\\.grafana\\..*',
+      crds: ['https://raw.githubusercontent.com/grafana/crossplane-provider-grafana/%s/package/crds/%s' % [version, crd] for crd in crds],
+      localName: 'grafana',
+    },
+  ],
 )
