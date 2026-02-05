@@ -53,14 +53,6 @@ config.new(
       localName: 'crossplane_nop',
     },
 
-    // Grafana
-    {
-      output: 'provider-grafana/0.21',
-      prefix: '^io\\.crossplane\\.grafana\\..*',
-      crds: ['https://github.com/grafana/crossplane-provider-grafana/releases/download/v0.21.0/crds.yaml'],
-      localName: 'crossplane_grafana',
-    },
-
     // Upbound official providers
     // https://marketplace.upbound.io/
     {
