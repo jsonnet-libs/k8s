@@ -6,18 +6,18 @@ config.new(
     // Crossplane itself
     // Release support table: https://github.com/crossplane/crossplane#releases
     {
-      output: 'crossplane/1.18',
-      prefix: '^io\\.crossplane\\.(pkg|apiextensions)\\..*',
-      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v1.18.0'],
+      output: 'crossplane/2.1',
+      prefix: '^io\\.crossplane\\.(ops|pkg|apiextensions|connection)\\..*',
+      crds: ['https://doc.crds.dev/raw/github.com/crossplane/crossplane@v2.1.0'],
       localName: 'crossplane',
       patchDir: 'custom/crossplane',
     },
 
     // Common functions
     {
-      output: 'function-patch-and-transform/0.7',
+      output: 'function-patch-and-transform/0.10',
       prefix: '^io\\.crossplane\\.fn\\.pt\\..*',
-      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-patch-and-transform/refs/tags/v0.7.0/package/input/pt.fn.crossplane.io_resources.yaml'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-patch-and-transform/refs/tags/v0.10.0/package/input/pt.fn.crossplane.io_resources.yaml'],
       localName: 'function_patch_and_transform',
     },
     {
@@ -27,16 +27,22 @@ config.new(
       localName: 'function_cel_filter',
     },
     {
-      output: 'function-status-transformer/0.4',
+      output: 'function-status-transformer/0.5',
       prefix: '^io\\.crossplane\\.fn\\.function-status-transformer\\..*',
-      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-status-transformer/refs/tags/v0.4.0/package/input/function-status-transformer.fn.crossplane.io_statustransformations.yaml'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-status-transformer/refs/tags/v0.5.1/package/input/function-status-transformer.fn.crossplane.io_statustransformations.yaml'],
       localName: 'function_status_transformer',
     },
     {
-      output: 'function-go-templating/0.9',
+      output: 'function-go-templating/0.11',
       prefix: '^io\\.crossplane\\.fn\\.gotemplating\\..*',
-      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-go-templating/refs/tags/v0.9.1/package/input/gotemplating.fn.crossplane.io_gotemplates.yaml'],
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-go-templating/refs/tags/v0.11.3/package/input/gotemplating.fn.crossplane.io_gotemplates.yaml'],
       localName: 'function_go_templating',
+    },
+    {
+      output: 'function-kcl/0.12',
+      prefix: '^dev\\.kcl\\.krm\\.kclinputs\\..*',
+      crds: ['https://raw.githubusercontent.com/crossplane-contrib/function-kcl/refs/tags/v0.12.0/package/input/krm.kcl.dev_kclinputs.yaml'],
+      localName: 'function_kcl',
     },
   ]
 )

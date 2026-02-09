@@ -1,14 +1,13 @@
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { version: '1.12', tag: 'v1.12.19' },
-  { version: '1.13', tag: 'v1.13.12' },
-  { version: '1.14', tag: 'v1.14.7' },
-  { version: '1.15', tag: 'v1.15.1' },
-  { version: '1.16', tag: 'v1.16.1' },
+  { version: '1.16', tag: 'v1.16.18' },
+  { version: '1.17', tag: 'v1.17.11' },
+  { version: '1.18', tag: 'v1.18.5' },
 ];
 
 local pathPrefix = 'https://raw.githubusercontent.com/cilium/cilium/%s/pkg/k8s/apis/cilium.io/client/crds/v2/';
 local crdFiles = [
+  'ciliumcidrgroups.yaml',
   'ciliumclusterwideenvoyconfigs.yaml',
   'ciliumclusterwidenetworkpolicies.yaml',
   'ciliumegressgatewaypolicies.yaml',

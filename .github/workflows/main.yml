@@ -240,6 +240,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/argo-workflows"
+  "argocd-operator":
+    "name": "Generate argocd-operator Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/argocd-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/argocd-operator"
   "aws-load-balancer-controller":
     "name": "Generate aws-load-balancer-controller Jsonnet library and docs"
     "needs":
@@ -611,6 +651,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cloudnative-pg"
+  "cloudnative-pg-barman-cloud-plugin":
+    "name": "Generate cloudnative-pg-barman-cloud-plugin Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cloudnative-pg-barman-cloud-plugin/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/cloudnative-pg-barman-cloud-plugin"
   "cluster-api":
     "name": "Generate cluster-api Jsonnet library and docs"
     "needs":
@@ -931,6 +1011,246 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/crossplane-core"
+  "crossplane-provider-grafana":
+    "name": "Generate crossplane-provider-grafana Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane-provider-grafana/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/crossplane-provider-grafana"
+  "crossplane-provider-upjet-aws":
+    "name": "Generate crossplane-provider-upjet-aws Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane-provider-upjet-aws/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/crossplane-provider-upjet-aws"
+  "crossplane-provider-upjet-azure":
+    "name": "Generate crossplane-provider-upjet-azure Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane-provider-upjet-azure/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/crossplane-provider-upjet-azure"
+  "crossplane-provider-upjet-azuread":
+    "name": "Generate crossplane-provider-upjet-azuread Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane-provider-upjet-azuread/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/crossplane-provider-upjet-azuread"
+  "crossplane-provider-upjet-gcp":
+    "name": "Generate crossplane-provider-upjet-gcp Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/crossplane-provider-upjet-gcp/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/crossplane-provider-upjet-gcp"
+  "dapr":
+    "name": "Generate dapr Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/dapr/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/dapr"
   "datadog-operator":
     "name": "Generate datadog-operator Jsonnet library and docs"
     "needs":
@@ -1699,6 +2019,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/k8s"
+  "kargo":
+    "name": "Generate kargo Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kargo/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/kargo"
   "karpenter":
     "name": "Generate karpenter Jsonnet library and docs"
     "needs":
@@ -2019,6 +2379,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/kubevela"
+  "kueue":
+    "name": "Generate kueue Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/kueue/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/kueue"
   "kyverno":
     "name": "Generate kyverno Jsonnet library and docs"
     "needs":
@@ -2099,6 +2499,86 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/litmus-chaos"
+  "mariadb-operator":
+    "name": "Generate mariadb-operator Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/mariadb-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/mariadb-operator"
+  "metacontroller":
+    "name": "Generate metacontroller Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/metacontroller/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/metacontroller"
   "metallb":
     "name": "Generate metallb Jsonnet library and docs"
     "needs":
@@ -2259,6 +2739,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/mysql-operator"
+  "nats":
+    "name": "Generate nats Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/nats/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/nats"
   "openshift":
     "name": "Generate openshift Jsonnet library and docs"
     "needs":
@@ -2504,6 +3024,7 @@
     - "argo-cd"
     - "argo-rollouts"
     - "argo-workflows"
+    - "argocd-operator"
     - "aws-load-balancer-controller"
     - "aws-rds-controller"
     - "banzai-logging"
@@ -2513,6 +3034,7 @@
     - "cilium"
     - "clickhouse-operator"
     - "cloudnative-pg"
+    - "cloudnative-pg-barman-cloud-plugin"
     - "cluster-api"
     - "cluster-api-provider-aws"
     - "cnrm"
@@ -2521,6 +3043,12 @@
     - "contour"
     - "crossplane"
     - "crossplane-core"
+    - "crossplane-provider-grafana"
+    - "crossplane-provider-upjet-aws"
+    - "crossplane-provider-upjet-azure"
+    - "crossplane-provider-upjet-azuread"
+    - "crossplane-provider-upjet-gcp"
+    - "dapr"
     - "datadog-operator"
     - "eck-operator"
     - "edp-keycloak-operator"
@@ -2540,6 +3068,7 @@
     - "hcp-terraform-operator"
     - "istio"
     - "k8s"
+    - "kargo"
     - "karpenter"
     - "keda"
     - "knative-eventing"
@@ -2548,12 +3077,16 @@
     - "kubernetes-nmstate"
     - "kubernetes-secret-generator"
     - "kubevela"
+    - "kueue"
     - "kyverno"
     - "litmus-chaos"
+    - "mariadb-operator"
+    - "metacontroller"
     - "metallb"
     - "milvus-operator"
     - "minio-operator"
     - "mysql-operator"
+    - "nats"
     - "openshift"
     - "prometheus-operator"
     - "pyrra"
@@ -2563,10 +3096,12 @@
     - "securecodebox"
     - "spicedb-operator"
     - "strimzi"
+    - "tailscale-operator"
     - "tektoncd"
     - "teleport-operator"
     - "traefik"
     - "triggermesh"
+    - "trust-manager"
     - "upbound-provider-opentofu"
     - "vault-secrets-operator"
     - "vertical-pod-autoscaler"
@@ -2766,6 +3301,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/strimzi"
+  "tailscale-operator":
+    "name": "Generate tailscale-operator Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/tailscale-operator/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/tailscale-operator"
   "tektoncd":
     "name": "Generate tektoncd Jsonnet library and docs"
     "needs":
@@ -2926,6 +3501,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/triggermesh"
+  "trust-manager":
+    "name": "Generate trust-manager Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/trust-manager/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/trust-manager"
   "upbound-provider-opentofu":
     "name": "Generate upbound-provider-opentofu Jsonnet library and docs"
     "needs":
