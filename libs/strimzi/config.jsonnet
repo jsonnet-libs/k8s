@@ -1,6 +1,11 @@
 local config = import 'jsonnet/config.jsonnet';
 
-local versions = ['0.40', '0.41', '0.42', '0.43', '0.44', '0.45', '0.48'];
+local versions = [
+  '0.48.0',
+  '0.49.1',
+  '0.50.1'
+];
+
 
 config.new(
   name='strimzi',
@@ -8,7 +13,7 @@ config.new(
     {
       output: version,
       prefix: '^io\\.strimzi\\..*',
-      crds: ['https://github.com/strimzi/strimzi-kafka-operator/releases/download/%(version)s.0/strimzi-crds-%(version)s.0.yaml' % { version: version }],
+      crds: ['https://github.com/strimzi/strimzi-kafka-operator/releases/download/%(version)s/strimzi-crds-%(version)s.yaml' % { version: version }],
       localName: 'strimzi',
     }
     for version in versions
