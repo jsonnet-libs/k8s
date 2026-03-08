@@ -54,8 +54,8 @@ all: build libs/*
 libs/*:
 	mkdir -p $(ABS_OUTPUT_DIR) && \
 	./bin/docker.sh \
-		-v $(shell realpath $@):/config \
-		-v $(ABS_OUTPUT_DIR):/output \
+		-v $(shell realpath $@):/config:z \
+		-v $(ABS_OUTPUT_DIR):/output:z \
 		-e DIFF="$(DIFF)" \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
 		-e GITHUB_SHA="$(GITHUB_SHA)" \
