@@ -1,0 +1,3379 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: applicationloadbalancer.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: ApplicationLoadBalancer
+    listKind: ApplicationLoadBalancerList
+    plural: applicationloadbalancer
+    singular: applicationloadbalancer
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Deployment")].status
+      name: Deployment
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: ApplicationLoadBalancer is the schema for the Application Gateway
+          for Containers resource.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the specifications for Application Gateway for Containers
+              resource.
+            properties:
+              associations:
+                description: Associations are subnet resource IDs the Application
+                  Gateway for Containers resource are associated with.
+                items:
+                  type: string
+                type: array
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of Application Gateway for
+              Containers resource.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Known condition types are:
+
+                  * "Accepted"
+                  * "Ready"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: backendloadbalancingpolicy.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: BackendLoadBalancingPolicy
+    listKind: BackendLoadBalancingPolicyList
+    plural: backendloadbalancingpolicy
+    singular: backendloadbalancingpolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: BackendLoadBalancingPolicy represents the configuration for backend
+          load balancing.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the BackendLoadBalancingPolicy specification.
+            properties:
+              circuitBreaker:
+                description: CircuitBreaker defines the schema for configuring Circuit
+                  Breaking
+                properties:
+                  maxConnections:
+                    default: 1000000000
+                    description: |-
+                      The maximum number of connections that will be made to the backend service.
+                      Default is 1000000000 (disabled).
+                    format: int32
+                    minimum: 0
+                    type: integer
+                  maxPendingRequests:
+                    default: 1000000000
+                    description: |-
+                      Maximum number of pending requests that will be made to the backend service.
+                      Default is 1000000000 (disabled).
+                    format: int32
+                    minimum: 0
+                    type: integer
+                  maxRequests:
+                    default: 1000000000
+                    description: |-
+                      Maximum number of parallel requests that will be made to the backend service.
+                      Default is 1000000000 (disabled).
+                    format: int32
+                    minimum: 0
+                    type: integer
+                  maxRetries:
+                    default: 1000000000
+                    description: |-
+                      The maximum number of parallel retries allowed to the backend service.
+                      Default is 1000000000 (disabled).
+                    format: int32
+                    minimum: 0
+                    type: integer
+                type: object
+              loadBalancing:
+                description: LoadBalancing defines the schema for configuring Load
+                  Balancing options
+                properties:
+                  loadAware:
+                    description: LoadAware defines the schema for Load Aware Routing
+                      specification
+                    properties:
+                      blackoutPeriod:
+                        description: |-
+                          An endpoint must report load metrics continuously for at least this long before the endpoint
+                          metrics will be used to influence load balancing decisions. Takes effect both immediately after
+                          we establish a connection to an endpoint and after `metricExpirationPeriod` has elapsed.
+                          Default is 10 seconds.
+                        type: string
+                      errorUtilizationPenalty:
+                        default: "1.0"
+                        description: |-
+                          The multiplier used to adjust endpoint weights with the error rated calculated based
+                          on the reported `rps_fractional` and `eps` load metrics. Must not be a negative value.
+                          Default is 1.0.
+                        pattern: ^([0-9]+([.][0-9]+)?|[.][0-9]+)$
+                        type: string
+                      metricExpirationPeriod:
+                        description: |-
+                          If the endpoint does not report load metrics for this duration, metrics will stop
+                          being used to influence load balancing decisions. Default is 3 minutes.
+                        type: string
+                      namedMetrics:
+                        description: |-
+                          A list of custom metrics reported by endpoints to be used for reporting utilization
+                          and influencing load balancing decisions. Utilization will be computed by taking the
+                          max of the values of metrics specified in this list.
+                        items:
+                          type: string
+                        maxItems: 10
+                        type: array
+                    type: object
+                  slowStart:
+                    description: SlowStart defines the schema for Slow Start specification
+                    properties:
+                      aggression:
+                        default: "1.0"
+                        description: |-
+                          The speed of traffic increase over the slow start window, must be greater than 0.0.
+                          Defaults to 1.0 if unspecified.
+                        pattern: ^([0-9]+([.][0-9]+)?|[.][0-9]+)$
+                        type: string
+                      startWeightPercent:
+                        default: 10
+                        description: |-
+                          The minimum or starting percentage of traffic to send to new endpoints.
+                          Defaults to 10% if unspecified.
+                        format: int32
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                      window:
+                        description: The duration of the slow start window.
+                        type: string
+                    required:
+                    - window
+                    type: object
+                  strategy:
+                    description: |-
+                      Strategy defines the policy to use when load balancing traffic to the backend service.
+                      Default is round-robin.
+                    enum:
+                    - round-robin
+                    - least-request
+                    - load-aware
+                    type: string
+                type: object
+              targetRefs:
+                description: TargetRefs identifies a list of API objects to apply
+                  policy to.
+                items:
+                  description: TargetRefSpec defines the target reference and ports
+                    for the backend load balancing policy.
+                  properties:
+                    ports:
+                      description: Ports specifies the list of ports on the target
+                        where the policy is applied.
+                      items:
+                        description: BackendLoadBalancingPolicyPort defines the port
+                          configuration for the backend load balancing policy.
+                        properties:
+                          port:
+                            description: Port is the port to use for connection to
+                              the backend
+                            format: int32
+                            minimum: 1
+                            type: integer
+                        type: object
+                      type: array
+                    targetRef:
+                      description: TargetRef identifies an API object to apply policy
+                        to.
+                      properties:
+                        group:
+                          description: Group is the group of the target resource.
+                          maxLength: 253
+                          pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        kind:
+                          description: Kind is kind of the target resource.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                          type: string
+                        name:
+                          description: Name is the name of the target resource.
+                          maxLength: 253
+                          minLength: 1
+                          type: string
+                        namespace:
+                          description: |-
+                            Namespace is the namespace of the referent. When unspecified, the local
+                            namespace is inferred. Even when policy targets a resource in a different
+                            namespace, it MUST only apply to traffic originating from the same
+                            namespace as the policy.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                          type: string
+                        sectionNames:
+                          description: |-
+                            SectionNames is the name of the section within the target resource. When
+                            unspecified, this targetRef targets the entire resource. In the following
+                            resources, SectionNames is interpreted as the following:
+
+                            * Gateway: Listener Name
+                            * Service: Port Name
+
+                            If a SectionNames is specified, but doesn't exist on the targeted object,
+                            the Policy fails to attach, and the policy implementation will record
+                            a `ResolvedRefs` or similar Condition in the Policy's status.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - group
+                      - kind
+                      - name
+                      type: object
+                  required:
+                  - targetRef
+                  type: object
+                type: array
+            required:
+            - targetRefs
+            type: object
+          status:
+            description: Status defines the current state of BackendLoadBalancingPolicy.
+            properties:
+              targets:
+                items:
+                  description: BackendLoadBalancingPolicyTargetStatus defines the
+                    observed status for a target ref
+                  properties:
+                    conditions:
+                      default:
+                      - lastTransitionTime: "1970-01-01T00:00:00Z"
+                        message: Waiting for controller
+                        reason: Pending
+                        status: Unknown
+                        type: Accepted
+                      items:
+                        description: Condition contains details for one aspect of
+                          the current state of this API Resource.
+                        properties:
+                          lastTransitionTime:
+                            description: |-
+                              lastTransitionTime is the last time the condition transitioned from one status to another.
+                              This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                            format: date-time
+                            type: string
+                          message:
+                            description: |-
+                              message is a human readable message indicating details about the transition.
+                              This may be an empty string.
+                            maxLength: 32768
+                            type: string
+                          observedGeneration:
+                            description: |-
+                              observedGeneration represents the .metadata.generation that the condition was set based upon.
+                              For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                              with respect to the current state of the instance.
+                            format: int64
+                            minimum: 0
+                            type: integer
+                          reason:
+                            description: |-
+                              reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                              Producers of specific condition types may define expected values and meanings for this field,
+                              and whether the values are considered a guaranteed API.
+                              The value should be a CamelCase string.
+                              This field may not be empty.
+                            maxLength: 1024
+                            minLength: 1
+                            pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                            type: string
+                          status:
+                            description: status of the condition, one of True, False,
+                              Unknown.
+                            enum:
+                            - "True"
+                            - "False"
+                            - Unknown
+                            type: string
+                          type:
+                            description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                            maxLength: 316
+                            pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                            type: string
+                        required:
+                        - lastTransitionTime
+                        - message
+                        - reason
+                        - status
+                        - type
+                        type: object
+                      maxItems: 8
+                      minItems: 1
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - type
+                      x-kubernetes-list-type: map
+                    targetRef:
+                      description: |-
+                        CustomTargetRef is a reference to a custom resource that isn't part of the
+                        Kubernetes core API.
+                      properties:
+                        group:
+                          description: Group is the group of the target resource.
+                          maxLength: 253
+                          pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        kind:
+                          description: Kind is kind of the target resource.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                          type: string
+                        name:
+                          description: Name is the name of the target resource.
+                          maxLength: 253
+                          minLength: 1
+                          type: string
+                        namespace:
+                          description: |-
+                            Namespace is the namespace of the referent. When unspecified, the local
+                            namespace is inferred. Even when policy targets a resource in a different
+                            namespace, it MUST only apply to traffic originating from the same
+                            namespace as the policy.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                          type: string
+                        sectionNames:
+                          description: |-
+                            SectionNames is the name of the section within the target resource. When
+                            unspecified, this targetRef targets the entire resource. In the following
+                            resources, SectionNames is interpreted as the following:
+
+                            * Gateway: Listener Name
+                            * Service: Port Name
+
+                            If a SectionNames is specified, but doesn't exist on the targeted object,
+                            the Policy fails to attach, and the policy implementation will record
+                            a `ResolvedRefs` or similar Condition in the Policy's status.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - group
+                      - kind
+                      - name
+                      type: object
+                  required:
+                  - targetRef
+                  type: object
+                type: array
+            required:
+            - targets
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: backendtlspolicies.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: BackendTLSPolicy
+    listKind: BackendTLSPolicyList
+    plural: backendtlspolicies
+    singular: backendtlspolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: BackendTLSPolicy is the schema for the BackendTLSPolicies API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the BackendTLSPolicy specification.
+            properties:
+              default:
+                description: Default defines default policy configuration for the
+                  targeted resource.
+                properties:
+                  clientCertificateRef:
+                    description: |-
+                      ClientCertificateRef is the reference to the client certificate to
+                      use for the TLS connection to the backend.
+                    properties:
+                      group:
+                        default: ""
+                        description: |-
+                          Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                          When unspecified or empty string, core API group is inferred.
+                        maxLength: 253
+                        pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      kind:
+                        default: Secret
+                        description: Kind is kind of the referent. For example "Secret".
+                        maxLength: 63
+                        minLength: 1
+                        pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                        type: string
+                      name:
+                        description: Name is the name of the referent.
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                      namespace:
+                        description: |-
+                          Namespace is the namespace of the referenced object. When unspecified, the local
+                          namespace is inferred.
+
+                          Note that when a namespace different than the local namespace is specified,
+                          a ReferenceGrant object is required in the referent namespace to allow that
+                          namespace's owner to accept the reference. See the ReferenceGrant
+                          documentation for details.
+
+                          Support: Core
+                        maxLength: 63
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  ports:
+                    description: Ports specifies the list of ports where the policy
+                      is applied.
+                    items:
+                      description: BackendTLSPolicyPort defines the port to use for
+                        the TLS connection to the backend
+                      properties:
+                        port:
+                          description: Port is the port to use for the TLS connection
+                            to the backend
+                          minimum: 1
+                          type: integer
+                      type: object
+                    type: array
+                  sni:
+                    description: Sni is the server name to use for the TLS connection
+                      to the backend.
+                    type: string
+                  verify:
+                    description: Verify provides the options to verify the peer certificate.
+                    properties:
+                      caCertificateRef:
+                        description: CaCertificateRef is the CA certificate used to
+                          verify peer certificate.
+                        properties:
+                          group:
+                            default: ""
+                            description: |-
+                              Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                              When unspecified or empty string, core API group is inferred.
+                            maxLength: 253
+                            pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                            type: string
+                          kind:
+                            default: Secret
+                            description: Kind is kind of the referent. For example
+                              "Secret".
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                            type: string
+                          name:
+                            description: Name is the name of the referent.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          namespace:
+                            description: |-
+                              Namespace is the namespace of the referenced object. When unspecified, the local
+                              namespace is inferred.
+
+                              Note that when a namespace different than the local namespace is specified,
+                              a ReferenceGrant object is required in the referent namespace to allow that
+                              namespace's owner to accept the reference. See the ReferenceGrant
+                              documentation for details.
+
+                              Support: Core
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      subjectAltName:
+                        description: |-
+                          SubjectAltName is the subject alternative name used to verify peer
+                          certificate.
+                        type: string
+                    required:
+                    - caCertificateRef
+                    type: object
+                type: object
+              override:
+                description: |-
+                  Override defines policy configuration that should override policy
+                  configuration attached below the targeted resource in the hierarchy.
+
+                  Note: Override is currently not supported and result in a validation error.
+                  Support for Override will be added in a future release.
+                properties:
+                  clientCertificateRef:
+                    description: |-
+                      ClientCertificateRef is the reference to the client certificate to
+                      use for the TLS connection to the backend.
+                    properties:
+                      group:
+                        default: ""
+                        description: |-
+                          Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                          When unspecified or empty string, core API group is inferred.
+                        maxLength: 253
+                        pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      kind:
+                        default: Secret
+                        description: Kind is kind of the referent. For example "Secret".
+                        maxLength: 63
+                        minLength: 1
+                        pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                        type: string
+                      name:
+                        description: Name is the name of the referent.
+                        maxLength: 253
+                        minLength: 1
+                        type: string
+                      namespace:
+                        description: |-
+                          Namespace is the namespace of the referenced object. When unspecified, the local
+                          namespace is inferred.
+
+                          Note that when a namespace different than the local namespace is specified,
+                          a ReferenceGrant object is required in the referent namespace to allow that
+                          namespace's owner to accept the reference. See the ReferenceGrant
+                          documentation for details.
+
+                          Support: Core
+                        maxLength: 63
+                        minLength: 1
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  ports:
+                    description: Ports specifies the list of ports where the policy
+                      is applied.
+                    items:
+                      description: BackendTLSPolicyPort defines the port to use for
+                        the TLS connection to the backend
+                      properties:
+                        port:
+                          description: Port is the port to use for the TLS connection
+                            to the backend
+                          minimum: 1
+                          type: integer
+                      type: object
+                    type: array
+                  sni:
+                    description: Sni is the server name to use for the TLS connection
+                      to the backend.
+                    type: string
+                  verify:
+                    description: Verify provides the options to verify the peer certificate.
+                    properties:
+                      caCertificateRef:
+                        description: CaCertificateRef is the CA certificate used to
+                          verify peer certificate.
+                        properties:
+                          group:
+                            default: ""
+                            description: |-
+                              Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                              When unspecified or empty string, core API group is inferred.
+                            maxLength: 253
+                            pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                            type: string
+                          kind:
+                            default: Secret
+                            description: Kind is kind of the referent. For example
+                              "Secret".
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                            type: string
+                          name:
+                            description: Name is the name of the referent.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          namespace:
+                            description: |-
+                              Namespace is the namespace of the referenced object. When unspecified, the local
+                              namespace is inferred.
+
+                              Note that when a namespace different than the local namespace is specified,
+                              a ReferenceGrant object is required in the referent namespace to allow that
+                              namespace's owner to accept the reference. See the ReferenceGrant
+                              documentation for details.
+
+                              Support: Core
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      subjectAltName:
+                        description: |-
+                          SubjectAltName is the subject alternative name used to verify peer
+                          certificate.
+                        type: string
+                    required:
+                    - caCertificateRef
+                    type: object
+                type: object
+              targetRef:
+                description: TargetRef identifies an API object to apply policy to.
+                properties:
+                  group:
+                    description: Group is the group of the target resource.
+                    maxLength: 253
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                    type: string
+                  kind:
+                    description: Kind is kind of the target resource.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                    type: string
+                  name:
+                    description: Name is the name of the target resource.
+                    maxLength: 253
+                    minLength: 1
+                    type: string
+                  namespace:
+                    description: |-
+                      Namespace is the namespace of the referent. When unspecified, the local
+                      namespace is inferred. Even when policy targets a resource in a different
+                      namespace, it MUST only apply to traffic originating from the same
+                      namespace as the policy.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    type: string
+                  sectionNames:
+                    description: |-
+                      SectionNames is the name of the section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionNames is interpreted as the following:
+
+                      * Gateway: Listener Name
+                      * Service: Port Name
+
+                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                      the Policy fails to attach, and the policy implementation will record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - group
+                - kind
+                - name
+                type: object
+            required:
+            - targetRef
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of BackendTLSPolicy.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Conditions describe the current conditions of the BackendTLSPolicy.
+
+                  Implementations should prefer to express BackendTLSPolicy conditions
+                  using the `BackendTLSPolicyConditionType` and `BackendTLSPolicyConditionReason`
+                  constants so that operators and tools can converge on a common
+                  vocabulary to describe BackendTLSPolicy state.
+
+                  Known condition types are:
+
+                  * "Accepted"
+                  * "ResolvedRefs"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: frontendtlspolicies.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: FrontendTLSPolicy
+    listKind: FrontendTLSPolicyList
+    plural: frontendtlspolicies
+    singular: frontendtlspolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: FrontendTLSPolicy is the schema for the FrontendTLSPolicy API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the FrontendTLSPolicy specification.
+            properties:
+              default:
+                description: Default defines default policy configuration for the
+                  targeted resource.
+                properties:
+                  policyType:
+                    default:
+                      name: 2023-06
+                      type: predefined
+                    description: Type is the type of the policy.
+                    properties:
+                      name:
+                        description: Name is the name of the policy.
+                        type: string
+                      type:
+                        description: FrontendTLSPolicyType specifies the frontend
+                          TLS policy type
+                        type: string
+                    required:
+                    - name
+                    - type
+                    type: object
+                  verify:
+                    description: Verify provides the options to verify the peer certificate.
+                    properties:
+                      caCertificateRef:
+                        description: CaCertificateRef is the CA certificate used to
+                          verify peer certificate.
+                        properties:
+                          group:
+                            default: ""
+                            description: |-
+                              Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                              When unspecified or empty string, core API group is inferred.
+                            maxLength: 253
+                            pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                            type: string
+                          kind:
+                            default: Secret
+                            description: Kind is kind of the referent. For example
+                              "Secret".
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                            type: string
+                          name:
+                            description: Name is the name of the referent.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          namespace:
+                            description: |-
+                              Namespace is the namespace of the referenced object. When unspecified, the local
+                              namespace is inferred.
+
+                              Note that when a namespace different than the local namespace is specified,
+                              a ReferenceGrant object is required in the referent namespace to allow that
+                              namespace's owner to accept the reference. See the ReferenceGrant
+                              documentation for details.
+
+                              Support: Core
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      subjectAltNames:
+                        description: |-
+                          SubjectAltNames is the list of subject alternative names used to verify peer
+                          certificate.
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - caCertificateRef
+                    type: object
+                type: object
+              override:
+                description: |-
+                  Override defines policy configuration that should override policy
+                  configuration attached below the targeted resource in the hierarchy.
+
+                  Note: Override is currently not supported and result in a validation error.
+                  Support for Override will be added in a future release.
+                properties:
+                  policyType:
+                    default:
+                      name: 2023-06
+                      type: predefined
+                    description: Type is the type of the policy.
+                    properties:
+                      name:
+                        description: Name is the name of the policy.
+                        type: string
+                      type:
+                        description: FrontendTLSPolicyType specifies the frontend
+                          TLS policy type
+                        type: string
+                    required:
+                    - name
+                    - type
+                    type: object
+                  verify:
+                    description: Verify provides the options to verify the peer certificate.
+                    properties:
+                      caCertificateRef:
+                        description: CaCertificateRef is the CA certificate used to
+                          verify peer certificate.
+                        properties:
+                          group:
+                            default: ""
+                            description: |-
+                              Group is the group of the referent. For example, "gateway.networking.k8s.io".
+                              When unspecified or empty string, core API group is inferred.
+                            maxLength: 253
+                            pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                            type: string
+                          kind:
+                            default: Secret
+                            description: Kind is kind of the referent. For example
+                              "Secret".
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                            type: string
+                          name:
+                            description: Name is the name of the referent.
+                            maxLength: 253
+                            minLength: 1
+                            type: string
+                          namespace:
+                            description: |-
+                              Namespace is the namespace of the referenced object. When unspecified, the local
+                              namespace is inferred.
+
+                              Note that when a namespace different than the local namespace is specified,
+                              a ReferenceGrant object is required in the referent namespace to allow that
+                              namespace's owner to accept the reference. See the ReferenceGrant
+                              documentation for details.
+
+                              Support: Core
+                            maxLength: 63
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      subjectAltNames:
+                        description: |-
+                          SubjectAltNames is the list of subject alternative names used to verify peer
+                          certificate.
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - caCertificateRef
+                    type: object
+                type: object
+              targetRef:
+                description: TargetRef identifies an API object to apply policy to.
+                properties:
+                  group:
+                    description: Group is the group of the target resource.
+                    maxLength: 253
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                    type: string
+                  kind:
+                    description: Kind is kind of the target resource.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                    type: string
+                  name:
+                    description: Name is the name of the target resource.
+                    maxLength: 253
+                    minLength: 1
+                    type: string
+                  namespace:
+                    description: |-
+                      Namespace is the namespace of the referent. When unspecified, the local
+                      namespace is inferred. Even when policy targets a resource in a different
+                      namespace, it MUST only apply to traffic originating from the same
+                      namespace as the policy.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    type: string
+                  sectionNames:
+                    description: |-
+                      SectionNames is the name of the section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionNames is interpreted as the following:
+
+                      * Gateway: Listener Name
+                      * Service: Port Name
+
+                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                      the Policy fails to attach, and the policy implementation will record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - group
+                - kind
+                - name
+                type: object
+            required:
+            - targetRef
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of FrontendTLSPolicy.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Conditions describe the current conditions of the FrontendTLSPolicy.
+
+                  Implementations should prefer to express FrontendTLSPolicy conditions
+                  using the `FrontendTLSPolicyConditionType` and `FrontendTLSPolicyConditionReason`
+                  constants so that operators and tools can converge on a common
+                  vocabulary to describe FrontendTLSPolicy state.
+
+                  Known condition types are:
+
+                  * "Accepted"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: healthcheckpolicy.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: HealthCheckPolicy
+    listKind: HealthCheckPolicyList
+    plural: healthcheckpolicy
+    singular: healthcheckpolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: HealthCheckPolicy is the schema for the HealthCheckPolicy API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the HealthCheckPolicy specification.
+            properties:
+              default:
+                description: Default defines default policy configuration for the
+                  targeted resource.
+                properties:
+                  grpc:
+                    description: |-
+                      GRPC configures a gRPC v1 HealthCheck (https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto)
+                      against the target resource.
+                    properties:
+                      authority:
+                        description: Authority if present is used as the value of
+                          the Authority header in the health check.
+                        type: string
+                      service:
+                        description: Service allows the configuration of a Health
+                          check registered under a different service name.
+                        type: string
+                    type: object
+                  healthyThreshold:
+                    description: HealthyThreshold is the number of consecutive successful
+                      HealthCheck checks.
+                    format: int32
+                    type: integer
+                  http:
+                    description: |-
+                      HTTP defines the HTTP constraint specification for the HealthCheck of a
+                      target resource.
+                    properties:
+                      host:
+                        description: Host is the host header value to use for HealthCheck
+                          checks.
+                        type: string
+                      match:
+                        description: Match defines the HTTP matchers to use for HealthCheck
+                          checks.
+                        properties:
+                          body:
+                            description: Body defines the HTTP body matchers to use
+                              for HealthCheck checks.
+                            type: string
+                          statusCodes:
+                            description: StatusCodes defines the HTTP status code
+                              matchers to use for HealthCheck checks.
+                            items:
+                              description: StatusCodes defines the HTTP status code
+                                matchers to use for HealthCheck checks.
+                              properties:
+                                end:
+                                  description: |-
+                                    End defines the end of the range of status codes to use for HealthCheck checks.
+                                    This is inclusive.
+                                  format: int32
+                                  type: integer
+                                start:
+                                  description: |-
+                                    Start defines the start of the range of status codes to use for HealthCheck checks.
+                                    This is inclusive.
+                                  format: int32
+                                  type: integer
+                              type: object
+                            type: array
+                        type: object
+                      path:
+                        description: Path is the path to use for HealthCheck checks.
+                        type: string
+                    type: object
+                  interval:
+                    description: Interval is the number of seconds between HealthCheck
+                      checks.
+                    type: string
+                  port:
+                    description: Port is the port to use for HealthCheck checks.
+                    format: int32
+                    type: integer
+                  timeout:
+                    description: |-
+                      Timeout is the number of seconds after which the HealthCheck check is
+                      considered failed.
+                    type: string
+                  unhealthyThreshold:
+                    description: UnhealthyThreshold is the number of consecutive failed
+                      HealthCheck checks.
+                    format: int32
+                    type: integer
+                  useTLS:
+                    description: |-
+                      UseTLS indicates whether health check should enforce TLS.
+                      By default, health check will use the same protocol as the
+                      service if the same port is used for health check. If the port
+                      is different, health check will be plaintext.
+                    type: boolean
+                type: object
+              override:
+                description: |-
+                  Override defines policy configuration that should override policy
+                  configuration attached below the targeted resource in the hierarchy.
+
+                  Note: Override is currently not supported and will result in a validation error.
+                  Support for Override will be added in a future release.
+                properties:
+                  grpc:
+                    description: |-
+                      GRPC configures a gRPC v1 HealthCheck (https://github.com/grpc/grpc-proto/blob/master/grpc/health/v1/health.proto)
+                      against the target resource.
+                    properties:
+                      authority:
+                        description: Authority if present is used as the value of
+                          the Authority header in the health check.
+                        type: string
+                      service:
+                        description: Service allows the configuration of a Health
+                          check registered under a different service name.
+                        type: string
+                    type: object
+                  healthyThreshold:
+                    description: HealthyThreshold is the number of consecutive successful
+                      HealthCheck checks.
+                    format: int32
+                    type: integer
+                  http:
+                    description: |-
+                      HTTP defines the HTTP constraint specification for the HealthCheck of a
+                      target resource.
+                    properties:
+                      host:
+                        description: Host is the host header value to use for HealthCheck
+                          checks.
+                        type: string
+                      match:
+                        description: Match defines the HTTP matchers to use for HealthCheck
+                          checks.
+                        properties:
+                          body:
+                            description: Body defines the HTTP body matchers to use
+                              for HealthCheck checks.
+                            type: string
+                          statusCodes:
+                            description: StatusCodes defines the HTTP status code
+                              matchers to use for HealthCheck checks.
+                            items:
+                              description: StatusCodes defines the HTTP status code
+                                matchers to use for HealthCheck checks.
+                              properties:
+                                end:
+                                  description: |-
+                                    End defines the end of the range of status codes to use for HealthCheck checks.
+                                    This is inclusive.
+                                  format: int32
+                                  type: integer
+                                start:
+                                  description: |-
+                                    Start defines the start of the range of status codes to use for HealthCheck checks.
+                                    This is inclusive.
+                                  format: int32
+                                  type: integer
+                              type: object
+                            type: array
+                        type: object
+                      path:
+                        description: Path is the path to use for HealthCheck checks.
+                        type: string
+                    type: object
+                  interval:
+                    description: Interval is the number of seconds between HealthCheck
+                      checks.
+                    type: string
+                  port:
+                    description: Port is the port to use for HealthCheck checks.
+                    format: int32
+                    type: integer
+                  timeout:
+                    description: |-
+                      Timeout is the number of seconds after which the HealthCheck check is
+                      considered failed.
+                    type: string
+                  unhealthyThreshold:
+                    description: UnhealthyThreshold is the number of consecutive failed
+                      HealthCheck checks.
+                    format: int32
+                    type: integer
+                  useTLS:
+                    description: |-
+                      UseTLS indicates whether health check should enforce TLS.
+                      By default, health check will use the same protocol as the
+                      service if the same port is used for health check. If the port
+                      is different, health check will be plaintext.
+                    type: boolean
+                type: object
+              targetRef:
+                description: TargetRef identifies an API object to apply policy to.
+                properties:
+                  group:
+                    description: Group is the group of the target resource.
+                    maxLength: 253
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                    type: string
+                  kind:
+                    description: Kind is kind of the target resource.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                    type: string
+                  name:
+                    description: Name is the name of the target resource.
+                    maxLength: 253
+                    minLength: 1
+                    type: string
+                  namespace:
+                    description: |-
+                      Namespace is the namespace of the referent. When unspecified, the local
+                      namespace is inferred. Even when policy targets a resource in a different
+                      namespace, it MUST only apply to traffic originating from the same
+                      namespace as the policy.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    type: string
+                  sectionNames:
+                    description: |-
+                      SectionNames is the name of the section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionNames is interpreted as the following:
+
+                      * Gateway: Listener Name
+                      * Service: Port Name
+
+                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                      the Policy fails to attach, and the policy implementation will record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - group
+                - kind
+                - name
+                type: object
+            required:
+            - targetRef
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of HealthCheckPolicy.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Conditions describe the current conditions of the HealthCheckPolicy.
+
+                  Implementations should prefer to express HealthCheckPolicy conditions
+                  using the `HealthCheckPolicyConditionType` and `HealthCheckPolicyConditionReason`
+                  constants so that operators and tools can converge on a common
+                  vocabulary to describe HealthCheckPolicy state.
+
+                  Known condition types are:
+
+                  * "Accepted"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: ingressextension.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: IngressExtension
+    listKind: IngressExtensionList
+    plural: ingressextension
+    singular: ingressextension
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .status.conditions[?(@.type=="Errors")].status
+      name: Errors
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: IngressExtension is the schema for the IngressExtension API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the IngressExtension specification.
+            properties:
+              backendSettings:
+                description: BackendSettings defines a set of configuration options
+                  for Ingress service backends
+                items:
+                  description: IngressBackendSettings provides extended configuration
+                    options for a backend service
+                  properties:
+                    loadBalancingPolicySpec:
+                      description: LoadBalancing defines the load balancing policy
+                        for the backend service
+                      properties:
+                        circuitBreaker:
+                          description: CircuitBreaker defines the schema for configuring
+                            Circuit Breaking
+                          properties:
+                            maxConnections:
+                              default: 1000000000
+                              description: |-
+                                The maximum number of connections that will be made to the backend service.
+                                Default is 1000000000 (disabled).
+                              format: int32
+                              minimum: 0
+                              type: integer
+                            maxPendingRequests:
+                              default: 1000000000
+                              description: |-
+                                Maximum number of pending requests that will be made to the backend service.
+                                Default is 1000000000 (disabled).
+                              format: int32
+                              minimum: 0
+                              type: integer
+                            maxRequests:
+                              default: 1000000000
+                              description: |-
+                                Maximum number of parallel requests that will be made to the backend service.
+                                Default is 1000000000 (disabled).
+                              format: int32
+                              minimum: 0
+                              type: integer
+                            maxRetries:
+                              default: 1000000000
+                              description: |-
+                                The maximum number of parallel retries allowed to the backend service.
+                                Default is 1000000000 (disabled).
+                              format: int32
+                              minimum: 0
+                              type: integer
+                          type: object
+                        loadBalancing:
+                          description: LoadBalancing defines the schema for configuring
+                            Load Balancing options
+                          properties:
+                            loadAware:
+                              description: LoadAware defines the schema for Load Aware
+                                Routing specification
+                              properties:
+                                blackoutPeriod:
+                                  description: |-
+                                    An endpoint must report load metrics continuously for at least this long before the endpoint
+                                    metrics will be used to influence load balancing decisions. Takes effect both immediately after
+                                    we establish a connection to an endpoint and after `metricExpirationPeriod` has elapsed.
+                                    Default is 10 seconds.
+                                  type: string
+                                errorUtilizationPenalty:
+                                  default: "1.0"
+                                  description: |-
+                                    The multiplier used to adjust endpoint weights with the error rated calculated based
+                                    on the reported `rps_fractional` and `eps` load metrics. Must not be a negative value.
+                                    Default is 1.0.
+                                  pattern: ^([0-9]+([.][0-9]+)?|[.][0-9]+)$
+                                  type: string
+                                metricExpirationPeriod:
+                                  description: |-
+                                    If the endpoint does not report load metrics for this duration, metrics will stop
+                                    being used to influence load balancing decisions. Default is 3 minutes.
+                                  type: string
+                                namedMetrics:
+                                  description: |-
+                                    A list of custom metrics reported by endpoints to be used for reporting utilization
+                                    and influencing load balancing decisions. Utilization will be computed by taking the
+                                    max of the values of metrics specified in this list.
+                                  items:
+                                    type: string
+                                  maxItems: 10
+                                  type: array
+                              type: object
+                            slowStart:
+                              description: SlowStart defines the schema for Slow Start
+                                specification
+                              properties:
+                                aggression:
+                                  default: "1.0"
+                                  description: |-
+                                    The speed of traffic increase over the slow start window, must be greater than 0.0.
+                                    Defaults to 1.0 if unspecified.
+                                  pattern: ^([0-9]+([.][0-9]+)?|[.][0-9]+)$
+                                  type: string
+                                startWeightPercent:
+                                  default: 10
+                                  description: |-
+                                    The minimum or starting percentage of traffic to send to new endpoints.
+                                    Defaults to 10% if unspecified.
+                                  format: int32
+                                  maximum: 100
+                                  minimum: 0
+                                  type: integer
+                                window:
+                                  description: The duration of the slow start window.
+                                  type: string
+                              required:
+                              - window
+                              type: object
+                            strategy:
+                              description: |-
+                                Strategy defines the policy to use when load balancing traffic to the backend service.
+                                Default is round-robin.
+                              enum:
+                              - round-robin
+                              - least-request
+                              - load-aware
+                              type: string
+                          type: object
+                        targetRefs:
+                          description: TargetRefs identifies a list of API objects
+                            to apply policy to.
+                          items:
+                            description: TargetRefSpec defines the target reference
+                              and ports for the backend load balancing policy.
+                            properties:
+                              ports:
+                                description: Ports specifies the list of ports on
+                                  the target where the policy is applied.
+                                items:
+                                  description: BackendLoadBalancingPolicyPort defines
+                                    the port configuration for the backend load balancing
+                                    policy.
+                                  properties:
+                                    port:
+                                      description: Port is the port to use for connection
+                                        to the backend
+                                      format: int32
+                                      minimum: 1
+                                      type: integer
+                                  type: object
+                                type: array
+                              targetRef:
+                                description: TargetRef identifies an API object to
+                                  apply policy to.
+                                properties:
+                                  group:
+                                    description: Group is the group of the target
+                                      resource.
+                                    maxLength: 253
+                                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                    type: string
+                                  kind:
+                                    description: Kind is kind of the target resource.
+                                    maxLength: 63
+                                    minLength: 1
+                                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                                    type: string
+                                  name:
+                                    description: Name is the name of the target resource.
+                                    maxLength: 253
+                                    minLength: 1
+                                    type: string
+                                  namespace:
+                                    description: |-
+                                      Namespace is the namespace of the referent. When unspecified, the local
+                                      namespace is inferred. Even when policy targets a resource in a different
+                                      namespace, it MUST only apply to traffic originating from the same
+                                      namespace as the policy.
+                                    maxLength: 63
+                                    minLength: 1
+                                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                                    type: string
+                                  sectionNames:
+                                    description: |-
+                                      SectionNames is the name of the section within the target resource. When
+                                      unspecified, this targetRef targets the entire resource. In the following
+                                      resources, SectionNames is interpreted as the following:
+
+                                      * Gateway: Listener Name
+                                      * Service: Port Name
+
+                                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                                      the Policy fails to attach, and the policy implementation will record
+                                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                                    items:
+                                      type: string
+                                    type: array
+                                required:
+                                - group
+                                - kind
+                                - name
+                                type: object
+                            required:
+                            - targetRef
+                            type: object
+                          type: array
+                      required:
+                      - targetRefs
+                      type: object
+                    ports:
+                      description: Ports can be used to indicate if the backend service
+                        is listening on HTTP or HTTPS
+                      items:
+                        description: |-
+                          IngressBackendPort describes a port on a backend.
+                          Only one of Name/Number should be defined.
+                        properties:
+                          name:
+                            description: Name must refer to a name on a port on the
+                              backend service
+                            type: string
+                          port:
+                            description: Port indicates the port  on the backend service
+                            format: int32
+                            type: integer
+                          protocol:
+                            description: Protocol should be one of "HTTP", "HTTPS"
+                            enum:
+                            - HTTP
+                            - HTTPS
+                            type: string
+                        required:
+                        - protocol
+                        type: object
+                      type: array
+                    service:
+                      description: Service is the name of a backend service that this
+                        configuration applies to
+                      type: string
+                    sessionAffinity:
+                      description: SessionAffinity allows client requests to be consistently
+                        given to the same backend
+                      properties:
+                        affinityType:
+                          description: AffinityType defines the affinity type for
+                            the Service
+                          enum:
+                          - application-cookie
+                          - managed-cookie
+                          type: string
+                        cookieDuration:
+                          type: string
+                        cookieName:
+                          type: string
+                      required:
+                      - affinityType
+                      type: object
+                    timeouts:
+                      description: Timeouts define a set of timeout parameters to
+                        be applied to an Ingress
+                      properties:
+                        requestTimeout:
+                          description: RequestTimeout defines the timeout used by
+                            the load balancer when forwarding requests to a backend
+                            service
+                          type: string
+                      type: object
+                    trustedRootCertificate:
+                      description: |-
+                        TrustedRootCertificate can be used to supply a certificate for the gateway to trust when communicating to the
+                        backend on a port specified as https
+                      type: string
+                  required:
+                  - service
+                  type: object
+                type: array
+              rules:
+                description: Rules define the rules per host
+                items:
+                  description: IngressRuleSetting provides configuration options for
+                    rules
+                  properties:
+                    additionalHostnames:
+                      description: AdditionalHostnames specifies more hostnames to
+                        listen on
+                      items:
+                        type: string
+                      type: array
+                    host:
+                      description: Host is used to match against Ingress rules with
+                        the same hostname in order to identify which rules affect
+                        these settings
+                      type: string
+                    requestRedirect:
+                      description: RequestRedirect defines the redirect behavior for
+                        the rule
+                      properties:
+                        hostname:
+                          description: |-
+                            Hostname is the hostname to be used in the value of the `Location`
+                            header in the response.
+                            When empty, the hostname in the `Host` header of the request is used.
+                          maxLength: 253
+                          minLength: 1
+                          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        path:
+                          description: |-
+                            Path defines parameters used to modify the path of the incoming request.
+                            The modified path is then used to construct the `Location` header. When
+                            empty, the request path is used as-is.
+                          properties:
+                            replaceFullPath:
+                              description: |-
+                                ReplaceFullPath specifies the value with which to replace the full path
+                                of a request during a rewrite or redirect.
+                              maxLength: 1024
+                              type: string
+                            replacePrefixMatch:
+                              description: |-
+                                ReplacePrefixMatch specifies the value with which to replace the prefix
+                                match of a request during a rewrite or redirect. For example, a request
+                                to "/foo/bar" with a prefix match of "/foo" and a ReplacePrefixMatch
+                                of "/xyz" would be modified to "/xyz/bar".
+
+                                This matches the behavior of the PathPrefix match type. This
+                                matches full path elements. A path element refers to the list of labels
+                                in the path split by the `/` separator. When specified, a trailing `/` is
+                                ignored. For example, the paths `/abc`, `/abc/`, and `/abc/def` would all
+                                match the prefix `/abc`, but the path `/abcd` wouldn't.
+
+                                ReplacePrefixMatch is only compatible with a `PathPrefix` HTTPRouteMatch.
+                                Using any other HTTPRouteMatch type on the same HTTPRouteRule results in
+                                the implementation setting the Accepted Condition for the Route to `status: False`.
+
+                                Request Path | Prefix Match | Replace Prefix | Modified Path
+                                |------------|--------------|----------------|----------
+                                /foo/bar     | /foo         | /xyz           | /xyz/bar
+                                /foo/bar     | /foo         | /xyz/          | /xyz/bar
+                                /foo/bar     | /foo/        | /xyz           | /xyz/bar
+                                /foo/bar     | /foo/        | /xyz/          | /xyz/bar
+                                /foo         | /foo         | /xyz           | /xyz
+                                /foo/        | /foo         | /xyz           | /xyz/
+                                /foo/bar     | /foo         | <empty string> | /bar
+                                /foo/        | /foo         | <empty string> | /
+                                /foo         | /foo         | <empty string> | /
+                                /foo/        | /foo         | /              | /
+                                /foo         | /foo         | /              | /
+                              maxLength: 1024
+                              type: string
+                            type:
+                              description: |-
+                                Type defines the type of path modifier. More types may be
+                                added in a future release of the API.
+
+                                Values may be added to this enum, implementations
+                                must ensure unknown values won't cause a crash.
+
+                                Unknown values here must result in the implementation setting the
+                                Accepted Condition for the rule to be false
+                              enum:
+                              - ReplaceFullPath
+                              - ReplacePrefixMatch
+                              type: string
+                          required:
+                          - type
+                          type: object
+                        port:
+                          description: |-
+                            Port is the port to be used in the value of the `Location`
+                            header in the response.
+
+                            If no port is specified, the redirect port MUST be derived using the
+                            following rules:
+
+                            * If redirect scheme is not-empty, the redirect port MUST be the well-known
+                              port associated with the redirect scheme. Specifically "http" to port 80
+                              and "https" to port 443. If the redirect scheme doesn't have a
+                              well-known port, the listener port of the Gateway SHOULD be used.
+                            * If redirect scheme is empty, the redirect port MUST be the Gateway
+                              Listener port.
+
+                            Implementations SHOULD NOT add the port number in the 'Location'
+                            header in the following cases:
+
+                            * A Location header that uses HTTP (whether that is determined via
+                              the Listener protocol or the Scheme field) _and_ use port 80.
+                            * A Location header that uses HTTPS (whether that is determined via
+                              the Listener protocol or the Scheme field) _and_ use port 443.
+                          format: int32
+                          maximum: 65535
+                          minimum: 1
+                          type: integer
+                        scheme:
+                          description: |-
+                            Scheme is the scheme to be used in the value of the `Location` header in
+                            the response. When empty, the scheme of the request is used.
+                          enum:
+                          - http
+                          - https
+                          type: string
+                        statusCode:
+                          default: 302
+                          description: |-
+                            StatusCode is the HTTP status code to be used in response.
+
+                            Values may be added to this enum, implementations
+                            must ensure that unknown values won't cause a crash.
+                          enum:
+                          - 301
+                          - 302
+                          - 303
+                          - 307
+                          type: integer
+                      type: object
+                    rewrites:
+                      description: Rewrites defines the rewrites for the rule
+                      items:
+                        description: IngressRewrites provides the various rewrites
+                          supported on a rule
+                        properties:
+                          requestHeaderModifier:
+                            description: RequestHeaderModifier defines a schema that
+                              modifies request headers.
+                            properties:
+                              add:
+                                description: |-
+                                  Add adds the given header(s) (name, value) to the request
+                                  before the action. It appends to any existing values associated
+                                  with the header name.
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo
+
+                                  Config:
+                                    add:
+                                    - name: "my-header"
+                                      value: "bar,baz"
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo,bar,baz
+                                items:
+                                  description: HTTPHeader represents an HTTP Header
+                                    name and value as defined by RFC 7230.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name is the name of the HTTP Header to be matched. Name matching MUST be
+                                        case insensitive. (See https://tools.ietf.org/html/rfc7230#section-3.2).
+
+                                        If multiple entries specify equivalent header names, the first entry with
+                                        an equivalent name MUST be considered for a match. Subsequent entries
+                                        with an equivalent header name MUST be ignored. Due to the
+                                        case-insensitivity of header names, "foo" and "Foo" are considered
+                                        equivalent.
+                                      maxLength: 256
+                                      minLength: 1
+                                      pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                                      type: string
+                                    value:
+                                      description: Value is the value of HTTP Header
+                                        to be matched.
+                                      maxLength: 4096
+                                      minLength: 1
+                                      type: string
+                                  required:
+                                  - name
+                                  - value
+                                  type: object
+                                maxItems: 16
+                                type: array
+                                x-kubernetes-list-map-keys:
+                                - name
+                                x-kubernetes-list-type: map
+                              remove:
+                                description: |-
+                                  Remove the given header(s) from the HTTP request before the action. The
+                                  value of Remove is a list of HTTP header names. Header names
+                                  are case-insensitive (see
+                                  https://datatracker.ietf.org/doc/html/rfc2616#section-4.2).
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header1: foo
+                                    my-header2: bar
+                                    my-header3: baz
+
+                                  Config:
+                                    remove: ["my-header1", "my-header3"]
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header2: bar
+                                items:
+                                  type: string
+                                maxItems: 16
+                                type: array
+                              set:
+                                description: |-
+                                  Set overwrites the request with the given header (name, value)
+                                  before the action.
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo
+
+                                  Config:
+                                    set:
+                                    - name: "my-header"
+                                      value: "bar"
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header: bar
+                                items:
+                                  description: HTTPHeader represents an HTTP Header
+                                    name and value as defined by RFC 7230.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name is the name of the HTTP Header to be matched. Name matching MUST be
+                                        case insensitive. (See https://tools.ietf.org/html/rfc7230#section-3.2).
+
+                                        If multiple entries specify equivalent header names, the first entry with
+                                        an equivalent name MUST be considered for a match. Subsequent entries
+                                        with an equivalent header name MUST be ignored. Due to the
+                                        case-insensitivity of header names, "foo" and "Foo" are considered
+                                        equivalent.
+                                      maxLength: 256
+                                      minLength: 1
+                                      pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                                      type: string
+                                    value:
+                                      description: Value is the value of HTTP Header
+                                        to be matched.
+                                      maxLength: 4096
+                                      minLength: 1
+                                      type: string
+                                  required:
+                                  - name
+                                  - value
+                                  type: object
+                                maxItems: 16
+                                type: array
+                                x-kubernetes-list-map-keys:
+                                - name
+                                x-kubernetes-list-type: map
+                            type: object
+                          responseHeaderModifier:
+                            description: RequestHeaderModifier defines a schema that
+                              modifies response headers.
+                            properties:
+                              add:
+                                description: |-
+                                  Add adds the given header(s) (name, value) to the request
+                                  before the action. It appends to any existing values associated
+                                  with the header name.
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo
+
+                                  Config:
+                                    add:
+                                    - name: "my-header"
+                                      value: "bar,baz"
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo,bar,baz
+                                items:
+                                  description: HTTPHeader represents an HTTP Header
+                                    name and value as defined by RFC 7230.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name is the name of the HTTP Header to be matched. Name matching MUST be
+                                        case insensitive. (See https://tools.ietf.org/html/rfc7230#section-3.2).
+
+                                        If multiple entries specify equivalent header names, the first entry with
+                                        an equivalent name MUST be considered for a match. Subsequent entries
+                                        with an equivalent header name MUST be ignored. Due to the
+                                        case-insensitivity of header names, "foo" and "Foo" are considered
+                                        equivalent.
+                                      maxLength: 256
+                                      minLength: 1
+                                      pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                                      type: string
+                                    value:
+                                      description: Value is the value of HTTP Header
+                                        to be matched.
+                                      maxLength: 4096
+                                      minLength: 1
+                                      type: string
+                                  required:
+                                  - name
+                                  - value
+                                  type: object
+                                maxItems: 16
+                                type: array
+                                x-kubernetes-list-map-keys:
+                                - name
+                                x-kubernetes-list-type: map
+                              remove:
+                                description: |-
+                                  Remove the given header(s) from the HTTP request before the action. The
+                                  value of Remove is a list of HTTP header names. Header names
+                                  are case-insensitive (see
+                                  https://datatracker.ietf.org/doc/html/rfc2616#section-4.2).
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header1: foo
+                                    my-header2: bar
+                                    my-header3: baz
+
+                                  Config:
+                                    remove: ["my-header1", "my-header3"]
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header2: bar
+                                items:
+                                  type: string
+                                maxItems: 16
+                                type: array
+                              set:
+                                description: |-
+                                  Set overwrites the request with the given header (name, value)
+                                  before the action.
+
+                                  Input:
+                                    GET /foo HTTP/1.1
+                                    my-header: foo
+
+                                  Config:
+                                    set:
+                                    - name: "my-header"
+                                      value: "bar"
+
+                                  Output:
+                                    GET /foo HTTP/1.1
+                                    my-header: bar
+                                items:
+                                  description: HTTPHeader represents an HTTP Header
+                                    name and value as defined by RFC 7230.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name is the name of the HTTP Header to be matched. Name matching MUST be
+                                        case insensitive. (See https://tools.ietf.org/html/rfc7230#section-3.2).
+
+                                        If multiple entries specify equivalent header names, the first entry with
+                                        an equivalent name MUST be considered for a match. Subsequent entries
+                                        with an equivalent header name MUST be ignored. Due to the
+                                        case-insensitivity of header names, "foo" and "Foo" are considered
+                                        equivalent.
+                                      maxLength: 256
+                                      minLength: 1
+                                      pattern: ^[A-Za-z0-9!#$%&'*+\-.^_\x60|~]+$
+                                      type: string
+                                    value:
+                                      description: Value is the value of HTTP Header
+                                        to be matched.
+                                      maxLength: 4096
+                                      minLength: 1
+                                      type: string
+                                  required:
+                                  - name
+                                  - value
+                                  type: object
+                                maxItems: 16
+                                type: array
+                                x-kubernetes-list-map-keys:
+                                - name
+                                x-kubernetes-list-type: map
+                            type: object
+                          type:
+                            description: Type identifies the type of rewrite
+                            enum:
+                            - RequestHeaderModifier
+                            - ResponseHeaderModifier
+                            - URLRewrite
+                            type: string
+                          urlRewrite:
+                            description: URLRewrite defines a schema that modifies
+                              a request during forwarding.
+                            properties:
+                              hostname:
+                                description: |-
+                                  Hostname is the value to be used to replace the Host header value during
+                                  forwarding.
+                                maxLength: 253
+                                minLength: 1
+                                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                                type: string
+                              path:
+                                description: Path defines a path rewrite.
+                                properties:
+                                  replaceFullPath:
+                                    description: |-
+                                      ReplaceFullPath specifies the value with which to replace the full path
+                                      of a request during a rewrite or redirect.
+                                    maxLength: 1024
+                                    type: string
+                                  replacePrefixMatch:
+                                    description: |-
+                                      ReplacePrefixMatch specifies the value with which to replace the prefix
+                                      match of a request during a rewrite or redirect. For example, a request
+                                      to "/foo/bar" with a prefix match of "/foo" and a ReplacePrefixMatch
+                                      of "/xyz" would be modified to "/xyz/bar".
+
+                                      This matches the behavior of the PathPrefix match type. This
+                                      matches full path elements. A path element refers to the list of labels
+                                      in the path split by the `/` separator. When specified, a trailing `/` is
+                                      ignored. For example, the paths `/abc`, `/abc/`, and `/abc/def` would all
+                                      match the prefix `/abc`, but the path `/abcd` wouldn't.
+
+                                      ReplacePrefixMatch is only compatible with a `PathPrefix` HTTPRouteMatch.
+                                      Using any other HTTPRouteMatch type on the same HTTPRouteRule results in
+                                      the implementation setting the Accepted Condition for the Route to `status: False`.
+
+                                      Request Path | Prefix Match | Replace Prefix | Modified Path
+                                      |------------|--------------|----------------|----------
+                                      /foo/bar     | /foo         | /xyz           | /xyz/bar
+                                      /foo/bar     | /foo         | /xyz/          | /xyz/bar
+                                      /foo/bar     | /foo/        | /xyz           | /xyz/bar
+                                      /foo/bar     | /foo/        | /xyz/          | /xyz/bar
+                                      /foo         | /foo         | /xyz           | /xyz
+                                      /foo/        | /foo         | /xyz           | /xyz/
+                                      /foo/bar     | /foo         | <empty string> | /bar
+                                      /foo/        | /foo         | <empty string> | /
+                                      /foo         | /foo         | <empty string> | /
+                                      /foo/        | /foo         | /              | /
+                                      /foo         | /foo         | /              | /
+                                    maxLength: 1024
+                                    type: string
+                                  type:
+                                    description: |-
+                                      Type defines the type of path modifier. More types may be
+                                      added in a future release of the API.
+
+                                      Values may be added to this enum, implementations
+                                      must ensure unknown values won't cause a crash.
+
+                                      Unknown values here must result in the implementation setting the
+                                      Accepted Condition for the rule to be false
+                                    enum:
+                                    - ReplaceFullPath
+                                    - ReplacePrefixMatch
+                                    type: string
+                                required:
+                                - type
+                                type: object
+                            type: object
+                        required:
+                        - type
+                        type: object
+                      type: array
+                  required:
+                  - host
+                  type: object
+                type: array
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: IngressExtensionStatus describes the current state of the
+              IngressExtension
+            properties:
+              backendSettings:
+                description: BackendSettings has detailed status information regarding
+                  each BackendSettings
+                items:
+                  description: IngressBackendSettingStatus describes the state of
+                    a BackendSetting
+                  properties:
+                    service:
+                      description: Service identifies the BackendSetting this status
+                        describes
+                      type: string
+                    valid:
+                      description: Valid indicates that there are no validation errors
+                        present on this BackendSetting
+                      type: boolean
+                    validationErrors:
+                      description: Errors are a list of errors relating to this setting
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - service
+                  - valid
+                  type: object
+                type: array
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: ValidationErrors
+                description: |-
+                  Conditions describe the current conditions of the IngressExtension.
+                  Known condition types are:
+
+                  * "Accepted"
+                  * "Errors"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              rules:
+                description: Rules have detailed status information regarding each
+                  Rule
+                items:
+                  description: IngressRuleStatus describes the state of a rule
+                  properties:
+                    host:
+                      description: Host identifies the rule this status describes
+                      type: string
+                    valid:
+                      description: Valid indicates that there are no validation errors
+                        present on this rule
+                      type: boolean
+                    validationErrors:
+                      description: Errors are a list of errors relating to this setting
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - host
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: routepolicies.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: RoutePolicy
+    listKind: RoutePolicyList
+    plural: routepolicies
+    singular: routepolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: RoutePolicy is the schema for the RoutePolicy API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the RoutePolicy specification.
+            properties:
+              default:
+                description: Default defines default policy configuration for the
+                  targeted resource.
+                properties:
+                  sessionAffinity:
+                    description: SessionAffinity defines the schema for Session Affinity
+                      specification
+                    properties:
+                      affinityType:
+                        description: AffinityType defines the affinity type for the
+                          Service
+                        enum:
+                        - application-cookie
+                        - managed-cookie
+                        type: string
+                      cookieDuration:
+                        type: string
+                      cookieName:
+                        type: string
+                    required:
+                    - affinityType
+                    type: object
+                  timeouts:
+                    description: |-
+                      Custom Timeouts
+                      Timeout for the target resource.
+                    properties:
+                      routeTimeout:
+                        description: RouteTimeout is the timeout for the route.
+                        type: string
+                    type: object
+                type: object
+              override:
+                description: |-
+                  Override defines policy configuration that should override policy
+                  configuration attached below the targeted resource in the hierarchy.
+
+                  Note: Override is currently not supported and result in a validation error.
+                  Support for Override will be added in a future release.
+                properties:
+                  sessionAffinity:
+                    description: SessionAffinity defines the schema for Session Affinity
+                      specification
+                    properties:
+                      affinityType:
+                        description: AffinityType defines the affinity type for the
+                          Service
+                        enum:
+                        - application-cookie
+                        - managed-cookie
+                        type: string
+                      cookieDuration:
+                        type: string
+                      cookieName:
+                        type: string
+                    required:
+                    - affinityType
+                    type: object
+                  timeouts:
+                    description: |-
+                      Custom Timeouts
+                      Timeout for the target resource.
+                    properties:
+                      routeTimeout:
+                        description: RouteTimeout is the timeout for the route.
+                        type: string
+                    type: object
+                type: object
+              targetRef:
+                description: TargetRef identifies an API object to apply policy to.
+                properties:
+                  group:
+                    description: Group is the group of the target resource.
+                    maxLength: 253
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                    type: string
+                  kind:
+                    description: Kind is kind of the target resource.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                    type: string
+                  name:
+                    description: Name is the name of the target resource.
+                    maxLength: 253
+                    minLength: 1
+                    type: string
+                  namespace:
+                    description: |-
+                      Namespace is the namespace of the referent. When unspecified, the local
+                      namespace is inferred. Even when policy targets a resource in a different
+                      namespace, it MUST only apply to traffic originating from the same
+                      namespace as the policy.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    type: string
+                  sectionNames:
+                    description: |-
+                      SectionNames is the name of the section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionNames is interpreted as the following:
+
+                      * Gateway: Listener Name
+                      * Service: Port Name
+
+                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                      the Policy fails to attach, and the policy implementation will record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - group
+                - kind
+                - name
+                type: object
+            required:
+            - targetRef
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of RoutePolicy.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Conditions describe the current conditions of the RoutePolicy.
+
+                  Implementations should prefer to express RoutePolicy conditions
+                  using the `RoutePolicyConditionType` and `RoutePolicyConditionReason`
+                  constants so that operators and tools can converge on a common
+                  vocabulary to describe RoutePolicy state.
+
+                  Known condition types are:
+
+                  * "Accepted"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: ipaccessrulespolicy.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: IPAccessRulesPolicy
+    listKind: IPAccessRulesPolicyList
+    plural: ipaccessrulespolicy
+    singular: ipaccessrulespolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: IPAccessRulesPolicy is the schema for the Application Gateway
+          for Containers IP Access Rules.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the specifications for Application Gateway for Containers
+              IP Access Rules.
+            properties:
+              ipaccessrules:
+                description: IPAccessRules is used to specify an IP Access Rule
+                items:
+                  description: IPAccessRulesConfig defines the configuration for an
+                    IP Access Rule.
+                  properties:
+                    action:
+                      description: Action is the action to take for the specified
+                        IP Addresses.
+                      enum:
+                      - Allow
+                      - Deny
+                      type: string
+                    name:
+                      description: Name is the name of the IP Access Rule.
+                      type: string
+                    priority:
+                      description: Priority is the priority of the IP Access Rule.
+                      format: int32
+                      maximum: 200
+                      minimum: 1
+                      type: integer
+                    sourceAddressPrefixes:
+                      description: SourceAddressPrefixes is a list of IP address prefixes
+                        to match against.
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - action
+                  - name
+                  - priority
+                  - sourceAddressPrefixes
+                  type: object
+                type: array
+              targetRefs:
+                description: TargetRefs identifies a list of API objects to apply
+                  policy to.
+                items:
+                  description: |-
+                    NamespacedPolicyTargetReference identifies an API object to apply a direct or
+                    inherited policy to, potentially in a different namespace. This should only
+                    be used as part of Policy resources that need to be able to target resources
+                    in different namespaces. For more information on how this policy attachment
+                    model works, and a sample Policy resource, refer to the policy attachment
+                    documentation for Gateway API.
+                  properties:
+                    group:
+                      description: Group is the group of the target resource.
+                      maxLength: 253
+                      pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                      type: string
+                    kind:
+                      description: Kind is kind of the target resource.
+                      maxLength: 63
+                      minLength: 1
+                      pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                      type: string
+                    name:
+                      description: Name is the name of the target resource.
+                      maxLength: 253
+                      minLength: 1
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace is the namespace of the referent. When unspecified, the local
+                        namespace is inferred. Even when policy targets a resource in a different
+                        namespace, it MUST only apply to traffic originating from the same
+                        namespace as the policy.
+                      maxLength: 63
+                      minLength: 1
+                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                      type: string
+                  required:
+                  - group
+                  - kind
+                  - name
+                  type: object
+                type: array
+            required:
+            - targetRefs
+            type: object
+          status:
+            description: Status defines the current state of Application Gateway for
+              Containers IP Access Rules.
+            properties:
+              parentRefs:
+                description: ParentRefs is a list of statuses for each parent (target)
+                  reference that this policy applies to.
+                items:
+                  description: PolicyRefStatus defines the status of a single target
+                    reference for a policy that supports multiple target references.
+                  properties:
+                    conditions:
+                      default:
+                      - lastTransitionTime: "1970-01-01T00:00:00Z"
+                        message: Waiting for controller
+                        reason: Pending
+                        status: Unknown
+                        type: Accepted
+                      description: |-
+                        Conditions describe the current conditions of the Application Gateway for Containers IP Access Rules as they relate
+                        to a particular targetRef.
+                      items:
+                        description: Condition contains details for one aspect of
+                          the current state of this API Resource.
+                        properties:
+                          lastTransitionTime:
+                            description: |-
+                              lastTransitionTime is the last time the condition transitioned from one status to another.
+                              This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                            format: date-time
+                            type: string
+                          message:
+                            description: |-
+                              message is a human readable message indicating details about the transition.
+                              This may be an empty string.
+                            maxLength: 32768
+                            type: string
+                          observedGeneration:
+                            description: |-
+                              observedGeneration represents the .metadata.generation that the condition was set based upon.
+                              For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                              with respect to the current state of the instance.
+                            format: int64
+                            minimum: 0
+                            type: integer
+                          reason:
+                            description: |-
+                              reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                              Producers of specific condition types may define expected values and meanings for this field,
+                              and whether the values are considered a guaranteed API.
+                              The value should be a CamelCase string.
+                              This field may not be empty.
+                            maxLength: 1024
+                            minLength: 1
+                            pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                            type: string
+                          status:
+                            description: status of the condition, one of True, False,
+                              Unknown.
+                            enum:
+                            - "True"
+                            - "False"
+                            - Unknown
+                            type: string
+                          type:
+                            description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                            maxLength: 316
+                            pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                            type: string
+                        required:
+                        - lastTransitionTime
+                        - message
+                        - reason
+                        - status
+                        - type
+                        type: object
+                      maxItems: 8
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - type
+                      x-kubernetes-list-type: map
+                    targetRef:
+                      description: TargetRef is the reference to the target object
+                        that this policy applied to
+                      properties:
+                        group:
+                          description: Group is the group of the target resource.
+                          maxLength: 253
+                          pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                          type: string
+                        kind:
+                          description: Kind is kind of the target resource.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                          type: string
+                        name:
+                          description: Name is the name of the target resource.
+                          maxLength: 253
+                          minLength: 1
+                          type: string
+                        namespace:
+                          description: |-
+                            Namespace is the namespace of the referent. When unspecified, the local
+                            namespace is inferred. Even when policy targets a resource in a different
+                            namespace, it MUST only apply to traffic originating from the same
+                            namespace as the policy.
+                          maxLength: 63
+                          minLength: 1
+                          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                          type: string
+                        sectionNames:
+                          description: |-
+                            SectionNames is the name of the section within the target resource. When
+                            unspecified, this targetRef targets the entire resource. In the following
+                            resources, SectionNames is interpreted as the following:
+
+                            * Gateway: Listener Name
+                            * Service: Port Name
+
+                            If a SectionNames is specified, but doesn't exist on the targeted object,
+                            the Policy fails to attach, and the policy implementation will record
+                            a `ResolvedRefs` or similar Condition in the Policy's status.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - group
+                      - kind
+                      - name
+                      type: object
+                  required:
+                  - targetRef
+                  type: object
+                type: array
+            required:
+            - parentRefs
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.2
+  name: webapplicationfirewallpolicy.alb.networking.azure.io
+spec:
+  group: alb.networking.azure.io
+  names:
+    kind: WebApplicationFirewallPolicy
+    listKind: WebApplicationFirewallPolicyList
+    plural: webapplicationfirewallpolicy
+    shortNames:
+    - wafpolicy
+    singular: webapplicationfirewallpolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=="Deployment")].status
+      name: Deployment
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: WebApplicationFirewallPolicy is the schema for the Application
+          Gateway for Containers Security Policy child resource.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec is the specifications for Application Gateway for Containers
+              Security Policy child resource.
+            properties:
+              targetRef:
+                description: TargetRef identifies an API object to apply policy to.
+                properties:
+                  group:
+                    description: Group is the group of the target resource.
+                    maxLength: 253
+                    pattern: ^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                    type: string
+                  kind:
+                    description: Kind is kind of the target resource.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-zA-Z]([-a-zA-Z0-9]*[a-zA-Z0-9])?$
+                    type: string
+                  name:
+                    description: Name is the name of the target resource.
+                    maxLength: 253
+                    minLength: 1
+                    type: string
+                  namespace:
+                    description: |-
+                      Namespace is the namespace of the referent. When unspecified, the local
+                      namespace is inferred. Even when policy targets a resource in a different
+                      namespace, it MUST only apply to traffic originating from the same
+                      namespace as the policy.
+                    maxLength: 63
+                    minLength: 1
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    type: string
+                  sectionNames:
+                    description: |-
+                      SectionNames is the name of the section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionNames is interpreted as the following:
+
+                      * Gateway: Listener Name
+                      * Service: Port Name
+
+                      If a SectionNames is specified, but doesn't exist on the targeted object,
+                      the Policy fails to attach, and the policy implementation will record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - group
+                - kind
+                - name
+                type: object
+              webApplicationFirewall:
+                description: WebApplicationFirewallPolicy is used to specify a WebApplicationPolicy
+                  resource
+                properties:
+                  id:
+                    type: string
+                required:
+                - id
+                type: object
+            required:
+            - targetRef
+            type: object
+          status:
+            default:
+              conditions:
+              - lastTransitionTime: "1970-01-01T00:00:00Z"
+                message: Waiting for controller
+                reason: Pending
+                status: Unknown
+                type: Accepted
+            description: Status defines the current state of Application Gateway for
+              Containers Security Policy child resource.
+            properties:
+              conditions:
+                default:
+                - lastTransitionTime: "1970-01-01T00:00:00Z"
+                  message: Waiting for controller
+                  reason: Pending
+                  status: Unknown
+                  type: Accepted
+                description: |-
+                  Known condition types are:
+
+                  * "Accepted"
+                  * "Deployment"
+                  * "ResolvedRefs"
+                  * "Programmed"
+                items:
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                maxItems: 8
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
