@@ -2,9 +2,8 @@
 
 local config = import 'jsonnet/config.jsonnet';
 local versions = [
-  { version: '3.3.3', chartTag: 'v34.3.0' },
+  { version: '3.6.10', chartTag: 'v39.0.5' },
   { version: '2.11.2', chartTag: 'v27.0.2' },
-  { version: '2.10.6', chartTag: 'v26.0.0' },
 ];
 
 config.new(
