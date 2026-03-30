@@ -811,6 +811,46 @@
         "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
       "if": "steps.filter.outputs.workflows == 'true'"
       "run": "make libs/cluster-api-provider-aws"
+  "cluster-api-provider-tinkerbell":
+    "name": "Generate cluster-api-provider-tinkerbell Jsonnet library and docs"
+    "needs":
+    - "build"
+    - "repos"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@v4"
+    - "id": "filter"
+      "uses": "dorny/paths-filter@v3"
+      "with":
+        "filters": |
+          workflows:
+            - '.github/**'
+            - 'bin/**'
+            - 'Dockerfile'
+            - 'go.mod'
+            - 'go.sum'
+            - 'jsonnet/**'
+            - 'main.go'
+            - 'Makefile'
+            - 'pkg/**'
+            - 'scripts/**'
+            - 'tf/**'
+            - 'libs/cluster-api-provider-tinkerbell/**'
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "uses": "actions/download-artifact@v4"
+      "with":
+        "name": "docker-artifact"
+        "path": "artifacts"
+    - "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make load"
+    - "env":
+        "DIFF": "true"
+        "GEN_COMMIT": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
+        "GIT_COMMITTER_EMAIL": "86770550+jsonnet-libs-bot@users.noreply.github.com"
+        "GIT_COMMITTER_NAME": "jsonnet-libs-bot"
+        "SSH_KEY": "${{ secrets.DEPLOY_KEY }}"
+      "if": "steps.filter.outputs.workflows == 'true'"
+      "run": "make libs/cluster-api-provider-tinkerbell"
   "cnrm":
     "name": "Generate cnrm Jsonnet library and docs"
     "needs":
@@ -3158,6 +3198,7 @@
     - "cloudnative-pg-barman-cloud-plugin"
     - "cluster-api"
     - "cluster-api-provider-aws"
+    - "cluster-api-provider-tinkerbell"
     - "cnrm"
     - "composable"
     - "consul"
