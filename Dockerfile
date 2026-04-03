@@ -28,7 +28,7 @@ WORKDIR /app
 
 RUN apk add --no-cache bash curl git openssh diffutils
 
-COPY --from=mikefarah/yq:4.34.1 /usr/bin/yq /usr/local/bin/yq2
+COPY --from=docker.io/mikefarah/yq:4.34.1 /usr/bin/yq /usr/local/bin/yq2
 COPY --from=ghcr.io/jsonnet-libs/docsonnet:0.0.5 /usr/bin/docsonnet /usr/local/bin/
 COPY --from=builder /app/k8s-gen /usr/local/bin/
 COPY --from=jsonnet /go/bin/jsonnet /usr/local/bin/
