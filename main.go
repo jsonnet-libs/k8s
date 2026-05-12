@@ -203,9 +203,18 @@ func copyDirLibsonnet(dir, to string) ([]string, error) {
 			return nil, err
 		}
 
+		// Run patch/extension files through the same formatter as
+		// generated files so the resulting library is consistently
+		// formatted regardless of how the source happens to be checked
+		// in. See writeJsonnet for the parallel call.
+		formatted, err := formatter.Format(a, string(content), formatter.DefaultOptions())
+		if err != nil {
+			return nil, fmt.Errorf("formatting %s: %w", a, err)
+		}
+
 		a = filepath.Join(to, filepath.Base(a))
 		os.MkdirAll(filepath.Dir(a), os.ModePerm)
-		if err := os.WriteFile(a, content, 0644); err != nil {
+		if err := os.WriteFile(a, []byte(formatted), 0644); err != nil {
 			return nil, err
 		}
 	}
