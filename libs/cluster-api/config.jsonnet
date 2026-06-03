@@ -1,14 +1,20 @@
 local config = import 'jsonnet/config.jsonnet';
 
+local versions = [
+  'v1.0.2',
+  'v1.13.2',
+];
+
 config.new(
   name='cluster-api',
   specs=[
     {
-      output: 'v1.13.2',
+      output: version,
       openapi: 'http://localhost:8001/openapi/v2',
       prefix: '^io\\.x-k8s\\.cluster\\..*',
-      crds: ['https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.13.2/core-components.yaml'],
+      crds: ['https://github.com/kubernetes-sigs/cluster-api/releases/download/%(version)s/core-components.yaml' % { version: version}],
       localName: 'cluster-api',
     },
+    for version in versions
   ]
 )
