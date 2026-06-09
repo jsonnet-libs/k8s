@@ -5,6 +5,7 @@ local versions = [
   { output: '2.17', version: '2.17.3' },
   { output: '2.18', version: '2.18.3' },
   { output: '2.19', version: '2.19.0' },
+  { output: '2.20', version: '2.20.1' },
 ];
 
 config.new(
