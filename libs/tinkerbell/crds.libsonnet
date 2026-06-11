@@ -1,0 +1,9 @@
+[
+  'bmc.tinkerbell.org_jobs.yaml',
+  'bmc.tinkerbell.org_machines.yaml',
+  'bmc.tinkerbell.org_tasks.yaml',
+  'tinkerbell.org_hardware.yaml',
+  'tinkerbell.org_templates.yaml',
+  'tinkerbell.org_workflowrulesets.yaml',
+  'tinkerbell.org_workflows.yaml',
+]
