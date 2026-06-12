@@ -1,3 +1,5 @@
+RUNTIME ?= docker
+
 IMAGE_NAME ?= k8s-gen
 IMAGE_PREFIX ?= ghcr.io/jsonnet-libs
 IMAGE_TAG ?= 0.0.8
@@ -67,19 +69,19 @@ libs/*:
 		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
 
 build:
-	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
+	$(RUNTIME) build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
 
 save:
 	mkdir -p artifacts
-	docker save $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) > artifacts/docker-image.tar
+	$(RUNTIME) save $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) > artifacts/docker-image.tar
 
 load:
-	docker load < artifacts/docker-image.tar
+	$(RUNTIME) load < artifacts/docker-image.tar
 
 push: build push-image
 
 push-image:
-	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
-	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):latest
+	$(RUNTIME) push $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
+	$(RUNTIME) push $(IMAGE_PREFIX)/$(IMAGE_NAME):latest
 
 .PHONY: clean configure update_objectmeta debug run all libs/* build push push-image
