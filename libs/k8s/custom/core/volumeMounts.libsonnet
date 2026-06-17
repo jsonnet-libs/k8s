@@ -304,6 +304,43 @@ local d = import 'doc-util/main.libsonnet';
       if std.objectHas(super.spec, 'template')
       then super.spec.template.spec.withVolumesMixin(volumeMixins)
       else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
+
+    '#imageVolumeMount': d.fn(
+      |||
+        `imageVolumeMount` mounts a `image` on `path`.
+
+        If `containers` is specified as an array of container names it will only be mounted
+        to those containers, otherwise it will be mounted on all containers.
+
+        This helper function can be augmented with a `volumeMixin`. For example,
+        passing "k.core.v1.volume.image.withPullPolicy('Always')" will result in a
+        pull policy mixin.
+      |||
+      + volumeMountDescription,
+      [
+        d.arg('name', d.T.string),
+        d.arg('reference', d.T.string),
+        d.arg('path', d.T.string),
+        d.arg('volumeMountMixin', d.T.object),
+        d.arg('volumeMixin', d.T.object),
+        d.arg('containers', d.T.array),
+      ]
+    ),
+    imageVolumeMount(name, reference, path, volumeMountMixin={}, volumeMixin={}, containers=null, includeInitContainers=false)::
+      local addMount(c) = c + (
+        if containers == null || std.member(containers, c.name)
+        then container.withVolumeMountsMixin(
+          volumeMount.new(name, path) + volumeMountMixin,
+        )
+        else {}
+      );
+      local volumeMixins = [volume.fromImage(name, reference) + volumeMixin];
+
+      super.mapContainers(addMount, includeInitContainers=includeInitContainers) +
+      if std.objectHas(super.spec, 'template')
+      then super.spec.template.spec.withVolumesMixin(volumeMixins)
+      else super.spec.jobTemplate.spec.template.spec.withVolumesMixin(volumeMixins),
+
   },
 
   batch+: {
