@@ -250,7 +250,7 @@ local d = import 'doc-util/main.libsonnet';
             },
           },
 
-        '#fromImage': d.fn('Creates a new volume using a `image`', [
+        '#fromImage': d.fn('Creates a new volume using an `image`', [
           d.arg('name', d.T.string),
           d.arg('reference', d.T.string),
         ]),
