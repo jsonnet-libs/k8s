@@ -13,9 +13,9 @@ local
     };
 
 local versions = [
-  version('0.19', '0.19.2'),
-  version('1.0', '1.0.0'),
-  version('1.1', '1.1.1'),
+  version('0.20', '0.20.4'),
+  version('1.3', '1.3.2'),
+  version('2.5', '2.5.0'),
 ];
 
 config.new(
