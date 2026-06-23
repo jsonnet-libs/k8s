@@ -2,6 +2,17 @@ local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
   {
+    version: '2.8.8',
+    tags: {
+      source_controller: '1.8.5',
+      kustomize_controller: '1.8.5',
+      helm_controller: '1.5.5',
+      notification_controller: '1.8.4',
+      image_reflector_controller: '1.1.2',
+      image_automation_controller: '1.1.4',
+    },
+  },
+  {
     version: '2.6.4',
     tags: {
       source_controller: '1.6.2',
@@ -10,50 +21,6 @@ local versions = [
       notification_controller: '1.6.0',
       image_reflector_controller: '0.35.2',
       image_automation_controller: '0.41.2',
-    },
-  },
-  {
-    version: '2.6.3',
-    tags: {
-      source_controller: '1.6.2',
-      kustomize_controller: '1.6.0',
-      helm_controller: '1.3.0',
-      notification_controller: '1.6.0',
-      image_reflector_controller: '0.35.2',
-      image_automation_controller: '0.41.2',
-    },
-  },
-  {
-    version: '2.6.2',
-    tags: {
-      source_controller: '1.6.1',
-      kustomize_controller: '1.6.0',
-      helm_controller: '1.3.0',
-      notification_controller: '1.6.0',
-      image_reflector_controller: '0.35.2',
-      image_automation_controller: '0.41.1',
-    },
-  },
-  {
-    version: '2.6.1',
-    tags: {
-      source_controller: '1.6.0',
-      kustomize_controller: '1.6.0',
-      helm_controller: '1.3.0',
-      notification_controller: '1.6.0',
-      image_reflector_controller: '0.35.1',
-      image_automation_controller: '0.41.0',
-    },
-  },
-  {
-    version: '2.6.0',
-    tags: {
-      source_controller: '1.6.0',
-      kustomize_controller: '1.6.0',
-      helm_controller: '1.3.0',
-      notification_controller: '1.6.0',
-      image_reflector_controller: '0.35.0',
-      image_automation_controller: '0.41.0',
     },
   },
   {
