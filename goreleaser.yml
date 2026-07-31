@@ -44,7 +44,7 @@ snapshot:
   version_template: "{{ incpatch .Version }}-alpha"
 
 dockers_v2:
-  - id: k8s
+  - id: k8s-gen
     dockerfile: "Dockerfile"
     images:
       - "ghcr.io/{{ .Env.GHCR_REPO }}"
