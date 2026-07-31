@@ -64,9 +64,6 @@ dockers_v2:
     platforms:
       - linux/amd64
       - linux/arm64
-    sbom: false
-    flags:
-      - "--provenance=false"
 
 checksum:
   name_template: "{{ .ProjectName }}_checksums.txt"
