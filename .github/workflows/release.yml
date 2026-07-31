@@ -22,7 +22,7 @@ jobs:
         with:
           go-version-file: go.mod
       - name: Cache Go Modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/go-build
