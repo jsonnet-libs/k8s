@@ -9,7 +9,7 @@ jsonnet -c -m "${INPUT_DIR}" -J . -S "${INPUT_DIR}/config.jsonnet"
 
 CONFIG_FILE="${INPUT_DIR}/config.yml"
 
-REPO=$(yq2 e '.repository' - < "${CONFIG_FILE}")
+REPO=$(yq e '.repository' - < "${CONFIG_FILE}")
 
 OUTPUT_DIR="$2/${REPO}"
 
