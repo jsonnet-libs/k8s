@@ -3,10 +3,13 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { version: '1.27.0' },
+  { version: '1.30.0' },
+  { version: '1.29.2' },
+  { version: '1.28.4' },
+  { version: '1.27.4' },
   { version: '1.26.1' },
-  { version: '1.26.0' },
-  { version: '1.25.3' },
+  { version: '1.26.3' },
+  { version: '1.25.4' },
 ];
 
 config.new(
@@ -37,6 +40,14 @@ config.new(
           if (v.version >= '1.27.0')
           then [
             '%s/postgresql.cnpg.io_failoverquorums.yaml' % url,
+          ]
+          else []
+        )
+        + (
+          if (v.version >= '1.30.0')
+          then [
+            '%s/postgresql.cnpg.io_databaseroles.yaml' % url,
+
           ]
           else []
         ),
