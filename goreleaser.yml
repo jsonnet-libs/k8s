@@ -49,6 +49,7 @@ dockers_v2:
     images:
       - "ghcr.io/{{ .Env.OWNER }}/k8s-gen"
     extra_files:
+      - mise.toml
       - scripts
       - jsonnet
       - LICENSE
