@@ -47,7 +47,7 @@ dockers_v2:
   - id: k8s-gen
     dockerfile: "Dockerfile"
     images:
-      - "ghcr.io/{{ .Env.GHCR_REPO }}"
+      - "ghcr.io/{{ .Env.OWNER }}/k8s-gen"
     extra_files:
       - scripts
       - jsonnet
