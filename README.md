@@ -27,6 +27,16 @@ curl -sL https://github.com/jsonnet-libs/k8s/releases/latest/download/k8s-gen_li
 sudo mv k8s-gen /usr/local/bin/
 ```
 
+### Mise
+
+Update your mise.toml config
+```toml
+[tools]
+...
+"github:jsonnet-libs/k8s" = { version = "0.0.8", asset_pattern = "k8s-gen_darwin_arm64.tar.gz" }
+...
+```
+
 ### From source
 
 ```bash
