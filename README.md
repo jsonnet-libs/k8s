@@ -10,6 +10,39 @@ The CI job is set up to generate and update the content of a corresponding Githu
 repository for each library. The management of these repositories is done through
 Terraform.
 
+## Installation
+
+### Docker
+
+```bash
+docker pull ghcr.io/jsonnet-libs/k8s:<version>
+```
+
+### Binary release
+
+Download pre-built binaries from [GitHub Releases](https://github.com/jsonnet-libs/k8s/releases):
+
+```bash
+curl -sL https://github.com/jsonnet-libs/k8s/releases/latest/download/k8s-gen_linux_x86_64.tar.gz | tar xz
+sudo mv k8s-gen /usr/local/bin/
+```
+
+### Mise
+
+Update your mise.toml config
+```toml
+[tools]
+...
+"github:jsonnet-libs/k8s" = { version = "0.0.8", asset_pattern = "k8s-gen_darwin_arm64.tar.gz" }
+...
+```
+
+### From source
+
+```bash
+go install github.com/jsonnet-libs/k8s@latest
+```
+
 ## Usage
 
 ### Create or update a new lib

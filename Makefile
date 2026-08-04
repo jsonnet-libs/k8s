@@ -1,6 +1,4 @@
-IMAGE_NAME ?= k8s-gen
-IMAGE_PREFIX ?= ghcr.io/jsonnet-libs
-IMAGE_TAG ?= 0.0.8
+IMAGE ?= ghcr.io/jsonnet-libs/k8s-gen:0.0.1-alpha.8
 
 OUTPUT_DIR ?= ${PWD}/gen
 ABS_OUTPUT_DIR := $(shell realpath $(OUTPUT_DIR))
@@ -40,19 +38,19 @@ configure: clean .github/workflows/main.yml tf/main.tf.json
 update_objectmeta:
 	curl -sL "https://raw.githubusercontent.com/kubernetes/kubernetes/$(OBJECTMETA_VERSION)/api/openapi-spec/swagger.json" | jsonnet -o pkg/swagger/objectmeta.json jsonnet/objectmeta.jsonnet
 
-debug: build
+debug:
 	mkdir -p $(ABS_OUTPUT_DIR) && \
 	DEBUG=true ./bin/docker.sh \
 		-v $(shell realpath $@):/config \
 		-v $(ABS_OUTPUT_DIR):/output \
 		-e GEN_COMMIT="$(GEN_COMMIT)" \
 		-e SSH_KEY="$${SSH_KEY}" \
-		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
+		$(IMAGE)
 
-all: build libs/*
+all: libs/*
 
 libs/*:
-	mkdir -p $(ABS_OUTPUT_DIR) && \
+	mkdir -p $(OUTPUT_DIR) && \
 	./bin/docker.sh \
 		-v $(shell realpath $@):/config:z \
 		-v $(ABS_OUTPUT_DIR):/output:z \
@@ -64,22 +62,6 @@ libs/*:
 		-e GIT_COMMITTER_NAME="$(GIT_COMMITTER_NAME)" \
 		-e GIT_COMMITTER_EMAIL="$(GIT_COMMITTER_EMAIL)" \
 		-e SSH_KEY="$${SSH_KEY}" \
-		$(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) /config /output
+		$(IMAGE) /config /output
 
-build:
-	docker build -t $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) .
-
-save:
-	mkdir -p artifacts
-	docker save $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG) > artifacts/docker-image.tar
-
-load:
-	docker load < artifacts/docker-image.tar
-
-push: build push-image
-
-push-image:
-	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):$(IMAGE_TAG)
-	docker push $(IMAGE_PREFIX)/$(IMAGE_NAME):latest
-
-.PHONY: clean configure update_objectmeta debug run all libs/* build push push-image
+.PHONY: clean configure update_objectmeta debug run all libs/*

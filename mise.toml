@@ -1,0 +1,4 @@
+[tools]
+yq = '4.53.3'
+go-jsonnet = '0.22.0'
+"github:jsonnet-libs/docsonnet" = { version = "0.0.5", asset_pattern = "docsonnet_*_linux_amd64.tar.gz" }
