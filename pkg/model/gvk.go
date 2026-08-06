@@ -9,6 +9,9 @@ import (
 	"github.com/jsonnet-libs/k8s/pkg/swagger"
 )
 
+// Groups represents a list of group
+type Groups map[string]Group
+
 // Group represents a group, like "core" or "apps"
 type Group map[string]Version
 
@@ -16,7 +19,7 @@ type Group map[string]Version
 type IDs map[string]map[string]string
 
 // newGroups creates all Groups from the swagger definitions
-func newGroups(defs swagger.Definitions, ids IDs) map[string]Group {
+func newGroups(defs swagger.Definitions, ids IDs) Groups {
 	groups := make(map[string]Group)
 
 	for groupName, group := range ids {
@@ -173,7 +176,7 @@ func (mPtr *modifiers) UnmarshalJSON(data []byte) error {
 func newKind(d swagger.Schema, name string) Kind {
 	kind := Kind{
 		// Help text: description
-		Help: safeStr(d.Desc),
+		Help:  safeStr(d.Desc),
 		Scope: d.Scope,
 	}
 
