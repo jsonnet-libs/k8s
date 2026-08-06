@@ -2,7 +2,6 @@ package swagger
 
 import (
 	"io/ioutil"
-	"log/slog"
 	"net/http"
 	"net/url"
 
@@ -14,7 +13,6 @@ type Loader interface {
 }
 
 func Load(loader Loader, uri string) (Definitions, error) {
-	slog.SetLogLoggerLevel(slog.LevelDebug)
 	var data []byte
 	var err error
 	if isURL(uri) {
