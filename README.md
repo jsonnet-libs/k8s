@@ -45,7 +45,42 @@ go install github.com/jsonnet-libs/k8s@latest
 
 ## Usage
 
-### Create or update a new lib
+### Create a self-managed lib
+
+Create a directory, ideally name of the project, is a desired location. We will use cloudnative-pg as an example.
+
+```bash
+mkdir libs/cloudnative-pg
+```
+
+Setup a yaml file for that project.
+
+```yaml
+# libs/cloudnative-pg/config.yml
+specs:
+  - output: 1.27.0 # version of the project. 
+    crds: # list of crds for version 1.27.0. 
+      - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_backups.yaml
+      - ...
+    prefix: "^io\\.cnpg\\.postgresql\\..*" # must be double quotes
+    localName: cloudnative-pg # name of project
+  - output: 1.30.0 # version of the project. 
+    crds: # list of crds for version 1.27.0. 
+      - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_backups.yaml
+      - ...
+    prefix: "^io\\.cnpg\\.postgresql\\..*" # must be double quotes
+    localName: cloudnative-pg # name of project
+```
+
+After your installation of the cli, run the following command to generate the libs.
+
+```bash
+k8s-gen --config libs/cloudnative-pg/config.yml --output . # the output flag is respective of the directory of the config yaml file.
+```
+
+You will now see additonal libsonnet files in the given dir. Enjoy!
+
+### Create or update a new jsonnet-libs org managed lib
 
 Create a folder in `libs/`:
 

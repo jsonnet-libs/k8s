@@ -2,8 +2,11 @@ package swagger
 
 import (
 	"io/ioutil"
+	"log/slog"
 	"net/http"
-    "net/url"
+	"net/url"
+
+	"github.com/mdobak/go-xerrors"
 )
 
 type Loader interface {
@@ -11,23 +14,27 @@ type Loader interface {
 }
 
 func Load(loader Loader, uri string) (Definitions, error) {
+	slog.SetLogLoggerLevel(slog.LevelDebug)
 	var data []byte
 	var err error
-    if isURL(uri) {
-        r, err := http.Get(uri)
-        if err != nil {
-            return nil, err
-        }
+	if isURL(uri) {
+		r, err := http.Get(uri)
+		if err != nil {
+			return nil, xerrors.Newf("http request %s failed: %w ", uri, err)
+		}
+		if r.StatusCode == http.StatusNotFound {
+			return nil, xerrors.Newf("received 404 for %s", uri)
+		}
 		data, err = ioutil.ReadAll(r.Body)
 		if err != nil {
-			return nil, err
+			return nil, xerrors.Newf("unable to read http response %s: %w", uri, err)
 		}
-    } else {
+	} else {
 		data, err = ioutil.ReadFile(uri)
 		if err != nil {
-			return nil, err
+			return nil, xerrors.Newf("unable to read http response %s: %w", uri, err)
 		}
-    }
+	}
 	return loader.Load(data)
 }
 
