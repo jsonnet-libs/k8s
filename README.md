@@ -84,6 +84,21 @@ The generator will:
 2. Parse the Git tree to find CRD files in `crdPath`
 3. Generate specs for each version automatically
 
+**GitHub Token**: Set `GITHUB_TOKEN` environment variable to authenticate with GitHub. Without a token, you are limited to 60 requests/hour (unauthenticated rate limit). With a token, you get 5,000 requests/hour.
+
+If you have the [GitHub CLI](https://cli.github.com/) installed, you can use it to get a token:
+
+```bash
+GITHUB_TOKEN=$(gh auth token) k8s-gen --config libs/cloudnative-pg/config.json
+```
+
+Or export it for the session:
+
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+k8s-gen --config libs/cloudnative-pg/config.json
+```
+
 #### Approach 2: Manual Specs
 
 If you prefer to manually define versions and CRD URLs, omit `specGenerator` and populate `specs` directly:
