@@ -14,7 +14,7 @@ import (
 
 type DiskWriter struct{}
 
-func (w *DiskWriter) Render(dir string, groups model.Groups, spec config.Spec) error {
+func (w *DiskWriter) Render(dir string, groups model.Groups, spec config.Target, libName, description string) error {
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 		slog.Error("unable to create dir with permissions", slog.String("dir", dir), slog.String("perms", os.ModePerm.String()))
 		os.Exit(1)
@@ -22,7 +22,7 @@ func (w *DiskWriter) Render(dir string, groups model.Groups, spec config.Spec) e
 	slog.Debug("created dir", slog.String("dir", dir))
 
 	// gen.libsonnet
-	index := render.Index(groups, spec.LocalName, spec.Repository, spec.Output, spec.Description)
+	index := render.Index(groups, libName, "", spec.Output, description)
 	indexFile := filepath.Join(dir, render.IndexFile)
 	if err := w.writeJsonnet(indexFile, index.String()); err != nil {
 		slog.Error("failed to write gen.libsonnet", slog.Any("err", err), slog.String("file", indexFile))

@@ -3,26 +3,51 @@ package config
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 
+	"github.com/creasty/defaults"
+	"github.com/go-playground/validator/v10"
 	"github.com/mdobak/go-xerrors"
 )
 
-// Spec defines an API subset to generate
-type Spec struct {
-	Output       string   `json:"output"`
-	Crds         []string `json:"crds"`
-	Openapi      string   `json:"openapi"`
-	Prefix       string   `json:"prefix"`
+// Target defines an API subset to generate
+type Target struct {
+	Output       string   `json:"output" validate:"required"`
+	Crds         []string `json:"crds" validate:"required_without=Openapi,min=1,excluded_with=Openapi"`
+	Openapi      string   `json:"openapi" validate:"required_without=Crds,excluded_with=Crds"`
 	PatchDir     string   `json:"patchDir"`
 	ExtensionDir string   `json:"extensionDir"`
-	LocalName    string   `json:"localName"`
-	Repository   string   `json:"repository"`
-	Description  string   `json:"description"`
+}
+
+// TargetGenerator defines repo info needed to generate targets
+type TargetGenerator struct {
+	Type            string `json:"type" validate:"required,oneof=github"`
+	Repo            string `json:"repo" validate:"required,uri"`
+	CrdPath         string `json:"crdPath" validate:"required"`
+	Prefix          string `json:"prefix" validate:"required"`
+	VersionLimit    int    `json:"versionLimit" default:"10" validate:"min=1"`
+	IncludeVersions string `json:"includeVersions" default:"^v?\\d+\\.\\d+\\.\\d+$"`
+	ExcludeVersions string `json:"excludeVersions"`
 }
 
 // Config holds settings for this generator
 type Config struct {
-	Specs []Spec `json:"specs"`
+	LibName       string          `json:"libName" validate:"required"`
+	Description   string          `json:"description"`
+	OutputDir     string          `json:"outputDir" default:"."`
+	Specs         []Target        `json:"specs" validate:"omitempty,dive"`
+	SpecGenerator TargetGenerator `json:"specGenerator" validate:"omitempty"`
+}
+
+func Validate(c *Config) error {
+	validate := validator.New(validator.WithRequiredStructEnabled())
+
+	err := validate.Struct(c)
+	if err != nil {
+		return xerrors.New("invalid config", err)
+	}
+
+	return nil
 }
 
 func Load(file string) (*Config, error) {
@@ -35,6 +60,14 @@ func Load(file string) (*Config, error) {
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return nil, xerrors.New("failed to unmarshal", err)
 	}
+
+	// apply defaults
+	if err := defaults.Set(&cfg); err != nil {
+		return nil, xerrors.New("failed to apply defaults", err)
+	}
+
+	// resolve output dir relative to config file's directory
+	cfg.OutputDir = filepath.Join(filepath.Dir(file), cfg.OutputDir)
 
 	return &cfg, nil
 }

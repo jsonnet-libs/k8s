@@ -47,38 +47,93 @@ go install github.com/jsonnet-libs/k8s@latest
 
 ### Create a self-managed lib
 
-Create a directory, ideally name of the project, is a desired location. We will use cloudnative-pg as an example.
+Create a directory, ideally named after the project:
 
 ```bash
 mkdir libs/cloudnative-pg
 ```
 
-Setup a yaml file for that project.
+#### Approach 1: Auto-Discovery (Recommended)
 
-```yaml
-# libs/cloudnative-pg/config.yml
-specs:
-  - output: 1.27.0 # version of the project. 
-    crds: # list of crds for version 1.27.0. 
-      - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_backups.yaml
-      - ...
-    prefix: "^io\\.cnpg\\.postgresql\\..*" # must be double quotes
-    localName: cloudnative-pg # name of project
-  - output: 1.30.0 # version of the project. 
-    crds: # list of crds for version 1.27.0. 
-      - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_backups.yaml
-      - ...
-    prefix: "^io\\.cnpg\\.postgresql\\..*" # must be double quotes
-    localName: cloudnative-pg # name of project
+Create a `config.json` with `specGenerator` to auto-discover CRDs from GitHub:
+
+```json
+{
+  "libName": "cloudnative-pg",
+  "description": "Generated Jsonnet library for CloudNativePG",
+  "specGenerator": {
+    "type": "github",
+    "repo": "https://github.com/cloudnative-pg/cloudnative-pg",
+    "crdPath": "config/crd/bases",
+    "prefix": "^io\\.cnpg\\.postgresql\\..*"
+  },
+  "specs": []
+}
 ```
 
-After your installation of the cli, run the following command to generate the libs.
+Then run:
 
 ```bash
-k8s-gen --config libs/cloudnative-pg/config.yml --output . # the output flag is respective of the directory of the config yaml file.
+k8s-gen --config libs/cloudnative-pg/config.json
 ```
 
-You will now see additonal libsonnet files in the given dir. Enjoy!
+Note: Output defaults to the config file's directory. Set `outputDir` in config to change this (relative to config file).
+
+The generator will:
+1. Fetch tags from the GitHub repo
+2. Parse the Git tree to find CRD files in `crdPath`
+3. Generate specs for each version automatically
+
+**GitHub Token**: Set `GITHUB_TOKEN` environment variable to authenticate with GitHub. Without a token, you are limited to 60 requests/hour (unauthenticated rate limit). With a token, you get 5,000 requests/hour.
+
+If you have the [GitHub CLI](https://cli.github.com/) installed, you can use it to get a token:
+
+```bash
+GITHUB_TOKEN=$(gh auth token) k8s-gen --config libs/cloudnative-pg/config.json
+```
+
+Or export it for the session:
+
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+k8s-gen --config libs/cloudnative-pg/config.json
+```
+
+#### Approach 2: Manual Specs
+
+If you prefer to manually define versions and CRD URLs, omit `specGenerator` and populate `specs` directly:
+
+```json
+{
+  "libName": "cloudnative-pg",
+  "description": "Generated Jsonnet library for CloudNativePG",
+  "specs": [
+    {
+      "output": "1.27.0",
+      "crds": [
+        "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_backups.yaml",
+        "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.27.0/config/crd/bases/postgresql.cnpg.io_clusters.yaml"
+      ]
+    },
+    {
+      "output": "1.30.0",
+      "crds": [
+        "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.30.0/config/crd/bases/postgresql.cnpg.io_backups.yaml",
+        "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.30.0/config/crd/bases/postgresql.cnpg.io_clusters.yaml"
+      ]
+    }
+  ]
+}
+```
+
+Note: When using manual specs, `prefix` is not needed since you're specifying exact CRD URLs.
+
+| Feature | Auto-Discovery | Manual |
+|---------|---------------|--------|
+| `specGenerator` | Required | Omitted |
+| `specs` | Empty `[]` | Populated with versions/CRDs |
+| `prefix` | At `specGenerator` level | Not needed |
+| Maintenance | Automatic on new releases | Manual updates required |
 
 ### Create or update a new jsonnet-libs org managed lib
 
