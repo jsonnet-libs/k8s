@@ -6,5 +6,5 @@ import (
 )
 
 type Writer interface {
-	Render(dir string, group model.Groups, spec config.Spec) error
+	Render(dir string, group model.Groups, spec config.Target) error
 }
