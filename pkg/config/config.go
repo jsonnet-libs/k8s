@@ -21,13 +21,16 @@ type Target struct {
 
 // TargetGenerator defines repo info needed to generate targets
 type TargetGenerator struct {
-	Type            string `json:"type" validate:"required,oneof=github"`
-	Repo            string `json:"repo" validate:"required,uri"`
-	CrdPath         string `json:"crdPath" validate:"required"`
-	Prefix          string `json:"prefix" validate:"required"`
-	VersionLimit    int    `json:"versionLimit" default:"10" validate:"min=1"`
-	IncludeVersions string `json:"includeVersions" default:"^v?\\d+\\.\\d+\\.\\d+$"`
-	ExcludeVersions string `json:"excludeVersions"`
+	Type            string   `json:"type" validate:"required,oneof=github"`
+	Repo            string   `json:"repo" validate:"required,uri"`
+	CrdPath         string   `json:"crdPath" validate:"required"`
+	Prefix          string   `json:"prefix" validate:"required"`
+	VersionLimit    *int     `json:"versionLimit" validate:"omitempty,min=1,excluded_with=Versions"`
+	IncludeVersions string   `json:"includeVersions" default:"^v?\\d+\\.\\d+\\.\\d+$"`
+	ExcludeVersions string   `json:"excludeVersions"`
+	DedupeCrds      *bool    `json:"dedupeCrds" default:"true"`
+	Versions        []string `json:"versions" validate:"excluded_with=VersionLimit"`
+	VersionPrefix   *string  `json:"versionPrefix" default:"v"`
 }
 
 // Config holds settings for this generator

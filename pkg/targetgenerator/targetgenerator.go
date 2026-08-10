@@ -18,12 +18,20 @@ type TargetGenerator interface {
 func New(cfg config.TargetGenerator) (TargetGenerator, error) {
 	switch TargetGeneratorType(cfg.Type) {
 	case GithubType:
+		limit := 0
+		if cfg.VersionLimit != nil {
+			limit = *cfg.VersionLimit
+		}
+
 		return NewGithubTargetGenerator(GithubTargetGeneratorOptions{
 			Repo:            cfg.Repo,
 			CrdPath:         cfg.CrdPath,
 			Prefix:          cfg.Prefix,
 			IncludeVersions: cfg.IncludeVersions,
-			VersionLimit:    cfg.VersionLimit,
+			VersionLimit:    limit,
+			DedupeCrds:      cfg.DedupeCrds,
+			Versions:        cfg.Versions,
+			VersionPrefix:   cfg.VersionPrefix,
 		}), nil
 	default:
 		return nil, xerrors.Newf("unknown target generator type: %s", cfg.Type)
