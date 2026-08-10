@@ -65,7 +65,8 @@ Create a `config.json` with `specGenerator` to auto-discover CRDs from GitHub:
     "type": "github",
     "repo": "https://github.com/cloudnative-pg/cloudnative-pg",
     "crdPath": "config/crd/bases",
-    "prefix": "^io\\.cnpg\\.postgresql\\..*"
+    "prefix": "^io\\.cnpg\\.postgresql\\..*",
+    "dedupeCrds": true
   },
   "specs": []
 }
@@ -82,7 +83,29 @@ Note: Output defaults to the config file's directory. Set `outputDir` in config 
 The generator will:
 1. Fetch tags from the GitHub repo
 2. Parse the Git tree to find CRD files in `crdPath`
-3. Generate specs for each version automatically
+3. Skip consecutive versions whose CRD files are identical to the previous kept version
+4. Generate specs for each remaining version automatically
+
+By default, auto-discovery skips duplicate CRD versions (`dedupeCrds: true`). Set `dedupeCrds: false` in `specGenerator` to generate a library for every version.
+
+Alternatively, pin the exact versions to generate by adding a `versions` list to `specGenerator`. `versions` and `versionLimit` are mutually exclusive; when `versions` is provided, tag discovery is skipped and `dedupeCrds` is ignored. A target is generated for every version in the list.
+
+The `versionPrefix` field (default `"v"`) is prepended to each version in `versions` when resolving the GitHub ref/tag. Use `"versionPrefix": ""` if your versions already include the prefix (e.g. `v1.27.0`).
+
+```json
+{
+  "libName": "cloudnative-pg",
+  "description": "Generated Jsonnet library for CloudNativePG",
+  "specGenerator": {
+    "type": "github",
+    "repo": "https://github.com/cloudnative-pg/cloudnative-pg",
+    "crdPath": "config/crd/bases",
+    "prefix": "^io\\.cnpg\\.postgresql\\..*",
+    "versions": ["1.27.0", "1.30.0"]
+  },
+  "specs": []
+}
+```
 
 **GitHub Token**: Set `GITHUB_TOKEN` environment variable to authenticate with GitHub. Without a token, you are limited to 60 requests/hour (unauthenticated rate limit). With a token, you get 5,000 requests/hour.
 
@@ -133,6 +156,10 @@ Note: When using manual specs, `prefix` is not needed since you're specifying ex
 | `specGenerator` | Required | Omitted |
 | `specs` | Empty `[]` | Populated with versions/CRDs |
 | `prefix` | At `specGenerator` level | Not needed |
+| `versionLimit` | Default `10` (mutually exclusive with `versions`) | Not applicable |
+| `versions` | Optional exact list of clean versions (without prefix) | Not applicable |
+| `versionPrefix` | Default `"v"` (prepended to `versions` for the Git ref) | Not applicable |
+| `dedupeCrds` | Default `true` (skips duplicate CRD versions; ignored when `versions` is set) | Not applicable |
 | Maintenance | Automatic on new releases | Manual updates required |
 
 ### Create or update a new jsonnet-libs org managed lib
