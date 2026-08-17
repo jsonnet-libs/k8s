@@ -16,6 +16,12 @@ func String(name, value string) StringType {
 	return StringType{named: named(name), value: value}
 }
 
+// SafeString returns a StringType whose identifier is safe for use as a Jsonnet
+// parameter name. Reserved keywords are renamed by appending an underscore.
+func SafeString(name, value string) StringType {
+	return StringType{named: named(SafeIdentifier(name)), value: value}
+}
+
 func (s StringType) String() string {
 	data, err := json.Marshal(s.value)
 	if err != nil {

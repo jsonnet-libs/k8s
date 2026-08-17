@@ -151,5 +151,7 @@ func NewRootCommand() *cli.Command {
 		return nil
 	}
 
+	cmd.Commands = append(cmd.Commands, newGenerateCommand())
+
 	return cmd
 }

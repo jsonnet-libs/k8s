@@ -187,6 +187,79 @@ Or run the binary directly:
 $ k8s-gen --config libs/<name>/config.json
 ```
 
+### Generate Jsonnet from JSON Schema
+
+You can also generate a Jsonnet library directly from a JSON Schema file. This is useful for configuration files such as `.golangci.yml`, `package.json`, or any other schema-backed document.
+
+Create a small JSON Schema. For example, `config.schema.json`:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Config",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    }
+  }
+}
+```
+
+Run the generator:
+
+```bash
+$ k8s-gen generate jsonschema \
+  --schema ./config.schema.json \
+  --library-name config \
+  --output ./config.libsonnet
+```
+
+The generated `config.libsonnet` looks like:
+
+```jsonnet
+{
+  withName(name): {
+    name: name,
+  },
+  withEnabled(enabled): {
+    enabled: enabled,
+  },
+}
+```
+
+Nested objects produce nested functions and additive objects (`+:`), so you can compose configuration pieces:
+
+```jsonnet
+// example from a schema with nested properties
+{
+  server: {
+    withPort(port): {
+      server+: {
+        port: port,
+      },
+    },
+  },
+}
+```
+
+#### Flags
+
+| Flag | Required | Description |
+|------|----------|-------------|
+| `--schema` | Yes | Path or URL to the JSON Schema file. |
+| `--library-name` | Yes | Name of the generated library. |
+| `--output` | No | Output file path. If omitted, prints to stdout. |
+
+#### Limitations
+
+- Array properties are not yet supported.
+- Schema composition with `anyOf`, `oneOf`, or external `$ref` is limited.
+- Empty object properties (`{}`) may appear when the schema declares an object but provides no properties.
+
 
 ## Customizing
 
