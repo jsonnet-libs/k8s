@@ -1,10 +1,8 @@
 package util
 
-import "github.com/urfave/cli/v3"
-
-func HasStr(arguments []cli.Argument, arg string) bool {
+func HasStr(arguments []string, arg string) bool {
 	for _, argument := range arguments {
-		if argument.Get().(string) == arg {
+		if argument == arg {
 			return true
 		}
 	}

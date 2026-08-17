@@ -45,13 +45,10 @@ snapshot:
 
 dockers_v2:
   - id: k8s-gen
-    dockerfile: "Dockerfile"
+    dockerfile: "Containerfile"
     images:
       - "ghcr.io/{{ .Env.OWNER }}/k8s-gen"
     extra_files:
-      - mise.toml
-      - scripts
-      - jsonnet
       - LICENSE
     labels:
       "org.opencontainers.image.description": "k8s-gen"

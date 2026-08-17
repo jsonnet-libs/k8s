@@ -13,10 +13,11 @@ import (
 // Target defines an API subset to generate
 type Target struct {
 	Output       string   `json:"output" validate:"required"`
-	Crds         []string `json:"crds" validate:"required_without=Openapi,min=1,excluded_with=Openapi"`
+	Crds         []string `json:"crds" validate:"required_without=Openapi,excluded_with=Openapi"`
 	Openapi      string   `json:"openapi" validate:"required_without=Crds,excluded_with=Crds"`
 	PatchDir     string   `json:"patchDir"`
 	ExtensionDir string   `json:"extensionDir"`
+	Prefix       string   `json:"prefix"`
 }
 
 // TargetGenerator defines repo info needed to generate targets
@@ -35,11 +36,11 @@ type TargetGenerator struct {
 
 // Config holds settings for this generator
 type Config struct {
-	LibName       string          `json:"libName" validate:"required"`
-	Description   string          `json:"description"`
-	OutputDir     string          `json:"outputDir" default:"."`
-	Specs         []Target        `json:"specs" validate:"omitempty,dive"`
-	SpecGenerator TargetGenerator `json:"specGenerator" validate:"omitempty"`
+	LibName       string           `json:"libName" validate:"required"`
+	Description   string           `json:"description"`
+	OutputDir     string           `json:"outputDir" default:"."`
+	Specs         []Target         `json:"specs" validate:"omitempty,dive"`
+	SpecGenerator *TargetGenerator `json:"specGenerator" validate:"omitempty"`
 }
 
 func Validate(c *Config) error {

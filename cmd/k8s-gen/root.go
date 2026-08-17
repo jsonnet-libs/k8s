@@ -55,7 +55,16 @@ func NewRootCommand() *cli.Command {
 	cmd.Action = func(ctx context.Context, c *cli.Command) error {
 		// parse config
 		configFile := c.String("config")
-		cfg, err := config.Load(configFile)
+		absConfigFile, err := filepath.Abs(configFile)
+		if err != nil {
+			panic(err)
+		}
+		configDir := filepath.Dir(absConfigFile)
+		if err := os.Chdir(configDir); err != nil {
+			panic(err)
+		}
+
+		cfg, err := config.Load(absConfigFile)
 		if err != nil {
 			panic(err)
 		}
@@ -66,8 +75,8 @@ func NewRootCommand() *cli.Command {
 		slog.Debug("loaded config file", slog.String("file", configFile))
 
 		// generate targets from specGenerator
-		if cfg.SpecGenerator.Repo != "" {
-			tg, err := targetgenerator.New(cfg.SpecGenerator)
+		if cfg.SpecGenerator != nil {
+			tg, err := targetgenerator.New(*cfg.SpecGenerator)
 			if err != nil {
 				return xerrors.New("failed to create target generator", err)
 			}
@@ -80,15 +89,24 @@ func NewRootCommand() *cli.Command {
 		}
 
 		// inform user of filtering
-		if len(c.Arguments) > 0 {
-			slog.Info("filtering generation to listed versions", slog.Any("versions", c.Arguments[0]))
+		args := c.Args().Slice()
+		if len(args) > 0 {
+			slog.Info("filtering generation to listed versions", slog.Any("versions", args))
 		}
 
 		// generate all target in config
 		for _, t := range cfg.Specs {
-			if len(c.Arguments) > 0 && !util.HasStr(c.Arguments, t.Output) {
+			if len(args) > 0 && !util.HasStr(args, t.Output) {
 				slog.Debug("skipping version", slog.String("version", t.Output))
 				continue
+			}
+
+			prefix := ""
+			if cfg.SpecGenerator != nil {
+				prefix = cfg.SpecGenerator.Prefix
+			}
+			if t.Prefix != "" {
+				prefix = t.Prefix
 			}
 
 			swaggerDefs := make(swagger.Definitions)
@@ -97,7 +115,7 @@ func NewRootCommand() *cli.Command {
 					slog.Info("generating spec",
 						slog.String("version", t.Output),
 						slog.String("spec", url),
-						slog.String("prefix", cfg.SpecGenerator.Prefix),
+						slog.String("prefix", prefix),
 					)
 
 					loadedDefs, err := swagger.Load(&swagger.CRDLoader{}, url)
@@ -110,7 +128,7 @@ func NewRootCommand() *cli.Command {
 				slog.Info("generating spec",
 					slog.String("version", t.Output),
 					slog.String("spec", t.Openapi),
-					slog.String("prefix", cfg.SpecGenerator.Prefix),
+					slog.String("prefix", prefix),
 				)
 
 				loadedDefs, err := swagger.Load(&swagger.SwaggerLoader{}, t.Openapi)
@@ -120,7 +138,7 @@ func NewRootCommand() *cli.Command {
 				swaggerDefs = loadedDefs
 			}
 
-			groups := model.Load(&swaggerDefs, cfg.SpecGenerator.Prefix)
+			groups := model.Load(&swaggerDefs, prefix)
 			path := filepath.Join(cfg.OutputDir, t.Output)
 
 			// write libsonnet files to disk
