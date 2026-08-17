@@ -1,2 +1,5 @@
 # goreleaser artifacts
 dist/
+
+libs/*/*
+!libs/*/config.json
