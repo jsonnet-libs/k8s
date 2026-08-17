@@ -1,0 +1,70 @@
+{
+  "libName": "calico",
+  "description": "calico jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.28.1",
+      "prefix": "^org\\.projectcalico\\.crd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_bgpconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_bgpfilters.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_bgppeers.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_blockaffinities.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_caliconodestatuses.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_clusterinformations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_felixconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_globalnetworkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_globalnetworksets.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_hostendpoints.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_ipamblocks.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_ipamconfigs.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_ipamhandles.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_ipreservations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_kubecontrollersconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_networkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/libcalico-go/config/crd/crd.projectcalico.org_networksets.yaml"
+      ]
+    },
+    {
+      "output": "3.24.1",
+      "prefix": "^org\\.projectcalico\\.crd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_bgpconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_bgppeers.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_blockaffinities.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_clusterinformations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_felixconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_globalnetworkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_globalnetworksets.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_hostendpoints.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_ipamblocks.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_ipamconfigs.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_ipamhandles.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_kubecontrollersconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_networkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/libcalico-go/config/crd/crd.projectcalico.org_networksets.yaml"
+      ]
+    },
+    {
+      "output": "3.25.0",
+      "prefix": "^org\\.projectcalico\\.crd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_bgpconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_bgppeers.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_blockaffinities.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_clusterinformations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_felixconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_globalnetworkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_globalnetworksets.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_hostendpoints.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_ipamblocks.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_ipamconfigs.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_ipamhandles.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_kubecontrollersconfigurations.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_networkpolicies.yaml",
+        "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/libcalico-go/config/crd/crd.projectcalico.org_networksets.yaml"
+      ]
+    }
+  ]
+}

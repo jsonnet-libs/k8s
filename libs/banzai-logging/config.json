@@ -1,0 +1,17 @@
+{
+  "libName": "banzai-logging",
+  "description": "banzai-logging jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.17.10",
+      "prefix": "^io\\.banzaicloud\\.logging\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/banzaicloud/logging-operator/chart/logging-operator-logging/3.17.10/charts/logging-operator/crds/logging.banzaicloud.io_flows.yaml",
+        "https://raw.githubusercontent.com/banzaicloud/logging-operator/chart/logging-operator-logging/3.17.10/charts/logging-operator/crds/logging.banzaicloud.io_clusterflows.yaml",
+        "https://raw.githubusercontent.com/banzaicloud/logging-operator/chart/logging-operator-logging/3.17.10/charts/logging-operator/crds/logging.banzaicloud.io_clusteroutputs.yaml",
+        "https://raw.githubusercontent.com/banzaicloud/logging-operator/chart/logging-operator-logging/3.17.10/charts/logging-operator/crds/logging.banzaicloud.io_outputs.yaml"
+      ]
+    }
+  ]
+}

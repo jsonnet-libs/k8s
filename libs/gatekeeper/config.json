@@ -1,0 +1,24 @@
+{
+  "libName": "gatekeeper",
+  "description": "gatekeeper jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.12.0",
+      "prefix": "^sh\\.gatekeeper\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/assign-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/assignimage-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/assignmetadata-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/config-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/constraintpodstatus-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/constrainttemplate-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/constrainttemplatepodstatus-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/expansiontemplate-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/modifyset-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/mutatorpodstatus-customresourcedefinition.yaml",
+        "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.12.0/charts/gatekeeper/crds/provider-customresourcedefinition.yaml"
+      ]
+    }
+  ]
+}

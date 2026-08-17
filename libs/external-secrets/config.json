@@ -1,0 +1,28 @@
+{
+  "libName": "external-secrets",
+  "description": "external-secrets jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.19.2",
+      "prefix": "^io\\.external-secrets\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/external-secrets/external-secrets/v0.19.2/deploy/crds/bundle.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0",
+      "prefix": "^io\\.external-secrets\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/external-secrets/external-secrets/v1.0.0/deploy/crds/bundle.yaml"
+      ]
+    },
+    {
+      "output": "1.1.1",
+      "prefix": "^io\\.external-secrets\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/external-secrets/external-secrets/v1.1.1/deploy/crds/bundle.yaml"
+      ]
+    }
+  ]
+}

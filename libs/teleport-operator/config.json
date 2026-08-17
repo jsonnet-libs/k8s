@@ -1,0 +1,107 @@
+{
+  "libName": "teleport-operator",
+  "description": "teleport-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "12.2.2",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v12.2.2/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "13.0.4",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.0.4/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "13.1.5",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.1.5/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "13.2.3",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oktaimportrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v13.2.3/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "14.1.1",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oktaimportrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v14.1.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "15.0.1",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_accesslists.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_oktaimportrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_rolesv6.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_rolesv7.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v15.0.1/examples/chart/teleport-cluster/charts/teleport-operator/templates/resources.teleport.dev_users.yaml"
+      ]
+    },
+    {
+      "output": "16.4.8",
+      "prefix": "^dev\\.teleport\\.resources\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_accesslists.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_githubconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_loginrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_oidcconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_oktaimportrules.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_provisiontokens.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_roles.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_rolesv6.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_rolesv7.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_samlconnectors.yaml",
+        "https://raw.githubusercontent.com/gravitational/teleport/refs/tags/v16.4.8/examples/chart/teleport-cluster/charts/teleport-operator/operator-crds/resources.teleport.dev_users.yaml"
+      ]
+    }
+  ]
+}

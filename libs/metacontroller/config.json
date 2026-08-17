@@ -1,0 +1,14 @@
+{
+  "libName": "metacontroller",
+  "description": "metacontroller jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "4.12.5",
+      "prefix": "^io\\.k8s\\.metacontroller\\..*",
+      "crds": [
+        "https://github.com/metacontroller/metacontroller/releases/download/v4.12.5/metacontroller-crds-v1.yaml"
+      ]
+    }
+  ]
+}

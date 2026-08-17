@@ -1,0 +1,25 @@
+{
+  "libName": "minio-operator",
+  "description": "minio-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "v6.0.0",
+      "prefix": "^io\\.min\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/minio/operator/v6.0.0/resources/base/crds/job.min.io_miniojobs.yaml",
+        "https://raw.githubusercontent.com/minio/operator/v6.0.0/resources/base/crds/minio.min.io_tenants.yaml",
+        "https://raw.githubusercontent.com/minio/operator/v6.0.0/resources/base/crds/sts.min.io_policybindings.yaml"
+      ]
+    },
+    {
+      "output": "v5.0.15",
+      "prefix": "^io\\.min\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/minio/operator/v5.0.15/resources/base/crds/job.min.io_miniojobs.yaml",
+        "https://raw.githubusercontent.com/minio/operator/v5.0.15/resources/base/crds/minio.min.io_tenants.yaml",
+        "https://raw.githubusercontent.com/minio/operator/v5.0.15/resources/base/crds/sts.min.io_policybindings.yaml"
+      ]
+    }
+  ]
+}

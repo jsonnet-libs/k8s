@@ -1,0 +1,18 @@
+{
+  "libName": "dapr",
+  "description": "dapr jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.16.8",
+      "prefix": "^io\\.dapr\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/dapr/dapr/v1.16.8/charts/dapr/crds/components.yaml",
+        "https://raw.githubusercontent.com/dapr/dapr/v1.16.8/charts/dapr/crds/configuration.yaml",
+        "https://raw.githubusercontent.com/dapr/dapr/v1.16.8/charts/dapr/crds/httpendpoints.yaml",
+        "https://raw.githubusercontent.com/dapr/dapr/v1.16.8/charts/dapr/crds/resiliency.yaml",
+        "https://raw.githubusercontent.com/dapr/dapr/v1.16.8/charts/dapr/crds/subscription.yaml"
+      ]
+    }
+  ]
+}

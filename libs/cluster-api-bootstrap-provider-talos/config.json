@@ -1,0 +1,14 @@
+{
+  "libName": "cluster-api-bootstrap-provider-talos",
+  "description": "cluster-api-bootstrap-provider-talos jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "v0.6.12",
+      "prefix": "^io\\.x-k8s\\.cluster\\.bootstrap\\..*",
+      "crds": [
+        "https://github.com/siderolabs/cluster-api-bootstrap-provider-talos/releases/download/v0.6.12/bootstrap-components.yaml"
+      ]
+    }
+  ]
+}

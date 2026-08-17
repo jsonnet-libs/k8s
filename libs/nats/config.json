@@ -1,0 +1,14 @@
+{
+  "libName": "nats",
+  "description": "nats jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.20.1",
+      "prefix": "^io\\.nats\\.jetstream\\..*",
+      "crds": [
+        "https://github.com/nats-io/nack/releases/download/v0.20.1/crds.yml"
+      ]
+    }
+  ]
+}

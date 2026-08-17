@@ -1,0 +1,151 @@
+{
+  "libName": "fluxcd",
+  "description": "fluxcd jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "2.6.4",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.6.2/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.2/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.2/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.6.3",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.6.2/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.2/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.2/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.6.2",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.6.1/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.2/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.1/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.6.1",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.6.0/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.1/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.6.0",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.6.0/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.6.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.3.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.6.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.35.0/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.41.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.5.1",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.5.0/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.5.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.2.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.5.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.34.0/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.40.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.4.0",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.4.1/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.4.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.1.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.4.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.33.0/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.39.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.3.0",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.3.0/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.3.0/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v1.0.1/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.3.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.32.0/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.38.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.2.2",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.2.3/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.2.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v0.37.2/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.2.3/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.31.1/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.37.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.2.1",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.2.3/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.2.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v0.37.1/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.2.3/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.31.1/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.37.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "2.0.1",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v1.0.1/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v1.0.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v0.35.0/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v1.0.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.29.1/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.35.0/image-automation-controller.crds.yaml"
+      ]
+    },
+    {
+      "output": "0.41.2",
+      "prefix": "^io\\.fluxcd\\.toolkit\\..*",
+      "crds": [
+        "https://github.com/fluxcd/source-controller/releases/download/v0.36.1/source-controller.crds.yaml",
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v0.35.1/kustomize-controller.crds.yaml",
+        "https://github.com/fluxcd/helm-controller/releases/download/v0.31.2/helm-controller.crds.yaml",
+        "https://github.com/fluxcd/notification-controller/releases/download/v0.33.0/notification-controller.crds.yaml",
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.26.1/image-reflector-controller.crds.yaml",
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.31.0/image-automation-controller.crds.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "libName": "metallb",
+  "description": "metallb jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.14.8",
+      "prefix": "^io\\.metallb\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_bfdprofiles.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_bgpadvertisements.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_bgppeers.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_communities.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_ipaddresspools.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_l2advertisements.yaml",
+        "https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/crd/bases/metallb.io_servicel2statuses.yaml"
+      ]
+    }
+  ]
+}

@@ -91,7 +91,7 @@ func NewRootCommand() *cli.Command {
 		// inform user of filtering
 		args := c.Args().Slice()
 		if len(args) > 0 {
-			slog.Info("filtering generation to listed versions", slog.Any("versions", args))
+			slog.Warn("filtering generation to listed versions", slog.Any("versions", args))
 		}
 
 		// generate all target in config

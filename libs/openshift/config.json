@@ -1,0 +1,42 @@
+{
+  "libName": "openshift",
+  "description": "openshift jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.11.0",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/v3.11.0/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.0",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/release-4.0/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.1.0",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/v4.1.0/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.2",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/release-4.2/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.3",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/release-4.3/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.4",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/release-4.4/api/swagger-spec/openshift-openapi-spec.json"
+    },
+    {
+      "output": "4.5",
+      "prefix": "^com\\.github\\.openshift\\.api\\..*",
+      "openapi": "https://raw.githubusercontent.com/openshift/origin/release-4.5/api/swagger-spec/openshift-openapi-spec.json"
+    }
+  ]
+}

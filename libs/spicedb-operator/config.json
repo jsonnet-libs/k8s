@@ -1,0 +1,14 @@
+{
+  "libName": "spicedb-operator",
+  "description": "spicedb-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.14.0",
+      "prefix": "^com\\.authzed\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/authzed/spicedb-operator/v1.14.0/config/crds/authzed.com_spicedbclusters.yaml"
+      ]
+    }
+  ]
+}

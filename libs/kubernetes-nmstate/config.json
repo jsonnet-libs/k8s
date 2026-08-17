@@ -1,0 +1,42 @@
+{
+  "libName": "kubernetes-nmstate",
+  "description": "kubernetes-nmstate jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.74.0",
+      "prefix": "^io\\.nmstate\\..*",
+      "crds": [
+        "https://github.com/nmstate/kubernetes-nmstate/releases/download/v0.74.0/nmstate.io_nmstates.yaml"
+      ]
+    },
+    {
+      "output": "0.73.0",
+      "prefix": "^io\\.nmstate\\..*",
+      "crds": [
+        "https://github.com/nmstate/kubernetes-nmstate/releases/download/v0.73.0/nmstate.io_nmstates.yaml"
+      ]
+    },
+    {
+      "output": "0.72.0",
+      "prefix": "^io\\.nmstate\\..*",
+      "crds": [
+        "https://github.com/nmstate/kubernetes-nmstate/releases/download/v0.72.0/nmstate.io_nmstates.yaml"
+      ]
+    },
+    {
+      "output": "0.71.0",
+      "prefix": "^io\\.nmstate\\..*",
+      "crds": [
+        "https://github.com/nmstate/kubernetes-nmstate/releases/download/v0.71.0/nmstate.io_nmstates.yaml"
+      ]
+    },
+    {
+      "output": "0.70.1",
+      "prefix": "^io\\.nmstate\\..*",
+      "crds": [
+        "https://github.com/nmstate/kubernetes-nmstate/releases/download/v0.70.1/nmstate.io_nmstates.yaml"
+      ]
+    }
+  ]
+}

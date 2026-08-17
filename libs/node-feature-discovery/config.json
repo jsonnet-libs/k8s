@@ -1,0 +1,35 @@
+{
+  "libName": "node-feature-discovery",
+  "description": "node-feature-discovery jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.15.7",
+      "prefix": "^io\\.k8s-sigs\\.nfd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/refs/tags/v0.15.7/deployment/base/nfd-crds/nfd-api-crds.yaml"
+      ]
+    },
+    {
+      "output": "0.16.9",
+      "prefix": "^io\\.k8s-sigs\\.nfd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/refs/tags/v0.16.9/deployment/base/nfd-crds/nfd-api-crds.yaml"
+      ]
+    },
+    {
+      "output": "0.17.4",
+      "prefix": "^io\\.k8s-sigs\\.nfd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/refs/tags/v0.17.4/deployment/base/nfd-crds/nfd-api-crds.yaml"
+      ]
+    },
+    {
+      "output": "0.18.3",
+      "prefix": "^io\\.k8s-sigs\\.nfd\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/refs/tags/v0.18.3/deployment/base/nfd-crds/nfd-api-crds.yaml"
+      ]
+    }
+  ]
+}

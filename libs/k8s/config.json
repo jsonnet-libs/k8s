@@ -1,0 +1,27 @@
+{
+  "libName": "k8s",
+  "description": "k8s jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.35",
+      "prefix": "^io\\.k8s\\.(api|(kube-aggregator|apimachinery)\\.pkg\\.apis)\\..*",
+      "openapi": "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.35/api/openapi-spec/swagger.json"
+    },
+    {
+      "output": "1.34",
+      "prefix": "^io\\.k8s\\.(api|(kube-aggregator|apimachinery)\\.pkg\\.apis)\\..*",
+      "openapi": "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.34/api/openapi-spec/swagger.json"
+    },
+    {
+      "output": "1.33",
+      "prefix": "^io\\.k8s\\.(api|(kube-aggregator|apimachinery)\\.pkg\\.apis)\\..*",
+      "openapi": "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.33/api/openapi-spec/swagger.json"
+    },
+    {
+      "output": "1.32",
+      "prefix": "^io\\.k8s\\.(api|(kube-aggregator|apimachinery)\\.pkg\\.apis)\\..*",
+      "openapi": "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.32/api/openapi-spec/swagger.json"
+    }
+  ]
+}

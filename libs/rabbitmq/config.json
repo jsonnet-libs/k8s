@@ -1,0 +1,70 @@
+{
+  "libName": "rabbitmq",
+  "description": "rabbitmq jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.7.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v1.7.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.0.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.0.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.1.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.1.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.6.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.6.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.7.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.7.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.8.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.8.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.9.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.9.0/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.12.1",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.12.1/cluster-operator.yml"
+      ]
+    },
+    {
+      "output": "2.14.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/cluster-operator/releases/download/v2.14.0/cluster-operator.yml"
+      ]
+    }
+  ]
+}

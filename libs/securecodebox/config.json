@@ -1,0 +1,43 @@
+{
+  "libName": "securecodebox",
+  "description": "securecodebox jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.7.0",
+      "prefix": "^io\\.securecodebox\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/cascading.securecodebox.io_cascadingrules.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/execution.securecodebox.io_parsedefinitions.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/execution.securecodebox.io_scancompletionhooks.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/execution.securecodebox.io_scans.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/execution.securecodebox.io_scantypes.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.7.0/operator/crds/execution.securecodebox.io_scheduledscans.yaml"
+      ]
+    },
+    {
+      "output": "3.14.3",
+      "prefix": "^io\\.securecodebox\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/cascading.securecodebox.io_cascadingrules.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/execution.securecodebox.io_parsedefinitions.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/execution.securecodebox.io_scancompletionhooks.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/execution.securecodebox.io_scans.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/execution.securecodebox.io_scantypes.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.14.3/operator/crds/execution.securecodebox.io_scheduledscans.yaml"
+      ]
+    },
+    {
+      "output": "3.15.2",
+      "prefix": "^io\\.securecodebox\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/cascading.securecodebox.io_cascadingrules.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/execution.securecodebox.io_parsedefinitions.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/execution.securecodebox.io_scancompletionhooks.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/execution.securecodebox.io_scans.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/execution.securecodebox.io_scantypes.yaml",
+        "https://raw.githubusercontent.com/secureCodeBox/secureCodeBox/v3.15.2/operator/crds/execution.securecodebox.io_scheduledscans.yaml"
+      ]
+    }
+  ]
+}

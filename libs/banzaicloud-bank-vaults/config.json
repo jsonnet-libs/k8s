@@ -1,0 +1,28 @@
+{
+  "libName": "banzaicloud-bank-vaults",
+  "description": "banzaicloud-bank-vaults jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.17",
+      "prefix": "^com\\.banzaicloud\\.vault\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/banzaicloud/bank-vaults/chart/vault-operator/1.17.0/charts/vault-operator/crds/crd.yaml"
+      ]
+    },
+    {
+      "output": "1.16",
+      "prefix": "^com\\.banzaicloud\\.vault\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/banzaicloud/bank-vaults/chart/vault-operator/1.16.0/charts/vault-operator/crds/crd.yaml"
+      ]
+    },
+    {
+      "output": "1.15",
+      "prefix": "^com\\.banzaicloud\\.vault\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/banzaicloud/bank-vaults/chart/vault-operator/1.15.3/charts/vault-operator/crds/crd.yaml"
+      ]
+    }
+  ]
+}

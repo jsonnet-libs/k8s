@@ -1,0 +1,28 @@
+{
+  "libName": "strimzi",
+  "description": "strimzi jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.50.1",
+      "prefix": "^io\\.strimzi\\..*",
+      "crds": [
+        "https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.50.1/strimzi-crds-0.50.1.yaml"
+      ]
+    },
+    {
+      "output": "0.51.0",
+      "prefix": "^io\\.strimzi\\..*",
+      "crds": [
+        "https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.51.0/strimzi-crds-0.51.0.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0",
+      "prefix": "^io\\.strimzi\\..*",
+      "crds": [
+        "https://github.com/strimzi/strimzi-kafka-operator/releases/download/1.0.0/strimzi-crds-1.0.0.yaml"
+      ]
+    }
+  ]
+}

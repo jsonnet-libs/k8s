@@ -1,0 +1,21 @@
+{
+  "libName": "tektoncd",
+  "description": "tektoncd jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.62.1",
+      "prefix": "^dev\\.tekton.*",
+      "crds": [
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-clustertask.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-customrun.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-pipeline.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-pipelinerun.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-resolutionrequest.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-task.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-taskrun.yaml",
+        "https://raw.githubusercontent.com/tektoncd/pipeline/v0.62.1/config/300-crds/300-verificationpolicy.yaml"
+      ]
+    }
+  ]
+}

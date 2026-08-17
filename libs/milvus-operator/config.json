@@ -1,0 +1,34 @@
+{
+  "libName": "milvus-operator",
+  "description": "milvus-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.9.11",
+      "prefix": "^io\\.milvus\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v0.9.11/config/crd/bases/milvus.io_milvusclusters.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v0.9.11/config/crd/bases/milvus.io_milvuses.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v0.9.11/config/crd/bases/milvus.io_milvusupgrades.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0",
+      "prefix": "^io\\.milvus\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.0/config/crd/bases/milvus.io_milvusclusters.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.0/config/crd/bases/milvus.io_milvuses.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.0/config/crd/bases/milvus.io_milvusupgrades.yaml"
+      ]
+    },
+    {
+      "output": "1.0.7",
+      "prefix": "^io\\.milvus\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.7/config/crd/bases/milvus.io_milvusclusters.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.7/config/crd/bases/milvus.io_milvuses.yaml",
+        "https://raw.githubusercontent.com/zilliztech/milvus-operator/v1.0.7/config/crd/bases/milvus.io_milvusupgrades.yaml"
+      ]
+    }
+  ]
+}

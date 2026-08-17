@@ -1,0 +1,14 @@
+{
+  "libName": "mysql-operator",
+  "description": "mysql-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "2.1.1",
+      "prefix": "^com\\.oracle\\.mysql\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/mysql/mysql-operator/8.2.0-2.1.1/helm/mysql-operator/crds/crd.yaml"
+      ]
+    }
+  ]
+}

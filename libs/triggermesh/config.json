@@ -1,0 +1,14 @@
+{
+  "libName": "triggermesh",
+  "description": "triggermesh jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.27.0",
+      "prefix": "^io\\.triggermesh\\..*",
+      "crds": [
+        "https://github.com/triggermesh/triggermesh/releases/download/v1.27.0/triggermesh-crds.yaml"
+      ]
+    }
+  ]
+}

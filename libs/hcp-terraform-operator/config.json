@@ -1,0 +1,17 @@
+{
+  "libName": "hcp-terraform-operator",
+  "description": "hcp-terraform-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "2.7.1",
+      "prefix": "^io\\.terraform\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/hashicorp/hcp-terraform-operator/v2.7.1/config/crd/bases/app.terraform.io_agentpools.yaml",
+        "https://raw.githubusercontent.com/hashicorp/hcp-terraform-operator/v2.7.1/config/crd/bases/app.terraform.io_modules.yaml",
+        "https://raw.githubusercontent.com/hashicorp/hcp-terraform-operator/v2.7.1/config/crd/bases/app.terraform.io_projects.yaml",
+        "https://raw.githubusercontent.com/hashicorp/hcp-terraform-operator/v2.7.1/config/crd/bases/app.terraform.io_workspaces.yaml"
+      ]
+    }
+  ]
+}

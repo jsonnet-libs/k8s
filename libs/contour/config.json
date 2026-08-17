@@ -1,0 +1,42 @@
+{
+  "libName": "contour",
+  "description": "contour jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.33.3",
+      "prefix": "^io\\.projectcontour\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcontour/contour/v1.33.3/examples/contour/01-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.32.4",
+      "prefix": "^io\\.projectcontour\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcontour/contour/v1.32.4/examples/contour/01-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.31.5",
+      "prefix": "^io\\.projectcontour\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcontour/contour/v1.31.5/examples/contour/01-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.30.0",
+      "prefix": "^io\\.projectcontour\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcontour/contour/v1.30.0/examples/contour/01-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.29.0",
+      "prefix": "^io\\.projectcontour\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/projectcontour/contour/v1.29.0/examples/contour/01-crds.yaml"
+      ]
+    }
+  ]
+}

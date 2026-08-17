@@ -1,0 +1,14 @@
+{
+  "libName": "cluster-api-operator",
+  "description": "cluster-api-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "v0.27.0",
+      "prefix": "^io\\.x-k8s\\.cluster\\.operator\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-operator/releases/download/v0.27.0/operator-components.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "libName": "kubernetes-secret-generator",
+  "description": "kubernetes-secret-generator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.4.0",
+      "prefix": "^de\\.mittwald\\.secretgenerator\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/mittwald/kubernetes-secret-generator/v3.4.0/deploy/crds//secretgenerator.mittwald.de_basicauths_crd.yaml",
+        "https://raw.githubusercontent.com/mittwald/kubernetes-secret-generator/v3.4.0/deploy/crds//secretgenerator.mittwald.de_sshkeypairs_crd.yaml",
+        "https://raw.githubusercontent.com/mittwald/kubernetes-secret-generator/v3.4.0/deploy/crds//secretgenerator.mittwald.de_stringsecrets_crd.yaml"
+      ]
+    }
+  ]
+}

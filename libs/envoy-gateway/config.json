@@ -1,0 +1,28 @@
+{
+  "libName": "envoy-gateway",
+  "description": "envoy-gateway jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "v1.5.9",
+      "prefix": "^io\\.envoyproxy\\.gateway\\..*",
+      "crds": [
+        "https://github.com/envoyproxy/gateway/releases/download/v1.5.9/install.yaml"
+      ]
+    },
+    {
+      "output": "v1.6.5",
+      "prefix": "^io\\.envoyproxy\\.gateway\\..*",
+      "crds": [
+        "https://github.com/envoyproxy/gateway/releases/download/v1.6.5/install.yaml"
+      ]
+    },
+    {
+      "output": "v1.7.1",
+      "prefix": "^io\\.envoyproxy\\.gateway\\..*",
+      "crds": [
+        "https://github.com/envoyproxy/gateway/releases/download/v1.7.1/install.yaml"
+      ]
+    }
+  ]
+}

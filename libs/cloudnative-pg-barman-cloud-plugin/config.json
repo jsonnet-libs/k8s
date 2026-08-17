@@ -1,0 +1,14 @@
+{
+  "libName": "cloudnative-pg-barman-cloud-plugin",
+  "description": "cloudnative-pg-barman-cloud-plugin jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "v0.6.0",
+      "prefix": "^io\\.cnpg\\.barmancloud\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/cloudnative-pg/plugin-barman-cloud/v0.6.0/config/crd/bases/barmancloud.cnpg.io_objectstores.yaml"
+      ]
+    }
+  ]
+}

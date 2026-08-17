@@ -1,0 +1,14 @@
+{
+  "libName": "kro",
+  "description": "kro jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.8.4",
+      "prefix": "^run\\.kro\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/kro/refs/tags/v0.8.4/helm/crds//kro.run_resourcegraphdefinitions.yaml"
+      ]
+    }
+  ]
+}

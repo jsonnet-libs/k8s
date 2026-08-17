@@ -1,0 +1,84 @@
+{
+  "libName": "eck-operator",
+  "description": "eck-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "2.9.0",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/v2.9.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.8.0",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/v2.8.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.7.0",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/v2.7.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.6",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.6.1/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.5",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.5.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.4",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.4.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.3",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.3.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.2",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.2.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.1",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.1.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "2.0",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/2.0.0/config/crds/v1/all-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.9",
+      "prefix": "^co\\.elastic\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/elastic/cloud-on-k8s/1.9.1/config/crds/v1/all-crds.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "libName": "pyrra",
+  "description": "pyrra jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.7.7",
+      "prefix": "^dev\\.pyrra\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/pyrra-dev/pyrra/v0.7.7/examples/kubernetes/manifests/setup/pyrra-slo-CustomResourceDefinition.yaml"
+      ]
+    },
+    {
+      "output": "0.8.4",
+      "prefix": "^dev\\.pyrra\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/pyrra-dev/pyrra/v0.8.4/examples/kubernetes/manifests/setup/pyrra-slo-CustomResourceDefinition.yaml"
+      ]
+    },
+    {
+      "output": "0.9.5",
+      "prefix": "^dev\\.pyrra\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/pyrra-dev/pyrra/v0.9.5/examples/kubernetes/manifests/setup/pyrra-slo-CustomResourceDefinition.yaml"
+      ]
+    },
+    {
+      "output": "0.10.0",
+      "prefix": "^dev\\.pyrra\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/pyrra-dev/pyrra/v0.10.0/examples/kubernetes/manifests/setup/pyrra-slo-CustomResourceDefinition.yaml"
+      ]
+    }
+  ]
+}

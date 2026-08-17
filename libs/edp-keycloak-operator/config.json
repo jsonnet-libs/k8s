@@ -1,0 +1,157 @@
+{
+  "libName": "edp-keycloak-operator",
+  "description": "edp-keycloak-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.15.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.15.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.17.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.17.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.18.1",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.1/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.18.2",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.18.2/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.19.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.19.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.20.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.20.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.21.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.21.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    },
+    {
+      "output": "1.22.0",
+      "prefix": "^com\\.epam\\.edp\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_clusterkeycloaks.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakauthflows.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakclients.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakclientscopes.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmcomponents.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmgroups.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmidentityproviders.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmrolebatches.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmroles.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealms.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloakrealmusers.yaml",
+        "https://raw.githubusercontent.com/epam/edp-keycloak-operator/v1.22.0/deploy-templates/crds/v1.edp.epam.com_keycloaks.yaml"
+      ]
+    }
+  ]
+}

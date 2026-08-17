@@ -1,0 +1,42 @@
+{
+  "libName": "cluster-api-provider-aws",
+  "description": "cluster-api-provider-aws jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.2.0",
+      "prefix": "^io\\.x-k8s\\.cluster\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v1.2.0/infrastructure-components.yaml"
+      ]
+    },
+    {
+      "output": "1.3.0",
+      "prefix": "^io\\.x-k8s\\.cluster\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v1.3.0/infrastructure-components.yaml"
+      ]
+    },
+    {
+      "output": "1.4.1",
+      "prefix": "^io\\.x-k8s\\.cluster\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v1.4.1/infrastructure-components.yaml"
+      ]
+    },
+    {
+      "output": "1.5.2",
+      "prefix": "^io\\.x-k8s\\.cluster\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v1.5.2/infrastructure-components.yaml"
+      ]
+    },
+    {
+      "output": "2.0.2",
+      "prefix": "^io\\.x-k8s\\.cluster\\..*",
+      "crds": [
+        "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v2.0.2/infrastructure-components.yaml"
+      ]
+    }
+  ]
+}

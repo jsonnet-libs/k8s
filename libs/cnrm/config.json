@@ -1,0 +1,42 @@
+{
+  "libName": "cnrm",
+  "description": "cnrm jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.74.0",
+      "prefix": "^com\\.google\\.cloud\\.cnrm\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.74.0/install-bundles/install-bundle-workload-identity/crds.yaml"
+      ]
+    },
+    {
+      "output": "1.82.0",
+      "prefix": "^com\\.google\\.cloud\\.cnrm\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.82.0/install-bundles/install-bundle-workload-identity/crds.yaml"
+      ]
+    },
+    {
+      "output": "1.93.0",
+      "prefix": "^com\\.google\\.cloud\\.cnrm\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.93.0/install-bundles/install-bundle-workload-identity/crds.yaml"
+      ]
+    },
+    {
+      "output": "1.99.0",
+      "prefix": "^com\\.google\\.cloud\\.cnrm\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.99.0/install-bundles/install-bundle-workload-identity/crds.yaml"
+      ]
+    },
+    {
+      "output": "1.130.2",
+      "prefix": "^com\\.google\\.cloud\\.cnrm\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-config-connector/v1.130.2/install-bundles/install-bundle-workload-identity/crds.yaml"
+      ]
+    }
+  ]
+}

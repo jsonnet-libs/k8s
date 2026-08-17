@@ -1,0 +1,39 @@
+{
+  "libName": "grafana-agent",
+  "description": "grafana-agent jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.26.1",
+      "prefix": "^com\\.grafana\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana/agent/v0.26.1/production/operator/crds/monitoring.grafana.com_grafanaagents.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.26.1/production/operator/crds/monitoring.grafana.com_logsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.26.1/production/operator/crds/monitoring.grafana.com_metricsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.26.1/production/operator/crds/monitoring.grafana.com_podlogs.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.26.1/production/operator/crds/monitoring.grafana.com_integrations.yaml"
+      ]
+    },
+    {
+      "output": "0.30.2",
+      "prefix": "^com\\.grafana\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana/agent/v0.30.2/production/operator/crds/monitoring.grafana.com_grafanaagents.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.30.2/production/operator/crds/monitoring.grafana.com_logsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.30.2/production/operator/crds/monitoring.grafana.com_metricsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.30.2/production/operator/crds/monitoring.grafana.com_podlogs.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.30.2/production/operator/crds/monitoring.grafana.com_integrations.yaml"
+      ]
+    },
+    {
+      "output": "0.20.0",
+      "prefix": "^com\\.grafana\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana/agent/v0.20.0/production/operator/crds/monitoring.grafana.com_grafanaagents.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.20.0/production/operator/crds/monitoring.grafana.com_logsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.20.0/production/operator/crds/monitoring.grafana.com_metricsinstances.yaml",
+        "https://raw.githubusercontent.com/grafana/agent/v0.20.0/production/operator/crds/monitoring.grafana.com_podlogs.yaml"
+      ]
+    }
+  ]
+}

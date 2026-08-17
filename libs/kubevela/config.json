@@ -1,0 +1,93 @@
+{
+  "libName": "kubevela",
+  "description": "kubevela jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.4.14",
+      "prefix": "^dev\\.oam\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_applicationrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_applications.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_componentdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_definitionrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_envbindings.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_healthscopes.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_manualscalertraits.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_policies.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_policydefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_resourcetrackers.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_scopedefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_traitdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_workflows.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_workflowstepdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/core.oam.dev_workloaddefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.4.14/charts/vela-core/crds/standard.oam.dev_rollouts.yaml"
+      ]
+    },
+    {
+      "output": "1.5.10",
+      "prefix": "^dev\\.oam\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_applicationrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_applications.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_componentdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_definitionrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_envbindings.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_healthscopes.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_manualscalertraits.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_policies.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_policydefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_resourcetrackers.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_scopedefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_traitdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_workflows.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_workflowstepdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/core.oam.dev_workloaddefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.5.10/charts/vela-core/crds/standard.oam.dev_rollouts.yaml"
+      ]
+    },
+    {
+      "output": "1.6.7",
+      "prefix": "^dev\\.oam\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_applicationrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_applications.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_componentdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_definitionrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_envbindings.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_healthscopes.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_policies.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_policydefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_resourcetrackers.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_scopedefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_traitdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_workflows.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_workflowstepdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/core.oam.dev_workloaddefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.6.7/charts/vela-core/crds/standard.oam.dev_rollouts.yaml"
+      ]
+    },
+    {
+      "output": "1.7.0",
+      "prefix": "^dev\\.oam\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_applicationrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_applications.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_componentdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_definitionrevisions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_envbindings.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_healthscopes.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_policies.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_policydefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_resourcetrackers.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_scopedefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_traitdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_workflows.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_workflowstepdefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/core.oam.dev_workloaddefinitions.yaml",
+        "https://raw.githubusercontent.com/kubevela/kubevela/v1.7.0/charts/vela-core/crds/standard.oam.dev_rollouts.yaml"
+      ]
+    }
+  ]
+}

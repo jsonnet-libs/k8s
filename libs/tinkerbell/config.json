@@ -1,0 +1,20 @@
+{
+  "libName": "tinkerbell",
+  "description": "tinkerbell jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.23.0",
+      "prefix": "^org\\.tinkerbell\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/bmc.tinkerbell.org_jobs.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/bmc.tinkerbell.org_machines.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/bmc.tinkerbell.org_tasks.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/tinkerbell.org_hardware.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/tinkerbell.org_templates.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/tinkerbell.org_workflowrulesets.yaml",
+        "https://raw.githubusercontent.com/tinkerbell/tinkerbell/v0.23.0/crd/bases/tinkerbell.org_workflows.yaml"
+      ]
+    }
+  ]
+}

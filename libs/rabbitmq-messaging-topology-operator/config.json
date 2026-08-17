@@ -1,0 +1,63 @@
+{
+  "libName": "rabbitmq-messaging-topology-operator",
+  "description": "rabbitmq-messaging-topology-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.8.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.8.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.9.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.9.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.10.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.10.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.11.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.11.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.12.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.12.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.13.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.13.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.14.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.14.0/messaging-topology-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.16.0",
+      "prefix": "^com\\.rabbitmq\\..*",
+      "crds": [
+        "https://github.com/rabbitmq/messaging-topology-operator/releases/download/v1.16.0/messaging-topology-operator.yaml"
+      ]
+    }
+  ]
+}

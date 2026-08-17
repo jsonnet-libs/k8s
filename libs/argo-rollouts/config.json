@@ -1,0 +1,40 @@
+{
+  "libName": "argo-rollouts",
+  "description": "argo-rollouts jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.7.0",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.7.0/manifests/crds/analysis-run-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.7.0/manifests/crds/analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.7.0/manifests/crds/cluster-analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.7.0/manifests/crds/experiment-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.7.0/manifests/crds/rollout-crd.yaml"
+      ]
+    },
+    {
+      "output": "1.8.0",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.0/manifests/crds/analysis-run-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.0/manifests/crds/analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.0/manifests/crds/cluster-analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.0/manifests/crds/experiment-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.0/manifests/crds/rollout-crd.yaml"
+      ]
+    },
+    {
+      "output": "1.8.3",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.3/manifests/crds/analysis-run-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.3/manifests/crds/analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.3/manifests/crds/cluster-analysis-template-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.3/manifests/crds/experiment-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/v1.8.3/manifests/crds/rollout-crd.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "libName": "grafana-alloy",
+  "description": "grafana-alloy jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.6.1",
+      "prefix": "^com\\.grafana\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana/alloy/refs/tags/v1.6.1/operations/helm/charts/alloy/charts/crds/crds/monitoring.grafana.com_podlogs.yaml"
+      ]
+    }
+  ]
+}

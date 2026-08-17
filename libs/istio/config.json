@@ -1,0 +1,21 @@
+{
+  "libName": "istio",
+  "description": "istio jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.28",
+      "prefix": "^io\\.istio\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/istio/istio/1.28.3/manifests/charts/base/files/crd-all.gen.yaml"
+      ]
+    },
+    {
+      "output": "1.27",
+      "prefix": "^io\\.istio\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/istio/istio/1.27.5/manifests/charts/base/files/crd-all.gen.yaml"
+      ]
+    }
+  ]
+}

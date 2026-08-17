@@ -1,0 +1,91 @@
+{
+  "libName": "grafana-operator",
+  "description": "grafana-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "4.10.1",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v4.10.1/deploy/manifests/v4.10.1/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.12.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.12.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.13.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.13.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.14.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.14.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.15.1",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.15.1/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.16.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.16.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.17.1",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.17.1/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.18.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.18.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.19.4",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.19.4/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.20.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.20.0/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.21.4",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.21.4/deploy/kustomize/base/crds.yaml"
+      ]
+    },
+    {
+      "output": "5.22.0",
+      "prefix": "^org\\.integreatly\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/grafana-operator/grafana-operator/v5.22.0/deploy/kustomize/base/crds.yaml"
+      ]
+    }
+  ]
+}

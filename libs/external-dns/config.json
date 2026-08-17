@@ -1,0 +1,14 @@
+{
+  "libName": "external-dns",
+  "description": "external-dns jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.13.6",
+      "prefix": "^io\\.k8s\\.externaldns\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes-sigs/external-dns/v0.13.6/docs/contributing/crd-source/crd-manifest.yaml"
+      ]
+    }
+  ]
+}

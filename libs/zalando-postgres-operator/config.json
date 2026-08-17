@@ -1,0 +1,52 @@
+{
+  "libName": "zalando-postgres-operator",
+  "description": "zalando-postgres-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.14.0",
+      "prefix": "^do\\.zalan\\.acid\\..*",
+      "crds": [
+        "https://github.com/zalando/postgres-operator/raw/v1.14.0/charts/postgres-operator/crds/operatorconfigurations.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.14.0/charts/postgres-operator/crds/postgresqls.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.14.0/charts/postgres-operator/crds/postgresteams.yaml"
+      ]
+    },
+    {
+      "output": "1.13.0",
+      "prefix": "^do\\.zalan\\.acid\\..*",
+      "crds": [
+        "https://github.com/zalando/postgres-operator/raw/v1.13.0/charts/postgres-operator/crds/operatorconfigurations.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.13.0/charts/postgres-operator/crds/postgresqls.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.13.0/charts/postgres-operator/crds/postgresteams.yaml"
+      ]
+    },
+    {
+      "output": "1.12.2",
+      "prefix": "^do\\.zalan\\.acid\\..*",
+      "crds": [
+        "https://github.com/zalando/postgres-operator/raw/v1.12.2/charts/postgres-operator/crds/operatorconfigurations.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.12.2/charts/postgres-operator/crds/postgresqls.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.12.2/charts/postgres-operator/crds/postgresteams.yaml"
+      ]
+    },
+    {
+      "output": "1.11.0",
+      "prefix": "^do\\.zalan\\.acid\\..*",
+      "crds": [
+        "https://github.com/zalando/postgres-operator/raw/v1.11.0/charts/postgres-operator/crds/operatorconfigurations.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.11.0/charts/postgres-operator/crds/postgresqls.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.11.0/charts/postgres-operator/crds/postgresteams.yaml"
+      ]
+    },
+    {
+      "output": "1.8.2",
+      "prefix": "^do\\.zalan\\.acid\\..*",
+      "crds": [
+        "https://github.com/zalando/postgres-operator/raw/v1.8.2/charts/postgres-operator/crds/operatorconfigurations.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.8.2/charts/postgres-operator/crds/postgresqls.yaml",
+        "https://github.com/zalando/postgres-operator/raw/v1.8.2/charts/postgres-operator/crds/postgresteams.yaml"
+      ]
+    }
+  ]
+}

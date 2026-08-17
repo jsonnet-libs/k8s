@@ -1,0 +1,14 @@
+{
+  "libName": "azure-load-balancer-controller",
+  "description": "azure-load-balancer-controller jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.9",
+      "prefix": "^io\\.azure\\.networking\\.alb\\..*",
+      "crds": [
+        "crds/1.9/crds.yaml"
+      ]
+    }
+  ]
+}

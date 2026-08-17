@@ -1,0 +1,23 @@
+{
+  "libName": "aws-rds-controller",
+  "description": "aws-rds-controller jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.4.12",
+      "crds": [
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbclusterparametergroups.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbclusters.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbclustersnapshots.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbinstances.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbparametergroups.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbproxies.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbsnapshots.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_dbsubnetgroups.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/rds.services.k8s.aws_globalclusters.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/services.k8s.aws_adoptedresources.yaml",
+        "https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/v1.4.12/helm/crds/services.k8s.aws_fieldexports.yaml"
+      ]
+    }
+  ]
+}

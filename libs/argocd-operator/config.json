@@ -1,0 +1,43 @@
+{
+  "libName": "argocd-operator",
+  "description": "argocd-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.12.2",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_applicationsets.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_applications.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_appprojects.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_argocdexports.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_argocds.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.12.2/bundle/manifests/argoproj.io_notificationsconfigurations.yaml"
+      ]
+    },
+    {
+      "output": "0.13.1",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_applicationsets.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_applications.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_appprojects.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_argocdexports.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_argocds.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.13.1/bundle/manifests/argoproj.io_notificationsconfigurations.yaml"
+      ]
+    },
+    {
+      "output": "0.14.1",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_applicationsets.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_applications.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_appprojects.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_argocdexports.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_argocds.yaml",
+        "https://raw.githubusercontent.com/argoproj-labs/argocd-operator/v0.14.1/bundle/manifests/argoproj.io_notificationsconfigurations.yaml"
+      ]
+    }
+  ]
+}

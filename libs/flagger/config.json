@@ -1,0 +1,35 @@
+{
+  "libName": "flagger",
+  "description": "flagger jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.38.0",
+      "prefix": "^app\\.flagger\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/fluxcd/flagger/v1.38.0/charts/flagger/crds/crd.yaml"
+      ]
+    },
+    {
+      "output": "1.39.0",
+      "prefix": "^app\\.flagger\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/fluxcd/flagger/v1.39.0/charts/flagger/crds/crd.yaml"
+      ]
+    },
+    {
+      "output": "1.40.0",
+      "prefix": "^app\\.flagger\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/fluxcd/flagger/v1.40.0/charts/flagger/crds/crd.yaml"
+      ]
+    },
+    {
+      "output": "1.41.0",
+      "prefix": "^app\\.flagger\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/fluxcd/flagger/v1.41.0/charts/flagger/crds/crd.yaml"
+      ]
+    }
+  ]
+}

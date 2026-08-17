@@ -1,0 +1,28 @@
+{
+  "libName": "cert-manager",
+  "description": "cert-manager jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.19.1",
+      "prefix": "^io\\.cert-manager\\..*",
+      "crds": [
+        "https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml"
+      ]
+    },
+    {
+      "output": "1.18.3",
+      "prefix": "^io\\.cert-manager\\..*",
+      "crds": [
+        "https://github.com/cert-manager/cert-manager/releases/download/v1.18.3/cert-manager.crds.yaml"
+      ]
+    },
+    {
+      "output": "1.17.3",
+      "prefix": "^io\\.cert-manager\\..*",
+      "crds": [
+        "https://github.com/cert-manager/cert-manager/releases/download/v1.17.3/cert-manager.crds.yaml"
+      ]
+    }
+  ]
+}

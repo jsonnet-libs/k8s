@@ -1,0 +1,49 @@
+{
+  "libName": "aiven",
+  "description": "aiven jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.3.0",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.3.0/deployment.yaml"
+      ]
+    },
+    {
+      "output": "0.4.0",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.4.0/deployment.yaml"
+      ]
+    },
+    {
+      "output": "0.5.2",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.5.2/deployment.yaml"
+      ]
+    },
+    {
+      "output": "0.6.0",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.6.0/deployment.yaml"
+      ]
+    },
+    {
+      "output": "0.7.1",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.7.1/deployment.yaml"
+      ]
+    },
+    {
+      "output": "0.8.0",
+      "prefix": "^io\\.aiven\\..*",
+      "crds": [
+        "https://github.com/aiven/aiven-operator/releases/download/v0.8.0/deployment.yaml"
+      ]
+    }
+  ]
+}

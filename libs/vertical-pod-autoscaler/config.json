@@ -1,0 +1,42 @@
+{
+  "libName": "vertical-pod-autoscaler",
+  "description": "vertical-pod-autoscaler jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.10",
+      "prefix": "^io\\.k8s\\.autoscaling\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-0.10.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml"
+      ]
+    },
+    {
+      "output": "0.11",
+      "prefix": "^io\\.k8s\\.autoscaling\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-0.11.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml"
+      ]
+    },
+    {
+      "output": "0.12",
+      "prefix": "^io\\.k8s\\.autoscaling\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-0.12.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml"
+      ]
+    },
+    {
+      "output": "0.14",
+      "prefix": "^io\\.k8s\\.autoscaling\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-0.14.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0",
+      "prefix": "^io\\.k8s\\.autoscaling\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/kubernetes/autoscaler/vertical-pod-autoscaler-1.0.0/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "libName": "clickhouse-operator",
+  "description": "clickhouse-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.21.3",
+      "prefix": "^com\\.altinity\\.clickhouse\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/Altinity/clickhouse-operator/release-0.21.3/deploy/operator/parts/crd.yaml"
+      ]
+    },
+    {
+      "output": "0.22.2",
+      "prefix": "^com\\.altinity\\.clickhouse\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/Altinity/clickhouse-operator/release-0.22.2/deploy/operator/parts/crd.yaml"
+      ]
+    },
+    {
+      "output": "0.23.5",
+      "prefix": "^com\\.altinity\\.clickhouse\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/Altinity/clickhouse-operator/release-0.23.5/deploy/operator/parts/crd.yaml"
+      ]
+    },
+    {
+      "output": "0.24.5",
+      "prefix": "^com\\.altinity\\.clickhouse\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/Altinity/clickhouse-operator/release-0.24.5/deploy/operator/parts/crd.yaml"
+      ]
+    },
+    {
+      "output": "0.25.0",
+      "prefix": "^com\\.altinity\\.clickhouse\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/Altinity/clickhouse-operator/release-0.25.0/deploy/operator/parts/crd.yaml"
+      ]
+    }
+  ]
+}

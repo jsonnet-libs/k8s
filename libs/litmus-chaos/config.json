@@ -1,0 +1,47 @@
+{
+  "libName": "litmus-chaos",
+  "description": "litmus-chaos jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "2.8.0",
+      "prefix": "^io\\.litmuschaos\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.8.0/deploy/crds/chaosengine_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.8.0/deploy/crds/chaosexperiment_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.8.0/deploy/crds/chaosresults_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-scheduler/2.8.0/deploy/crds/chaosschedule_crd.yaml"
+      ]
+    },
+    {
+      "output": "2.9.0",
+      "prefix": "^io\\.litmuschaos\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.9.0/deploy/crds/chaosengine_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.9.0/deploy/crds/chaosexperiment_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.9.0/deploy/crds/chaosresults_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-scheduler/2.9.0/deploy/crds/chaosschedule_crd.yaml"
+      ]
+    },
+    {
+      "output": "2.10.0",
+      "prefix": "^io\\.litmuschaos\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.10.0/deploy/crds/chaosengine_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.10.0/deploy/crds/chaosexperiment_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/2.10.0/deploy/crds/chaosresults_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-scheduler/2.10.0/deploy/crds/chaosschedule_crd.yaml"
+      ]
+    },
+    {
+      "output": "3.20.0",
+      "prefix": "^io\\.litmuschaos\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/3.20.0/deploy/crds/chaosengine_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/3.20.0/deploy/crds/chaosexperiment_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-operator/3.20.0/deploy/crds/chaosresults_crd.yaml",
+        "https://raw.githubusercontent.com/litmuschaos/chaos-scheduler/3.20.0/deploy/crds/chaosschedule_crd.yaml"
+      ]
+    }
+  ]
+}

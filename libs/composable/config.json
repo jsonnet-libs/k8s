@@ -1,0 +1,14 @@
+{
+  "libName": "composable",
+  "description": "composable jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.2.0",
+      "prefix": "^com\\.ibm\\.ibmcloud\\..*",
+      "crds": [
+        "https://github.com/ankorstore/composable/releases/download/v0.2.0/crds.yaml"
+      ]
+    }
+  ]
+}

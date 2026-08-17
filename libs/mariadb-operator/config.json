@@ -1,0 +1,14 @@
+{
+  "libName": "mariadb-operator",
+  "description": "mariadb-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "25.10.2",
+      "prefix": "^com\\.mariadb\\.k8s\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/mariadb-operator/mariadb-operator/refs/tags/v25.10.2/deploy/crds/crds.yaml"
+      ]
+    }
+  ]
+}

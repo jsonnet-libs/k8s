@@ -1,0 +1,59 @@
+{
+  "libName": "datadog-operator",
+  "description": "datadog-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.21.0",
+      "prefix": "^com\\.datadoghq\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogagentprofiles.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogagents.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogmetrics.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogmonitors.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogslos.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogpodautoscalers.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.21.0/config/crd/bases/v1/datadoghq.com_datadogdashboards.yaml"
+      ]
+    },
+    {
+      "output": "1.20.0",
+      "prefix": "^com\\.datadoghq\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogagentprofiles.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogagents.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogmetrics.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogmonitors.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogslos.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogpodautoscalers.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.20.0/config/crd/bases/v1/datadoghq.com_datadogdashboards.yaml"
+      ]
+    },
+    {
+      "output": "1.19.0",
+      "prefix": "^com\\.datadoghq\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogagentprofiles.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogagents.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogmetrics.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogmonitors.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogslos.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogpodautoscalers.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.19.0/config/crd/bases/v1/datadoghq.com_datadogdashboards.yaml"
+      ]
+    },
+    {
+      "output": "1.18.0",
+      "prefix": "^com\\.datadoghq\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogagentprofiles.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogagents.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogmetrics.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogmonitors.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogslos.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogpodautoscalers.yaml",
+        "https://raw.githubusercontent.com/DataDog/datadog-operator/v1.18.0/config/crd/bases/v1/datadoghq.com_datadogdashboards.yaml"
+      ]
+    }
+  ]
+}

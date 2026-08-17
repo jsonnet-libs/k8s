@@ -1,0 +1,14 @@
+{
+  "libName": "cluster-api-provider-tinkerbell",
+  "description": "cluster-api-provider-tinkerbell jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.6.8",
+      "prefix": "^io\\.x-k8s\\.cluster\\.infrastructure\\..*",
+      "crds": [
+        "https://github.com/tinkerbell/cluster-api-provider-tinkerbell/releases/download/v0.6.8/infrastructure-components.yaml"
+      ]
+    }
+  ]
+}

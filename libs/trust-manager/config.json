@@ -1,0 +1,15 @@
+{
+  "libName": "trust-manager",
+  "description": "trust-manager jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.20.2",
+      "prefix": "^io\\.(cert-manager\\.trust|trust-manager)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/cert-manager/trust-manager/refs/tags/v0.20.2/deploy/crds/trust-manager.io_clusterbundles.yaml",
+        "https://raw.githubusercontent.com/cert-manager/trust-manager/refs/tags/v0.20.2/deploy/crds/trust.cert-manager.io_bundles.yaml"
+      ]
+    }
+  ]
+}

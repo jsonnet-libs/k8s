@@ -1,0 +1,28 @@
+{
+  "libName": "knative-serving",
+  "description": "knative-serving jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.17.0",
+      "prefix": "^dev\\.knative\\..*",
+      "crds": [
+        "https://github.com/knative/serving/releases/download/knative-v1.17.0/serving-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.16.0",
+      "prefix": "^dev\\.knative\\..*",
+      "crds": [
+        "https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-crds.yaml"
+      ]
+    },
+    {
+      "output": "1.15.0",
+      "prefix": "^dev\\.knative\\..*",
+      "crds": [
+        "https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-crds.yaml"
+      ]
+    }
+  ]
+}

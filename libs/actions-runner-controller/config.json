@@ -1,0 +1,49 @@
+{
+  "libName": "actions-runner-controller",
+  "description": "actions-runner-controller jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.26.0",
+      "prefix": "^dev\\.summerwind\\.actions\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.26.0/charts/actions-runner-controller/crds/actions.summerwind.dev_horizontalrunnerautoscalers.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.26.0/charts/actions-runner-controller/crds/actions.summerwind.dev_runnerdeployments.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.26.0/charts/actions-runner-controller/crds/actions.summerwind.dev_runnerreplicasets.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.26.0/charts/actions-runner-controller/crds/actions.summerwind.dev_runners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.26.0/charts/actions-runner-controller/crds/actions.summerwind.dev_runnersets.yaml"
+      ]
+    },
+    {
+      "output": "0.27.6",
+      "prefix": "^dev\\.summerwind\\.actions\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.27.6/charts/actions-runner-controller/crds/actions.summerwind.dev_horizontalrunnerautoscalers.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.27.6/charts/actions-runner-controller/crds/actions.summerwind.dev_runnerdeployments.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.27.6/charts/actions-runner-controller/crds/actions.summerwind.dev_runnerreplicasets.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.27.6/charts/actions-runner-controller/crds/actions.summerwind.dev_runners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/v0.27.6/charts/actions-runner-controller/crds/actions.summerwind.dev_runnersets.yaml"
+      ]
+    },
+    {
+      "output": "0.4",
+      "prefix": "^com\\.github\\.actions\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.4.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_autoscalinglisteners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.4.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_autoscalingrunnersets.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.4.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_ephemeralrunners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.4.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_ephemeralrunnersets.yaml"
+      ]
+    },
+    {
+      "output": "0.5",
+      "prefix": "^com\\.github\\.actions\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.5.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_autoscalinglisteners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.5.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_autoscalingrunnersets.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.5.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_ephemeralrunners.yaml",
+        "https://raw.githubusercontent.com/actions/actions-runner-controller/gha-runner-scale-set-0.5.0/charts/gha-runner-scale-set-controller/crds/actions.github.com_ephemeralrunnersets.yaml"
+      ]
+    }
+  ]
+}

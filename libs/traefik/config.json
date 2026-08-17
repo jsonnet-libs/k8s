@@ -1,0 +1,53 @@
+{
+  "libName": "traefik",
+  "description": "traefik jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.6.10",
+      "prefix": "^io\\.traefik\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/gateway-standard-install.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_accesscontrolpolicies.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_aiservices.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiauths.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apibundles.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apicatalogitems.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiplans.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiportalauths.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiportals.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiratelimits.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apis.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_apiversions.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_managedapplications.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/hub.traefik.io_managedsubscriptions.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_ingressroutes.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_ingressroutetcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_ingressrouteudps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_middlewares.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_middlewaretcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_serverstransports.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_serverstransporttcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_tlsoptions.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_tlsstores.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v39.0.5/traefik/crds/traefik.io_traefikservices.yaml"
+      ]
+    },
+    {
+      "output": "2.11.2",
+      "prefix": "^io\\.traefik\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_ingressroutes.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_ingressroutetcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_ingressrouteudps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_middlewares.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_middlewaretcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_serverstransports.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_serverstransporttcps.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_tlsoptions.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_tlsstores.yaml",
+        "https://raw.githubusercontent.com/traefik/traefik-helm-chart/v27.0.2/traefik/crds/traefik.io_traefikservices.yaml"
+      ]
+    }
+  ]
+}

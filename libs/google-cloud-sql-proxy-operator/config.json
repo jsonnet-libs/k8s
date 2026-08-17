@@ -1,0 +1,21 @@
+{
+  "libName": "google-cloud-sql-proxy-operator",
+  "description": "google-cloud-sql-proxy-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.5.0",
+      "prefix": "^com\\.google\\.cloud\\.cloudsql\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/cloud-sql-proxy-operator/v0.5.0/installer/cloud-sql-proxy-operator.yaml"
+      ]
+    },
+    {
+      "output": "1.4.2",
+      "prefix": "^com\\.google\\.cloud\\.cloudsql\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/GoogleCloudPlatform/cloud-sql-proxy-operator/v1.4.2/installer/cloud-sql-proxy-operator.yaml"
+      ]
+    }
+  ]
+}

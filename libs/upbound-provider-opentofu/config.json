@@ -1,0 +1,14 @@
+{
+  "libName": "upbound-provider-opentofu",
+  "description": "upbound-provider-opentofu jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "provider-opentofu/0.2.3",
+      "prefix": "^io\\.upbound\\.opentofu\\..*",
+      "crds": [
+        "https://doc.crds.dev/raw/github.com/upbound/provider-opentofu@v0.2.3"
+      ]
+    }
+  ]
+}

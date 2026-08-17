@@ -1,0 +1,18 @@
+{
+  "libName": "tailscale-operator",
+  "description": "tailscale-operator jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "1.94.0",
+      "prefix": "^com\\.tailscale\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/tailscale/tailscale/refs/tags/v1.94.0/cmd/k8s-operator/deploy/crds//tailscale.com_connectors.yaml",
+        "https://raw.githubusercontent.com/tailscale/tailscale/refs/tags/v1.94.0/cmd/k8s-operator/deploy/crds//tailscale.com_dnsconfigs.yaml",
+        "https://raw.githubusercontent.com/tailscale/tailscale/refs/tags/v1.94.0/cmd/k8s-operator/deploy/crds//tailscale.com_proxyclasses.yaml",
+        "https://raw.githubusercontent.com/tailscale/tailscale/refs/tags/v1.94.0/cmd/k8s-operator/deploy/crds//tailscale.com_proxygroups.yaml",
+        "https://raw.githubusercontent.com/tailscale/tailscale/refs/tags/v1.94.0/cmd/k8s-operator/deploy/crds//tailscale.com_recorders.yaml"
+      ]
+    }
+  ]
+}

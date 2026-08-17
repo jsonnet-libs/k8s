@@ -1,0 +1,34 @@
+{
+  "libName": "argo-cd",
+  "description": "argo-cd jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.0.20",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.20/manifests/crds/application-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.20/manifests/crds/appproject-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.20/manifests/crds/applicationset-crd.yaml"
+      ]
+    },
+    {
+      "output": "3.1.11",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.1.11/manifests/crds/application-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.1.11/manifests/crds/appproject-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.1.11/manifests/crds/applicationset-crd.yaml"
+      ]
+    },
+    {
+      "output": "3.2.5",
+      "prefix": "^io\\.argoproj\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.5/manifests/crds/application-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.5/manifests/crds/appproject-crd.yaml",
+        "https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.5/manifests/crds/applicationset-crd.yaml"
+      ]
+    }
+  ]
+}

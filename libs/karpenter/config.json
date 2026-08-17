@@ -1,0 +1,130 @@
+{
+  "libName": "karpenter",
+  "description": "karpenter jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "0.27.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.27.0/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml"
+      ]
+    },
+    {
+      "output": "0.31.3/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.31.3/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.31.3/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.32.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.32.0/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.32.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.33.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.33.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.34.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.34.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.35.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.35.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.37.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0/aws",
+      "prefix": "^(aws\\.k8s\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v1.0.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml"
+      ]
+    },
+    {
+      "output": "0.27.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.27.0/pkg/apis/crds/karpenter.sh_provisioners.yaml"
+      ]
+    },
+    {
+      "output": "0.31.3/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.31.3/pkg/apis/crds/karpenter.sh_provisioners.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.31.3/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.31.3/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "0.32.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.32.0/pkg/apis/crds/karpenter.sh_provisioners.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.32.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.32.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "0.33.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.33.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.33.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "0.34.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.34.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.34.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "0.35.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.35.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.35.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "0.37.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    },
+    {
+      "output": "1.0.0/sh",
+      "prefix": "^(sh\\.karpenter)\\..*",
+      "crds": [
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v1.0.0/pkg/apis/crds/karpenter.sh_nodepools.yaml",
+        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v1.0.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml"
+      ]
+    }
+  ]
+}

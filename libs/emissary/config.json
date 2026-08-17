@@ -1,0 +1,28 @@
+{
+  "libName": "emissary",
+  "description": "emissary jsonnet library",
+  "outputDir": ".",
+  "specs": [
+    {
+      "output": "3.7",
+      "prefix": "^io\\.getambassador\\..*",
+      "crds": [
+        "https://app.getambassador.io/yaml/emissary/3.7.2/emissary-crds.yaml"
+      ]
+    },
+    {
+      "output": "3.8",
+      "prefix": "^io\\.getambassador\\..*",
+      "crds": [
+        "https://app.getambassador.io/yaml/emissary/3.8.2/emissary-crds.yaml"
+      ]
+    },
+    {
+      "output": "3.9",
+      "prefix": "^io\\.getambassador\\..*",
+      "crds": [
+        "https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml"
+      ]
+    }
+  ]
+}
