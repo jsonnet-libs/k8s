@@ -1,17 +1,17 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
-  { output: '0.76', version: '0.76.2' },
-  { output: '0.77', version: '0.77.2' },
-  { output: '0.78', version: '0.78.2' },
-  { output: '0.79', version: '0.79.2' },
-  { output: '0.80', version: '0.80.1' },
-  { output: '0.81', version: '0.81.0' },
-  { output: '0.82', version: '0.82.2' },
   { output: '0.83', version: '0.83.0' },
   { output: '0.84', version: '0.84.1' },
   { output: '0.85', version: '0.85.0' },
   { output: '0.86', version: '0.86.0' },
+  { output: '0.87', version: '0.87.1' },
+  { output: '0.88', version: '0.88.1' },
+  { output: '0.89', version: '0.89.0' },
+  { output: '0.90', version: '0.90.1' },
+  { output: '0.91', version: '0.91.0' },
+  { output: '0.92', version: '0.92.1' },
+  { output: '0.93', version: '0.93.1' },
 ];
 
 config.new(
