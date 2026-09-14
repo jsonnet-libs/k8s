@@ -9,6 +9,7 @@ local versions = [
   { output: '0.35', version: '0.35.0' },
   { output: '0.37', version: '0.37.0' },
   { output: '1.0', version: '1.0.0' },
+  { output: '1.13', version: '1.13.0' },
 ];
 local getURL(v) =
   if std.objectHas(v, 'url')
@@ -37,6 +38,7 @@ config.new(
       crds: [
         '%s/karpenter.sh_provisioners.yaml' % url,
         '%s/karpenter.sh_nodepools.yaml' % url,
+        '%s/karpenter.sh_nodeoverlays.yaml' % url,
         '%s/karpenter.sh_nodeclaims.yaml' % url,
       ],
       localName: 'karpenter',
