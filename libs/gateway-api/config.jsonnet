@@ -8,6 +8,7 @@ local versions = [
     {output: '1.3', version: '1.3.0'},
     {output: '1.4', version: '1.4.1'},
     {output: '1.5', version: '1.5.1'},
+    {output: '1.6', version: '1.6.1'},
 ];
 
 config.new(
