@@ -2,6 +2,7 @@ package builder
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -82,6 +83,7 @@ func (o ObjectType) ConciseString() string {
 
 func printChildren(children map[string]Type, order []string, s string) string {
 	j := ""
+	order = removeStringsWithDollar(order)
 	for _, name := range order {
 		c := children[name]
 		colon := ":"
@@ -118,4 +120,16 @@ func printChildren(children map[string]Type, order []string, s string) string {
 	}
 	j = strings.TrimSuffix(j, s)
 	return j
+}
+
+func removeStringsWithDollar(input []string) []string {
+	var result []string
+	for _, str := range input {
+		if !strings.Contains(str, "$") {
+			result = append(result, str)
+		} else {
+			log.Default().Printf("Warning: %s contains a '$' and has been ommited from final libsonnet as a temporary fix", str)
+		}
+	}
+	return result
 }
