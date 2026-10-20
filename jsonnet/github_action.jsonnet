@@ -46,9 +46,18 @@ local terraform = {
   },
 };
 
+// Generate when this push/PR touched the lib, or when a manual run asked for it
+// (to recover a lib whose generation was skipped on its merge push).
+local shouldGenerate(name) =
+  "steps.filter.outputs.workflows == 'true' || (github.event_name == 'workflow_dispatch' && (inputs.libs == 'all' || contains(format(',{0},', inputs.libs), ',%s,')))" % name;
+
 local libJob(name) = {
   name: 'Generate ' + name + ' Jsonnet library and docs',
   needs: ['build', 'repos'],
+  // Generation only happens on the push that changes libs/<name>, so it must
+  // not be skipped when `repos` fails (e.g. on a state lock): existing
+  // repositories are still pushable, and a missing one fails loudly here.
+  'if': "${{ !cancelled() && needs.build.result == 'success' }}",
   'runs-on': 'ubuntu-latest',
 
   steps: [
@@ -56,6 +65,7 @@ local libJob(name) = {
     {
       uses: 'dorny/paths-filter@v3',
       id: 'filter',
+      'if': "github.event_name != 'workflow_dispatch'",
       with: {
         filters: |||
           workflows:
@@ -77,7 +87,7 @@ local libJob(name) = {
     ,
     {
       uses: 'actions/download-artifact@v4',
-      'if': "steps.filter.outputs.workflows == 'true'",
+      'if': shouldGenerate(name),
       with: {
         name: 'docker-artifact',
         path: 'artifacts',
@@ -86,11 +96,11 @@ local libJob(name) = {
     // Load docker image from cache
     {
       run: 'make load',
-      'if': "steps.filter.outputs.workflows == 'true'",
+      'if': shouldGenerate(name),
     },
     {
       run: 'make libs/' + name,
-      'if': "steps.filter.outputs.workflows == 'true'",
+      'if': shouldGenerate(name),
       env: {
         GIT_COMMITTER_NAME: 'jsonnet-libs-bot',
         GIT_COMMITTER_EMAIL: '86770550+jsonnet-libs-bot@users.noreply.github.com',
@@ -130,6 +140,15 @@ function(libs) {
         },
         pull_request: {
           branches: ['master'],
+        },
+        workflow_dispatch: {
+          inputs: {
+            libs: {
+              description: "Comma-separated lib names (no spaces) to generate regardless of changed paths, or 'all'",
+              required: true,
+              type: 'string',
+            },
+          },
         },
       },
       jobs: {
