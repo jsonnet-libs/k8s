@@ -1,6 +1,10 @@
 local onMaster = { 'if': "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}" };
 local notFork = { 'if': "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'" };
 
+// All runs share one remote state. Wait for a lock held by a concurrent run
+// (e.g. several PRs merged within minutes) instead of failing on it.
+local lockTimeout = '-lock-timeout=10m';
+
 local terraform = {
   job: {
     make_env:: {
@@ -31,8 +35,8 @@ local terraform = {
       },
       self.tf_env + notFork + { run: 'terraform init' },
       self.tf_env + notFork + { run: 'terraform validate -no-color' },
-      self.tf_env + notFork + { run: 'terraform plan -no-color' },
-      self.tf_env + onMaster + { run: 'terraform init && terraform apply -no-color -auto-approve' },
+      self.tf_env + notFork + { run: 'terraform plan -no-color ' + lockTimeout },
+      self.tf_env + onMaster + { run: 'terraform init && terraform apply -no-color -auto-approve ' + lockTimeout },
     ],
   },
   withPages(needs): {

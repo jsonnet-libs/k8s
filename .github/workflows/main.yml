@@ -3447,13 +3447,13 @@
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
-      "run": "terraform plan -no-color"
+      "run": "terraform plan -no-color -lock-timeout=10m"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "terraform init && terraform apply -no-color -auto-approve"
+      "run": "terraform init && terraform apply -no-color -auto-approve -lock-timeout=10m"
       "working-directory": "tf"
   "repos_with_pages":
     "name": "Set up gh-pages branch"
@@ -3585,13 +3585,13 @@
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "github.event.pull_request.head.repo.full_name == 'jsonnet-libs/k8s'"
-      "run": "terraform plan -no-color"
+      "run": "terraform plan -no-color -lock-timeout=10m"
       "working-directory": "tf"
     - "env":
         "GITHUB_TOKEN": "${{ secrets.PAT }}"
         "TF_IN_AUTOMATION": "1"
       "if": "${{ github.ref == 'refs/heads/master' && github.repository == 'jsonnet-libs/k8s' }}"
-      "run": "terraform init && terraform apply -no-color -auto-approve"
+      "run": "terraform init && terraform apply -no-color -auto-approve -lock-timeout=10m"
       "working-directory": "tf"
   "secrets-store-csi-driver":
     "name": "Generate secrets-store-csi-driver Jsonnet library and docs"
