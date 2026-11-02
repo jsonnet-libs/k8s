@@ -1,7 +1,8 @@
 local config = import 'jsonnet/config.jsonnet';
-local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3', '14.1.1', '15.0.1', '16.4.8'];
+local versions = ['12.2.2', '13.0.4', '13.1.5', '13.2.3', '14.1.1', '15.0.1', '16.4.8', '18.7.6'];
 local manifests = [
   'resources.teleport.dev_accesslists.yaml',  // added in 15.0
+  'resources.teleport.dev_accessmonitoringrulesv1.yaml',  // added in 18.0
   'resources.teleport.dev_githubconnectors.yaml',
   'resources.teleport.dev_loginrules.yaml',
   'resources.teleport.dev_oidcconnectors.yaml',
@@ -10,6 +11,7 @@ local manifests = [
   'resources.teleport.dev_roles.yaml',
   'resources.teleport.dev_rolesv6.yaml',  // added in 15.0
   'resources.teleport.dev_rolesv7.yaml',  // added in 15.0
+  'resources.teleport.dev_rolesv8.yaml',  // added in 18.0
   'resources.teleport.dev_samlconnectors.yaml',
   'resources.teleport.dev_users.yaml',
 ];
