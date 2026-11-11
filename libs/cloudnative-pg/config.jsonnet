@@ -3,6 +3,9 @@
 local config = import 'jsonnet/config.jsonnet';
 
 local versions = [
+  { version: '1.30.1' },
+  { version: '1.29.3' },
+  { version: '1.28.4' },
   { version: '1.27.0' },
   { version: '1.26.1' },
   { version: '1.26.0' },
@@ -13,7 +16,7 @@ config.new(
   name='cloudnative-pg',
   specs=[
     {
-      local url = 'https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/',
+      local url = 'https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v%s/config/crd/bases/' % v.version,
       output: v.version,
       crds:
         [
@@ -37,6 +40,13 @@ config.new(
           if (v.version >= '1.27.0')
           then [
             '%s/postgresql.cnpg.io_failoverquorums.yaml' % url,
+          ]
+          else []
+        )
+        + (
+          if (v.version >= '1.30.0')
+          then [
+            '%s/postgresql.cnpg.io_databaseroles.yaml' % url,
           ]
           else []
         ),
