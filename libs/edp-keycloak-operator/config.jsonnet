@@ -9,6 +9,8 @@ local versions = [
   { output: '1.20.0', version: 'v1.20.0' },
   { output: '1.21.0', version: 'v1.21.0' },
   { output: '1.22.0', version: 'v1.22.0' },
+  { output: '1.35.0', version: 'v1.35.0' },
+  { output: '1.36.0', version: 'v1.36.0' },
 ];
 
 config.new(
@@ -32,7 +34,11 @@ config.new(
         '%s/v1.edp.epam.com_keycloakrealms.yaml' % url,
         '%s/v1.edp.epam.com_keycloakrealmusers.yaml' % url,
         '%s/v1.edp.epam.com_keycloaks.yaml' % url,
-      ],
+      ] + (
+        if v.version >= 'v1.35.0'
+        then ['%s/v1.edp.epam.com_keycloakorganizations.yaml' % url]
+        else []
+      ),
       localName: 'edp-keycloak-operator',
     }
     for v in versions
